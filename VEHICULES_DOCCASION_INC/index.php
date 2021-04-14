@@ -4,8 +4,8 @@
 	https://www.php.net/manual/fr/language.oop5.autoload.php
 	*/
 
-	define("RACINE", $_SERVER["DOCUMENT_ROOT"] . "/VEHICULES_DOCCASION_INC/");
-	define("RACINEWEB", "http://" . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . "/VEHICULES_DOCCASION_INC/");
+	define("RACINE", $_SERVER["DOCUMENT_ROOT"] . "/pw2/VEHICULES_DOCCASION_INC/");
+	define("RACINEWEB", "http://" . $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . "/pw2/VEHICULES_DOCCASION_INC/");
 
 
     // Définition de la fonction d'autoload
