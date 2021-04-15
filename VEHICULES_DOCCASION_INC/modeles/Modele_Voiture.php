@@ -1,13 +1,9 @@
 <?php
 	class Modele_Voiture extends TemplateDAO {
 		
-		public function getNomTable() {
-            return "voiture";
-        }
-
-        public function getClePrimaire() {
-            return "noSerie";
-        }
+		public function getTable() {
+			return "voiture";
+		}
 		
 		public function obtenirTous() {
 			try {
