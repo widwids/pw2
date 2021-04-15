@@ -18,5 +18,17 @@
 			}
 		}
 		
+		public function obtenirUneVoiture($NoSerie) {
+			try {
+				$stmt = $this->connexion->query("SELECT *  FROM voiture ");
+
+				$stmt->execute();
+				return $stmt->fetchAll();
+
+			}
+			catch(Exception $exc) {
+				return 0;
+			}
+		}
 	}
 ?>
