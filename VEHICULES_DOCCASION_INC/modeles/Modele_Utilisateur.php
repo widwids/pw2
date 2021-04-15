@@ -10,11 +10,15 @@
         }
 
         public function obtenir_par_id($id) {
-            //Appel d'obtenir_par_id du parent et on crée un objet Utilisateur à partir de la rangée retournée
-            $resultat = parent::obtenir_par_id($id);
-            $resultat -> setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Utilisateur");
-            $utilisateur = $resultat -> fetch();
-            return $utilisateur;
+            $requete = "SELECT idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
+                cellulaire, courriel, pseudonyme, motDePasse, idVille, nomVille, codeProvince, nomProvince, 
+                idPays, nomPays, privilegeId FROM utilisateur JOIN ville ON villeId = idVille JOIN province ON 
+                provinceCode = codeProvince JOIN pays ON paysId = idPays WHERE idUtilisateur = :id";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":id", $id);
+            $requetePreparee -> execute();
+            $resultat = $requetePreparee -> fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Utilisateur")[0];
+            return $resultat;
         }
 
         public function obtenir_par_pseudonyme($pseudonyme) {

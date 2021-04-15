@@ -13,10 +13,17 @@
         private $motDePasseUtilisateur;
         private $villeIdUtilisateur;
         private $privilegeIdUtilisateur;
+        private $nomVilleUtilisateur;
+        private $codeProvinceUtilisateur;
+        private $nomProvinceUtilisateur;
+        private $idPaysUtilisateur;
+        private $nomPaysUtilisateur;
 
         public function __construct($id = 0, $prenom = "", $nom = "", $dateNaissance = "", $adresse = "", 
                                     $codePostal = "", $telephone = "", $cellulaire = "", $courriel = "", 
-                                    $pseudonyme = "", $motDePasse = "", $villeId = 0, $privilegeId = 0) {
+                                    $pseudonyme = "", $motDePasse = "", $villeId = 0, $privilegeId = 0,
+                                    $nomVille = "", $codeProvince = "", $nomProvince = "", $idPays = 0,
+                                    $nomPays = "") {
             $this -> id = $id;
             $this -> prenom = $prenom;
             $this -> nom = $nom;
@@ -30,6 +37,11 @@
             $this -> motDePasse = $motDePasse;
             $this -> villeId = $villeId;
             $this -> privilegeId = $privilegeId;
+            $this -> nomVille = $nomVille;
+            $this -> codeProvince = $codeProvince;
+            $this -> nomProvince = $nomProvince;
+            $this -> idPays = $idPays;
+            $this -> nomPays = $nomPays;
         }
 
         public function getId() {
@@ -82,6 +94,26 @@
 
         public function getPrivilegeId() {
             return $this -> privilegeId;
+        }
+
+        public function getNomVille() {
+            return $this -> nomVille;
+        }
+
+        public function getCodeProvince() {
+            return $this -> codeProvince;
+        }
+
+        public function getNomProvince() {
+            return $this -> nomProvince;
+        }
+
+        public function getIdPays() {
+            return $this -> idPays;
+        }
+
+        public function getNomPays() {
+            return $this -> nomPays;
         }
     }
 ?>
