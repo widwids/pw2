@@ -27,11 +27,11 @@
                         trigger_error("Pas d'id spécifié pour l'utilisateur.");
                     }
 					break;
-                /*case "afficheFormulaireAjout":
+                case "afficheFormulaireAjout":
                     //Afficher le formulaire d'ajout d'un utilisateur
                     $this -> afficheFormAjoutUtilisateur();
                     break;
-                case "insereUtilisateur":
+                /*case "insereUtilisateur":
                     if(isset($params["pseudonyme"], $params["motDePasse"])) {
                         //Validation
                         $messageErreur = $this -> valideFormAjoutUtilisateur($params["pseudonyme"], $params["motDePasse"]);
@@ -131,13 +131,13 @@
                 $erreurs .= "<p class='centre erreur'>Le mot de passe doit avoir entre 5 et 30 caractères.</p>";
 
             return $erreurs;
-        }
+        }*/
 
         public function afficheFormAjoutUtilisateur($messageErreur = "") {
             //Afficher le formulaire d'ajout d'un Utilisateur
             //Aller porter les erreurs dans la vue
-            $donnees["erreurs"] = $messageErreur;
-            $this -> afficheVue("FormulaireAjoutUtilisateur", $donnees);
+            $data["erreurs"] = $messageErreur;
+            $this -> afficheVue("FormulaireAjoutUtilisateur", $data);
         }
 
 		/*public function afficheFormOuvertureSesssion($messageErreur = "") {
