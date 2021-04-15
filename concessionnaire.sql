@@ -119,7 +119,7 @@ CREATE TABLE Utilisateur (
 	nom VARCHAR(50) NOT NULL,
 	dateNaissance DATE NOT NULL,
 	adresse VARCHAR(60) NOT NULL,
-	codePostal CHAR(6) NOT NULL,
+	codePostal CHAR(7) NOT NULL,
 	telephone CHAR(12) NOT NULL,
 	cellulaire CHAR(12),
 	courriel CHAR(60) NOT NULL,
