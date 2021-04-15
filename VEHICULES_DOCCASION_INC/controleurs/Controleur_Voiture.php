@@ -15,6 +15,7 @@
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch($params["action"]) {
 					
+					
 				}			
 			} else {
 				// Action par défaut
@@ -25,11 +26,7 @@
 				$data = $modeleVoiture->obtenirTous();
 				//var_dump($data);
 				$this->afficheVue($vue,$data);
-				 /*$data = array_merge($nbProducts, $allProducts);		
-                $vue = "ProductList";		
-				$this->showView($vue, $data);
-				$vue = "ProductListEnd";		
-                $this->showView($vue); */
+				 
 			}
 			$this->afficheVue("Footer");
 		}
