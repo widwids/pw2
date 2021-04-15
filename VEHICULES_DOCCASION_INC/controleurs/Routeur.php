@@ -15,11 +15,11 @@
 			
 			if ($controleur != "") {
 				//chercher la classe du controleur
-				$classe = "Controller_" . $controleur;
+				$classe = "Controleur_" . $controleur;
 			} else {	
 				//controleur par défaut
 				//$classe = "Controller_List";
-				$classe = "Controller_Shop";
+				$classe = "Controleur_Voiture";
 			}
 
 			//var_dump("classe : " . $classe);

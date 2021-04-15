@@ -1,12 +1,12 @@
 <?php
-	abstract class BaseController {
+	abstract class BaseControleur {
 	
 		// La fonction qui sera appelle par le routeur
 		public abstract function traite(array $params);
 		
-		protected function showView($nomVue, $data = null) {
+		protected function afficheVue($nomVue, $data = null) {
 
-			$cheminVue = RACINE . "view/" . $nomVue . ".php";
+			$cheminVue = RACINE . "vues/" . $nomVue . ".php";
 			
 			if (file_exists($cheminVue)) {
 				include($cheminVue); 
