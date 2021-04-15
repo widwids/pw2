@@ -26,7 +26,6 @@
 		public function obtenirUneVoiture($NoSerie) {
 			try {
 				$stmt = $this->connexion->query("SELECT nomPhoto  FROM photo WHERE auoId = $NoSerie ");
-
 				$stmt->execute();
 				return $stmt->fetchAll();
 
