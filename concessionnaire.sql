@@ -294,8 +294,17 @@ INSERT INTO TaxeProvince (provinceId, taxeId, taux) VALUES
 	('YT', 1, 5.000);
 
 INSERT INTO Voiture (noSerie, kilometrage, dateArrivee, prixAchat, groupeMPId, corpsId, carburantId, modeleId, transmissionId, anneeId, photoAccueil) VALUES 
-	('ZFA16900000979233', '15000', '2021-04-13', '35000.00', '1', '3', '2', '1', '1', '2015', '4232'),
-	('ABC12300000954321', '12000', '2021-04-11', '42000.00', '1', '2', '2', '2', '1', '2017', '5430');
+	('ABC12300000954321', 12000, '2021-04-11', '42000.00', 1, 2, 2, 2, 1, 2017, '33159'),
+	('AVF51847456154145', 210000, '2021-03-02', '7800.00', 2, 4, 2, 2, 1, 2010, '434663'),
+	('DSC45127456154145', 180500, '2021-04-01', '9950.00', 2, 1, 2, 8, 1, 2009, '84575'),
+	('ZFA16900000979233', 15000, '2021-04-13', '35000.00', 1, 3, 2, 4, 2, 2015, '49099');
+
+INSERT INTO `photo` (`idPhoto`, `nomPhoto`, `autoId`) VALUES
+	(1, '4232', 'ABC12300000954321'),
+	(2, '5430', 'ZFA16900000979233'),
+	(3, '162070', 'ABC12300000954321'),
+	(5, '218319', 'ABC12300000954321'),
+	(6, '124088', 'DSC45127456154145');
 
 INSERT INTO Privilege (nomPrivilege) VALUES
 	('Administrateur'),
