@@ -1,1 +1,1 @@
-<h1>Utilisateur : <?= $data["utilisateur"]["prenom"] ?></h1>
+<h1>Utilisateur : <?= $data["utilisateur"] -> getPrenom() . " " . $data["utilisateur"] -> getNom() ?></h1>
