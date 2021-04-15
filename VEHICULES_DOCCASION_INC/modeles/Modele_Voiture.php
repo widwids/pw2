@@ -28,24 +28,18 @@
 		}
 		
 		public function obtenirUneVoiture($NoSerie) {
-			/* var_dump($NoSerie);
+			//var_dump($NoSerie);
 			 try {
-				$stmt = $this->connexion->query("SELECT nomPhoto  FROM photo WHERE autoId =".$NoSerie);
-				//$stmt->execute();
-				//return $stmt->fetchAll();
+				$stmt = $this->connexion->query("SELECT nomPhoto  FROM photo WHERE autoId =" .$NoSerie);
+				$stmt->execute();
+				return $stmt->fetchAll();
 
 			}
 			catch(Exception $exc) {
 				return 0;
-			} */ 
+			}  
 		}
 
-		public function test() {
-			
-		}
-
-		public function tcest() {
-			
-		}
+		
 	}
 ?>

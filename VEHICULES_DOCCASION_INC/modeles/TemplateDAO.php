@@ -4,8 +4,8 @@
 		protected $connexion;
 		
 		//Méthodes abstraites à être définies plus tard
-		//abstract function getClePrimaire();
-		//abstract function getNomTable();
+		abstract function getClePrimaire();
+		abstract function getNomTable();
 		
 		public function __construct() {
 			$this->connexion = new PDO("mysql:host=localhost;dbname=concessionnaire", "root", "");
