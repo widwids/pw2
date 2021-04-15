@@ -19,6 +19,16 @@
 				}			
 			} else {
 
+				//Modof voiture////
+
+				$modeleVoiture = new Modele_Voiture();
+				//$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["newNoSerie"],$params["kilometrage"], $params["dateArrivee"], $params["prixAchat"], $params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"], $params["photoAccueil"]);
+				$modeleVoiture->modifVoiture('AAABBB0001400CCCC', 'A0000000000000000', 999999, '2022-02-20', '1111.00', 2, 2, 2, 2, 2, 2020, '434629');
+		
+				
+
+				//////////////////////////////
+
 				// ajout voiture //
 				$modeleVoiture = new Modele_Voiture();
 				//$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"], $params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"], $params["photoAccueil"]);
@@ -50,6 +60,7 @@
 				/////////////////////
 				$this->afficheVue($vue,$data); 
 				///////////////////////////////
+
 
 
 

@@ -64,6 +64,33 @@
 				return 0;
 			}
 		}
+		//UPDATE sujets 
+		//SET date_derniere_rep = NOW()
+		//WHERE sujets.id =". $idS;
+		function modifVoiture($noSerie, $newNoSerie, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $photoAccueil) {		
+			try {
+				$stmt = $this->connexion->query("UPDATE voiture 
+												SET noSerie = '".$newNoSerie."', 
+												kilometrage = '".$kilometrage."',
+												dateArrivee = '".$dateArrivee."' , 
+												prixAchat = '".$prixAchat."' ,
+												groupeMPid = '".$groupeMPid."' ,
+												corpsId = '".$corpsId."' ,
+												carburantId = '".$carburantId."' ,
+												modeleId = '".$modeleId."' ,
+												transmissionId = '".$transmissionId."' ,
+												anneeId = '".$anneeId."' ,
+												photoAccueil = '".$photoAccueil."' 
+												WHERE noSerie = '" . $noSerie . "'");
+			
+				$stmt->execute();
+				return $stmt->fetchAll();
+			}	
+			catch(Exception $exc) {
+				return 0;
+			}
+
+		}
 
 	}
 ?>
