@@ -24,7 +24,10 @@
 				
                 $modeleVoiture = new Modele_Voiture();
 				$data = $modeleVoiture->obtenirTous();
-				//var_dump($data);
+				$modeleVoiture = new Modele_Voiture();
+                //$data = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+				$data1 = $modeleVoiture->obtenirUneVoiture('ABC12300000954321');
+				var_dump($data1);
 				$this->afficheVue($vue,$data);
 				 
 			}
