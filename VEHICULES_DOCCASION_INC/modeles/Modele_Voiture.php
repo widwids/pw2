@@ -34,5 +34,9 @@
 		public function test() {
 			
 		}
+
+		public function tcest() {
+			
+		}
 	}
 ?>
