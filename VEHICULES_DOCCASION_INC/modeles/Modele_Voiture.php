@@ -40,6 +40,30 @@
 			}  
 		}
 
-		
+
+		public function ajoutVoiture($noSerie, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $photoAccueil) {		
+			try {
+				$stmt = $this->connexion->prepare("INSERT INTO voiture (noSerie, kilometrage, dateArrivee, prixAchat, groupeMPid, corpsId, carburantId, modeleId, transmissionId, anneeId, photoAccueil) 
+				VALUES (:noSerie, :kilometrage, :dateArrivee, :prixAchat, :groupeMPid, :corpsId, :carburantId, :modeleId, :transmissionId, :anneeId, :photoAccueil)");
+				$stmt->bindParam(":noSerie", $noSerie);
+				$stmt->bindParam(":kilometrage", $kilometrage);
+				$stmt->bindParam(":dateArrivee", $dateArrivee);
+				$stmt->bindParam(":prixAchat", $prixAchat);
+				$stmt->bindParam(":groupeMPid", $groupeMPid);
+				$stmt->bindParam(":corpsId", $corpsId);
+				$stmt->bindParam(":carburantId", $carburantId);
+				$stmt->bindParam(":modeleId", $modeleId);
+				$stmt->bindParam(":transmissionId", $transmissionId);
+				$stmt->bindParam(":anneeId", $anneeId);
+				$stmt->bindParam(":photoAccueil", $photoAccueil);
+				$stmt->execute();
+				
+				return 1;
+			}	
+			catch(Exception $exc) {
+				return 0;
+			}
+		}
+
 	}
 ?>
