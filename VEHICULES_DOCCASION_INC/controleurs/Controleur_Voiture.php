@@ -14,10 +14,6 @@
 				// Switch en fonction de l'action qui nous est envoyée
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch($params["action"]) {
-
-
-				echo "TESSST!!!";
-					
 					
 				}			
 			} else {
