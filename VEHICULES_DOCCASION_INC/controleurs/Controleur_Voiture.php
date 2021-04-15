@@ -1,11 +1,11 @@
 <?php
-	class Controller_Shop extends BaseController {
+	class Controleur_Voiture extends BaseControleur {
 	
 		//la fonction qui sera appelée par le routeur
 		public function traite(array $params) {
 			
-			$this->showView("Head");
-			$this->showView("Header");
+			$this->afficheVue("Head");
+			$this->afficheVue("Header");
 			
 			if (isset($params["action"])) {
 				// Modèle et vue vides par défaut
@@ -24,14 +24,14 @@
                 $modelVoiture = new Model_Voiture();
 				$data = $modelVoiture->obtenirTous();
 				//var_dump($data);
-				$this->showView($vue,$data);
+				$this->afficheVue($vue,$data);
 				 /*$data = array_merge($nbProducts, $allProducts);		
                 $vue = "ProductList";		
 				$this->showView($vue, $data);
 				$vue = "ProductListEnd";		
                 $this->showView($vue); */
 			}
-			$this->showView("Footer");
+			$this->afficheVue("Footer");
 		}
 	}
 ?>

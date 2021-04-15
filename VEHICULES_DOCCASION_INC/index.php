@@ -11,9 +11,9 @@
     // Définition de la fonction d'autoload
     function mon_autoloader($classe) {
         // Liste des répertoires à fouiller pour trouver les classes
-        $repertoires = array(RACINE . "controller/", 
-						RACINE . "model/", 
-						RACINE . "view/");
+        $repertoires = array(RACINE . "controleurs/", 
+						RACINE . "modeles/", 
+						RACINE . "vues/");
         
         foreach ($repertoires as $rep) {
             if (file_exists($rep . $classe . ".php")) {

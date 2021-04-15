@@ -1,5 +1,5 @@
 <?php
-	class Controller_Shop_AJAX extends BaseController {
+	class Controleur_Voiture_AJAX extends BaseControleur {
 	
 		// La fonction qui sera appelée par le routeur
 		public function traite(array $params) {
@@ -16,7 +16,7 @@
 
 					default:
                         $vue = "VoitureListe";		
-                        $this->showView($vue);
+                        $this->afficheVue($vue);
 						break;
 				}			
             } else {
