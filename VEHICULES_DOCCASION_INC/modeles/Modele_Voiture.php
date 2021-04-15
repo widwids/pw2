@@ -27,8 +27,8 @@
 			}
 		}
 		
-		public function obtenirUneVoiture($NoSerie) {
-			var_dump($NoSerie);
+		public function obtenirUneVoiture($noSerie) {
+			//var_dump($NoSerie);
 			 try {
 				$stmt = $this->connexion->query("SELECT nomPhoto FROM photo WHERE autoId = '" . $noSerie . "'");
 				$stmt->execute();
