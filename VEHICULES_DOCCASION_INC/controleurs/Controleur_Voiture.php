@@ -21,8 +21,8 @@
 				$vue = "VoitureListe";		
 				
 				
-                $modelVoiture = new Model_Voiture();
-				$data = $modelVoiture->obtenirTous();
+                $modeleVoiture = new Modele_Voiture();
+				$data = $modeleVoiture->obtenirTous();
 				//var_dump($data);
 				$this->afficheVue($vue,$data);
 				 /*$data = array_merge($nbProducts, $allProducts);		
