@@ -16,5 +16,17 @@
             $utilisateur = $resultat -> fetch();
             return $utilisateur;
         }
+
+        public function obtenir_par_pseudonyme($pseudonyme) {
+
+        }
+
+        public function sauvegarde(Utilisateur $utilisateur) {
+
+        }
+
+        public function authentification($pseudonyme, $motDePasse) {
+
+        }
 	}
 ?>
