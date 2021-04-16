@@ -64,9 +64,7 @@
 				return 0;
 			}
 		}
-		//UPDATE sujets 
-		//SET date_derniere_rep = NOW()
-		//WHERE sujets.id =". $idS;
+
 		function modifVoiture($noSerie, $newNoSerie, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $photoAccueil) {		
 			try {
 				$stmt = $this->connexion->query("UPDATE voiture 
@@ -82,7 +80,6 @@
 												anneeId = '".$anneeId."' ,
 												photoAccueil = '".$photoAccueil."' 
 												WHERE noSerie = '" . $noSerie . "'");
-			
 				$stmt->execute();
 				return $stmt->fetchAll();
 			}	
