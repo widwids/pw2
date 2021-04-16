@@ -3,6 +3,7 @@
 <h1>Utilisateur : <?= $utilisateur -> getPrenom() . " " . $utilisateur -> getNom() ?></h1>
 
 <ul>
+    <li>Id : <?= $utilisateur -> getId() ?></li>
     <li>Date de naissance : <?= $utilisateur -> getDateNaissance() ?></li>
     <li>Adresse : <?= $utilisateur -> getAdresse() ?></li>
     <li>Code postal : <?= $utilisateur -> getCodePostal() ?></li>
@@ -13,4 +14,5 @@
     <li>Cellulaire : <?= $utilisateur -> getCellulaire() ?></li>
     <li>Courriel : <?= $utilisateur -> getCourriel() ?></li>
     <li>Pseudonyme : <?= $utilisateur -> getPseudonyme() ?></li>
+    <li>Privilège : <?= $utilisateur -> getNomPrivilege() ?></li>
 </ul>
