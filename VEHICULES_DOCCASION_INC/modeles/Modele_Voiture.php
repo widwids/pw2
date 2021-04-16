@@ -10,7 +10,7 @@
         }
 		
 		//partie Voiture
-		
+
 		public function obtenirTous() {
 			try {
 				$stmt = $this->connexion->query("SELECT noSerie, kilometrage, prixAchat, dateArrivee, photoAccueil, nomMotoPro, nomCorps, 
@@ -254,6 +254,7 @@
 				return 0;
 			}
 		}
+		
 		public function modifPhoto($id) {
 
 		}
