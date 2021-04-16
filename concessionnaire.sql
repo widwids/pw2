@@ -302,12 +302,12 @@ INSERT INTO Voiture (noSerie, kilometrage, dateArrivee, prixAchat, groupeMPId, c
 	('DSC45127456364136', 180500, '2021-04-01', '9950.00', 2, 1, 2, 8, 1, 2009, '84575'),
 	('ZFA16900014979233', 15000, '2021-04-13', '35000.00', 1, 3, 2, 4, 2, 2015, '49099');
 
-INSERT INTO `photo` (`idPhoto`, `nomPhoto`, `autoId`) VALUES
-	(1, '4232', 'ABC12300000954321'),
-	(2, '5430', 'ZFA16900000979233'),
-	(3, '162070', 'ABC12300000954321'),
-	(5, '218319', 'ABC12300000954321'),
-	(6, '124088', 'DSC45127456154145');
+INSERT INTO photo (`idPhoto`, `nomPhoto`, `autoId`) VALUES
+	(1, '4232',   'ABC12300067154336'),
+	(2, '5430',   'ZZC12300000954321'),
+	(3, '162070', 'ABC12300067154336'),
+	(5, '218319', 'AVF51847456154145'),
+	(6, '124088', 'AVF51847456154145');
 
 INSERT INTO Privilege (nomPrivilege) VALUES
 	('Administrateur'),
@@ -322,8 +322,8 @@ INSERT INTO Commande (dateCommande, prix, usagerId) VALUES
 	('2021-04-13 00:45:52', '45000.00', '2');
 	
 INSERT INTO Achat (commandeNo, voitureId, statut, depot) VALUES 
-	(1, 'ABC12300000954321', 'en attente', NULL),
-	(1, 'ZFA16900000979233', 'réservé', '5000.00');
+	(1, 'ABC12300067154336', 'en attente', NULL),
+	(1, 'AVF51847456154145', 'réservé', '5000.00');
 
 INSERT INTO ModePaiement (nomMode) VALUES
 	('Espèces'), 
