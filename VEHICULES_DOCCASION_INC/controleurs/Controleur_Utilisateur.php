@@ -15,19 +15,19 @@
         
             //Détermine la vue, remplir le modèle approprié
             switch($commande) {
-                case "affiche":
+                case "compte":
                     //Afficher un utilisateur spécifique à partir de l'ID
                     if(isset($params["id"])) {
                         //Aller chercher le modèle pour les utilisateurs
                         $modeleUtilisateur = new Modele_Utilisateur();
                         $data["utilisateur"] = $modeleUtilisateur -> obtenir_par_id($params["id"]);
-                        $this -> afficheVue("AfficheUtilisateur", $data);
+                        $this -> afficheVue("Compte", $data);
                     } else {
                         //Ce serait ici un code 404
                         trigger_error("Pas d'id spécifié pour l'utilisateur.");
                     }
 					break;
-                case "afficheFormulaireAjout":
+                case "creationCompte":
                     //Afficher le formulaire d'ajout d'un utilisateur
                     $this -> afficheFormAjoutUtilisateur();
                     break;
@@ -137,7 +137,7 @@
             //Afficher le formulaire d'ajout d'un Utilisateur
             //Aller porter les erreurs dans la vue
             $data["erreurs"] = $messageErreur;
-            $this -> afficheVue("FormulaireAjoutUtilisateur", $data);
+            $this -> afficheVue("CreationCompte", $data);
         }
 
 		/*public function afficheFormOuvertureSesssion($messageErreur = "") {

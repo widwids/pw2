@@ -13,7 +13,7 @@
             //Appel d'obtenir_tous du parent et on fetch un tableau d'utilisateurs
             $resultats = parent::obtenir_tous();
             $utilisateurs = $resultats -> fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Utilisateur");
-            return $utilisateurs;
+            return $utilisateur;
         }
 
         public function obtenir_par_id($id) {
