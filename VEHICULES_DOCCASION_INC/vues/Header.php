@@ -1,5 +1,5 @@
 <header class="header" data-component="Header">
-	<a href="./index.php" class="header__logo">VEHICULES DOCCASION INC.</a>
+	<a href="./index.php" class="header__logo">VEHICULES D'OCCASION INC.</a>
 
 	<a href="./index.php?Shop&action=checkout" class="header__cart-wrapper empty" data-js-cart>
 		<span class="header__cart__item-number" data-js-item-number></span>

@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Programation interactive - tp 2</title>
+	<title>VEHICULES D'OCCASION INC.</title>
 
 	<!-- Styles -->
 	<link rel="stylesheet" href="assets/styles/styles.css">
