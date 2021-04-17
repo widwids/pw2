@@ -19,6 +19,7 @@
             //Détermine la vue, remplir le modèle approprié
             switch($commande) {
                 case "listeComptes":
+                    //if ($_SESSION["employe"] || $_SESSION["administrateur"])
                     $data["utilisateurs"] = $modeleUtilisateur -> obtenir_tous();
                     $this -> afficheVue("AccesEmploye", $data);
                     break;
@@ -51,13 +52,13 @@
                                 $params["dateNaissance"], $params["adresse"],$params["codePostal"], 
                                 $params["telephone"], $params["cellulaire"], $params["courriel"],
                                 $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
-                                $params["villeId"]);
+                                $params["villeId"], 3);
                             $modeleUtilisateur -> sauvegarde($nouvelUtilisateur);
 
                             //Redirection vers la page de connexion
                             header("Location: index.php?action=authentification");
                         } else {
-                            //Afficher le formulaire d'ajout d'un Utilisateur
+                            //Afficher le formulaire d'ajout d'un utilisateur
                             $this -> afficheFormAjoutUtilisateur($messageErreur);   
                         }
                     } else {
@@ -123,16 +124,13 @@
 			$motDePasse = trim($motDePasse);
 
             if($pseudonyme == "")
-                $erreurs .= "<p class='centre erreur'>Le pseudonyme ne peut pas être vide.</p>";
+                $erreurs .= "<p>Le pseudonyme ne peut pas être vide.</p>";
 
-            if(strlen($pseudonyme) > 30)
-                $erreurs .= "<p class='centre erreur'>Le pseudonyme ne peut pas dépasser 30 caractères.</p>";
+            if(strlen($pseudonyme) > 20)
+                $erreurs .= "<p>Le pseudonyme ne peut pas dépasser 20 caractères.</p>";
 				
 			if($motDePasse == "")
-                $erreurs .= "<p class='centre erreur'>Le mot de passe ne peut pas être vide.</p>";
-
-            if(strlen($motDePasse) > 30 || strlen($motDePasse) < 5)
-                $erreurs .= "<p class='centre erreur'>Le mot de passe doit avoir entre 5 et 30 caractères.</p>";
+                $erreurs .= "<p>Le mot de passe ne peut pas être vide.</p>";
 
             return $erreurs;
         }

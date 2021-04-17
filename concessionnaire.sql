@@ -311,8 +311,8 @@ INSERT INTO photo (`idPhoto`, `nomPhoto`, `autoId`) VALUES
 
 INSERT INTO Privilege (nomPrivilege) VALUES
 	('Administrateur'),
-	('Client'), 
-	('Employé');
+	('Employé'), 
+	('Client');
 	
 INSERT INTO Utilisateur (prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, courriel, pseudonyme, motDePasse, villeId, privilegeId) VALUES 
 	('Bob', 'Ross', '1942-10-29', '123 Arc-en-ciel', 'H1H 2H2', '514-555-5555', '438-444-4444', 'bob.ross@gmail.com', 'brosse', 'test', '1', '1'),

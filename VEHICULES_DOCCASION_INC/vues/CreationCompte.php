@@ -1,26 +1,35 @@
 <h1>Création d'un compte</h1>
 <form action="index.php?Utilisateur" method="post">
-    <label for="pseudonyme">Pseudonyme</label> 
-	<input type="text" name="pseudonyme" required><br>
-    <label for="motDePasse">Mot de passe</label>
-	<input type="password" name="motDePasse" required><br>
+    <label for="prenom">Prénom</label> 
+	<input type="text" name="prenom" required><br>
+    <label for="nom">Nom</label>
+	<input type="text" name="nom" required><br>
     <label for="dateNaissance">Date de naissance</label>
 	<input type="date" name="dateNaissance" required><br>
     <label for="adresse">Adresse</label> 
 	<input type="text" name="adresse" required><br>
     <label for="codePostal">Code postal</label> 
 	<input type="text" name="codePostal" required><br>
-    <label for="nomVille">Ville</label> 
-	<input type="text" name="nomVille" required><br>
+    <label for="villeId">Ville</label> 
+    <select id="villeId">
+        <option value="1">Montréal</option>
+        <option value="2">Laval</option>
+        <option value="3">Longueuil</option>
+        <option value="4">Toronto</option>
+    </select>
     <label for="nomProvince">Province</label> 
 	<input type="text" name="nomProvince" required><br>
-    <label for="nomPays">Pays</label> 
-	<input type="text" name="nomPays" required><br>
     <label for="telephone">Téléphone</label> 
 	<input type="text" name="telephone" required><br>
-    <label for="cellulaire">Cellulaire </label> 
-	<input type="text" name="cellulaire">
-    <input type="hidden" name="action" value="insereUsager"/>
+    <label for="cellulaire">Cellulaire </label>
+	<input type="text" name="cellulaire"><br>
+    <label for="courriel">Courriel </label>
+	<input type="email" name="courriel"><br>
+    <label for="pseudonyme">Pseudonyme</label> 
+	<input type="text" name="pseudonyme" required><br>
+    <label for="motDePasse">Mot de passe</label>
+	<input type="password" name="motDePasse" required><br>
+    <input type="hidden" name="action" value="insereUtilisateur"/>
 	<br>
     <input class="submit" type="submit" value="Enregistrer"/>
 </form>
