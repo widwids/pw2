@@ -9,7 +9,30 @@
             return "noSerie";
         }
 		
-		//partie Voiture
+		//Partie Voiture
+		public function ajoutVoiture($noSerie, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $photoAccueil) {		
+			try {
+				$stmt = $this->connexion->prepare("INSERT INTO voiture (noSerie, kilometrage, dateArrivee, prixAchat, groupeMPid, corpsId, carburantId, modeleId, transmissionId, anneeId, photoAccueil) 
+				VALUES (:noSerie, :kilometrage, :dateArrivee, :prixAchat, :groupeMPid, :corpsId, :carburantId, :modeleId, :transmissionId, :anneeId, :photoAccueil)");
+				$stmt->bindParam(":noSerie", $noSerie);
+				$stmt->bindParam(":kilometrage", $kilometrage);
+				$stmt->bindParam(":dateArrivee", $dateArrivee);
+				$stmt->bindParam(":prixAchat", $prixAchat);
+				$stmt->bindParam(":groupeMPid", $groupeMPid);
+				$stmt->bindParam(":corpsId", $corpsId);
+				$stmt->bindParam(":carburantId", $carburantId);
+				$stmt->bindParam(":modeleId", $modeleId);
+				$stmt->bindParam(":transmissionId", $transmissionId);
+				$stmt->bindParam(":anneeId", $anneeId);
+				$stmt->bindParam(":photoAccueil", $photoAccueil);
+				$stmt->execute();
+				
+				return 1;
+			}	
+			catch(Exception $exc) {
+				return 0;
+			}
+		}
 
 		public function obtenirTous() {
 			try {
@@ -48,31 +71,6 @@
 			}
 		}
 		
-
-		public function ajoutVoiture($noSerie, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $photoAccueil) {		
-			try {
-				$stmt = $this->connexion->prepare("INSERT INTO voiture (noSerie, kilometrage, dateArrivee, prixAchat, groupeMPid, corpsId, carburantId, modeleId, transmissionId, anneeId, photoAccueil) 
-				VALUES (:noSerie, :kilometrage, :dateArrivee, :prixAchat, :groupeMPid, :corpsId, :carburantId, :modeleId, :transmissionId, :anneeId, :photoAccueil)");
-				$stmt->bindParam(":noSerie", $noSerie);
-				$stmt->bindParam(":kilometrage", $kilometrage);
-				$stmt->bindParam(":dateArrivee", $dateArrivee);
-				$stmt->bindParam(":prixAchat", $prixAchat);
-				$stmt->bindParam(":groupeMPid", $groupeMPid);
-				$stmt->bindParam(":corpsId", $corpsId);
-				$stmt->bindParam(":carburantId", $carburantId);
-				$stmt->bindParam(":modeleId", $modeleId);
-				$stmt->bindParam(":transmissionId", $transmissionId);
-				$stmt->bindParam(":anneeId", $anneeId);
-				$stmt->bindParam(":photoAccueil", $photoAccueil);
-				$stmt->execute();
-				
-				return 1;
-			}	
-			catch(Exception $exc) {
-				return 0;
-			}
-		}
-
 		function modifVoiture($noSerie, $newNoSerie, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $photoAccueil) {		
 			try {
 				$stmt = $this->connexion->query("UPDATE voiture 
@@ -98,6 +96,10 @@
 		}
 
 		//Partie Corps
+		public function ajoutCorps() {
+			//Ajouter le corps
+		}
+
 		public function obtenirCorps() {
 			try {
 				$stmt = $this->connexion->query("SELECT * FROM corps ");
@@ -111,18 +113,17 @@
 		}
 
 		public function modifCorps($id) {
-
+			//Modificr le corps
 		}
 
 		public function suppCorps($id) {
-
-		}
-
-		public function ajoutCorps() {
-
-		}
+			//Supprimer le corps
+		}		
 
 		//Partie Groupe motopropulseur
+		public function ajoutGrpMoto() {
+			//Ajouter motopropulseur
+		}
 
 		public function obtenirGrpMoto() {
 			try {
@@ -137,18 +138,17 @@
 		}
 
 		public function modifGrpMoto($id) {
-
+			//Modifier motopropulseur
 		}
 
 		public function suppGrpMoto($id) {
-
+			//Supprimer motoPropulseur
 		}
 
-		public function ajoutGrpMoto() {
-
+		//Partie Carburant
+		public function ajoutCarburant() {
+			//Ajouter carburant
 		}
-
-		//Partie  Carburant
 
 		public function obtenirCarburant() {
 			try {
@@ -163,18 +163,17 @@
 		}
 
 		public function modifCarburant($id) {
-
+			//Modifier carburant
 		}
 
 		public function suppCarburant($id) {
-
+			//Supprimer carburant
 		}
 
-		public function ajoutCarburant() {
-
+		//Partie Transmission
+		public function ajoutTransmission() {
+			//Ajouter transmission
 		}
-
-		//Partie  Transmission
 
 		public function obtenirTransmission() {
 			try {
@@ -189,18 +188,17 @@
 		}
 
 		public function modifTransmission($id) {
-
+			//Modifer transmission
 		}
 
 		public function suppTransmission($id) {
-
+			//Supprimer transmission
 		}
 
-		public function ajoutTransmission() {
-
+		//Partie Annee
+		public function ajoutAnnee() {
+			//Ajouter une année
 		}
-
-		//Partie  Annee
 
 		public function obtenirAnnee() {
 			try {
@@ -215,18 +213,17 @@
 		}
 
 		public function modifAnnee($id) {
-
+			//Modifier une année
 		}
 
 		public function suppAnnee($id) {
-
+			//Supprimer une année
 		}
 
-		public function ajoutAnnee() {
-
+		//Partie Photo
+		public function ajoutPhoto() {
+			//Ajouter une photo
 		}
-
-		//Partie  Photos
 
 		public function obtenirPhotoVoiture($noSerie) {
 			//var_dump($NoSerie);
@@ -256,18 +253,17 @@
 		}
 		
 		public function modifPhoto($id) {
-
+			//Modifier photo
 		}
 
 		public function suppPhoto($id) {
-
+			//Supprimer photo
 		}
 
-		public function ajoutPhoto() {
-
+		//Partie Modele
+		public function ajoutModele() {
+			//Ajouter un modèle
 		}
-
-		//Partie  Modele
 
 		public function obtenirModeles() {
 			try {
@@ -282,18 +278,17 @@
 		}
 
 		public function modifModle($id) {
-
+			//Modifier modèle
 		}
 
 		public function suppModele($id) {
-
-		}
-
-		public function ajoutModele() {
-
+			//Supprimer modèle
 		}
 	
-		//Partie  Marque
+		//Partie Marque
+		public function ajoutMarque() {
+			//Ajouter une marque
+		}
 
 		public function obtenirMarque() {
 			try {
@@ -308,15 +303,11 @@
 		}
 
 		public function modifMarque($id) {
-
+			//Modifier une marque
 		}
 
 		public function suppMarque($id) {
-
-		}
-
-		public function ajoutMarque() {
-
+			//Supprimer une marque
 		}
 	}
 ?>

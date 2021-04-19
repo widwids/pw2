@@ -30,7 +30,7 @@
         }
 
         public function obtenir_par_pseudonyme($pseudonyme) {
-
+            //Utilisateur par pseudonyme
         }
     
         public function sauvegarde(Utilisateur $utilisateur) {
@@ -103,7 +103,101 @@
         }
 
         public function authentification($pseudonyme, $motDePasse) {
+            //Authentification de l'utilisateur
+        }
 
+        //Table Ville
+        public function ajoutVille() {
+            //Ajouter une ville
+        }
+
+        public function getVilles() {
+            //Toutes les villes
+        }
+
+        public function modifierVille($idVille) {
+            //Modifier ville
+        }
+
+        public function supprimerVille($idVille) {
+            //Supprimer ville
+        }
+
+        //Table Province
+        public function ajoutProvince() {
+            //Ajouter une province
+        }
+
+        public function getProvinces() {
+            //Toutes les provinces
+        }
+
+        public function modifierProvince($codeProvince) {
+            //Modifier province
+        }
+
+        public function supprimerProvince($codeProvince) {
+            //Supprimer province
+        }
+
+        //Table Pays
+        public function ajoutPays() {
+            //Ajouter un pays
+        }
+
+        public function getPays() {
+            //Tous les pays
+        }
+
+        public function modifierPays($idPays) {
+            //Modifier un pays
+        }
+
+        public function supprimerPays($idPays) {
+            //Supprimer pays
+        }
+
+        //Table Taxe
+        public function ajoutTaxe() {
+            //Ajouter une taxe
+        }
+
+        public function getTaxes() {
+            //Toutes les taxes
+        }
+
+        public function mofifierTaxe($idTaxe) {
+            //Modifier la taxe
+        }
+        
+        public function supprimerTaxe($idTaxe) {
+            //Supprimer une taxe
+        }
+
+        //Table Privilege
+        public function ajoutPrivilege() {
+            //Ajout privilège
+        }
+
+        public function getPrivileges() {
+            //Tous les privilèges
+        }
+
+        public function modifierPrivilege($idPrivilege) {
+            //Modifier le privilège
+        }
+        
+        public function supprimerPrivilege($idPrivilege) {
+            //Supprimer le privilège
+        }
+
+        //Table Connexion
+        public function getConnexions() {
+            //Toutes les connexions
+        }
+
+        public function getConnexion($idUtilisateur) {
+            //Connexion d'un utilisateur
         }
 	}
 ?>
