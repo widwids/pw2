@@ -1,6 +1,7 @@
 <?php
 	class Modele_Utilisateur extends TemplateDAO {
 		
+        //Table utilisateur
         public function getNomTable() {
             return "utilisateur";
         }
