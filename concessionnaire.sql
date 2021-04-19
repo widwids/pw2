@@ -302,7 +302,7 @@ INSERT INTO Voiture (noSerie, kilometrage, dateArrivee, prixAchat, groupeMPId, c
 	('DSC45127456364136', 180500, '2021-04-01', '9950.00', 2, 1, 2, 8, 1, 2009, '84575'),
 	('ZFA16900014979233', 15000, '2021-04-13', '35000.00', 1, 3, 2, 4, 2, 2015, '49099');
 
-INSERT INTO photo (`idPhoto`, `nomPhoto`, `autoId`) VALUES
+INSERT INTO Photo (`idPhoto`, `nomPhoto`, `autoId`) VALUES
 	(1, '4232',   'ABC12300067154336'),
 	(2, '5430',   'ZZC12300000954321'),
 	(3, '162070', 'ABC12300067154336'),

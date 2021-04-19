@@ -68,5 +68,17 @@
 		public function obtenirFactures() {
 			//Toutes les factures
 		}
+
+		public function ajoutFacture() {
+			//Ajouter une facture
+		}
+
+		public function modifierFacture($idFacture) {
+			//Modifier facture
+		}
+
+		public function supprimerFacture($idFacture) {
+			//Supprimer facture
+		}
 	}
 ?>
