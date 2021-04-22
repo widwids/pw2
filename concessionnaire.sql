@@ -383,7 +383,6 @@ INSERT INTO Privilege (nomPrivilegeFR, nomPrivilegeEN, visibilite) VALUES
 	('Employé', 'Employee', 1), 
 	('Client', 'Customer', 1);
 	
-	
 INSERT INTO Utilisateur (prenom, nom, dateNaissance, codeOubliMDP, dateExpirationCode, visibilite, adresse, codePostal, telephone, cellulaire, courriel, pseudonyme, motDePasse, villeId, privilegeId) VALUES 
 	('Bob', 'Ross', '1942-10-29', 'test code mot passe ', '2020-10-29' , 1, '123 Arc-en-ciel', 'H1H 2H2', '514-555-5555', '438-444-4444', 'bob.ross@gmail.com', 'brosse', 'test', '1', '1'),
 	('Annie', 'Brocoli', '1971-01-22', 'test 2 code mot passe2  ', '2023-06-12' , 1, '456 Arc-en-ciel', 'H1H 2H2', '514-555-2222', '438-444-3333', 'annie.b@gmail.com', 'brocoli', '123Annie!!', '1', '2');
@@ -403,4 +402,4 @@ INSERT INTO ModePaiement (nomModeFR, nomModeEN, visibilite) VALUES
 	('Passerelle de paiement', 'Payment Gateway', 1);
 
 INSERT INTO Facture (dateFacture, expeditionFR, expeditionEN, prixFinal, visibilite, commandeId, modePaiementId) VALUES 
-	('2021-04-14 01:01:12', 'ramassage', 'pickup', 15100, 1, 1, 2);	
+	('2021-04-14 01:01:12', 'ramassage', 'pickup', 15000, 1, 1, 2);	
