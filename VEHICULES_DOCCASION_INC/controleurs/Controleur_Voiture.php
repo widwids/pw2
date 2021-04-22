@@ -16,43 +16,75 @@
 				switch($params["action"]) {
 					
 					case "afficheDetailVoiture":
-					
-					    //affiche photo d'une seul voiture ////
-						$modeleVoiture = new Modele_Voiture();
-						// à décommenter lorsque vous aurrez votre ($params["noSerie"])
-						// $data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
-						// a commenter lorsque vous aurrez votre ($params["noSerie"])
-						$var = 'ABC12300067154336';
-						$photo = $modeleVoiture->obtenirPhotoVoiture($var);
-						$voiture = $modeleVoiture->obtenirUneVoiture($var);
-						var_dump($photo);
-						var_dump($voiture);
-						/////////////////////
-						//$this->afficheVue($vue,$data); 
+						if (isset($params["noSerie"])) {
+							//affiche photo d'une seul voiture ////
+							$modeleVoiture = new Modele_Voiture();
+							$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+							// a commenter lorsque vous aurrez votre ($params["noSerie"])
+							$voiture = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+							$photos = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);
+							
+							//var_dump($photos);
+							//var_dump($voiture);
+							
+							//$vue = "";
+							//$this->afficheVue($vue,$photo,$voiture); 
+						} else {													
+                            echo "ERROR PARAMS";
+                        }
 
 					break;
 				
 					case "modifVoiture":
 						//Modof voiture////
-
-							$modeleVoiture = new Modele_Voiture();
-							//$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["newNoSerie"],$params["kilometrage"], $params["dateArrivee"], $params["prixAchat"], $params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"], $params["photoAccueil"]);
-							$modeleVoiture->modifVoiture('AAABBB0001400CCCC', 'A0000000000000000', 999999, '2022-02-20', '1111.00', 2, 2, 2, 2, 2, 2020, '434629');
-
-						break;
+						if (isset($params["noSerie"]) &&
+							isset($params["descriptionFR"]) &&
+							isset($params["descriptionEN"]) &&
+							isset($params["visibilite"]) &&
+							isset($params["kilometrage"]) &&
+							isset($params["dateArrivee"]) &&
+							isset($params["prixAchat"]) &&
+							isset($params["groupeMPid"]) &&
+							isset($params["corpsId"]) &&
+							isset($params["carburanstsId"]) &&
+							isset($params["modeleId"]) &&
+							isset($params["transmissionId"]) &&
+							isset($params["anneeId"]))  {
+                            $modeleVoiture = new Modele_Voiture();
+                            $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+							//$vue = "";	
+                           // $this->afficheVue($vue,$data);
+                        } else {													
+                            echo "ERROR PARAMS";
+                        } 
+							break;
 
 					case "ajoutVoiture":
-						// ajout voiture //
+						if (isset($params["noSerie"]) &&
+							isset($params["descriptionFR"]) &&
+							isset($params["descriptionEN"]) &&
+							isset($params["visibilite"]) &&
+							isset($params["kilometrage"]) &&
+							isset($params["dateArrivee"]) &&
+							isset($params["prixAchat"]) &&
+							isset($params["groupeMPid"]) &&
+							isset($params["corpsId"]) &&
+							isset($params["carburanstsId"]) &&
+							isset($params["modeleId"]) &&
+							isset($params["transmissionId"]) &&
+							isset($params["anneeId"])) {
+
 							$modeleVoiture = new Modele_Voiture();
-							//$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"], $params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"], $params["photoAccueil"]);
-							$valide = $modeleVoiture->ajoutVoiture('ppp16900014022033', 11200, '2019-04-13', '9600.00', 1, 3, 2, 4, 2, 2019, '434629');
+							$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
 							
 							if ($valide) {									
 								//echo "merci";		
 							} else {
 								echo "ERROR";
 							}
-							////////	
+						} else {													
+                            echo "ERROR PARAMS";
+                        }  	
 					break;
 					
 					case "listeCorps":
@@ -72,6 +104,17 @@
 							var_dump($data);
 
 					break;
+
+					case "listeVoitures":
+						// affiche liste voiture//
+						$vue = "VoitureListe";		
+						$modeleVoiture = new Modele_Voiture();
+						$data = $modeleVoiture->obtenirTous();
+						//var_dump($data);
+						$this->afficheVue($vue,$data); 
+						///////////////////////////////
+
+					break;
 		
 				}			
 			} else {
@@ -80,6 +123,7 @@
 				$vue = "VoitureListe";		
                 $modeleVoiture = new Modele_Voiture();
 				$data = $modeleVoiture->obtenirTous();
+				//var_dump($data);
 				$this->afficheVue($vue,$data); 
 				///////////////////////////////
 			}

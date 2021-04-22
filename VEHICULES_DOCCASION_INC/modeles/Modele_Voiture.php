@@ -10,11 +10,14 @@
         }
 		
 		//Partie Voiture
-		public function ajoutVoiture($noSerie, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $photoAccueil) {		
+		public function ajoutVoiture($noSerie, $descriptionFR, $descriptionEN, $visibilite, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId) {		
 			try {
-				$stmt = $this->connexion->prepare("INSERT INTO voiture (noSerie, kilometrage, dateArrivee, prixAchat, groupeMPid, corpsId, carburantId, modeleId, transmissionId, anneeId, photoAccueil) 
-				VALUES (:noSerie, :kilometrage, :dateArrivee, :prixAchat, :groupeMPid, :corpsId, :carburantId, :modeleId, :transmissionId, :anneeId, :photoAccueil)");
+				$stmt = $this->connexion->prepare("INSERT INTO voiture (noSerie, descriptionFR, descriptionEN, visibilite, kilometrage, dateArrivee, prixAchat, groupeMPid, corpsId, carburantId, modeleId, transmissionId, anneeId) 
+				VALUES (:noSerie, :descriptionFR, :descriptionEN, :visibilite, :kilometrage, :dateArrivee, :prixAchat, :groupeMPid, :corpsId, :carburantId, :modeleId, :transmissionId, :anneeId)");
 				$stmt->bindParam(":noSerie", $noSerie);
+				$stmt->bindParam(":descriptionFR", $descriptionFR);
+				$stmt->bindParam(":descriptionEN", $descriptionEN);
+				$stmt->bindParam(":visibilite", $visibilite);
 				$stmt->bindParam(":kilometrage", $kilometrage);
 				$stmt->bindParam(":dateArrivee", $dateArrivee);
 				$stmt->bindParam(":prixAchat", $prixAchat);
@@ -24,7 +27,6 @@
 				$stmt->bindParam(":modeleId", $modeleId);
 				$stmt->bindParam(":transmissionId", $transmissionId);
 				$stmt->bindParam(":anneeId", $anneeId);
-				$stmt->bindParam(":photoAccueil", $photoAccueil);
 				$stmt->execute();
 				
 				return 1;
@@ -33,15 +35,7 @@
 				return 0;
 			}
 		}
-/* 
-		("SELECT noSerie, kilometrage, prixAchat, dateArrivee, photoAccueil, nomMotoPro, nomCorps, 
-												anneeId, nomModele, nomMarque
-				                                FROM voiture JOIN Corps ON IdCorps = corpsId
-                        						LEFT OUTER JOIN motopropulseur ON idMotoPro = groupeMPId
-												LEFT OUTER JOIN modele ON idModele = modeleId
-												LEFT OUTER JOIN marque ON idMarque = marqueId");
 
- */
 		public function obtenirTous() {
 			try {
 				$stmt = $this->connexion->query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, prixAchat, dateArrivee
@@ -63,10 +57,10 @@
 
 		public function obtenirUneVoiture($noSerie) {
 			try {
-				$stmt = $this->connexion->query("SELECT noSerie, kilometrage, prixAchat, dateArrivee, photoAccueil, nomMotoPro, nomCorps, 
-												anneeId, nomModele, nomMarque
+				$stmt = $this->connexion->query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, prixAchat, dateArrivee
+				,nomMotoPro, nomCorpsFR, anneeId, nomModele, nomMarque
 				                                FROM voiture JOIN Corps ON IdCorps = corpsId
-                        						LEFT OUTER JOIN motopropulseur ON idMotoPro = groupeMPId
+												LEFT OUTER JOIN motopropulseur ON idMotoPro = groupeMPId
 												LEFT OUTER JOIN modele ON idModele = modeleId
 												LEFT OUTER JOIN marque ON idMarque = marqueId
 												WHERE noSerie = '" . $noSerie . "'");
@@ -80,10 +74,13 @@
 			}
 		}
 		
-		function modifVoiture($noSerie, $newNoSerie, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $photoAccueil) {		
+		function modifVoiture($noSerie, $newNoSerie, $descriptionFR, $descriptionEN, $visibilite, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId) {		
 			try {
 				$stmt = $this->connexion->query("UPDATE voiture 
 												SET noSerie = '".$newNoSerie."', 
+												descriptionFR = '".$descriptionFR."',
+												descriptionEN = '".$descriptionEN."',
+												visibilite = '".$visibilite."',
 												kilometrage = '".$kilometrage."',
 												dateArrivee = '".$dateArrivee."' , 
 												prixAchat = '".$prixAchat."' ,
@@ -93,7 +90,6 @@
 												modeleId = '".$modeleId."' ,
 												transmissionId = '".$transmissionId."' ,
 												anneeId = '".$anneeId."' ,
-												photoAccueil = '".$photoAccueil."' 
 												WHERE noSerie = '" . $noSerie . "'");
 				$stmt->execute();
 				return $stmt->fetchAll();
@@ -237,7 +233,7 @@
 		public function obtenirPhotoVoiture($noSerie) {
 			//var_dump($NoSerie);
 			 try {
-				$stmt = $this->connexion->query("SELECT nomPhoto FROM photo WHERE autoId = '" . $noSerie . "'");
+				$stmt = $this->connexion->query("SELECT * FROM photo WHERE autoId = '" . $noSerie . "'");
 
 				
 				$stmt->execute();
