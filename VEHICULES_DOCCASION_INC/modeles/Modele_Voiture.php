@@ -33,15 +33,24 @@
 				return 0;
 			}
 		}
-
-		public function obtenirTous() {
-			try {
-				$stmt = $this->connexion->query("SELECT noSerie, kilometrage, prixAchat, dateArrivee, photoAccueil, nomMotoPro, nomCorps, 
+/* 
+		("SELECT noSerie, kilometrage, prixAchat, dateArrivee, photoAccueil, nomMotoPro, nomCorps, 
 												anneeId, nomModele, nomMarque
 				                                FROM voiture JOIN Corps ON IdCorps = corpsId
                         						LEFT OUTER JOIN motopropulseur ON idMotoPro = groupeMPId
 												LEFT OUTER JOIN modele ON idModele = modeleId
 												LEFT OUTER JOIN marque ON idMarque = marqueId");
+
+ */
+		public function obtenirTous() {
+			try {
+				$stmt = $this->connexion->query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, prixAchat, dateArrivee
+				,nomMotoPro, nomCorpsFR, anneeId, nomModele, nomMarque, nomPhoto, Ordre
+				                                FROM voiture JOIN Corps ON IdCorps = corpsId
+												LEFT OUTER JOIN motopropulseur ON idMotoPro = groupeMPId
+												LEFT OUTER JOIN modele ON idModele = modeleId
+												LEFT OUTER JOIN marque ON idMarque = marqueId
+												LEFT OUTER JOIN photo ON autoId = noSerie AND  Ordre = 1 ");
 
 				$stmt->execute();
 				return $stmt->fetchAll();
