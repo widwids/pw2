@@ -45,7 +45,7 @@
 						// ajout voiture //
 							$modeleVoiture = new Modele_Voiture();
 							//$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"], $params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"], $params["photoAccueil"]);
-							$valide = $modeleVoiture->ajoutVoiture('NNN16900014022033', 11200, '2019-04-13', '9600.00', 1, 3, 2, 4, 2, 2019, '434629');
+							$valide = $modeleVoiture->ajoutVoiture('ppp16900014022033', 11200, '2019-04-13', '9600.00', 1, 3, 2, 4, 2, 2019, '434629');
 							
 							if ($valide) {									
 								//echo "merci";		
@@ -80,7 +80,6 @@
 				$vue = "VoitureListe";		
                 $modeleVoiture = new Modele_Voiture();
 				$data = $modeleVoiture->obtenirTous();
-				
 				$this->afficheVue($vue,$data); 
 				///////////////////////////////
 			}
