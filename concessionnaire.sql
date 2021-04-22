@@ -402,4 +402,4 @@ INSERT INTO ModePaiement (nomModeFR, nomModeEN, visibilite) VALUES
 	('Passerelle de paiement', 'Payment Gateway', 1);
 
 INSERT INTO Facture (dateFacture, expeditionFR, expeditionEN, prixFinal, visibilite, commandeId, modePaiementId) VALUES 
-	('2021-04-14 01:01:12', 'ramassage', 'pickup', 15000, 1, 1, 2);	
+	('2021-04-14 01:01:12', 'ramassage', 'pickup', 15100, 1, 1, 2);	
