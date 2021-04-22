@@ -1,4 +1,5 @@
 <h1>Titre!!</h1>
+<h1>Titre!!</h1>
 <section class="product-list" data-component="">
 <?php
 	foreach ($data as $voiture) {
