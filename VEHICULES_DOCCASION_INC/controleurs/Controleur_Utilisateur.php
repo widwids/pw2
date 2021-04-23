@@ -67,7 +67,7 @@
                     break;
 				case "supprimeUtilisateur":
 					if(isset($params["id"])) {
-						$data["utilisateur"] = $modeleUtilisateur -> supprime($params["id"]);
+						$data["utilisateur"] = $modeleUtilisateur -> supprime('utilisateur', 'idUtilisateur', $params["id"]);
 						$data["utilisateurs"] = $modeleUtilisateur -> obtenir_tous();
                         $this -> afficheVue("AccesEmploye", $data);
 					}

@@ -19,8 +19,8 @@
 
         public function obtenir_par_id($id) {
             $requete = "SELECT idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
-                cellulaire, courriel, pseudonyme, motDePasse, idVille, nomVille, codeProvince, nomProvince, 
-                idPays, nomPays, privilegeId, nomPrivilege FROM utilisateur JOIN ville ON villeId = idVille 
+                cellulaire, courriel, pseudonyme, motDePasse, idVille, nomVilleFR, nomVilleEN, codeProvince, nomProvinceFR, nomProvinceEN, 
+                idPays, nomPaysFR, nomPaysEN, privilegeId, nomPrivilegeFR, nomPrivilegeEN FROM utilisateur JOIN ville ON villeId = idVille 
                 JOIN province ON provinceCode = codeProvince JOIN pays ON paysId = idPays 
                 JOIN privilege ON privilegeId = idPrivilege WHERE idUtilisateur = :id";
             $requetePreparee = $this -> connexion -> prepare($requete);
@@ -120,10 +120,6 @@
             //Modifier ville
         }
 
-        public function supprimerVille($idVille) {
-            //Supprimer ville
-        }
-
         //Table Province
         public function ajoutProvince() {
             //Ajouter une province
@@ -135,10 +131,6 @@
 
         public function modifierProvince($codeProvince) {
             //Modifier province
-        }
-
-        public function supprimerProvince($codeProvince) {
-            //Supprimer province
         }
 
         //Table Pays
@@ -154,10 +146,6 @@
             //Modifier un pays
         }
 
-        public function supprimerPays($idPays) {
-            //Supprimer pays
-        }
-
         //Table Taxe
         public function ajoutTaxe() {
             //Ajouter une taxe
@@ -169,10 +157,6 @@
 
         public function mofifierTaxe($idTaxe) {
             //Modifier la taxe
-        }
-        
-        public function supprimerTaxe($idTaxe) {
-            //Supprimer une taxe
         }
 
         //Table Privilege
@@ -188,10 +172,6 @@
             //Modifier le privilège
         }
         
-        public function supprimerPrivilege($idPrivilege) {
-            //Supprimer le privilège
-        }
-
         //Table Connexion
         public function getConnexions() {
             //Toutes les connexions
