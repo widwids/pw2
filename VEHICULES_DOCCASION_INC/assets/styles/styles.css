@@ -1,14 +1,24 @@
 /* GENERIC */
-* {     
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;     
-}
 
 /* ELEMENTS */
 
 body {
-    background-color: WhiteSmoke;
     margin: 0;
+    box-sizing: border-box;
+    font-family: Playfair Display;
+
+}
+
+h1 {
+    font-family: Marcellus SC;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 60px;
+    text-align: center;
+    text-shadow: 10px 10px 3px rgba(0, 0, 0, 0.4);
+    background-color: rgb(66, 66, 66);
+    padding-top: 33px;
+    padding-bottom: 33px;
 }
 
 header {
@@ -27,9 +37,7 @@ header::after {
     width: 84vw
 }
 
-section, h1 {
-    padding: 6vw 8vw;
-}
+
 
 a {
     text-decoration: none;  
@@ -100,6 +108,12 @@ td input[type=number] {
 /* OBJECTS */
 
 /* generic */
+
+* {
+    background-color: black;
+    color: white;
+}
+
 
 .margin-top--small {
     margin-top: 3vw;
@@ -189,45 +203,69 @@ td input[type=number] {
 
 /* product list */
 
+.filtre {
+    text-align: center;
+    
+}
+
+.select {
+    width: 180px;
+    text-align: center;
+}
+
 .product-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 3vw;
-    padding-top: 0;
+    border-radius: 20px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.product-list__product {
-    background-color: white;
-    border-radius: 10px;
+.product-image img {
+    width: 400px;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.product-card {
+    margin: 30px;
+    flex: 1 15%;
+    -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+    text-align: center;
+}
+
+.product-card:hover {
     cursor: pointer;
-    padding: 2vw;
-    transition: all .3s ease;
+    box-shadow: none;
+    -webkit-transform: scale(1.033);
+	transform: scale(1.033);
 }
 
-.product-list__product.added {
-    opacity: .75;
-    pointer-events: none;
+.product-card:active {
+    opacity: 1;
+	-webkit-animation: flash .4s;
+	animation: flash .4s;
 }
 
-.product-list__image-wrapper {
-    height: auto;
-    overflow: hidden;
-    width: 100%;
+@-webkit-keyframes flash {
+	0% {
+		opacity: .6;
+	}
+	100% {
+		opacity: 1;
+	}
 }
-
-.product-list__image {
-    height: auto;
-    transform: scale(1);
-    transition: transform .3s ease;
-    width: 100%;
-}
-
-.product-list__product:hover {
-    box-shadow: 0px 7px 5px lightgray;
-}
-
-.product-list__product:hover .product-list__image {
-    transform: scale(.94);
+@keyframes flash {
+	0% {
+		opacity: .6;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 .show-more {
