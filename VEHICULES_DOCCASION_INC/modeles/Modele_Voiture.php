@@ -114,6 +114,23 @@
 
 		}
 
+		public function obtenir_Nom_ID($nomTable) { //Autres tables
+			$requete = "SHOW KEYS FROM $nomTable WHERE Key_name = 'PRIMARY'";
+			$resultats = $this -> connexion -> query($requete);
+			$resultats -> execute();
+			return $resultats -> fetchAll();
+		}
+
+		public function supprimeMed($nomTable, $nomId, $id) {
+			$requete = "UPDATE $nomTable SET visibilite = 0 WHERE $nomId = :id";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":id", $id);
+			$requetePreparee -> execute();
+
+			//Retour du nombre de rangées affectées 
+			return $requetePreparee -> rowCount();
+		}
+		
 		//Partie Corps
 		public function ajoutCorps() {
 			//Ajouter le corps
