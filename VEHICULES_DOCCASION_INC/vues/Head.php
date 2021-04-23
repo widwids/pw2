@@ -1,10 +1,12 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>VEHICULES D'OCCASION INC.</title>
+	<title>YVMA.inc</title>
 
 	<!-- Styles -->
 	<link rel="stylesheet" href="assets/styles/styles.css">
+	<link rel="stylesheet" href="assets/styles/header.css">
+	<link rel="stylesheet" href="assets/styles/footer.css">
 	
 	<!-- Script -->
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
@@ -12,7 +14,8 @@
 	<script type="text/javascript" src="assets/scripts/script.js" defer></script>
 
 	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Roboto:300,400,500&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"> 
 
 </head>
 <body>
