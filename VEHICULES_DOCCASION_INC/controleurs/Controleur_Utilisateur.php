@@ -18,6 +18,10 @@
         
             //Détermine la vue, remplir le modèle approprié
             switch($commande) {
+                case "liste":
+                    if (isset($params["nomTable"])) {
+                        $data = $modeleUtilisateur -> obtenir_liste($params["nomTable"]);
+                    }
                 case "listeComptes":
                     //if ($_SESSION["employe"] || $_SESSION["administrateur"])
                     $data["utilisateurs"] = $modeleUtilisateur -> obtenir_tous();

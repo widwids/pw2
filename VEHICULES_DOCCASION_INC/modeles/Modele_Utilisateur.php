@@ -112,10 +112,6 @@
             //Ajouter une ville
         }
 
-        public function getVilles() {
-            //Toutes les villes
-        }
-
         public function modifierVille($idVille) {
             //Modifier ville
         }
@@ -123,10 +119,6 @@
         //Table Province
         public function ajoutProvince() {
             //Ajouter une province
-        }
-
-        public function getProvinces() {
-            //Toutes les provinces
         }
 
         public function modifierProvince($codeProvince) {
@@ -138,10 +130,6 @@
             //Ajouter un pays
         }
 
-        public function getPays() {
-            //Tous les pays
-        }
-
         public function modifierPays($idPays) {
             //Modifier un pays
         }
@@ -151,10 +139,6 @@
             //Ajouter une taxe
         }
 
-        public function getTaxes() {
-            //Toutes les taxes
-        }
-
         public function mofifierTaxe($idTaxe) {
             //Modifier la taxe
         }
@@ -162,10 +146,6 @@
         //Table Privilege
         public function ajoutPrivilege() {
             //Ajout privilège
-        }
-
-        public function getPrivileges() {
-            //Tous les privilèges
         }
 
         public function modifierPrivilege($idPrivilege) {
