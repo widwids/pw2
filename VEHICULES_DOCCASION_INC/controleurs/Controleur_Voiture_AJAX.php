@@ -5,7 +5,7 @@
 		public function traite(array $params) {
 			
 			$modeleVoiture = new Modele_Voiture();
-			
+
 			if (isset($params["action"])) {
 
 				// Modèle et vue vides par défaut
@@ -28,7 +28,7 @@
 
 					break;
 
-					case "suppressionTable": // visibilite = 0
+					case "suppressionEnreg": // visibilite = 0
 						if (isset($params["nomTable"]) && isset($params["id"])) {
 							$modeleVoiture = new Modele_Voiture();
 							$data = $modeleVoiture -> obtenir_Nom_ID($params["nomTable"]);
