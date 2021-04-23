@@ -4,6 +4,9 @@
 		//la fonction qui sera appelée par le routeur
 		public function traite(array $params) {
 			
+			//Modèle pour les Voitures
+			$modeleVoiture = new Modele_Voiture();
+
 			$this->afficheVue("Head");
 			$this->afficheVue("Header");
 			
@@ -15,21 +18,20 @@
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch($params["action"]) {
 
-					case "tousEnregisTable":
+					/* case "tousEnregisTable":
 						//Modof voiture////
 						if (isset($params["nomTable"])) {
-							$modeleVoiture = new Modele_Voiture();
 							$data["test"] = $modeleVoiture -> obtenir_liste($params["nomTable"]);
 							var_dump($data);
 						} else {													
                             echo "ERROR PARAMS";
                         }
 
-					break;
+					break; */
+
 					case "afficheDetailVoiture":
 						if (isset($params["noSerie"])) {
 							//affiche photo d'une seul voiture ////
-							$modeleVoiture = new Modele_Voiture();
 							$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
 							// a commenter lorsque vous aurrez votre ($params["noSerie"])
 							$voiture = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
@@ -61,7 +63,6 @@
 							isset($params["modeleId"]) &&
 							isset($params["transmissionId"]) &&
 							isset($params["anneeId"]))  {
-                            $modeleVoiture = new Modele_Voiture();
                             $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
 							//$vue = "";	
                            // $this->afficheVue($vue,$data);
@@ -85,7 +86,6 @@
 							isset($params["transmissionId"]) &&
 							isset($params["anneeId"])) {
 
-							$modeleVoiture = new Modele_Voiture();
 							$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
 							
 							if ($valide) {									
@@ -101,7 +101,6 @@
 					case "listeCorps":
 						//Modof voiture////
 
-							$modeleVoiture = new Modele_Voiture();
 							$data = $modeleVoiture->obtenirCorps();
 							var_dump($data);
 
@@ -110,7 +109,6 @@
 					case "modifCorps":
 						//Modof voiture////
 
-							$modeleVoiture = new Modele_Voiture();
 							$data = $modeleVoiture->obtenirCorps();
 							var_dump($data);
 
@@ -119,7 +117,6 @@
 					case "listeVoitures":
 						// affiche liste voiture//
 						$vue = "VoitureListe";		
-						$modeleVoiture = new Modele_Voiture();
 						$data = $modeleVoiture->obtenirTous();
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 
@@ -132,7 +129,6 @@
 
 				// affiche liste voiture//
 				$vue = "VoitureListe";		
-                $modeleVoiture = new Modele_Voiture();
 				$data = $modeleVoiture->obtenirTous();
 				//var_dump($data);
 				$this->afficheVue($vue,$data); 

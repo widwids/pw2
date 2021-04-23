@@ -36,7 +36,7 @@
             return $resultats -> fetchAll();
         }
 
-        //"Suppression" (DELETE)
+         //"Suppression" (DELETE)
         public function supprime($nomTable, $cle, $id) {
             $requete = "UPDATE $nomTable SET visibilite = 0 WHERE $cle = :id";
             $requetePreparee = $this -> connexion -> prepare($requete);
@@ -45,6 +45,6 @@
 
             //Retour du nombre de rangées affectées 
             return $requetePreparee -> rowCount();
-        }
+        }         
 	}
 ?>
