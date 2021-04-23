@@ -13,18 +13,23 @@
         private $motDePasseUtilisateur;
         private $villeIdUtilisateur;
         private $privilegeIdUtilisateur;
-        private $nomVilleUtilisateur;
+        private $nomVilleUtilisateurFR;
+        private $nomVilleUtilisateurEN;
         private $codeProvinceUtilisateur;
-        private $nomProvinceUtilisateur;
+        private $nomProvinceUtilisateurFR;
+        private $nomProvinceUtilisateurEN;
         private $idPaysUtilisateur;
-        private $nomPaysUtilisateur;
-        private $nomPrivilegeUtilisateur;
+        private $nomPaysUtilisateurFR;
+        private $nomPaysUtilisateurEN;
+        private $nomPrivilegeUtilisateurFR;
+        private $nomPrivilegeUtilisateurEN;
 
         public function __construct($id = 0, $prenom = "", $nom = "", $dateNaissance = "", $adresse = "", 
                                     $codePostal = "", $telephone = "", $cellulaire = "", $courriel = "", 
                                     $pseudonyme = "", $motDePasse = "", $villeId = 0, $privilegeId = 0,
-                                    $nomVille = "", $codeProvince = "", $nomProvince = "", $idPays = 0,
-                                    $nomPays = "", $nomPrivilege = "") {
+                                    $nomVilleFR = "", $nomVilleEN = "", $codeProvince = "", 
+                                    $nomProvinceFR = "", $nomProvinceEN = "", $idPays = 0, $nomPaysFR = "", 
+                                    $nomPaysEN = "", $nomPrivilegeFR = "", $nomPrivilegeEN = "") {
             $this -> idUtilisateur = $id;
             $this -> prenom = $prenom;
             $this -> nom = $nom;
@@ -38,12 +43,16 @@
             $this -> motDePasse = $motDePasse;
             $this -> villeId = $villeId;
             $this -> privilegeId = $privilegeId;
-            $this -> nomVille = $nomVille;
+            $this -> nomVilleFR = $nomVilleFR;
+            $this -> nomVilleEN = $nomVilleEN;
             $this -> codeProvince = $codeProvince;
-            $this -> nomProvince = $nomProvince;
+            $this -> nomProvince = $nomProvinceFR;
+            $this -> nomProvinceEN = $nomProvinceEN;
             $this -> idPays = $idPays;
-            $this -> nomPays = $nomPays;
-            $this -> nomPrivilege = $nomPrivilege;
+            $this -> nomPaysFR = $nomPaysFR;
+            $this -> nomPaysEN = $nomPaysEN;
+            $this -> nomPrivilegeFR = $nomPrivilegeFR;
+            $this -> nomPrivilegeEN = $nomPrivilegeEN;
         }
 
         //Table Utilisateur
@@ -96,8 +105,12 @@
             return $this -> villeId;
         }
         
-        public function getNomVille() {
-            return $this -> nomVille;
+        public function getNomVilleFR() {
+            return $this -> nomVilleFR;
+        }
+
+        public function getNomVilleEN() {
+            return $this -> nomVilleEN;
         }
 
         //Table Province
@@ -105,8 +118,12 @@
             return $this -> codeProvince;
         }
 
-        public function getNomProvince() {
-            return $this -> nomProvince;
+        public function getNomProvinceFR() {
+            return $this -> nomProvinceFR;
+        }
+
+        public function getNomProvinceEN() {
+            return $this -> nomProvinceEN;
         }
 
         //Table Pays
@@ -114,8 +131,12 @@
             return $this -> idPays;
         }
 
-        public function getNomPays() {
-            return $this -> nomPays;
+        public function getNomPaysFR() {
+            return $this -> nomPaysFR;
+        }
+
+        public function getNomPaysEN() {
+            return $this -> nomPaysEN;
         }
 
         //Table Privilege
@@ -123,8 +144,12 @@
             return $this -> privilegeId;
         }
 
-        public function getNomPrivilege() {
-            return $this -> nomPrivilege;
+        public function getNomPrivilegeFR() {
+            return $this -> nomPrivilegeFR;
+        }
+
+        public function getNomPrivilegeEN() {
+            return $this -> nomPrivilegeEN;
         }
     }
 ?>

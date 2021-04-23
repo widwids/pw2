@@ -29,9 +29,16 @@
             return $resultats;
         } 
 
-        //Suppression (DELETE)
-        public function supprime($id) {
-            $requete = "DELETE FROM " . $this -> getNomTable() . " WHERE " . $this -> getClePrimaire() . "=:id";
+        public function obtenir_liste($nomTable) { //Autres tables
+            $requete = "SELECT * FROM $nomTable";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll();
+        }
+
+        //"Suppression" (DELETE)
+        public function supprime($nomTable, $cle, $id) {
+            $requete = "UPDATE $nomTable SET visibilite = 0 WHERE $cle = :id";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":id", $id);
             $requetePreparee -> execute();
