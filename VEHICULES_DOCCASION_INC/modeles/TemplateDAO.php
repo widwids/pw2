@@ -27,7 +27,7 @@
             $requete = "SELECT * FROM " . $this -> getNomTable();
             $resultats = $this -> connexion -> query($requete);
             return $resultats;
-        }
+        } 
 
         //Suppression (DELETE)
         public function supprime($id) {

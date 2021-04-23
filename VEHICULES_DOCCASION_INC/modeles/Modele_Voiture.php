@@ -9,6 +9,28 @@
             return "noSerie";
         }
 		
+		public function obtenir_par_id($id)
+        {
+            //on appelle obtenir_par_id du parent et on créé un objet Utilisateur à partir de la rangée retournée
+            $resultats = parent::obtenir_par_id($id);
+            $resultats->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE , "Film");
+            $leUtilisateur = $resultats->fetch();
+            return $leUtilisateur;
+        }
+
+		public function obtenir_touss($nomTable)
+        {
+            try {
+				$stmt = $this->connexion->query("SELECT * FROM " . $nomTable );
+				$stmt->execute();
+				return $stmt->fetchAll();
+
+			}
+			catch(Exception $exc) {
+				return 0;
+			}
+        }
+
 		//Partie Voiture
 		public function ajoutVoiture($noSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $visibilite) {		
 			try {
