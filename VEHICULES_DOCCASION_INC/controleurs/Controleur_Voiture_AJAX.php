@@ -4,6 +4,8 @@
 		// La fonction qui sera appelée par le routeur
 		public function traite(array $params) {
 			
+			$modeleVoiture = new Modele_Voiture();
+			
 			if (isset($params["action"])) {
 
 				// Modèle et vue vides par défaut
@@ -14,6 +16,18 @@
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch ($params["action"]) {
 					
+					case "obtenirNomID":
+						//Modof voiture////
+						if (isset($params["nomTable"])) {
+							$data = $modeleVoiture -> obtenir_Nom_ID($params["nomTable"]);
+							$nomId = $data[0]['Column_name'];
+							var_dump($nomId);
+						} else {													
+							echo "ERROR PARAMS";
+						}
+
+					break;
+
 					case "suppressionTable": // visibilite = 0
 						if (isset($params["nomTable"]) && isset($params["id"])) {
 							$modeleVoiture = new Modele_Voiture();

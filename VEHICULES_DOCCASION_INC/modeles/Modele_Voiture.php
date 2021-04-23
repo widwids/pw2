@@ -9,18 +9,14 @@
             return "noSerie";
         }
 		
-		public function obtenir_par_id($id)
+		/* public function obtenir_par_id($id)
         {
             //on appelle obtenir_par_id du parent et on créé un objet Utilisateur à partir de la rangée retournée
             $resultats = parent::obtenir_par_id($id);
             $resultats->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE , "Film");
             $leUtilisateur = $resultats->fetch();
             return $leUtilisateur;
-        }
-
-		
-
-		
+        } */
 		
 
 		//Partie Voiture
@@ -88,6 +84,21 @@
 			}
 		}
 		
+		public function obtenirPhotoVoiture($noSerie) {
+			//var_dump($NoSerie);
+			 try {
+				$stmt = $this->connexion->query("SELECT * FROM photo WHERE autoId = '" . $noSerie . "'");
+
+				
+				$stmt->execute();
+				return $stmt->fetchAll();
+
+			}
+			catch(Exception $exc) {
+				return 0;
+			}  
+		}
+
 		function modifVoiture($noSerie, $newNoSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $visibilite) {		
 			try {
 				$stmt = $this->connexion->query("UPDATE voiture 
@@ -130,55 +141,23 @@
 			//Retour du nombre de rangées affectées 
 			return $requetePreparee -> rowCount();
 		}
-		
+
 		//Partie Corps
 		public function ajoutCorps() {
 			//Ajouter le corps
-		}
-
-		public function obtenirCorps() {
-			try {
-				$stmt = $this->connexion->query("SELECT * FROM corps ");
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
 		}
 
 		public function modifCorps($id) {
 			//Modificr le corps
 		}
 
-		public function suppCorps($id) {
-			//Supprimer le corps
-		}		
-
 		//Partie Groupe motopropulseur
 		public function ajoutGrpMoto() {
 			//Ajouter motopropulseur
 		}
 
-		public function obtenirGrpMoto() {
-			try {
-				$stmt = $this->connexion->query("SELECT * FROM motoptopulseur ");
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
-		}
-
 		public function modifGrpMoto($id) {
 			//Modifier motopropulseur
-		}
-
-		public function suppGrpMoto($id) {
-			//Supprimer motoPropulseur
 		}
 
 		//Partie Carburant
@@ -186,24 +165,8 @@
 			//Ajouter carburant
 		}
 
-		public function obtenirCarburant() {
-			try {
-				$stmt = $this->connexion->query("SELECT * FROM carburant ");
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
-		}
-
 		public function modifCarburant($id) {
 			//Modifier carburant
-		}
-
-		public function suppCarburant($id) {
-			//Supprimer carburant
 		}
 
 		//Partie Transmission
@@ -211,24 +174,8 @@
 			//Ajouter transmission
 		}
 
-		public function obtenirTransmission() {
-			try {
-				$stmt = $this->connexion->query("SELECT * FROM carburant ");
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
-		}
-
 		public function modifTransmission($id) {
 			//Modifer transmission
-		}
-
-		public function suppTransmission($id) {
-			//Supprimer transmission
 		}
 
 		//Partie Annee
@@ -236,24 +183,8 @@
 			//Ajouter une année
 		}
 
-		public function obtenirAnnee() {
-			try {
-				$stmt = $this->connexion->query("SELECT * FROM annee ");
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
-		}
-
 		public function modifAnnee($id) {
 			//Modifier une année
-		}
-
-		public function suppAnnee($id) {
-			//Supprimer une année
 		}
 
 		//Partie Photo
@@ -261,39 +192,8 @@
 			//Ajouter une photo
 		}
 
-		public function obtenirPhotoVoiture($noSerie) {
-			//var_dump($NoSerie);
-			 try {
-				$stmt = $this->connexion->query("SELECT * FROM photo WHERE autoId = '" . $noSerie . "'");
-
-				
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}  
-		}
-
-		public function obtenirPhotos() {
-			try {
-				$stmt = $this->connexion->query("SELECT * FROM photo ");
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
-		}
-		
 		public function modifPhoto($id) {
 			//Modifier photo
-		}
-
-		public function suppPhoto($id) {
-			//Supprimer photo
 		}
 
 		//Partie Modele
@@ -301,49 +201,19 @@
 			//Ajouter un modèle
 		}
 
-		public function obtenirModeles() {
-			try {
-				$stmt = $this->connexion->query("SELECT * FROM modele");
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
-		}
-
 		public function modifModle($id) {
 			//Modifier modèle
 		}
 
-		public function suppModele($id) {
-			//Supprimer modèle
-		}
-	
 		//Partie Marque
 		public function ajoutMarque() {
 			//Ajouter une marque
-		}
-
-		public function obtenirMarque() {
-			try {
-				$stmt = $this->connexion->query("SELECT * FROM marque");
-				$stmt->execute();
-				return $stmt->fetchAll();
-
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
 		}
 
 		public function modifMarque($id) {
 			//Modifier une marque
 		}
 
-		public function suppMarque($id) {
-			//Supprimer une marque
-		}
+
 	}
 ?>
