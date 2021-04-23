@@ -19,7 +19,7 @@
 						//Modof voiture////
 						if (isset($params["nomTable"])) {
 							$modeleVoiture = new Modele_Voiture();
-							$data = $modeleVoiture->obtenir_touss($params["nomTable"]);
+							$data["test"] = $modeleVoiture -> obtenir_liste($params["nomTable"]);
 							var_dump($data);
 						} else {													
                             echo "ERROR PARAMS";

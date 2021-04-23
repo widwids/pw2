@@ -18,18 +18,10 @@
             return $leUtilisateur;
         }
 
-		public function obtenir_touss($nomTable)
-        {
-            try {
-				$stmt = $this->connexion->query("SELECT * FROM " . $nomTable );
-				$stmt->execute();
-				return $stmt->fetchAll();
+		
 
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
-        }
+		
+		
 
 		//Partie Voiture
 		public function ajoutVoiture($noSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $visibilite) {		
