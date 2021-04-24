@@ -1,23 +1,20 @@
 <?php
 	class Modele_Utilisateur extends TemplateDAO {
 		
-        //Table utilisateur
-        public function getNomTable() {
-            return "utilisateur";
-        }
+        /*--------------- Table utilisateur ---------------*/
 
-        public function getClePrimaire() {
-            return "idUtilisateur";
-        }
+        /* Lecture(READ) */
 
-        public function obtenir_tous() {
+        //Obtenir tous les utilisateurs
+        public function obtenir_utilisateurs() {
             //Appel d'obtenir_tous du parent et on fetch un tableau d'utilisateurs
-            $resultats = parent::obtenir_tous();
+            $resultats = parent::obtenir_tous('utilisateur');
             $utilisateurs = $resultats -> fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Utilisateur");
             return $utilisateurs;
         }
 
-        public function obtenir_par_id($id) {
+        //Obtenir un utilisateur par idUtilisateur
+        public function obtenir_utilisateur($id) {
             $requete = "SELECT idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
                 cellulaire, courriel, pseudonyme, motDePasse, idVille, nomVilleFR, nomVilleEN, codeProvince, nomProvinceFR, nomProvinceEN, 
                 idPays, nomPaysFR, nomPaysEN, privilegeId, nomPrivilegeFR, nomPrivilegeEN FROM utilisateur JOIN ville ON villeId = idVille 
@@ -26,14 +23,25 @@
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":id", $id);
             $requetePreparee -> execute();
-            $resultat = $requetePreparee -> fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Utilisateur")[0];
-            return $resultat;
+            $requetePreparee -> setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Utilisateur');
+            return $requetePreparee -> fetch();
         }
 
-        public function obtenir_par_pseudonyme($pseudonyme) {
-            //Utilisateur par pseudonyme
+        //Utilisateur par pseudonyme
+        public function obtenir_par_pseudonyme($pseudonyme) {         
+            $requete = "SELECT * FROM utilisateur WHERE pseudonyme = :ps";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":ps", $pseudonyme);
+            $requetePreparee -> execute();
+			$utilisateur = $requetePreparee -> fetch();
+
+            //Retour de l'identifiant de la dernière insertion
+            return $utilisateur;
         }
-    
+        
+        /* Insertion (CREATE) et modification (UPDATE) */
+
+        //Insérer ou modifier un utilisateur
         public function sauvegarde(Utilisateur $utilisateur) {
              //L'utilisateur que j'essaie de sauvegarder existe-t-il déjà (id différent de zéro)?
              if($utilisateur -> getId() != 0) {
@@ -68,10 +76,11 @@
 				$requetePreparee -> bindParam(":id", $id);
                 $requetePreparee -> execute();
             } else {
-                //Ajout d'un nouvel utilisateur
+                //Ajout d'un nouvel utilisateur -- CREATE
                 $requete = "INSERT INTO utilisateur(prenom, nom, dateNaissance, adresse, codePostal, telephone, 
-                    cellulaire, courriel, pseudonyme, motDePasse, villeId) VALUES 
-                    (:pr,:nm,:dN,:ad,:cP,:te,:ce,:co,:ps,:mP,:vI)";
+                    cellulaire, courriel, pseudonyme, motDePasse, villeId, privilegeId, visiblite) VALUES 
+                    (:pr,:nm,:dN,:ad,:cP,:te,:ce,:co,:ps,:mP,:vI, :pId, :v)";
+                $requetePreparee = $this -> connexion -> prepare($requete);
                 $prenom = $utilisateur -> getPrenom();
                 $nom = $utilisateur -> getNom();
                 $dateNaissance = $utilisateur -> getDateNaissance();
@@ -83,6 +92,8 @@
                 $pseudonyme = $utilisateur -> getPseudonyme();
                 $motDePasse = $utilisateur -> getMotDePasse();
                 $villeId = $utilisateur -> getVilleId();
+                $privilegeId = $utilisateur -> getPrivilegeId();
+                $visibilite = $utilisateur -> getVisibilite();
                 $requetePreparee -> bindParam(":pr", $prenom);
                 $requetePreparee -> bindParam(":nm", $nom);
                 $requetePreparee -> bindParam(":dN", $dateNaissance);
@@ -94,6 +105,8 @@
                 $requetePreparee -> bindParam(":ps", $pseudonyme);
                 $requetePreparee -> bindParam(":mP", $motDePasse);
                 $requetePreparee -> bindParam(":vI", $villeId);
+                $requetePreparee -> bindParam(":pId", $privilegeId);
+                $requetePreparee -> bindParam(":v", $visibilite);
                 $requetePreparee -> execute();
 
 				if($requetePreparee -> rowCount() > 0)
@@ -103,82 +116,106 @@
             }
         }
 
+        //Authentification de l'utilisateur
         public function authentification($pseudonyme, $motDePasse) {
-            //Authentification de l'utilisateur
+            //Déterminer si la combinaison identifiant et mot de passe est valide
+			$requete = "SELECT motDePasse FROM utilisateur WHERE pseudonyme = ':ps'";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":ps", $pseudonyme);
+            $requetePreparee -> execute();
+			$resultat = $requetePreparee -> fetch();
+			
+			//Y'a-t-il une rangée retournée? Déterminer si un utilisateur avec ce pseudonyme existe
+			if($requetePreparee -> rowCount() > 0) {
+				//Utiliser password_verify pour comparer le mot de passe tapé par l'usager avec le mot de passe encrypté contenu dans la base de données
+				if(password_verify($motDePasse, $resultat[0]))
+					return true;
+			}
+			return false;
         }
 
-        //Table Ville
-        public function ajoutVille() {
-            //Ajouter une ville
+        /*--------------- Table ville ---------------*/
+
+        //Ajouter une ville
+        public function ajoutVille($nomVilleFR, $nomVilleEN, $provinceCode, $visibilite) {
+            $requete = "INSERT INTO ville(nomVilleFR, nomVilleEN, provinceCode, visibilite) VALUES 
+            (:nFR,:nEN,:pC, :v)";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nFR", $nomVilleFR);
+            $requetePreparee -> bindParam(":nEN", $nomVilleEN);
+            $requetePreparee -> bindParam(":pC", $provinceCode);
+            $requetePreparee -> bindParam(":v", $visibilite);
+            $requetePreparee -> execute();
+            
+            if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
         }
 
-        public function getVilles() {
-            //Toutes les villes
-        }
-
+        //Modifier ville
         public function modifierVille($idVille) {
-            //Modifier ville
+            
         }
 
-        //Table Province
+        /*--------------- Table province ---------------*/
+
+        //Ajouter une province
         public function ajoutProvince() {
-            //Ajouter une province
+            
         }
 
-        public function getProvinces() {
-            //Toutes les provinces
-        }
-
+        //Modifier province
         public function modifierProvince($codeProvince) {
-            //Modifier province
+            
         }
 
-        //Table Pays
+        /*--------------- Table pays ---------------*/
+
+        //Ajouter un pays
         public function ajoutPays() {
-            //Ajouter un pays
+            
         }
 
-        public function getPays() {
-            //Tous les pays
-        }
-
+        //Modifier un pays
         public function modifierPays($idPays) {
-            //Modifier un pays
+            
         }
 
-        //Table Taxe
+        /*--------------- Table taxe ---------------*/
+
+        //Ajouter une taxe
         public function ajoutTaxe() {
-            //Ajouter une taxe
+            
         }
 
-        public function getTaxes() {
-            //Toutes les taxes
-        }
-
+        //Modifier la taxe
         public function mofifierTaxe($idTaxe) {
-            //Modifier la taxe
+            
         }
 
-        //Table Privilege
+        /*--------------- Table privilege ---------------*/
+
+        //Ajout privilège
         public function ajoutPrivilege() {
-            //Ajout privilège
+            
         }
 
-        public function getPrivileges() {
-            //Tous les privilèges
-        }
-
+        //Modifier le privilège
         public function modifierPrivilege($idPrivilege) {
-            //Modifier le privilège
+            
         }
         
-        //Table Connexion
+        /*--------------- Table connexion ---------------*/
+
+        //Toutes les connexions
         public function getConnexions() {
-            //Toutes les connexions
+            
         }
 
+        //Connexion d'un utilisateur
         public function getConnexion($idUtilisateur) {
-            //Connexion d'un utilisateur
+            
         }
 	}
 ?>

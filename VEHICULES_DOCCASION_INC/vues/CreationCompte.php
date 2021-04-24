@@ -11,18 +11,17 @@
     <label for="codePostal">Code postal</label> 
 	<input type="text" name="codePostal" required><br>
     <label for="villeId">Ville</label> 
-    <select id="villeId">
+    <select id="villeId" name="villeId">
         <option value="1">Montréal</option>
         <option value="2">Laval</option>
         <option value="3">Longueuil</option>
         <option value="4">Toronto</option>
     </select>
-    <label for="nomProvince">Province</label> 
-	<input type="text" name="nomProvince" required><br>
+    <br>
     <label for="telephone">Téléphone</label> 
-	<input type="text" name="telephone" required><br>
+	<input type="tel" name="telephone" required><br>
     <label for="cellulaire">Cellulaire </label>
-	<input type="text" name="cellulaire"><br>
+	<input type="tel" name="cellulaire"><br>
     <label for="courriel">Courriel </label>
 	<input type="email" name="courriel"><br>
     <label for="pseudonyme">Pseudonyme</label> 
@@ -37,3 +36,6 @@
     if($data["erreurs"] != "")
 ?>
 <p><?= $data["erreurs"] ?></p>
+
+<br>
+<a href="index.php?Utilisateur&action=connexion">Déjà un compte? Connectez-vous ></a>

@@ -23,13 +23,14 @@
         private $nomPaysUtilisateurEN;
         private $nomPrivilegeUtilisateurFR;
         private $nomPrivilegeUtilisateurEN;
+        private $visibiliteUtilisateur;
 
         public function __construct($id = 0, $prenom = "", $nom = "", $dateNaissance = "", $adresse = "", 
                                     $codePostal = "", $telephone = "", $cellulaire = "", $courriel = "", 
                                     $pseudonyme = "", $motDePasse = "", $villeId = 0, $privilegeId = 0,
                                     $nomVilleFR = "", $nomVilleEN = "", $codeProvince = "", 
                                     $nomProvinceFR = "", $nomProvinceEN = "", $idPays = 0, $nomPaysFR = "", 
-                                    $nomPaysEN = "", $nomPrivilegeFR = "", $nomPrivilegeEN = "") {
+                                    $nomPaysEN = "", $nomPrivilegeFR = "", $nomPrivilegeEN = "", $visibilite = 1) {
             $this -> idUtilisateur = $id;
             $this -> prenom = $prenom;
             $this -> nom = $nom;
@@ -53,6 +54,7 @@
             $this -> nomPaysEN = $nomPaysEN;
             $this -> nomPrivilegeFR = $nomPrivilegeFR;
             $this -> nomPrivilegeEN = $nomPrivilegeEN;
+            $this -> visibilite = $visibilite;
         }
 
         //Table Utilisateur
@@ -98,6 +100,10 @@
 
         public function getMotDePasse() {
             return $this -> motDePasse;
+        }
+
+        public function getVisibilite() {
+            return $this -> visibilite;
         }
 
         //Table Ville
