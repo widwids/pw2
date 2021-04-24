@@ -109,11 +109,6 @@ td input[type=number] {
 
 /* generic */
 
-* {
-    background-color: black;
-    color: white;
-}
-
 
 .margin-top--small {
     margin-top: 3vw;
@@ -147,51 +142,6 @@ td input[type=number] {
 .return:hover::before {
     transform: translate(-10px, -50%) rotate(-135deg);
 }
-
-/* header */
-
-.header {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-}
-
-.header__logo {
-    color: darkcyan;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 6vw;
-    letter-spacing: .02em;
-    transition: color .3s ease;
-}
-
-.header__logo:hover {
-    color: black;
-}
-
-.header__cart-wrapper {
-    align-items: center;
-    display: flex;
-}
-
-.header__cart__item-number {
-    color: black;
-    margin-right: 1vw;
-}
-
-.header__cart {
-    height: 3vw;
-    width: 3vw;
-}
-
-.header__cart-wrapper.fill .header__cart__path {
-    fill: darkcyan;
-}
-
-.empty {
-    opacity: .5;
-    pointer-events: none;
-}
-
 
 /* filter */
 
