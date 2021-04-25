@@ -136,6 +136,18 @@ body{
 
 }
 
+.yu-formulaire .yu-checkbox{
+    display: flex;
+}
+
+.yu-formulaire .yu-checkbox label{
+    width: 15%;
+}
+
+.yu-formulaire .yu-checkbox input{
+    width: 5%;
+}
+
 .yu-formulaire .bouton-ajouter {
 
     display: block;

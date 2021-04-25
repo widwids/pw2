@@ -12,12 +12,8 @@
 		</li>
 		<li class="parent-menu-deroulant"><a href="#">Gestion d’utilisateur</a>
 			<ul class="menu-deroulant">
-				<li><a href="">Mon compte</a></li>
-				<li><a href="">Fermer la session</a></li>
-				<li><a href="">Mon compte</a></li>
-				<li><a href="">Fermer la session</a></li>
-				<li><a href="">Mon compte</a></li>
-				<li><a href="">Fermer la session</a></li>
+				<li><a href="">Ajouter un utilisateur</a></li>
+				<li><a href="">Liste d'utilisateur</a></li>
 			</ul>
 		</li>
 		<li class="parent-menu-deroulant"><a href="#">John Doe(administrateur)</a>
@@ -29,8 +25,6 @@
 		<li><a href="#">FR</a></li>
 	</ul>
 </header>
-<div style="height: 100%">
 
-</div>
 
 

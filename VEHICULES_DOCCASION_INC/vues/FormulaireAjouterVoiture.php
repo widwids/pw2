@@ -11,10 +11,9 @@
 		<label for="descriptionEN">Description Anglais</label>
 		<textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10"></textarea>
 	</div>
-	<div>
+	<div class="yu-checkbox">
 		<label for="visibilite">Visibilité</label>
-		<input type="checkbox" name="visibilite">
-		
+		<input type="checkbox" name="visibilite">		
 	</div>
 	<div>
 		<label for="kilometrage">Kilométrage</label>
