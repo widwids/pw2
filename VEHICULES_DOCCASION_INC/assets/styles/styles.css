@@ -109,11 +109,6 @@ td input[type=number] {
 
 /* generic */
 
-* {
-    background-color: black;
-    color: white;
-}
-
 
 .margin-top--small {
     margin-top: 3vw;
