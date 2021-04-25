@@ -25,6 +25,8 @@
 
     // Enregistrer cette fonction comme étant notre autoloader
 	spl_autoload_register("mon_autoloader");
+
+    session_start();
 	
 	Routeur::route();
 ?>
