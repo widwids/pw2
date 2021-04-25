@@ -23,7 +23,7 @@
             $requete = "SELECT * FROM $nomTable";
             $resultats = $this -> connexion -> query($requete);
             $resultats -> execute();
-            return $resultats;
+            return $resultats -> fetchAll();
         }
 
         //"Suppression" (DELETE)

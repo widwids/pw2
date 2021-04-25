@@ -1,5 +1,5 @@
-<h1 class="centre">Ouverture de session</h1>
-	<form action="index.php?Utilisateur" method="post">
+<h1>Ouverture de session</h1>
+	<form method="post">
 		<label for="pseudonyme">Nom d'utilisateur (obligatoire) :</label>
 		<input type="text" name="pseudonyme" placeholder="Nom d'utilisateur" required><br>
 		<label for="motDePasse">Mot de passe (obligatoire) :</label>

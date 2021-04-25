@@ -147,7 +147,7 @@ CREATE TABLE utilisateur (
 	telephone CHAR(12) NOT NULL,
 	cellulaire CHAR(12),
 	courriel VARCHAR(60) NOT NULL,
-	pseudonyme VARCHAR(20) NOT NULL,
+	pseudonyme VARCHAR(20) UNIQUE NOT NULL,
 	motDePasse VARCHAR(250) NOT NULL,
 	codeOubliMDP VARCHAR(250),
 	dateExpirationCode,

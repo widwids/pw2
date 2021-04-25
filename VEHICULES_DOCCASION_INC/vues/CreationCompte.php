@@ -1,5 +1,5 @@
 <h1>Création d'un compte</h1>
-<form action="index.php?Utilisateur" method="post">
+<form method="post">
     <label for="prenom">Prénom</label> 
 	<input type="text" name="prenom" required><br>
     <label for="nom">Nom</label>
