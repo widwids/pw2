@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="assets/styles/styles.css">
 	<link rel="stylesheet" href="assets/styles/header.css">
 	<link rel="stylesheet" href="assets/styles/footer.css">
+	<link rel="stylesheet" href="assets/styles/admin.css">
 	
 	<!-- Script -->
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
