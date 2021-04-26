@@ -5,16 +5,16 @@
 
 		<div class="menu">
 			<ul class="liens">
-				<li><a href="#">Salle de montre</a></li>
+				<li><a href="index.php?Voiture&action=listeVoitures">Salle de montre</a></li>
 				<li><a href="#">Promotions</a></li>
 				<li><a href="#">À propos</a></li>
 				<li><a href="#">Contact</a></li>
-				<li><a href="#">EN/FR</a></li>
+				<li><a href="index.php?Utilisateur&action=langue">EN/FR</a></li>
 			</ul>
 		</div>		
 			
 		<div class="cart" data-js-cart>
-			<span class="connexion"><a>Connexion</a></span>
+			<span class="connexion"><a href="index.php?Utilisateur&action=connexion">Connexion</a></span>
             <span class="nbItems" data-js-nbItems>0</span>
             <img class="handshake_icon" src="../VEHICULES_DOCCASION_INC/assets/logo_icones/handshake.png" data-js-cart></img>
         </div>
