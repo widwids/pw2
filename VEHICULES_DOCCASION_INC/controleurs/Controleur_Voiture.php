@@ -17,18 +17,7 @@
 				// Switch en fonction de l'action qui nous est envoyée
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch($params["action"]) {
-
-					/* case "tousEnregisTable":
-						//Modof voiture////
-						if (isset($params["nomTable"])) {
-							$data["test"] = $modeleVoiture -> obtenir_liste($params["nomTable"]);
-							var_dump($data);
-						} else {													
-                            echo "ERROR PARAMS";
-                        }
-
-					break; */
-
+					
 					case "afficheDetailVoiture":
 						if (isset($params["noSerie"])) {
 							//affiche photo d'une seul voiture ////

@@ -17,7 +17,6 @@
 				switch ($params["action"]) {
 					
 					case "obtenirNomID":
-						//Modof voiture////
 						if (isset($params["nomTable"])) {
 							$data = $modeleVoiture -> obtenir_Nom_ID($params["nomTable"]);
 							$nomId = $data[0]['Column_name'];
@@ -50,6 +49,7 @@
 						}
 
 					break;
+
 
 					default:
                         $vue = "VoitureListe";		

@@ -143,48 +143,133 @@
 		}
 
 		//Partie Corps
-		public function ajoutCorps() {
-			//Ajouter le corps
+		//Ajouter un corps
+		public function ajouterCorps($nomCorpsFR, $nomCorpsEN) {
+			$requete = "INSERT INTO corps(nomCorpsFR, nomCorpsEN, visibilite) VALUES 
+				(:nomCorpsFR,:nomCorpsEN, 1 )";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":nomCorpsFR", $nomCorpsFR);
+			$requetePreparee -> bindParam(":nomCorpsEN", $nomCorpsEN);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
 		}
 
-		public function modifCorps($id) {
-			//Modificr le corps
+		// Modifi Corps
+		public function modifCorps($id, $nomCorpsFR, $nomCorpsEN, $visibilite) {
+            $requete = "UPDATE corps SET nomCorpsFR = :nomCorpsFR, nomCorpsEN = :nomCorpsEN,
+                visibilite = :visibilite WHERE idCorps = :idCorps";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nomCorpsFR", $nomCorpsFR);
+            $requetePreparee -> bindParam(":nomCorpsEN", $nomCorpsEN);
+            $requetePreparee -> bindParam(":visibilite", $visibilite);
+            $requetePreparee -> bindParam(":idCorps", $idCorps);
+            $requetePreparee -> execute();
 		}
 
 		//Partie Groupe motopropulseur
-		public function ajoutGrpMoto() {
-			//Ajouter motopropulseur
+		public function ajoutGrpMoto($nomMotopro ) {
+			$requete = "INSERT INTO motopropulseur(nomMotopro, visibilite) VALUES 
+				(:nomMotopro,1)";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":nomMotopro", $nomMotopro);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
 		}
 
-		public function modifGrpMoto($id) {
-			//Modifier motopropulseur
+		public function modifGrpMoto($id, $nomCorpsFR, $nomCorpsEN, $visibilite) {
+            $requete = "UPDATE motopropulseur SET nomCorpsFR = :nomCorpsFR, nomCorpsEN = :nomCorpsEN,
+                visibilite = :visibilite WHERE idCorps = :idCorps";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nomCorpsFR", $nomCorpsFR);
+            $requetePreparee -> bindParam(":nomCorpsEN", $nomCorpsEN);
+            $requetePreparee -> bindParam(":v", $visibilite);
+            $requetePreparee -> bindParam(":idCorps", $idCorps);
+            $requetePreparee -> execute();
 		}
 
 		//Partie Carburant
-		public function ajoutCarburant() {
-			//Ajouter carburant
+		public function ajoutCarburant($typeCarburantFR, $typeCarburantEN, $visibilite) {
+			$requete = "INSERT INTO carburant(typeCarburantFR, typeCarburantEN, visibilite) VALUES 
+				(:typeCarburantFR,:typeCarburantEN,:visibilite)";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":typeCarburantFR", $typeCarburantFR);
+			$requetePreparee -> bindParam(":typeCarburantEN", $typeCarburantEN);
+			$requetePreparee -> bindParam(":visibilite", $visibilite);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
 		}
 
-		public function modifCarburant($id) {
-			//Modifier carburant
+		public function modifCarburant($id, $nomCorpsFR, $nomCorpsEN, $visibilite) {
+            $requete = "UPDATE carburant SET nomCorpsFR = :nomCorpsFR, nomCorpsEN = :nomCorpsEN,
+                visibilite = :visibilite WHERE idCorps = :idCorps";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nomCorpsFR", $nomCorpsFR);
+            $requetePreparee -> bindParam(":nomCorpsEN", $nomCorpsEN);
+            $requetePreparee -> bindParam(":v", $visibilite);
+            $requetePreparee -> bindParam(":idCorps", $idCorps);
+            $requetePreparee -> execute();
 		}
 
 		//Partie Transmission
-		public function ajoutTransmission() {
-			//Ajouter transmission
+		public function ajoutTransmission($nomTransmissionFR, $nomTransmissionEN, $visibilite) {
+			$requete = "INSERT INTO transmission(nomTransmissionFR, nomTransmissionEN, visibilite) VALUES 
+				(:nomTransmissionFR,:nomTransmissionEN,:visibilite)";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":nomTransmissionFR", $nomTransmissionFR);
+			$requetePreparee -> bindParam(":nomTransmissionEN", $nomTransmissionEN);
+			$requetePreparee -> bindParam(":visibilite", $visibilite);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
 		}
 
-		public function modifTransmission($id) {
-			//Modifer transmission
+		public function modifTransmission($idTransmission, $nomTransmissionFR, $nomTransmissionEN, $visibilite) {
+            $requete = "UPDATE transmission SET nomTransmissionFR = :nomTransmissionFR, nomTransmissionEN = :nomTransmissionEN,
+                visibilite = :visibilite WHERE idTransmission = :idTransmission";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nomTransmissionFR", $nomTransmissionFR);
+            $requetePreparee -> bindParam(":nomTransmissionEN", $nomTransmissionEN);
+            $requetePreparee -> bindParam(":visibilite", $visibilite);
+            $requetePreparee -> bindParam(":idTransmission", $idTransmission);
+            $requetePreparee -> execute();
 		}
 
 		//Partie Annee
-		public function ajoutAnnee() {
-			//Ajouter une année
+		public function ajoutAnnee($annee, $visibilite) {
+			$requete = "INSERT INTO annee(Annee, visibilite) VALUES 
+				(:Annee,:visibilite)";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":annee", $Annee);
+			$requetePreparee -> bindParam(":visibilite", $visibilite);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
 		}
-
-		public function modifAnnee($id) {
-			//Modifier une année
+		
+		public function modifAnnee($annee, $visibilite) {
+            $requete = "UPDATE annee SET annee = :annee, visibilite = :visibilite WHERE annee = :annee";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":annee", $annee);
+            $requetePreparee -> bindParam(":visibilite", $visibilite);
+            $requetePreparee -> execute();
 		}
 
 		//Partie Photo
