@@ -1,12 +1,12 @@
 
 <section class="yu-section">
 
-    <div>
+    <div class="yu-table-groupeMP">
         <a class="yu-btn-ajouter" href="index.php?Utilisateur&action=FormulaireAjouterGroupeMP">Ajouter groupe motopropulseur</a>
     </div>
 
     <table class="yu-table yu-table-groupeMP">
-        
+               
         <tr>
             <th>Nom motopropulseur</th>
             <th>Visibilité</th>
