@@ -3,7 +3,6 @@ class Voiture {
         this._el = el;
 
         
-    }
-
+    } 
     
 }
