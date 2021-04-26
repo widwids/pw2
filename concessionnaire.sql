@@ -150,7 +150,7 @@ CREATE TABLE utilisateur (
 	pseudonyme VARCHAR(20) UNIQUE NOT NULL,
 	motDePasse VARCHAR(250) NOT NULL,
 	codeOubliMDP VARCHAR(250),
-	dateExpirationCode,
+	dateExpirationCode DATE,
 	villeId SMALLINT UNSIGNED NOT NULL,
 	privilegeId SMALLINT UNSIGNED NOT NULL,
 	visibilite BOOLEAN NOT NULL,
