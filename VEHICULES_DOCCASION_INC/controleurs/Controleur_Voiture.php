@@ -87,7 +87,7 @@
                         }  	
 					break;
 
-					case "formuAjouterVoiture":
+					case "FormulaireAjouterVoiture":
 
 						$data["corps"] = $modeleVoiture -> obtenir_tous('corps');
 						$data["motopropulseur"] = $modeleVoiture -> obtenir_tous('motopropulseur');
@@ -97,7 +97,7 @@
 						$data["photo"] = $modeleVoiture -> obtenir_tous('photo');
 
 						$vue = "FormulaireAjouterVoiture";
-						var_dump($data);
+						//var_dump($data);
 						$this->afficheVue($vue,$data);
 
 					break;
