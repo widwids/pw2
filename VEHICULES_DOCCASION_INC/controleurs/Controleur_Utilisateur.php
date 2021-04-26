@@ -7,7 +7,6 @@
             $modeleUtilisateur =  new Modele_Utilisateur();
 
             $this -> afficheVue("Head");
-			$this -> afficheVue("Header");
 
             if(isset($params["action"])) {
 				$commande = $params["action"]; 
@@ -37,6 +36,8 @@
                     if(isset($_SESSION["utilisateur"])) {
                         $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
                         $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
+                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                        $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
                         $this -> afficheVue("Compte", $data);
                     } else {
                         header("Location: index.php?Utilisateur&action=connexion"); //Redirection vers le formulaire d'authentification
@@ -80,9 +81,9 @@
                         trigger_error("Un ou plusieurs paramètres manquants.");
                     }
                     break;
-				case "supprimeUtilisateur":
+				case "supprime":
                     if(isset($_SESSION["admin"])) {
-                        if(isset($params["id"])) {
+                        if (isset($params["nomTable"]) && isset($params["id"])) {
                             $data["utilisateur"] = $modeleUtilisateur -> supprime('utilisateur', 'idUtilisateur', 
                             $params["id"]);
                             $data["utilisateurs"] = $modeleUtilisateur -> obtenir_tous();
@@ -105,6 +106,7 @@
 							header("Location: index.php?Utilisateur&action=compte");
 						} else {
 							$messageErreur = "La combinaison de l'identifiant et du mot de passe est invalide.";
+                            $this -> afficheVue("Header");
 							$this -> afficheFormOuvertureSesssion($messageErreur); //Redirection vers le formulaire d'authentification
 						}
 					} else
