@@ -18,19 +18,19 @@
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch($params["action"]) {
 					
-					case "afficheDetailVoiture":
+					case "detailVoiture":
 						if (isset($params["noSerie"])) {
 							//affiche photo d'une seul voiture ////
-							$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+							//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
 							// a commenter lorsque vous aurrez votre ($params["noSerie"])
 							$voiture = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
 							$photos = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);
 							
-							var_dump($photos);
-							var_dump($voiture);
+							//var_dump($photos);
+							//var_dump($voiture);
 							
-							//$vue = "";
-							//$this->afficheVue($vue,$photo,$voiture); 
+							$vue = "detailVoiture";
+							$this->afficheVue($vue,$photo,$voiture); 
 						} else {													
                             echo "ERROR PARAMS";
                         }
