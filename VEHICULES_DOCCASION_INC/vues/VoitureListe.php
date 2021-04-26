@@ -20,7 +20,7 @@
 //var_dump($data);
 	foreach ($data as $voiture) {
 ?>
-	<div class="product-card cart" data-js-inventaire="" data-js-produits="">
+	<div class="product-card" data-js-inventaire="" data-js-produits="">
 		<div class="product-image">
 	 		<img src="assets/images/<?php echo $voiture["nomPhoto"]; ?>.jpg" class="product-list__image">
 		</div>

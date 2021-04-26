@@ -1,5 +1,7 @@
 /* GENERIC */
-
+* {
+    color: white;
+}
 /* ELEMENTS */
 
 body {
@@ -155,12 +157,13 @@ td input[type=number] {
 
 .filtre {
     text-align: center;
-    
 }
 
 .select {
     width: 180px;
     text-align: center;
+    background-color: black;
+
 }
 
 .product-list {
