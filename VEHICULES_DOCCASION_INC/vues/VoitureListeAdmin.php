@@ -1,7 +1,7 @@
 
 <section class="yu-section">
 
-    <div>
+    <div class="yu-table-voiture">
         <a class="yu-btn-ajouter" href="index.php?Utilisateur&action=FormulaireAjouterVoiture">Ajouter un véhicule</a>
     </div>
 
