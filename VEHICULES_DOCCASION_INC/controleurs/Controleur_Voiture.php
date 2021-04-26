@@ -86,6 +86,21 @@
                             echo "ERROR PARAMS";
                         }  	
 					break;
+
+					case "formuAjouterVoiture":
+
+						$data["corps"] = $modeleVoiture -> obtenir_tous('corps');
+						$data["motopropulseur"] = $modeleVoiture -> obtenir_tous('motopropulseur');
+						$data["carburant"] = $modeleVoiture -> obtenir_tous('carburant');
+						$data["transmission"] = $modeleVoiture ->obtenir_tous('transmission');
+						$data["annee"] = $modeleVoiture -> obtenir_tous('annee');
+						$data["photo"] = $modeleVoiture -> obtenir_tous('photo');
+
+						$vue = "FormulaireAjouterVoiture";
+						var_dump($data);
+						$this->afficheVue($vue,$data);
+
+					break;
 					
 					case "listeCorps":
 						//Modof voiture////
