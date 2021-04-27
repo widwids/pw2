@@ -8,7 +8,7 @@
 			$modeleVoiture = new Modele_Voiture();
 
 			$this->afficheVue("Head");
-			$this->afficheVue("Header");
+			//$this->afficheVue("Header");
 			
 			if (isset($params["action"])) {
 				// Modèle et vue vides par défaut
@@ -17,173 +17,243 @@
 				// Switch en fonction de l'action qui nous est envoyée
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch($params["action"]) {
-					
 					case "detailVoiture":
-						if (isset($params["noSerie"])) {
-							//affiche photo d'une seul voiture ////
-							//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
-							// a commenter lorsque vous aurrez votre ($params["noSerie"])
-							$voiture = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
-							$photos = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);
-							
-							//var_dump($photos);
-							//var_dump($voiture);
-							
-							$vue = "detailVoiture";
-							$this->afficheVue($vue,$photo,$voiture); 
-						} else {													
-                            echo "ERROR PARAMS";
-                        }
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["noSerie"])) {
+								//affiche photo d'une seul voiture ////
+								//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+								// a commenter lorsque vous aurrez votre ($params["noSerie"])
+								$voiture = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+								$photos = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);								
+								$vue = "detailVoiture";
+								$this->afficheVue($vue,$photo,$voiture); 
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						} else {
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 
 					break;
 				
 					case "modifVoiture":
-						//Modof voiture////
-						if (isset($params["noSerie"]) &&
-							isset($params["descriptionFR"]) &&
-							isset($params["descriptionEN"]) &&
-							isset($params["visibilite"]) &&
-							isset($params["kilometrage"]) &&
-							isset($params["dateArrivee"]) &&
-							isset($params["prixAchat"]) &&
-							isset($params["groupeMPid"]) &&
-							isset($params["corpsId"]) &&
-							isset($params["carburanstsId"]) &&
-							isset($params["modeleId"]) &&
-							isset($params["transmissionId"]) &&
-							isset($params["anneeId"]))  {
-                            $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
-							//$vue = "";	
-                           // $this->afficheVue($vue,$data);
-                        } else {													
-                            echo "ERROR PARAMS";
-                        } 
-							break;
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["noSerie"]) &&
+								isset($params["descriptionFR"]) &&
+								isset($params["descriptionEN"]) &&
+								isset($params["visibilite"]) &&
+								isset($params["kilometrage"]) &&
+								isset($params["dateArrivee"]) &&
+								isset($params["prixAchat"]) &&
+								isset($params["groupeMPid"]) &&
+								isset($params["corpsId"]) &&
+								isset($params["carburanstsId"]) &&
+								isset($params["modeleId"]) &&
+								isset($params["transmissionId"]) &&
+								isset($params["anneeId"]))  {
+								$modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+								//$vue = "";	
+							// $this->afficheVue($vue,$data);
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						} 
+					break;
 
 					case "ajoutVoiture":
-						if (isset($params["noSerie"]) &&
-							isset($params["descriptionFR"]) &&
-							isset($params["descriptionEN"]) &&
-							isset($params["visibilite"]) &&
-							isset($params["kilometrage"]) &&
-							isset($params["dateArrivee"]) &&
-							isset($params["prixAchat"]) &&
-							isset($params["groupeMPid"]) &&
-							isset($params["corpsId"]) &&
-							isset($params["carburanstsId"]) &&
-							isset($params["modeleId"]) &&
-							isset($params["transmissionId"]) &&
-							isset($params["anneeId"])) {
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["noSerie"]) &&
+								isset($params["descriptionFR"]) &&
+								isset($params["descriptionEN"]) &&
+								isset($params["visibilite"]) &&
+								isset($params["kilometrage"]) &&
+								isset($params["dateArrivee"]) &&
+								isset($params["prixAchat"]) &&
+								isset($params["groupeMPid"]) &&
+								isset($params["corpsId"]) &&
+								isset($params["carburanstsId"]) &&
+								isset($params["modeleId"]) &&
+								isset($params["transmissionId"]) &&
+								isset($params["anneeId"])) {
 
-							$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
-							
-							if ($valide) {									
-								//echo "merci";		
-							} else {
-								echo "ERROR";
-							}
-						} else {													
-                            echo "ERROR PARAMS";
-                        }  	
+								$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+								
+								if ($valide) {									
+									//echo "merci";		
+								} else {
+									echo "ERROR";
+								}
+							} else {													
+								echo "ERROR PARAMS";
+							}  	
+						}else {
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "suppressionEnreg": // visibilite = 0
-						if (isset($params["nomTable"]) && isset($params["id"])) {
-							$nomId = $modeleVoiture -> obtenir_nom_id($params["nomTable"]);
-							var_dump($nomId);
-							//$nomId = $data[0]['Column_name'];
-							$modeleVoiture -> supprime($params["nomTable"], $nomId, $params["id"]);
-						} else {													
-							echo "ERROR PARAMS";
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["nomTable"]) && isset($params["id"])) {
+								$nomId = $modeleVoiture -> obtenir_nom_id($params["nomTable"]);
+								var_dump($nomId);
+								//$nomId = $data[0]['Column_name'];
+								$modeleVoiture -> supprime($params["nomTable"], $nomId, $params["id"]);
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
 						}
 					break;
 
 					case "FormulaireAjouterVoiture":
-
-						$data["corps"] = $modeleVoiture -> obtenir_tous('corps');
-						$data["motopropulseur"] = $modeleVoiture -> obtenir_tous('motopropulseur');
-						$data["carburant"] = $modeleVoiture -> obtenir_tous('carburant');
-						$data["transmission"] = $modeleVoiture ->obtenir_tous('transmission');
-						$data["annee"] = $modeleVoiture -> obtenir_tous('annee');
-						$data["photo"] = $modeleVoiture -> obtenir_tous('photo');
-
-						$vue = "FormulaireAjouterVoiture";
-						//var_dump($data);
-						$this->afficheVue($vue,$data);
-
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$data["corps"] = $modeleVoiture -> obtenir_tous('corps');
+							$data["motopropulseur"] = $modeleVoiture -> obtenir_tous('motopropulseur');
+							$data["carburant"] = $modeleVoiture -> obtenir_tous('carburant');
+							$data["transmission"] = $modeleVoiture ->obtenir_tous('transmission');
+							$data["annee"] = $modeleVoiture -> obtenir_tous('annee');
+							$data["photo"] = $modeleVoiture -> obtenir_tous('photo');
+							$vue = "FormulaireAjouterVoiture";
+							//var_dump($data);
+							$this->afficheVue($vue,$data);
+						}else {
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 					
 					case "ListeGroupeMP":
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 							$data = $modeleVoiture -> obtenir_tous('motopropulseur');
 							$vue = "ListeGroupeMPadmin";
 							//var_dump($data);
 							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "FormulaireAjouterGroupeMP":
-						$vue = "FormulaireAjouterGroupeMP";
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$vue = "FormulaireAjouterGroupeMP";
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "ListeCorps":
-						$data = $modeleVoiture -> obtenir_tous('corps');
-						$vue = "ListeCorpAdmin";
-						//var_dump($data);
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$data = $modeleVoiture -> obtenir_tous('corps');
+							$vue = "ListeCorpAdmin";
+							//var_dump($data);
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 					
 					case "FormulaireAjouterCorp":
-						$vue = "FormulaireAjouterCorp";
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$vue = "FormulaireAjouterCorp";
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "modifCorps":
-						//Modof voiture////
-						if (isset($params["id"]) &&
-							isset($params["nomCorpsFR"]) &&
-							isset($params["nomCorpsEN"]) &&
-							isset($params["visibilite"])) {
-							
-							$modeleVoiture ->modifCorps($params["id"], $params["nomCorpsFR"], $params["nomCorpsEN"] ,$params["visibilite"]);
-							
-						} else {													
-							echo "ERROR PARAMS";
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["id"]) &&
+								isset($params["nomCorpsFR"]) &&
+								isset($params["nomCorpsEN"]) &&
+								isset($params["visibilite"])) {
+								
+								$modeleVoiture ->modifCorps($params["id"], $params["nomCorpsFR"], $params["nomCorpsEN"] ,$params["visibilite"]);
+								
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
 						}
 					break;
 					case "ListeCarburant":
-						$data = $modeleVoiture -> obtenir_tous('carburant');
-						$vue = "ListeCarburantAdmin";
-						//var_dump($data);
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$data = $modeleVoiture -> obtenir_tous('carburant');
+							$vue = "ListeCarburantAdmin";
+							//var_dump($data);
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "FormulaireAjouterCarburant":
-						$vue = "FormulaireAjouterCarburant";
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$vue = "FormulaireAjouterCarburant";
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "ListeModele":
-						$data = $modeleVoiture -> obtenir_tous('modele');
-						$vue = "ListeModeleAdmin";
-						//var_dump($data);
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$data = $modeleVoiture -> obtenir_tous('modele');
+							$vue = "ListeModeleAdmin";
+							//var_dump($data);
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 					
 					case "FormulaireAjouterModele":
-						$vue = "FormulaireAjouterModele";
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$vue = "FormulaireAjouterModele";
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "ListeTransmission":
-						$data = $modeleVoiture -> obtenir_tous('transmission');
-						$vue = "ListeTransmissionAdmin";
-						//var_dump($data);
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$data = $modeleVoiture -> obtenir_tous('transmission');
+							$vue = "ListeTransmissionAdmin";
+							//var_dump($data);
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "FormulaireAjouterTransmission":
-						$vue = "FormulaireAjouterTransmission";
-						$this->afficheVue($vue,$data);
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$vue = "FormulaireAjouterTransmission";
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 					break;
 
 					case "ListeVehicule":
@@ -201,7 +271,7 @@
 
 				// affiche liste voiture//
 				$vue = "VoitureListe";		
-				$data = $modeleVoiture->obtenirTous();
+				$data = $modeleVoiture->obtenirListeVoiture();
 				//var_dump($data);
 				$this->afficheVue($vue,$data); 
 				///////////////////////////////
