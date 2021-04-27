@@ -16,39 +16,33 @@
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch ($params["action"]) {
 					
-					case "obtenirNomID":
+					/* case "obtenirNomID":
 						if (isset($params["nomTable"])) {
-							$data = $modeleVoiture -> obtenir_Nom_ID($params["nomTable"]);
-							$nomId = $data[0]['Column_name'];
+							//$data = $modeleVoiture -> obtenir_Nom_ID($params["nomTable"]);
+							//$nomId = $data[0]['Column_name'];
+							$data = $modeleVoiture -> obtenir_nom_id($params["nomTable"]);
+
 							var_dump($nomId);
 						} else {													
 							echo "ERROR PARAMS";
 						}
 
-					break;
+					break; */
 
-					case "suppressionEnreg": // visibilite = 0
-						if (isset($params["nomTable"]) && isset($params["id"])) {
-							$modeleVoiture = new Modele_Voiture();
-							$data = $modeleVoiture -> obtenir_Nom_ID($params["nomTable"]);
-							$nomId = $data[0]['Column_name'];
-							$data = $modeleVoiture -> supprimeMed($params["nomTable"], $nomId, $params["id"]);
-						} else {													
-							echo "ERROR PARAMS";
-						}
-						break;						
+											
 
-					case "obtenirTous":
+					/* case "obtenirTous":
 						//Modof voiture////
 						if (isset($params["nomTable"])) {
-							$modeleVoiture = new Modele_Voiture();
-							$data["test"] = $modeleVoiture -> obtenir_liste($params["nomTable"]);
+							$modeleVoiture -> modifCorps($params["nomTable"]);
 							var_dump($data);
 						} else {													
 							echo "ERROR PARAMS";
-						}
+						}		
 
-					break;
+					break; */
+
+					
 
 
 					default:

@@ -46,7 +46,7 @@
 			}
 		}
 
-		public function obtenirTous() {
+		public function obtenirListeVoiture() {
 			try {
 				$stmt = $this->connexion->query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, dateArrivee, prixAchat,
 				nomMotopro, nomCorpsFR, anneeId, nomModele, nomMarque, nomPhoto, ordre
@@ -125,14 +125,14 @@
 
 		}
 
-		public function obtenir_Nom_ID($nomTable) { //Autres tables
+		/* public function obtenir_Nom_ID($nomTable) { //Autres tables
 			$requete = "SHOW KEYS FROM $nomTable WHERE Key_name = 'PRIMARY'";
 			$resultats = $this -> connexion -> query($requete);
 			$resultats -> execute();
 			return $resultats -> fetchAll();
-		}
+		} */
 
-		public function supprimeMed($nomTable, $nomId, $id) {
+		/* public function supprimeMed($nomTable, $nomId, $id) {
 			$requete = "UPDATE $nomTable SET visibilite = 0 WHERE $nomId = :id";
 			$requetePreparee = $this -> connexion -> prepare($requete);
 			$requetePreparee -> bindParam(":id", $id);
@@ -140,7 +140,7 @@
 
 			//Retour du nombre de rangées affectées 
 			return $requetePreparee -> rowCount();
-		}
+		} */
 
 		//Partie Corps
 		//Ajouter un corps
@@ -157,10 +157,17 @@
 			else
 				return false;
 		}
+		/* public function obtenir_nom_idd($nomTable) {
+            $requete = "SHOW KEYS FROM $nomTable WHERE Key_name = 'PRIMARY'";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetch()[4];
+        } */
 
 		// Modifi Corps
-		public function modifCorps($id, $nomCorpsFR, $nomCorpsEN, $visibilite) {
-            $requete = "UPDATE corps SET nomCorpsFR = :nomCorpsFR, nomCorpsEN = :nomCorpsEN,
+		public function modifCorps($idCorps, $nomCorpsFR, $nomCorpsEN, $visibilite) {
+            echo 'dddd';
+			$requete = "UPDATE corps SET nomCorpsFR = :nomCorpsFR, nomCorpsEN = :nomCorpsEN,
                 visibilite = :visibilite WHERE idCorps = :idCorps";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nomCorpsFR", $nomCorpsFR);
@@ -263,7 +270,7 @@
 			else
 				return false;
 		}
-		
+
 		public function modifAnnee($annee, $visibilite) {
             $requete = "UPDATE annee SET annee = :annee, visibilite = :visibilite WHERE annee = :annee";
 			$requetePreparee = $this -> connexion -> prepare($requete);

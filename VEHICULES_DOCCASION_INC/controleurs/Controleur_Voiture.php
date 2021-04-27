@@ -87,6 +87,17 @@
                         }  	
 					break;
 
+					case "suppressionEnreg": // visibilite = 0
+						if (isset($params["nomTable"]) && isset($params["id"])) {
+							$nomId = $modeleVoiture -> obtenir_nom_id($params["nomTable"]);
+							var_dump($nomId);
+							//$nomId = $data[0]['Column_name'];
+							$modeleVoiture -> supprime($params["nomTable"], $nomId, $params["id"]);
+						} else {													
+							echo "ERROR PARAMS";
+						}
+					break;
+
 					case "FormulaireAjouterVoiture":
 
 						$data["corps"] = $modeleVoiture -> obtenir_tous('corps');
@@ -102,26 +113,83 @@
 
 					break;
 					
-					case "listeCorps":
-						//Modof voiture////
+					case "ListeGroupeMP":
+							$data = $modeleVoiture -> obtenir_tous('motopropulseur');
+							$vue = "ListeGroupeMPadmin";
+							//var_dump($data);
+							$this->afficheVue($vue,$data);
+					break;
 
-							$data = $modeleVoiture->obtenirCorps();
-							var_dump($data);
+					case "FormulaireAjouterGroupeMP":
+						$vue = "FormulaireAjouterGroupeMP";
+						$this->afficheVue($vue,$data);
+					break;
 
+					case "ListeCorps":
+						$data = $modeleVoiture -> obtenir_tous('corps');
+						$vue = "ListeCorpAdmin";
+						//var_dump($data);
+						$this->afficheVue($vue,$data);
 					break;
 					
-					case "modifCorps":
-						//Modof voiture////
-
-							$data = $modeleVoiture->obtenirCorps();
-							var_dump($data);
-
+					case "FormulaireAjouterCorp":
+						$vue = "FormulaireAjouterCorp";
+						$this->afficheVue($vue,$data);
 					break;
 
-					case "listeVoitures":
+					case "modifCorps":
+						//Modof voiture////
+						if (isset($params["id"]) &&
+							isset($params["nomCorpsFR"]) &&
+							isset($params["nomCorpsEN"]) &&
+							isset($params["visibilite"])) {
+							
+							$modeleVoiture ->modifCorps($params["id"], $params["nomCorpsFR"], $params["nomCorpsEN"] ,$params["visibilite"]);
+							
+						} else {													
+							echo "ERROR PARAMS";
+						}
+					break;
+					case "ListeCarburant":
+						$data = $modeleVoiture -> obtenir_tous('carburant');
+						$vue = "ListeCarburantAdmin";
+						//var_dump($data);
+						$this->afficheVue($vue,$data);
+					break;
+
+					case "FormulaireAjouterCarburant":
+						$vue = "FormulaireAjouterCarburant";
+						$this->afficheVue($vue,$data);
+					break;
+
+					case "ListeModele":
+						$data = $modeleVoiture -> obtenir_tous('modele');
+						$vue = "ListeModeleAdmin";
+						//var_dump($data);
+						$this->afficheVue($vue,$data);
+					break;
+					
+					case "FormulaireAjouterModele":
+						$vue = "FormulaireAjouterModele";
+						$this->afficheVue($vue,$data);
+					break;
+
+					case "ListeTransmission":
+						$data = $modeleVoiture -> obtenir_tous('transmission');
+						$vue = "ListeTransmissionAdmin";
+						//var_dump($data);
+						$this->afficheVue($vue,$data);
+					break;
+
+					case "FormulaireAjouterTransmission":
+						$vue = "FormulaireAjouterTransmission";
+						$this->afficheVue($vue,$data);
+					break;
+
+					case "ListeVehicule":
 						// affiche liste voiture//
-						$vue = "VoitureListe";		
-						$data = $modeleVoiture->obtenirTous();
+						$vue = "VoitureListeAdmin";		
+						$data = $modeleVoiture->obtenirListeVoiture();
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 
 						///////////////////////////////
