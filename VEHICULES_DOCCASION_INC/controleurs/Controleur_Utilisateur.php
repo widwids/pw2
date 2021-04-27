@@ -17,20 +17,6 @@
         
             //Détermine la vue, remplir le modèle approprié
             switch($commande) {
-                case "accesEmploye":
-                    //Page accessible seulement par les employés
-                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
-                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
-                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
-                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
-                        $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
-                        $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
-                        $this -> afficheVue("AccesEmploye", $data);
-                    } else {
-                        header("Location: index.php?Utilisateur&action=connexion"); //Redirection vers le formulaire d'authentification
-                    }
-                    break;
                 case "compte":
                     //Afficher le compte d'un utilisateur spécifique
                     if(isset($_SESSION["utilisateur"])) {
@@ -40,7 +26,8 @@
                         $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
                         $this -> afficheVue("Compte", $data);
                     } else {
-                        header("Location: index.php?Utilisateur&action=connexion"); //Redirection vers le formulaire d'authentification
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion"); 
                     }
 					break;
                 case "creationCompte":
@@ -81,16 +68,6 @@
                         trigger_error("Un ou plusieurs paramètres manquants.");
                     }
                     break;
-				case "supprime":
-                    if(isset($_SESSION["admin"])) {
-                        if (isset($params["nomTable"]) && isset($params["id"])) {
-                            $modeleUtilisateur -> obtenir_Nom_Id($params["nomTable"]);
-                            $modeleUtilisateur -> supprime('utilisateur', 'idUtilisateur', 
-                            $params["id"]);
-                            $data["utilisateurs"] = $modeleUtilisateur -> obtenir_tous();
-                        }
-                    }
-					break;
 				case "authentification":
 					if(isset($params["pseudonyme"], $params["motDePasse"])) {
 						$authentifier = $modeleUtilisateur -> authentification($params["pseudonyme"], 
@@ -107,10 +84,12 @@
 						} else {
 							$messageErreur = "La combinaison de l'identifiant et du mot de passe est invalide.";
                             $this -> afficheVue("Header");
-							$this -> afficheFormOuvertureSesssion($messageErreur); //Redirection vers le formulaire d'authentification
+                            //Redirection vers le formulaire d'authentification
+							$this -> afficheFormOuvertureSesssion($messageErreur); 
 						}
 					} else
-						header("Location: index.php?Utilisateur&action=connexion"); //Redirection vers le formulaire d'authentification
+                        //Redirection vers le formulaire d'authentification
+						header("Location: index.php?Utilisateur&action=connexion"); 
 					break;
 				case "connexion":
 					//Afficher le formulaire d'authentification
@@ -131,6 +110,39 @@
 					session_destroy();
 					//Redirection vers la page d'accueil
 					header("Location: index.php");
+					break;
+                case "listeVilles":
+                    break;
+                case "listeProvinces":
+                
+                
+                case "accesEmploye":
+                    //Page accessible seulement par les employés
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
+                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
+                        $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
+                        $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
+                        $this -> afficheVue("AccesEmploye", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                case "suppression":
+                    //Suppression d'un élément dans n'importe quelle table
+                    if(isset($_SESSION["admin"])) {
+                        if (isset($params["nomTable"]) && isset($params["id"])) {
+                            $nomId = $modeleUtilisateur -> obtenir_nom_id($params["nomTable"]);
+                            $modeleUtilisateur -> supprime($params["nomTable"], $nomId, 
+                            $params["id"]);
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
 					break;
 				default:
                     trigger_error("Action invalide.");

@@ -8,6 +8,14 @@
 			$this->connexion->exec("SET NAMES'UTF8'"); // Affichage des caractères UTF8
 		}
 
+        public function obtenir_nom_id($nomTable) {
+			$requete = "SELECT column_name FROM information_schema.key_column_usage WHERE constraint_schema = 
+                'concessionnaire' AND constraint_name = 'primary' AND table_name = '$nomTable'";
+			$resultats = $this -> connexion -> query($requete);
+			$resultats -> execute();
+			return $resultats -> fetch()[0];
+		}
+
 		//Lecture(READ)
         public function obtenir_par_id($nomTable, $nomId, $id) {
             $requete = "SELECT * FROM $nomTable WHERE $nomId =:id";
