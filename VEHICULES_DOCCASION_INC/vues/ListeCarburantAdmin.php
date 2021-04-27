@@ -14,19 +14,17 @@
             <th>Actions</th>
         </tr>
 
-        <tr>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>OUI</td>
-            <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
-        </tr>
+        <?php foreach ($data as $carburant) { ?>
 
-        <tr>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>NON</td>
-            <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
-        </tr>
+            <tr>
+                <td><?= $carburant["typeCarburantFR"]?></td>
+                <td><?= $carburant["typeCarburantEN"]?></td>
+                <td><?= ($carburant["visibilite"] ==1) ? "OUI" : "NON" ?></td>
+                <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
+            </tr>
+
+        <?php }?>
+
 
     </table>
 

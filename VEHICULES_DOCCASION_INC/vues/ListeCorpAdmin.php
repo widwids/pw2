@@ -14,19 +14,16 @@
             <th>Actions</th>
         </tr>
 
+    <?php foreach ($data as $corp) { ?>
+
         <tr>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>OUI</td>
+            <td><?= $corp["nomCorpsFR"]?></td>
+            <td><?= $corp["nomCorpsEN"]?></td>
+            <td><?= ($corp["visibilite"] ==1) ? "OUI" : "NON" ?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
 
-        <tr>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>NON</td>
-            <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
-        </tr>
+    <?php }?>
 
     </table>
 

@@ -13,8 +13,8 @@
             <th>Kilométrage</th>
             <th>Date Arrivée</th>
             <th>Prix Achat</th>
+            <th>Marque</th>
             <th>Modèle</th>
-            <th>Transmission</th>
             <th>Année</th>
             <th>Actions</th>
         </tr>
@@ -25,11 +25,11 @@
             <td class="yu-image"><img src="./assets/images/<?= $voiture["nomPhoto"] ?>.jpg" alt="car"></td>
             <td><?= $voiture["noSerie"]?></td>
             <td><?= $voiture["kilometrage"] ?></td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>TEST</td>
+            <td><?= $voiture["dateArrivee"]?></td>
+            <td><?= $voiture["prixAchat"]?></td>
+            <td><?= $voiture["nomMarque"]?></td>
+            <td><?= $voiture["nomModele"]?></td>
+            <td><?= $voiture["anneeId"]?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
 
