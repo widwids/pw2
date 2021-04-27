@@ -8,11 +8,15 @@
 	<link rel="stylesheet" href="assets/styles/header.css">
 	<link rel="stylesheet" href="assets/styles/footer.css">
 	<link rel="stylesheet" href="assets/styles/admin.css">
+	<link rel="stylesheet" href="assets/styles/connexion.css">
 	
 	<!-- Script -->
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
 	<script type="text/javascript" src="assets/scripts/classMapping.js"></script>
+	<script type="text/javascript" src="assets/scripts/connexion.js"></script>
+
 	<script type="text/javascript" src="assets/scripts/script.js" defer></script>
+
 
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
