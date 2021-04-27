@@ -19,10 +19,12 @@
             <th>Actions</th>
         </tr>
 
+        <?php foreach ($data as $voiture) { ?>
+
         <tr>
-            <td class="yu-image"><img src="./assets/images/434660.jpg" alt="car"></td>
+            <td class="yu-image"><img src="./assets/images/<?= $voiture["nomPhoto"] ?>.jpg" alt="car"></td>
             <td>TEST</td>
-            <td>TEST</td>
+            <td><?= $voiture["kilometrage"] ?></td>
             <td>TEST</td>
             <td>TEST</td>
             <td>TEST</td>
@@ -31,17 +33,11 @@
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
 
-        <tr>
-            <td class="yu-image"><img src="./assets/images/33159.jpg" alt="car"></td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td>TEST</td>
-            <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
-        </tr>
+            
+        <?php }?>
+
+
+
 
     </table>
 
