@@ -57,10 +57,9 @@
 
                             if($ajoute)
                                 //Redirection vers la page de connexion
-                                var_dump($nouvelUtilisateur);
-                                //header("Location: index.php?utilisateur&action=connexion");
+                                header("Location: index.php?Utilisateur&action=connexion");
                             else
-                                $this -> afficheFormAjoutUtilisateur();   
+                                $this -> afficheFormAjoutUtilisateur();
                         } else {
                             //Afficher le formulaire d'ajout d'un utilisateur
                             $this -> afficheFormAjoutUtilisateur($messageErreur);   
@@ -235,6 +234,7 @@
             //Afficher le formulaire d'ajout d'un Utilisateur
             //Aller porter les erreurs dans la vue
             $data["erreurs"] = $messageErreur;
+            $this -> afficheVue("Header");
             $this -> afficheVue("CreationCompte", $data);
         }
 
@@ -242,6 +242,7 @@
             //Afficher le formulaire d'ouvertureSession
             //Aller porter les erreurs dans la vue
             $data["erreurs"] = $messageErreur;
+            $this -> afficheVue("Header");
             $this -> afficheVue("Connexion", $data);
         }
     }
