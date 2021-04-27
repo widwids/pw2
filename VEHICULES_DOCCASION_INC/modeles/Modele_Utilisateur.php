@@ -79,7 +79,7 @@
                 $requetePreparee -> execute();
             } else {
                 //Ajout d'un nouvel utilisateur -- CREATE
-                $requete = "INSERT INTO utilisateur (prenom, nom, dateNaissance, adresse, codePostal, telephone, 
+                $requete = "INSERT INTO utilisateur(prenom, nom, dateNaissance, adresse, codePostal, telephone, 
                     cellulaire, courriel, pseudonyme, motDePasse, villeId, privilegeId, visiblite) VALUES 
                     (:pr,:nm,:dN,:ad,:cP,:te,:ce,:co,:ps,:mP,:vId, :pId, 1)";
                 $requetePreparee = $this -> connexion -> prepare($requete);
