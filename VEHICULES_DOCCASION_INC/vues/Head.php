@@ -16,11 +16,13 @@
 	<script type="text/javascript" src="assets/scripts/connexion.js"></script>
 
 	<script type="text/javascript" src="assets/scripts/script.js" defer></script>
+	<script type="text/javascript" src="assets/scripts/nav.js" defer></script>
 
 
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Overpass:wght@100;400&display=swap" rel="stylesheet"> 
 
 </head>
 <body>
