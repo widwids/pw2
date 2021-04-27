@@ -13,17 +13,15 @@
             <th>Actions</th>
         </tr>
 
-        <tr>
-            <td>TEST</td>
-            <td>OUI</td>
-            <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
-        </tr>
+    <?php foreach ($data as $groupeMP) { ?>
 
         <tr>
-            <td>TEST</td>
-            <td>NON</td>
+            <td><?= $groupeMP["nomMotopro"]?></td>
+            <td><?= ($groupeMP["visibilite"] ==1) ? "OUI" : "NON" ?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
+    
+    <?php }?>
 
     </table>
 
