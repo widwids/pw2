@@ -150,14 +150,13 @@
         /*--------------- Table ville ---------------*/
 
         //Ajouter une ville
-        public function ajouterVille($nomVilleFR, $nomVilleEN, $provinceCode, $visibilite) {
+        public function ajouterVille($nomVilleFR, $nomVilleEN, $provinceCode) {
             $requete = "INSERT INTO ville(nomVilleFR, nomVilleEN, provinceCode, visibilite) VALUES 
-                (:nFR,:nEN,:pC, :v)";
+                (:nFR,:nEN,:pC, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomVilleFR);
             $requetePreparee -> bindParam(":nEN", $nomVilleEN);
             $requetePreparee -> bindParam(":pC", $provinceCode);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> execute();
             
             if($requetePreparee -> rowCount() > 0)
@@ -182,14 +181,13 @@
         /*--------------- Table province ---------------*/
 
         //Ajouter une province
-        public function ajouterProvince($nomProvinceFR, $nomProvinceEN, $paysId, $visibilite) {
+        public function ajouterProvince($nomProvinceFR, $nomProvinceEN, $paysId) {
             $requete = "INSERT INTO province(nomProvinceFR, nomProvinceEN, paysId, visibilite) VALUES 
-                (:nFR,:nEN,:pId, :v)";
+                (:nFR,:nEN,:pId, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomProvinceFR);
             $requetePreparee -> bindParam(":nEN", $nomProvinceEN);
             $requetePreparee -> bindParam(":pId", $paysId);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> execute();
             
             if($requetePreparee -> rowCount() > 0)
@@ -214,12 +212,11 @@
         /*--------------- Table pays ---------------*/
 
         //Ajouter un pays
-        public function ajouterPays($nomPaysFR, $nomPaysEN, $visibilite) {
-            $requete = "INSERT INTO pays(nomPaysFR, nomPaysEN, visibilite) VALUES (:nFR,:nEN, :v)";
+        public function ajouterPays($nomPaysFR, $nomPaysEN) {
+            $requete = "INSERT INTO pays(nomPaysFR, nomPaysEN, visibilite) VALUES (:nFR,:nEN, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomPaysFR);
             $requetePreparee -> bindParam(":nEN", $nomPaysEN);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> execute();
             
             if($requetePreparee -> rowCount() > 0)
@@ -242,12 +239,11 @@
         /*--------------- Table taxe ---------------*/
 
         //Ajouter une taxe
-        public function ajouterTaxe($nomTaxeFR, $nomTaxeEN, $visibilite) {
-            $requete = "INSERT INTO taxe(nomTaxeFR, nomTaxeEN, visibilite) VALUES (:nFR,:nEN, :v)";
+        public function ajouterTaxe($nomTaxeFR, $nomTaxeEN) {
+            $requete = "INSERT INTO taxe(nomTaxeFR, nomTaxeEN, visibilite) VALUES (:nFR,:nEN, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomTaxeFR);
             $requetePreparee -> bindParam(":nEN", $nomTaxeEN);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> execute();
             
             if($requetePreparee -> rowCount() > 0)
@@ -270,12 +266,11 @@
         /*--------------- Table privilege ---------------*/
 
         //Ajout privilège
-        public function ajouterPrivilege($nomPrivilegeFR, $nomProvinceEN, $visibilite) {
-            $requete = "INSERT INTO privilege(nomPrivilegeFR, nomPrivilegeEN, visibilite) VALUES (:nFR,:nEN, :v)";
+        public function ajouterPrivilege($nomPrivilegeFR, $nomProvinceEN) {
+            $requete = "INSERT INTO privilege(nomPrivilegeFR, nomPrivilegeEN, visibilite) VALUES (:nFR,:nEN, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomPrivilegeFR);
             $requetePreparee -> bindParam(":nEN", $nomPrivilegeEN);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> execute();
             
             if($requetePreparee -> rowCount() > 0)

@@ -23,7 +23,7 @@
                         $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
                         $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
                         isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                        $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
                         $this -> afficheVue("Compte", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -111,6 +111,27 @@
 					//Redirection vers la page d'accueil
 					header("Location: index.php");
 					break;
+                case "formulaireAjoutVille":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $this -> afficheVue("HeaderAdmin");
+                        $this -> afficheVue("FormulaireAjoutVille");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;    
+                case "ajouterVille":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["nomVilleFR"], $params["nomVilleEN"], $params["provinceCode"])) {
+                            $modeleUtilisateur -> ajouterVille($params["nomVilleFR"], $params["nomVilleEN"], $params["provinceCode"]);
+                            $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                            $this -> afficheVue("HeaderAdmin");
+                            $this -> afficheVue("listeVilles", $data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
+                    break;
                 case "liste":
                     //Obtenir liste avec paramètre envoyé avec AJAX
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
@@ -178,8 +199,7 @@
                     if(isset($_SESSION["admin"])) {
                         if (isset($params["nomTable"]) && isset($params["id"])) {
                             $nomId = $modeleUtilisateur -> obtenir_nom_id($params["nomTable"]);
-                            $modeleUtilisateur -> supprime($params["nomTable"], $nomId, 
-                            $params["id"]);
+                            $modeleUtilisateur -> supprime($params["nomTable"], $nomId, $params["id"]);
                         }
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -187,7 +207,7 @@
                     }
 					break;
 				default:
-                    trigger_error("Action invalide.");
+                    $this -> afficheVue("Page404");
             }
 
             $this->afficheVue("Footer");
