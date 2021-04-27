@@ -8,7 +8,7 @@
 			$modeleVoiture = new Modele_Voiture();
 
 			$this->afficheVue("Head");
-			//$this->afficheVue("Header");
+			$this->afficheVue("Header");
 			
 			if (isset($params["action"])) {
 				// Modèle et vue vides par défaut
