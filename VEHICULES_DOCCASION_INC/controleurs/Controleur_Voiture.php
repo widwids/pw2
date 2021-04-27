@@ -119,6 +119,9 @@
 							$data["carburant"] = $modeleVoiture -> obtenir_tous('carburant');
 							$data["transmission"] = $modeleVoiture ->obtenir_tous('transmission');
 							$data["annee"] = $modeleVoiture -> obtenir_tous('annee');
+							//$data["modele"] = $modeleVoiture -> obtenir_tous('modele');
+							$data["modele"] = $modeleVoiture -> obtenir_marque_modele('modele');
+							
 							$data["photo"] = $modeleVoiture -> obtenir_tous('photo');
 							$vue = "FormulaireAjouterVoiture";
 							//var_dump($data);
@@ -257,6 +260,16 @@
 					break;
 
 					case "ListeVehicule":
+						// affiche liste voiture//
+						$vue = "VoitureListeAdmin";		
+						$data = $modeleVoiture->obtenirListeVoiture();
+						//var_dump($data);
+						$this->afficheVue($vue,$data); 
+						///////////////////////////////
+
+					break;
+
+					case "listeVoitures":
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";		
 						$data = $modeleVoiture->obtenirListeVoiture();
