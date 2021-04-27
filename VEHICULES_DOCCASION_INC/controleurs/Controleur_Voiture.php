@@ -260,7 +260,7 @@
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";		
 						$data = $modeleVoiture->obtenirListeVoiture();
-						var_dump($data);
+						//var_dump($data);
 						$this->afficheVue($vue,$data); 
 						///////////////////////////////
 
