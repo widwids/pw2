@@ -1,3 +1,8 @@
+header{
+    font-family: 'Overpass', sans-serif;
+    font-weight: 100;
+}
+
 .navbar{
     display: flex;
     justify-items: start;
@@ -7,7 +12,9 @@
     top: 0;
     left:0;
     width: 100%;
-    height: auto;
+    height: 75px;
+    max-height: 75px;
+    min-width: 750px;
     color: white;
     background-color: #171717;
     border-bottom: 2px solid white;
@@ -87,10 +94,32 @@
 .liens a,
 .connexion,
 .langue{
+    font-family: 'Overpass', sans-serif;
+    font-weight: 100;
     color: white;
     font-size: 1.5em;
     text-decoration: underline;
     transition: 0.2s all ease-out;
+}
+
+.liens a {
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+}
+
+.liens a:after {    
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: gold;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
 }
 
 .liens a:visited{
@@ -99,4 +128,65 @@
 
 .liens a:hover{
     color: gold;
+} 
+
+.liens a:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+
+.liens_ham{
+    display: flex;
+    flex-direction: column;
+    width: 20%; 
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    transition: 0.5s all ease-out;
+}
+
+.liens_ham a{
+    padding-top: 15px;
+    box-sizing: border-box;
+    display: block;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    border-top: 1px solid #333;
+    background-color: #171717 ;
+}
+
+.liens_ham a:hover{
+    background: gold;
+    color: #171717;
+    cursor: pointer;
+}
+
+.ham_icon div{
+    width: 35px;
+    height: 5px;
+    background-color: white;
+    margin: 6px 0;
+    margin-right: 30px;
+}
+
+.hamburger{
+    position: absolute;
+    right: -210;
+    top: 52px;
+    z-index: 100;
+}
+  
+@media screen and (max-width: 1500px){
+    .liens a{
+        display:none;
+    }
+}
+
+@media screen and (min-width: 1501px){
+    .ham_icon,
+    .liens_ham {
+        display:none;
+    }
 }
