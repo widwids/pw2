@@ -111,28 +111,70 @@
 					//Redirection vers la page d'accueil
 					header("Location: index.php");
 					break;
+                case "liste":
+                    //Obtenir liste avec paramètre envoyé avec AJAX
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if (isset($params["nomTable"])) {
+                            $data["liste"] = $modeleUtilisateur -> obtenir_tous($params["nomTable"]);
+                        } else {													
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
                 case "listeVilles":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $this -> afficheVue("HeaderAdmin");
+                        $this -> afficheVue("listeVilles", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
                     break;
                 case "listeProvinces":
-                
-                
-                case "accesEmploye":
-                    //Page accessible seulement par les employés
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
-                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $this -> afficheVue("HeaderAdmin");
+                        $this -> afficheVue("listeProvinces", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                case "listePays":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
+                        $this -> afficheVue("HeaderAdmin");
+                        $this -> afficheVue("listePays", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                case "listeTaxes":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
-                        $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
-                        $this -> afficheVue("AccesEmploye", $data);
+                        $this -> afficheVue("HeaderAdmin");
+                        $this -> afficheVue("listeTaxes", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                case "listePrivileges":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $this -> afficheVue("HeaderAdmin");
+                        $this -> afficheVue("listePrivileges", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
                 case "suppression":
-                    //Suppression d'un élément dans n'importe quelle table
+                    //Suppression d'un élément dans n'importe quelle table avec AJAX
                     if(isset($_SESSION["admin"])) {
                         if (isset($params["nomTable"]) && isset($params["id"])) {
                             $nomId = $modeleUtilisateur -> obtenir_nom_id($params["nomTable"]);

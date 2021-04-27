@@ -8,12 +8,12 @@
 			$this->connexion->exec("SET NAMES'UTF8'"); // Affichage des caractères UTF8
 		}
 
+        //Obtenir le nom de la clé primaire
         public function obtenir_nom_id($nomTable) {
-			$requete = "SELECT column_name FROM information_schema.key_column_usage WHERE constraint_schema = 
-                'concessionnaire' AND constraint_name = 'primary' AND table_name = '$nomTable'";
+			$requete = "SHOW KEYS FROM $nomTable WHERE Key_name = 'PRIMARY'";
 			$resultats = $this -> connexion -> query($requete);
 			$resultats -> execute();
-			return $resultats -> fetch()[0];
+			return $resultats -> fetch()[4];
 		}
 
 		//Lecture(READ)
