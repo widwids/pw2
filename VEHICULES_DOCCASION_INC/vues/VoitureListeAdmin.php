@@ -23,7 +23,7 @@
 
         <tr>
             <td class="yu-image"><img src="./assets/images/<?= $voiture["nomPhoto"] ?>.jpg" alt="car"></td>
-            <td>TEST</td>
+            <td><?= $voiture["noSerie"]?></td>
             <td><?= $voiture["kilometrage"] ?></td>
             <td>TEST</td>
             <td>TEST</td>
