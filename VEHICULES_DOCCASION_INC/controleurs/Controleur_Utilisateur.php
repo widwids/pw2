@@ -84,10 +84,10 @@
 				case "supprime":
                     if(isset($_SESSION["admin"])) {
                         if (isset($params["nomTable"]) && isset($params["id"])) {
-                            $data["utilisateur"] = $modeleUtilisateur -> supprime('utilisateur', 'idUtilisateur', 
+                            $modeleUtilisateur -> obtenir_Nom_Id($params["nomTable"]);
+                            $modeleUtilisateur -> supprime('utilisateur', 'idUtilisateur', 
                             $params["id"]);
                             $data["utilisateurs"] = $modeleUtilisateur -> obtenir_tous();
-                            $this -> afficheVue("AccesEmploye", $data);
                         }
                     }
 					break;
