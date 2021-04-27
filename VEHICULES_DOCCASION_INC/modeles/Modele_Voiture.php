@@ -67,6 +67,19 @@
 			}
 		}
 
+		public function obtenir_marque_modele() {
+			try {
+				$stmt = $this->connexion->query("SELECT * FROM modele JOIN marque ON marqueId = IdMarque ");
+
+				$stmt->execute();
+				return $stmt->fetchAll();
+
+			}
+			catch(Exception $exc) {
+				return 0;
+			}
+		}
+
 		public function obtenirUneVoiture($noSerie) {
 			try {
 				$stmt = $this->connexion->query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, dateArrivee, prixAchat,

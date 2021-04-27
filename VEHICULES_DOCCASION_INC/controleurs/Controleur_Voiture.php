@@ -214,7 +214,7 @@
 
 					case "ListeModele":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							$data = $modeleVoiture -> obtenir_tous('modele');
+							$data = $modeleVoiture -> obtenir_marque_modele('modele');
 							$vue = "ListeModeleAdmin";
 							//var_dump($data);
 							$this->afficheVue($vue,$data);
