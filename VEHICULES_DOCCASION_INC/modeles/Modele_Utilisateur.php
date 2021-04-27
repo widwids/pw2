@@ -81,7 +81,7 @@
                 //Ajout d'un nouvel utilisateur -- CREATE
                 $requete = "INSERT INTO utilisateur (prenom, nom, dateNaissance, adresse, codePostal, telephone, 
                     cellulaire, courriel, pseudonyme, motDePasse, villeId, privilegeId, visiblite) VALUES 
-                    (:pr,:nm,:dN,:ad,:cP,:te,:ce,:co,:ps,:mP,:vId, :pId, :v)";
+                    (:pr,:nm,:dN,:ad,:cP,:te,:ce,:co,:ps,:mP,:vId, :pId, 1)";
                 $requetePreparee = $this -> connexion -> prepare($requete);
                 $prenom = $utilisateur -> getPrenom();
                 $nom = $utilisateur -> getNom();
@@ -95,7 +95,6 @@
                 $motDePasse = $utilisateur -> getMotDePasse();
                 $villeId = $utilisateur -> getVilleId();
                 $privilegeId = $utilisateur -> getPrivilegeId();
-                $visibilite = $utilisateur -> getVisibilite();
                 $requetePreparee -> bindParam(":pr", $prenom);
                 $requetePreparee -> bindParam(":nm", $nom);
                 $requetePreparee -> bindParam(":dN", $dateNaissance);
@@ -108,7 +107,6 @@
                 $requetePreparee -> bindParam(":mP", $motDePasse);
                 $requetePreparee -> bindParam(":vId", $villeId);
                 $requetePreparee -> bindParam(":pId", $privilegeId);
-                $requetePreparee -> bindParam(":v", $visibilite);
                 $requetePreparee -> execute();
 
 				if($requetePreparee -> rowCount() > 0)

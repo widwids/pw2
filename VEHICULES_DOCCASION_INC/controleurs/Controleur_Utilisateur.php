@@ -52,12 +52,13 @@
                                 $params["dateNaissance"], $params["adresse"],$params["codePostal"], 
                                 $params["telephone"], $params["cellulaire"], $params["courriel"],
                                 $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
-                                $params["villeId"], 3, 1);
+                                $params["villeId"], 3);
                             $ajoute = $modeleUtilisateur -> sauvegarde($nouvelUtilisateur);
 
                             if($ajoute)
                                 //Redirection vers la page de connexion
-                                header("Location: index.php?utilisateur&action=connexion");
+                                var_dump($nouvelUtilisateur);
+                                //header("Location: index.php?utilisateur&action=connexion");
                             else
                                 $this -> afficheFormAjoutUtilisateur();   
                         } else {
