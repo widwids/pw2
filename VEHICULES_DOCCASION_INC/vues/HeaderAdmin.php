@@ -21,7 +21,7 @@
 				<li><a href="">Liste d'utilisateur</a></li>
 			</ul>
 		</li>
-		<li class="parent-menu-deroulant"><a href="#">John doe(administrateur)</a>
+		<li class="parent-menu-deroulant"><a href="#">John Doe(administrateur)</a>
 			<ul class="menu-deroulant">
 				<li><a href="">Mon compte</a></li>
 				<li><a href="">Fermer la session</a></li>

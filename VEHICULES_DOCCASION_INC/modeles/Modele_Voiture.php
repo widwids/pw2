@@ -49,12 +49,27 @@
 		public function obtenirListeVoiture() {
 			try {
 				$stmt = $this->connexion->query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, dateArrivee, prixAchat,
-				nomMotopro, nomCorpsFR, anneeId, nomModele, nomMarque, nomPhoto, ordre
+				nomMotopro, nomCorpsFR, nomCorpsEN, typeCarburantFR, typeCarburantEN, anneeId, nomModele, nomMarque, nomPhoto, ordre, nomTransmissionFR, nomTransmissionEN 
 				                                FROM voiture JOIN corps ON idCorps = corpsId
 												LEFT OUTER JOIN motopropulseur ON idMotopro = groupeMPId
 												LEFT OUTER JOIN modele ON idModele = modeleId
 												LEFT OUTER JOIN marque ON idMarque = marqueId
+												LEFT OUTER JOIN carburant ON idCarburant = carburantId
+												LEFT OUTER JOIN transmission ON idTransmission = transmissionId
 												LEFT OUTER JOIN photo ON autoId = noSerie AND ordre = 1");
+
+				$stmt->execute();
+				return $stmt->fetchAll();
+
+			}
+			catch(Exception $exc) {
+				return 0;
+			}
+		}
+
+		public function obtenir_marque_modele() {
+			try {
+				$stmt = $this->connexion->query("SELECT * FROM modele JOIN marque ON marqueId = IdMarque ");
 
 				$stmt->execute();
 				return $stmt->fetchAll();
