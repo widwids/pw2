@@ -10,14 +10,6 @@
 	<input type="text" name="adresse" required><br>
     <label for="codePostal">Code postal</label> 
 	<input type="text" name="codePostal" required><br>
-    <label for="villeId">Ville</label> 
-    <select id="villeId" name="villeId">
-        <option value="1">Montréal</option>
-        <option value="2">Laval</option>
-        <option value="3">Longueuil</option>
-        <option value="4">Toronto</option>
-    </select>
-    <br>
     <label for="telephone">Téléphone</label> 
 	<input type="tel" name="telephone" required><br>
     <label for="cellulaire">Cellulaire </label>
@@ -28,6 +20,14 @@
 	<input type="text" name="pseudonyme" required><br>
     <label for="motDePasse">Mot de passe</label>
 	<input type="password" name="motDePasse" required><br>
+    <label for="villeId">Ville</label> 
+    <select id="villeId" name="villeId">
+        <option value="1">Montréal</option>
+        <option value="2">Laval</option>
+        <option value="3">Longueuil</option>
+        <option value="4">Toronto</option>
+    </select>
+    <br>
     <input type="hidden" name="action" value="insereUtilisateur"/>
 	<br>
     <input class="submit" type="submit" value="Enregistrer"/>
