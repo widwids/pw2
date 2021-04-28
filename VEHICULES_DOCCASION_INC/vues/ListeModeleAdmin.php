@@ -18,7 +18,7 @@
 
         <tr>
             <td><?= $modele["nomModele"]?></td>
-            <td><?= $modele["marqueId"]?></td>
+            <td><?= $modele["nomMarque"]?></td>
             <td><?= ($modele["visibilite"] ==1) ? "OUI" : "NON" ?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
