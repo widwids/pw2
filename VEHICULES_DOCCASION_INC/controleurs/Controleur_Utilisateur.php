@@ -7,6 +7,8 @@
             $modeleUtilisateur =  new Modele_Utilisateur();
 
             $this -> afficheVue("Head");
+            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
 
             if(isset($params["action"])) {
 				$commande = $params["action"]; 
@@ -22,8 +24,7 @@
                     if(isset($_SESSION["utilisateur"])) {
                         $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
                         $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        
                         $this -> afficheVue("Compte", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -52,7 +53,7 @@
                                 $params["dateNaissance"], $params["adresse"],$params["codePostal"], 
                                 $params["telephone"], $params["cellulaire"], $params["courriel"],
                                 $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
-                                $params["villeId"], 3);
+                                $params["villeId"]);
                             $ajoute = $modeleUtilisateur -> sauvegarde($nouvelUtilisateur);
 
                             if($ajoute)
@@ -83,7 +84,6 @@
 							header("Location: index.php?Utilisateur&action=compte");
 						} else {
 							$messageErreur = "La combinaison de l'identifiant et du mot de passe est invalide.";
-                            $this -> afficheVue("Header");
                             //Redirection vers le formulaire d'authentification
 							$this -> afficheFormOuvertureSesssion($messageErreur); 
 						}
@@ -113,7 +113,6 @@
 					break;
                 case "formulaireAjoutVille":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $this -> afficheVue("HeaderAdmin");
                         $this -> afficheVue("FormulaireAjoutVille");
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -125,7 +124,6 @@
                         if(isset($params["nomVilleFR"], $params["nomVilleEN"], $params["provinceCode"])) {
                             $modeleUtilisateur -> ajouterVille($params["nomVilleFR"], $params["nomVilleEN"], $params["provinceCode"]);
                             $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
-                            $this -> afficheVue("HeaderAdmin");
                             $this -> afficheVue("listeVilles", $data);
                         } else {
                             trigger_error("Paramètre manquant.");
@@ -147,7 +145,6 @@
                 case "listeVilles":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
-                        $this -> afficheVue("HeaderAdmin");
                         $this -> afficheVue("listeVilles", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -157,7 +154,6 @@
                 case "listeProvinces":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
-                        $this -> afficheVue("HeaderAdmin");
                         $this -> afficheVue("listeProvinces", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -167,7 +163,6 @@
                 case "listePays":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
-                        $this -> afficheVue("HeaderAdmin");
                         $this -> afficheVue("listePays", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -177,7 +172,6 @@
                 case "listeTaxes":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
-                        $this -> afficheVue("HeaderAdmin");
                         $this -> afficheVue("listeTaxes", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -187,7 +181,6 @@
                 case "listePrivileges":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
-                        $this -> afficheVue("HeaderAdmin");
                         $this -> afficheVue("listePrivileges", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -234,7 +227,6 @@
             //Afficher le formulaire d'ajout d'un Utilisateur
             //Aller porter les erreurs dans la vue
             $data["erreurs"] = $messageErreur;
-            $this -> afficheVue("Header");
             $this -> afficheVue("CreationCompte", $data);
         }
 
@@ -242,7 +234,6 @@
             //Afficher le formulaire d'ouvertureSession
             //Aller porter les erreurs dans la vue
             $data["erreurs"] = $messageErreur;
-            $this -> afficheVue("Header");
             $this -> afficheVue("Connexion", $data);
         }
     }

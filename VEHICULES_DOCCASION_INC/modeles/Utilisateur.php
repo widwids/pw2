@@ -13,6 +13,7 @@
         private $motDePasseUtilisateur;
         private $villeIdUtilisateur;
         private $privilegeIdUtilisateur;
+        private $visibiliteUtilisateur;
         private $nomVilleUtilisateurFR;
         private $nomVilleUtilisateurEN;
         private $codeProvinceUtilisateur;
@@ -23,14 +24,13 @@
         private $nomPaysUtilisateurEN;
         private $nomPrivilegeUtilisateurFR;
         private $nomPrivilegeUtilisateurEN;
-        private $visibiliteUtilisateur;
-
+        
         public function __construct($id = 0, $prenom = "", $nom = "", $dateNaissance = "", $adresse = "", 
                                     $codePostal = "", $telephone = "", $cellulaire = "", $courriel = "", 
                                     $pseudonyme = "", $motDePasse = "", $villeId = 0, $privilegeId = 0,
-                                    $nomVilleFR = "", $nomVilleEN = "", $codeProvince = "", 
+                                    $visibilite = 1, $nomVilleFR = "", $nomVilleEN = "", $codeProvince = "", 
                                     $nomProvinceFR = "", $nomProvinceEN = "", $idPays = 0, $nomPaysFR = "", 
-                                    $nomPaysEN = "", $nomPrivilegeFR = "", $nomPrivilegeEN = "", $visibilite = 1) {
+                                    $nomPaysEN = "", $nomPrivilegeFR = "", $nomPrivilegeEN = "") {
             $this -> idUtilisateur = $id;
             $this -> prenom = $prenom;
             $this -> nom = $nom;
@@ -44,6 +44,7 @@
             $this -> motDePasse = $motDePasse;
             $this -> villeId = $villeId;
             $this -> privilegeId = $privilegeId;
+            $this -> visibilite = $visibilite;
             $this -> nomVilleFR = $nomVilleFR;
             $this -> nomVilleEN = $nomVilleEN;
             $this -> codeProvince = $codeProvince;
@@ -53,8 +54,7 @@
             $this -> nomPaysFR = $nomPaysFR;
             $this -> nomPaysEN = $nomPaysEN;
             $this -> nomPrivilegeFR = $nomPrivilegeFR;
-            $this -> nomPrivilegeEN = $nomPrivilegeEN;
-            $this -> visibilite = $visibilite;
+            $this -> nomPrivilegeEN = $nomPrivilegeEN;     
         }
 
         //Table Utilisateur
