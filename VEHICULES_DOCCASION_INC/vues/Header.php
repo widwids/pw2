@@ -10,9 +10,10 @@
 				<li><a href="#">À propos</a></li>
 				<li><a href="#">Contact</a></li>
 				<li><a href="index.php?Utilisateur&action=langue">EN/FR</a></li>
+				<li><a href="index.php?Utilisateur&action=deconnexion">LOGOFF</a></li>
 			</ul>
 		</div>		
-			
+		
 		<div class="cart" data-js-cart>
 			<span class="connexion"><a href="index.php?Utilisateur&action=connexion">Connexion</a></span>
             <span class="nbItems" data-js-nbItems>0</span>
