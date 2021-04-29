@@ -167,14 +167,13 @@
         }
 
         //Modifier ville
-        public function modifierVille($nomVilleFR, $nomVilleEN, $provinceCode, $visibilite, $idVille) {
+        public function modifierVille($nomVilleFR, $nomVilleEN, $provinceCode, $idVille) {
             $requete = "UPDATE ville SET nomVilleFR = :nFR, nomVilleEN = :nEN, provinceCode = :pC, 
-                visibilite = :v WHERE idVille = :idV";
+                WHERE idVille = :idV";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomVilleFR);
             $requetePreparee -> bindParam(":nEN", $nomVilleEN);
             $requetePreparee -> bindParam(":pC", $provinceCode);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> bindParam(":idV", $idVille);
             $requetePreparee -> execute();
         }
@@ -198,14 +197,13 @@
         }
 
         //Modifier province
-        public function modifierProvince($nomProvinceFR, $nomProvinceEN, $paysId, $visibilite, $codeProvince) {
-            $requete = "UPDATE province SET nomProvinceFR = :nFR, nomProvinceEN = :nEN, paysId = :pId, 
-                visibilite = :v WHERE codeProvince = :cP";
+        public function modifierProvince($nomProvinceFR, $nomProvinceEN, $paysId, $codeProvince) {
+            $requete = "UPDATE province SET nomProvinceFR = :nFR, nomProvinceEN = :nEN, paysId = :pId
+                WHERE codeProvince = :cP";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomProvinceFR);
             $requetePreparee -> bindParam(":nEN", $nomProvinceEN);
             $requetePreparee -> bindParam(":pId", $paysId);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> bindParam(":cP", $codeProvince);
             $requetePreparee -> execute();
         }
@@ -227,12 +225,11 @@
         }
 
         //Modifier un pays
-        public function modifierPays($nomPaysFR, $nomPaysEN, $visibilite, $idPays) {
-            $requete = "UPDATE pays SET nomPaysFR = :nFR, nomPaysEN = :nEN, visibilite = :v WHERE idPays = :idP";
+        public function modifierPays($nomPaysFR, $nomPaysEN, $idPays) {
+            $requete = "UPDATE pays SET nomPaysFR = :nFR, nomPaysEN = :nEN WHERE idPays = :idP";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomPaysFR);
             $requetePreparee -> bindParam(":nEN", $nomPaysEN);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> bindParam(":idP", $idPays);
             $requetePreparee -> execute();
         }
@@ -254,13 +251,39 @@
         }
 
         //Modifier la taxe
-        public function mofifierTaxe($nomTaxeFR, $nomTaxeEN, $visibilite, $idTaxe) {
-            $requete = "UPDATE taxe SET nomTaxeFR = :nFR, nomTaxeEN = :nEN, visibilite = :v WHERE idTaxe = :idT";
+        public function modifierTaxe($nomTaxeFR, $nomTaxeEN, $idTaxe) {
+            $requete = "UPDATE taxe SET nomTaxeFR = :nFR, nomTaxeEN = :nEN WHERE idTaxe = :idT";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomTaxeFR);
             $requetePreparee -> bindParam(":nEN", $nomTaxeEN);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> bindParam(":idT", $idTaxe);
+            $requetePreparee -> execute();
+        }
+
+        /*--------------- Table taxeProvince ---------------*/
+
+        //Ajouter la taxe dans la table taxeProvince
+        public function ajouterTaxeProvince($provinceId, $taxeId, $taux) {
+            $requete = "INSERT INTO taxeProvince(provinceId, taxeId, taux) VALUES (:pId,:tId, :ta)";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":pId", $provinceId);
+            $requetePreparee -> bindParam(":tId", $taxeId);
+            $requetePreparee -> bindParam(":ta", $taux);
+            $requetePreparee -> execute();
+            
+            if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
+        }
+
+        //Modifier la taxe dans la table taxeProvince
+        public function modifierTaxeProvince($provinceId, $taxeId, $taux) {
+            $requete = "UPDATE taxeProvince SET provinceId = :pId, taux = :ta WHERE provinceId = :pId AND taxeId = :tId";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":pId", $provinceId);
+            $requetePreparee -> bindParam(":ta", $taux);
+            $requetePreparee -> bindParam(":tId", $taxeId);
             $requetePreparee -> execute();
         }
 
@@ -281,22 +304,37 @@
         }
 
         //Modifier le privilège
-        public function modifierPrivilege($idPrivilege) {
-            $requete = "UPDATE privilege SET nomPrivilegeFR = :nFR, nomPrivilegeEN = :nEN, visibilite = :v 
-                WHERE idPrivilege = :idP";
+        public function modifierPrivilege($nomPrivilegeFR, $nomProvinceEN, $idPrivilege) {
+            $requete = "UPDATE privilege SET nomPrivilegeFR = :nFR, nomPrivilegeEN = :nEN WHERE idPrivilege = :idP";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomPrivilegeFR);
             $requetePreparee -> bindParam(":nEN", $nomPrivilegeEN);
-            $requetePreparee -> bindParam(":v", $visibilite);
             $requetePreparee -> bindParam(":idP", $idPrivilege);
             $requetePreparee -> execute();
         }
         
         /*--------------- Table connexion ---------------*/
 
-        //Toutes les connexions
-        public function getConnexions() {
-            
+        //Ajouter la connexion des utilisateurs
+        public function ajouterConnexion($idUtilisateur) {
+            if($this -> obtenir_utilisateur($idUtilisateur) -> getId() != 0) {
+                $requete = "UPDATE connexion SET adresseIp = " . $_SERVER["REMOTE_ADDR"] . ", dateConnexion = " .
+                    date('Y-m-d H:i:s') . ", visibilite = 1 WHERE idConnexion = :id";
+                $requetePreparee = $this -> connexion -> prepare($requete);
+                $requetePreparee -> bindParam(":id", $idUtilisateur);
+                $requetePreparee -> execute();
+            } else {
+                $requete = "INSERT INTO connexion (idConnexion, adresseIp, dateConnexion, visibilite) 
+                    VALUES (:id, " . $_SERVER["REMOTE_ADDR"] . ", " . date('Y-m-d H:i:s') . ", 1)";
+                $requetePreparee = $this -> connexion -> prepare($requete);
+                $requetePreparee -> bindParam(":id", $idUtilisateur);
+                $requetePreparee -> execute();
+
+                if($requetePreparee -> rowCount() > 0)
+					return $this -> connexion -> lastInsertId();
+				else
+					return false;
+            }
         }
 
         //Connexion d'un utilisateur
