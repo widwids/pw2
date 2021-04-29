@@ -306,10 +306,10 @@ INSERT INTO ville (nomVilleFR, nomVilleEN, provinceCode, visibilite) VALUES
 	('Toronto', 'Toronto', 'ON', 1);
 	
 INSERT INTO taxe (nomTaxeFR, nomTaxeEN, visibilite) VALUES
-	('TPS', 'TPS', 1),
-	('TVH', 'TVH', 1),
-	('TVP', 'TVP', 1),
-	('TVQ', 'TVQ', 1);
+	('TPS', 'GST', 1),
+	('TVH', 'HST', 1),
+	('TVP', 'PST', 1),
+	('TVQ', 'QST', 1);
 
 INSERT INTO taxeProvince (provinceId, taxeId, taux) VALUES
 	('AL', 1, 5.000),

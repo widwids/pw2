@@ -100,7 +100,7 @@ body{
 .yu-formulaire {
 
     border-radius: 5px;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.8);
     max-width: 500px;
     margin: 50px auto;
     padding: 15px;
@@ -114,10 +114,12 @@ body{
 
 }
 
-.yu-formulaire label, .yu-formulaire option {
-
+.yu-formulaire label {
     color: white;
+}
 
+.yu-formulaire option {
+    color: black;
 }
 
 .yu-formulaire label {
@@ -156,7 +158,9 @@ body{
 .yu-formulaire .bouton-ajouter {
 
     display: block;
-    background: rgba(255, 215, 0, 1);
+    color: white;
+    font-size: 1.2em;
+    background: rgba(73, 73, 73, 1);
     width: 150px;
     margin: 0 auto;
     border-radius: 5px;
@@ -178,7 +182,7 @@ body{
 
     color: white;
     padding: 7px 15px;
-    background: rgba(255, 215, 0, 1);
+    background: rgba(73, 73, 73, 1);
     border-radius: 5px;
     box-shadow: 0 0 8px 1px rgb(0 0 0 / 70%);   
     max-width: 1024px;
@@ -197,7 +201,7 @@ body{
 
 .yu-btn-modifier{
 
-    background: rgb(255, 215, 0);
+    background: rgb(0, 107, 87, 1);
     width: 150px;
     margin: 0 auto;
     border-radius: 5px;
@@ -238,7 +242,7 @@ body{
 .yu-table{    
 
     margin: 70px auto;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.9);
     box-shadow: 0 0 16px 15px rgba(0, 0, 0, 0.7); 
     border: 2px solid rgba(0, 0, 0, 0);
 
