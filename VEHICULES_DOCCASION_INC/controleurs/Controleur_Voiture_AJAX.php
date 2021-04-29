@@ -57,6 +57,78 @@
 						///////////////////////////////
 
 					break;
+
+					case "modifVoiture":
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["noSerie"]) &&
+								isset($params["descriptionFR"]) &&
+								isset($params["descriptionEN"]) &&
+								isset($params["visibilite"]) &&
+								isset($params["kilometrage"]) &&
+								isset($params["dateArrivee"]) &&
+								isset($params["prixAchat"]) &&
+								isset($params["groupeMPid"]) &&
+								isset($params["corpsId"]) &&
+								isset($params["carburanstsId"]) &&
+								isset($params["modeleId"]) &&
+								isset($params["transmissionId"]) &&
+								isset($params["anneeId"]))  {
+								$modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+								//$vue = "";	
+							// $this->afficheVue($vue,$data);
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						} 
+					break;
+
+					case "suppression": // visibilite = 0
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["nomTable"]) && isset($params["id"])) {
+								$nomId = $modeleVoiture -> obtenir_nom_id($params["nomTable"]);
+								//var_dump($nomId);
+								//$nomId = $data[0]['Column_name'];
+								$modeleVoiture -> supprime($params["nomTable"], $nomId, $params["id"]);
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
+					break;
+
+					case "modifVoiture":
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["noSerie"]) &&
+								isset($params["descriptionFR"]) &&
+								isset($params["descriptionEN"]) &&
+								isset($params["visibilite"]) &&
+								isset($params["kilometrage"]) &&
+								isset($params["dateArrivee"]) &&
+								isset($params["prixAchat"]) &&
+								isset($params["groupeMPid"]) &&
+								isset($params["corpsId"]) &&
+								isset($params["carburanstsId"]) &&
+								isset($params["modeleId"]) &&
+								isset($params["transmissionId"]) &&
+								isset($params["anneeId"]))  {
+								$modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+								//$vue = "";	
+							// $this->afficheVue($vue,$data);
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						} 
+					break;
+
+
 											
 
 					/* case "obtenirTous":

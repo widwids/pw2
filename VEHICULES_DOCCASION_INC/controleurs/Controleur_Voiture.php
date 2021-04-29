@@ -96,7 +96,7 @@
 						}
 					break;
 
-					case "suppressionEnreg": // visibilite = 0
+					case "suppression": // visibilite = 0
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 							if (isset($params["nomTable"]) && isset($params["id"])) {
 								$nomId = $modeleVoiture -> obtenir_nom_id($params["nomTable"]);
