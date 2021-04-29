@@ -48,6 +48,15 @@
 						}
 					break;
 
+					case "ListeVehicule":
+						// affiche liste voiture//
+						$vue = "VoitureListeAdmin";		
+						$data = $modeleVoiture->obtenirListeVoiture();
+						//var_dump($data);
+						$this->afficheVue($vue,$data); 
+						///////////////////////////////
+
+					break;
 											
 
 					/* case "obtenirTous":
