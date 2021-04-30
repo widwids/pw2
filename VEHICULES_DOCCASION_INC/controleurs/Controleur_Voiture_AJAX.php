@@ -262,9 +262,9 @@
 					case "ListeVehicule":
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";		
-						$data = $modeleVoiture->obtenirListeVoiture();
+						$data['voiture'] = $modeleVoiture->obtenirListeVoiture();
 						//var_dump($data);
-						//$this->afficheVue($vue,$data); 
+						$this->afficheVue($vue,$data); 
 						///////////////////////////////
 
 					break;
