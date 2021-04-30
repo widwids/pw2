@@ -108,6 +108,10 @@ body{
 
 }
 
+.yu-formulaire-supprimer{
+    max-width: 320px;
+}
+
 .yu-formulaire .title {
 
     color: white;
@@ -228,7 +232,12 @@ body{
 }
 
 
+.yu-table-btn-ajouter{
 
+    max-width: 92%;
+    margin: 0 auto;
+
+}
 
 .yu-table, .yu-table th, .yu-table td {
 
@@ -290,6 +299,46 @@ body{
 .yu-table .yu-image img{
 
     max-width: 150px;
+
+}
+
+.yu-modal{
+
+  background: rebeccapurple;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0, 0.9); 
+  overflow-x: hidden; 
+  transition: 0.5s; 
+
+}
+
+.yu-modal-container{
+    position: relative;
+    top: 25%; 
+    width: 100%; 
+    text-align: center; 
+    margin-top: 30px; 
+}
+
+.yu-modal .btn-ferme{
+
+    background: transparent;
+    position: absolute;
+    top: 65px;
+    right: 45px;
+    font-size: 60px;
+
+}
+
+.yu-modal .btn-ferme:hover{
+
+    color:blanchedalmond;
 
 }
 
