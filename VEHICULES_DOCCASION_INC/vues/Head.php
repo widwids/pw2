@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="assets/styles/connexion.css">
 	
 	<!-- Script -->
+	<script type="text/javascript" src="assets/scripts/FormulaireAjouterVoiture.js"></script>
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
 	<script type="text/javascript" src="assets/scripts/classMapping.js"></script>
 	<script type="text/javascript" src="assets/scripts/connexion.js"></script>
