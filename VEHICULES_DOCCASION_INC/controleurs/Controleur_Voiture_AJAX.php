@@ -22,10 +22,10 @@
 								//affiche photo d'une seul voiture ////
 								//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
 								// a commenter lorsque vous aurrez votre ($params["noSerie"])
-								$voiture = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
-								$photos = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);								
+								$data['voiture'] = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+								$data['photos'] = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);								
 								$vue = "detailVoiture";
-								$this->afficheVue($vue,$photo,$voiture); 
+								$this->afficheVue($vue,$data); 
 							} else {													
 								echo "ERROR PARAMS";
 							}
@@ -51,7 +51,7 @@
 								isset($params["modeleId"]) &&
 								isset($params["transmissionId"]) &&
 								isset($params["anneeId"]))  {
-								$modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+								$modeleVoiture->modifVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
 								//$vue = "";	
 							// $this->afficheVue($vue,$data);
 							} else {													
@@ -79,7 +79,8 @@
 								isset($params["transmissionId"]) &&
 								isset($params["anneeId"])) {
 
-								$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+								
+								$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
 								
 								if ($valide) {									
 									//echo "merci";		

@@ -20,10 +20,10 @@
 		
 
 		//Partie Voiture
-		public function ajoutVoiture($noSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $visibilite) {		
+		public function ajoutVoiture($noSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId) {		
 			try {
 				$stmt = $this->connexion->prepare("INSERT INTO voiture (noSerie, descriptionFR, descriptionEN, kilometrage, dateArrivee, prixAchat, groupeMPid, corpsId, carburantId, modeleId, transmissionId, anneeId, visibilite) 
-				VALUES (:noSerie, :descriptionFR, :descriptionEN, :kilometrage, :dateArrivee, :prixAchat, :groupeMPid, :corpsId, :carburantId, :modeleId, :transmissionId, :anneeId, :visibilite)");
+				VALUES (:noSerie, :descriptionFR, :descriptionEN, :kilometrage, :dateArrivee, :prixAchat, :groupeMPid, :corpsId, :carburantId, :modeleId, :transmissionId, :anneeId, 1 )");
 				$stmt->bindParam(":noSerie", $noSerie);
 				$stmt->bindParam(":descriptionFR", $descriptionFR);
 				$stmt->bindParam(":descriptionEN", $descriptionEN);
@@ -36,7 +36,6 @@
 				$stmt->bindParam(":modeleId", $modeleId);
 				$stmt->bindParam(":transmissionId", $transmissionId);
 				$stmt->bindParam(":anneeId", $anneeId);
-				$stmt->bindParam(":visibilite", $visibilite);
 				$stmt->execute();
 				
 				return 1;
