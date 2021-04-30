@@ -8,9 +8,9 @@
 			$modeleVoiture = new Modele_Voiture();
 
 			$this->afficheVue("Head");
-
-			isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+			$this -> afficheVue("Header");
+			//isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+               // $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
 			
 			if (isset($params["action"])) {
 				// Modèle et vue vides par défaut
@@ -283,6 +283,16 @@
 					case "listeVoitures":
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";		
+						$data = $modeleVoiture->obtenirListeVoiture();
+						//var_dump($data);
+						$this->afficheVue($vue,$data); 
+						///////////////////////////////
+
+					break;
+
+					case "listeVoituresNonAdmin":
+						// affiche liste voiture//
+						$vue = "VoitureListe";		
 						$data = $modeleVoiture->obtenirListeVoiture();
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 
