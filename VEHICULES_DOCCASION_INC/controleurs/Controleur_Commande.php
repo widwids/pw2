@@ -2,8 +2,10 @@
 	class Controleur_Commande extends BaseControleur {		
         public function traite(array $params) {
 
+            $modeleCommandes = new Modele_Commande();
+            
 			$this->afficheVue("Head");
-			$this->afficheVue("Header");
+			//$this->afficheVue("Header");
 			
 			if (isset($params["action"])) {
 				// Modèle et vue vides par défaut
@@ -16,7 +18,7 @@
                     case "afficheCommandes":
 					
 					    //affiche toutes les commandes ////
-						$modeleCommandes = new Modele_Commande();
+						
 						
 						$commandes = $modeleCommandes->obtenirCommandes();
 						var_dump($commandes);
