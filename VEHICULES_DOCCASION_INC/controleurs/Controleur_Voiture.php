@@ -263,8 +263,17 @@
 
 					case "ListeVehicule":
 						// affiche liste voiture//
-						$vue = "VoitureListeAdmin";		
-						$data['voiture'] = $modeleVoiture->obtenirListeVoiture();
+						$vue = "VoitureListeAdmin";	
+						$data["corps"] = $modeleVoiture -> obtenir_tous('corps');
+                        $data["motopropulseur"] = $modeleVoiture -> obtenir_tous('motopropulseur');
+                        $data["carburant"] = $modeleVoiture -> obtenir_tous('carburant');
+                        $data["transmission"] = $modeleVoiture ->obtenir_tous('transmission');
+                        $data["annee"] = $modeleVoiture -> obtenir_tous('annee');
+                        //$data["modele"] = $modeleVoiture -> obtenir_tous('modele');
+                        $data["modele"] = $modeleVoiture -> obtenir_marque_modele('modele');
+
+                        $data["photo"] = $modeleVoiture -> obtenir_tous('photo');
+                        $data['voitures'] = $modeleVoiture->obtenirListeVoiture();	
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 
 						///////////////////////////////
