@@ -262,7 +262,7 @@
 					case "ListeVehicule":
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";		
-						$data['voiture'] = $modeleVoiture->obtenirListeVoiture();
+						$data = $modeleVoiture->obtenirListeVoiture();
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 
 						///////////////////////////////
@@ -272,6 +272,17 @@
 					case "listeVoitures":
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";		
+						$data = $modeleVoiture->obtenirListeVoiture();
+						//var_dump($data);
+						$this->afficheVue($vue,$data); 
+						///////////////////////////////
+						///////////////////////////////
+
+					break;
+
+					case "listeVoituresNonAdmin":
+						// affiche liste voiture//
+						$vue = "VoitureListe";		
 						$data = $modeleVoiture->obtenirListeVoiture();
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 

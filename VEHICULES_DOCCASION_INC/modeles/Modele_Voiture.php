@@ -55,7 +55,8 @@
 												LEFT OUTER JOIN marque ON idMarque = marqueId
 												LEFT OUTER JOIN carburant ON idCarburant = carburantId
 												LEFT OUTER JOIN transmission ON idTransmission = transmissionId
-												LEFT OUTER JOIN photo ON autoId = noSerie AND ordre = 1");
+												LEFT OUTER JOIN photo ON autoId = noSerie AND ordre = 1
+												WHERE voiture.visibilite = 1 ");
 
 				$stmt->execute();
 				return $stmt->fetchAll();
