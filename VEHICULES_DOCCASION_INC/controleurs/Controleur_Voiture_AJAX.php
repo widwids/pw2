@@ -279,6 +279,16 @@
 
 					break;
 
+					case "listeVoituresNonAdmin":
+						// affiche liste voiture//
+						$vue = "VoitureListe";		
+						$data = $modeleVoiture->obtenirListeVoiture();
+						//var_dump($data);
+						$this->afficheVue($vue,$data); 
+						///////////////////////////////
+
+					break;
+
 					default:
                         $vue = "VoitureListe";		
                         $this->afficheVue($vue);
