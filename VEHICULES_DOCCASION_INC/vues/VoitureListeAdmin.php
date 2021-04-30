@@ -19,7 +19,7 @@
             <th>Actions</th>
         </tr>
 
-        <?php foreach ($data["voiture"] as $voiture) { ?>
+        <?php foreach ($data["voitures"] as $voiture) { ?>
 
         <tr>
             <td class="yu-image"><img src="./assets/images/<?= $voiture["nomPhoto"] ?>.jpg" alt="car"></td>

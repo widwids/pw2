@@ -263,6 +263,7 @@
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";		
 						$data = $modeleVoiture->obtenirListeVoiture();
+						echo json_encode($data);
 						//var_dump($data);
 						//$this->afficheVue($vue,$data); 
 						///////////////////////////////
