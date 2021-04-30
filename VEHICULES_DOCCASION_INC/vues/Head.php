@@ -16,8 +16,8 @@
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
 	<script type="text/javascript" src="assets/scripts/classMapping.js"></script>
 	<script type="text/javascript" src="assets/scripts/connexion.js"></script>
-	<script type="text/javascript" src="assets/scripts/detailVoiture.js"></script>
-	
+
+	<script type="module" src="assets/scripts/detailVoiture.js" defer></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
 	<script type="text/javascript" src="assets/scripts/script.js" defer></script>
 	<script type="text/javascript" src="assets/scripts/nav.js" defer></script>
