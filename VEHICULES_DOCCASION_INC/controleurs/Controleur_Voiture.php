@@ -33,9 +33,9 @@
 								echo "ERROR PARAMS";
 							}
 						} else {
-							//Redirection vers le formulaire d'authentification
-							// header("Location: index.php?Utilisateur&action=connexion");
-						// }
+							// Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 
 					break;
 				
