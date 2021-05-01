@@ -24,7 +24,7 @@
 		<li class="parent-menu-deroulant"><a href="#">John Doe(administrateur)</a>
 			<ul class="menu-deroulant">
 				<li><a href="">Mon compte</a></li>
-				<li><a href="">Fermer la session</a></li>
+				<li><a href="index.php?Utilisateur&action=deconnexion">Fermer la session</a></li>
 			</ul>
 		</li>
 		<li><a href="#">FR</a></li>
