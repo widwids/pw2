@@ -261,6 +261,18 @@
 						}
 					break;
 
+					
+
+					case "listeVoituresNonAdmin":
+						// affiche liste voiture//
+						$vue = "VoitureListe";		
+						$data = $modeleVoiture->obtenirListeVoiture();
+						//var_dump($data);
+						$this->afficheVue($vue,$data); 
+						///////////////////////////////
+
+					break;
+
 					case "ListeVehicule":
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";	
@@ -276,6 +288,7 @@
                         $data['voitures'] = $modeleVoiture->obtenirListeVoiture();	
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 
+						//echo json_encode($data);
 						///////////////////////////////
 
 					break;
@@ -283,16 +296,6 @@
 					case "listeVoitures":
 						// affiche liste voiture//
 						$vue = "VoitureListeAdmin";		
-						$data = $modeleVoiture->obtenirListeVoiture();
-						//var_dump($data);
-						$this->afficheVue($vue,$data); 
-						///////////////////////////////
-
-					break;
-
-					case "listeVoituresNonAdmin":
-						// affiche liste voiture//
-						$vue = "VoitureListe";		
 						$data = $modeleVoiture->obtenirListeVoiture();
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 

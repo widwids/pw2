@@ -35,6 +35,27 @@
 						}
 
 					break;
+
+					case "detailVoitureJson":
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["noSerie"])) {
+								//affiche photo d'une seul voiture ////
+								//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+								// a commenter lorsque vous aurrez votre ($params["noSerie"])
+								$data['voiture'] = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+								$data['photos'] = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);								
+								$vue = "detailVoiture";
+								echo json_encode($data);
+								//$this->afficheVue($vue,$data); 
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						} else {
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
+
+					break;
 				
 					case "modifVoiture":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
@@ -267,6 +288,46 @@
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 
 						///////////////////////////////
+						///////////////////////////////
+
+					break;
+
+					case "VoitureListeJson":
+						// affiche liste voiture//
+						$vue = "VoitureListeAdmin";	
+						$data["corps"] = $modeleVoiture -> obtenir_tous('corps');
+                        $data["motopropulseur"] = $modeleVoiture -> obtenir_tous('motopropulseur');
+                        $data["carburant"] = $modeleVoiture -> obtenir_tous('carburant');
+                        $data["transmission"] = $modeleVoiture ->obtenir_tous('transmission');
+                        $data["annee"] = $modeleVoiture -> obtenir_tous('annee');
+                        //$data["modele"] = $modeleVoiture -> obtenir_tous('modele');
+                        $data["modele"] = $modeleVoiture -> obtenir_marque_modele('modele');
+
+                        $data["photo"] = $modeleVoiture -> obtenir_tous('photo');
+                        $data['voitures'] = $modeleVoiture->obtenirListeVoiture();	
+						//var_dump($data);
+						//$this->afficheVue($vue,$data); 
+						echo json_encode($data);
+						///////////////////////////////
+
+					break;
+
+					case "ListeVehicule":
+						// affiche liste voiture//
+						$vue = "VoitureListeAdmin";	
+						$data["corps"] = $modeleVoiture -> obtenir_tous('corps');
+                        $data["motopropulseur"] = $modeleVoiture -> obtenir_tous('motopropulseur');
+                        $data["carburant"] = $modeleVoiture -> obtenir_tous('carburant');
+                        $data["transmission"] = $modeleVoiture ->obtenir_tous('transmission');
+                        $data["annee"] = $modeleVoiture -> obtenir_tous('annee');
+                        //$data["modele"] = $modeleVoiture -> obtenir_tous('modele');
+                        $data["modele"] = $modeleVoiture -> obtenir_marque_modele('modele');
+
+                        $data["photo"] = $modeleVoiture -> obtenir_tous('photo');
+                        $data['voitures'] = $modeleVoiture->obtenirListeVoiture();	
+						//var_dump($data);
+						$this->afficheVue($vue,$data); 
+						//echo json_encode($data);
 						///////////////////////////////
 
 					break;

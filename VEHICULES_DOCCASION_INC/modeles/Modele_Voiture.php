@@ -83,7 +83,7 @@
 		public function obtenirUneVoiture($noSerie) {
 			try {
 				$stmt = $this->connexion->query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, dateArrivee, prixAchat,
-				nomMotopro, nomCorpsFR, anneeId, nomModele, nomMarque
+				nomMotopro, nomCorpsFR, anneeId, nomModele, nomMarque, groupeMPId, corpsId, carburantId, modeleId, transmissionId, anneeId, marqueId 
 				                                FROM voiture JOIN corps ON idCorps = corpsId
 												LEFT OUTER JOIN motopropulseur ON idMotopro = groupeMPId
 												LEFT OUTER JOIN modele ON idModele = modeleId
