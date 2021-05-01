@@ -20,8 +20,8 @@
 				// Ce switch détermine la vue $vue et obtient le modèle $data
 				switch($params["action"]) {
 					case "detailVoiture":
-						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							if (isset($params["noSerie"])) {
+						// if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							// if (isset($params["noSerie"])) {
 								//affiche photo d'une seul voiture ////
 								//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
 								// a commenter lorsque vous aurrez votre ($params["noSerie"])
@@ -34,8 +34,8 @@
 							}
 						} else {
 							//Redirection vers le formulaire d'authentification
-							header("Location: index.php?Utilisateur&action=connexion");
-						}
+							// header("Location: index.php?Utilisateur&action=connexion");
+						// }
 
 					break;
 				

@@ -1,0 +1,107 @@
+
+/* CAROUSSEL BACKGROUND */
+.swiper-container {
+    margin-top: 125px;
+    margin-bottom: 30px;
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.swiper-slide,img {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-button-next,.swiper-button-prev {
+    color:#171717;
+    height: 5%;
+    padding:50px 30px;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+
+.swiper-button-next:hover {
+    color:#fff;
+    background-color:rgba(251, 247, 5, 0.842);
+}
+
+.swiper-button-prev:hover {
+    color:#fff;
+    background-color:rgba(251, 247, 5, 0.842);
+}
+
+.swiper-pagination span{
+    background: #fff;
+}
+
+/* CSS AUTRE*/
+
+.titreDetails{
+    margin-top: 50px;
+    font-size: 40px;
+}
+
+.details_container{
+    width: 100%;
+    height: auto;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.8);
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.details ul{
+    margin: 0 30px;
+}
+
+.details li{
+    line-height: 2em;
+    font-size: 1.2em ;
+}
+
+.description{
+    margin-top: 30px;
+    flex-basis: 15%;
+}
+
+.nomMarque{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 125px;
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 10;
+    line-height: 1em;
+}
+
+.reservation{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.reserver{
+    width: 200px;
+    height: 50px;
+    background-color: #171717;
+    border: 2px solid white;
+    font-size: 0.9em;
+    transition: all 0.3s ease-out;
+}
+
+.reserver:hover{
+    background-color: gold;
+    color: #171717;
+    transform: scale(1.1);
+}
