@@ -20,6 +20,34 @@
             // Switch en fonction de l'action qui nous est envoyée
             // Ce switch détermine la vue $vue et obtient le modèle $data
             switch($action) {
+                /*--------------- Insertion(CREATE) ---------------*/
+                case "formulaireAjoutCommande":
+                    $this -> afficheVue("FormulaireAjoutCommande");
+                    break;
+                case "ajouterCommande":
+                    if(isset($params["usagerId"], $params["voitureId"], $params["prixVente"])) {
+                        $modeleCommande -> ajouterCommande($params["usagerId"], $params["voitureId"], $params["prixVente"]);
+                        $data["commandes"] = $modeleCommande -> obtenirCommandes();
+
+                        $this -> afficheVue("ListeCommandes", $data);
+                    } else {
+                        trigger_error("Paramètre manquant.");
+                    }
+                    break;
+                case "formulaireAjoutFature":
+                    $this -> afficheVue("FormulaireAjoutFacture");
+                    break;
+                case "ajouterFacture":
+                    if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], $params["commandeId"],
+                        $params["modePaiementId"])) {
+                        $modeleCommande -> ajouterCommande($params["usagerId"], $params["voitureId"], $params["prixVente"]);
+                        $data["commandes"] = $modeleCommande -> obtenirCommandes();
+
+                        $this -> afficheVue("ListeCommandes", $data);
+                    } else {
+                        trigger_error("Paramètre manquant.");
+                    }
+                    break;
                 case "afficheCommandes":
                     //Affiche toutes les commandes
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
