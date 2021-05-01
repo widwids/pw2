@@ -93,15 +93,15 @@
 								isset($params["kilometrage"]) &&
 								isset($params["dateArrivee"]) &&
 								isset($params["prixAchat"]) &&
-								isset($params["groupeMPid"]) &&
+								isset($params["groupeMPId"]) &&
 								isset($params["corpsId"]) &&
-								isset($params["carburanstsId"]) &&
+								isset($params["carburantId"]) &&
 								isset($params["modeleId"]) &&
 								isset($params["transmissionId"]) &&
 								isset($params["anneeId"])) {
 
 								
-								$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+								$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPId"], $params["corpsId"], $params["carburantId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
 								
 								if ($valide) {									
 									//echo "merci";		
