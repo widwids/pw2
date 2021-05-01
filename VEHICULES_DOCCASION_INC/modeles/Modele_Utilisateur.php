@@ -318,14 +318,14 @@
         //Ajouter la connexion des utilisateurs
         public function ajouterConnexion($idUtilisateur) {
             if($this -> obtenir_utilisateur($idUtilisateur) -> getId() != 0) {
-                $requete = "UPDATE connexion SET adresseIp = " . $_SERVER["REMOTE_ADDR"] . ", dateConnexion = " .
-                    date('Y-m-d H:i:s') . ", visibilite = 1 WHERE idConnexion = :id";
+                $requete = "UPDATE connexion SET adresseIp = '" . $_SERVER["REMOTE_ADDR"] . "', dateConnexion = '" .
+                    date('Y-m-d H:i:s') . "', visibilite = 1 WHERE idConnexion = :id";
                 $requetePreparee = $this -> connexion -> prepare($requete);
                 $requetePreparee -> bindParam(":id", $idUtilisateur);
                 $requetePreparee -> execute();
             } else {
                 $requete = "INSERT INTO connexion (idConnexion, adresseIp, dateConnexion, visibilite) 
-                    VALUES (:id, " . $_SERVER["REMOTE_ADDR"] . ", " . date('Y-m-d H:i:s') . ", 1)";
+                    VALUES (:id, '" . $_SERVER["REMOTE_ADDR"] . "', '" . date('Y-m-d H:i:s') . "', 1)";
                 $requetePreparee = $this -> connexion -> prepare($requete);
                 $requetePreparee -> bindParam(":id", $idUtilisateur);
                 $requetePreparee -> execute();

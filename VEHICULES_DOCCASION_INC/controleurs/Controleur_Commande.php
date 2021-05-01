@@ -20,13 +20,20 @@
             // Switch en fonction de l'action qui nous est envoyée
             // Ce switch détermine la vue $vue et obtient le modèle $data
             switch($action) {
+
                 /*--------------- Insertion(CREATE) ---------------*/
+
                 case "formulaireAjoutCommande":
                     $this -> afficheVue("FormulaireAjoutCommande");
                     break;
                 case "ajouterCommande":
-                    if(isset($params["usagerId"], $params["voitureId"], $params["prixVente"])) {
-                        $modeleCommande -> ajouterCommande($params["usagerId"], $params["voitureId"], $params["prixVente"]);
+                    if(isset($params["usagerId"], $params["noCommande"], $params["voitureId"], $params["statutFR"],
+                        $params["statutEN"], $params["depot"], $params["prixVente"])) {
+                    
+                        $modeleCommande -> ajouterCommande($params["usagerId"]);
+                        $modeleCommande -> ajouterCommandeVoiture($params["noCommande"], $params["voitureId"], 
+                            $params["statutFR"], $params["statutEN"], $params["depot"], $params["prixVente"]);
+                        
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();
 
                         $this -> afficheVue("ListeCommandes", $data);
@@ -40,14 +47,40 @@
                 case "ajouterFacture":
                     if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], $params["commandeId"],
                         $params["modePaiementId"])) {
-                        $modeleCommande -> ajouterCommande($params["usagerId"], $params["voitureId"], $params["prixVente"]);
-                        $data["commandes"] = $modeleCommande -> obtenirCommandes();
+                        
+                        $modeleCommande -> ajouterFacture($params["expeditionFR"], $params["expeditionEN"], 
+                            $params["prixFinal"], $params["commandeId"], $params["modePaiementId"]);
+                        
+                        $data["factures"] = $modeleCommande -> obtenirFactures();
 
-                        $this -> afficheVue("ListeCommandes", $data);
+                        $this -> afficheVue("ListeFactures", $data);
                     } else {
                         trigger_error("Paramètre manquant.");
                     }
                     break;
+                case "formulaireAjoutModePaiement":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $this -> afficheVue("FormulaireAjoutModePaiement");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                case "ajouterModePaiement":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["nomModeFR"], $params["nomModeEN"])) {
+                            $modeleCommande -> ajouterModePaiement($params["nomModeFR"], $params["nomModeEN"]);
+                            $data["modePaiement"] = $modeleCommande -> obtenirModePaiement();
+
+                            $this -> afficheVue("ListeModePaiement", $data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
+                    break;
+
+                /*--------------- Lecture(READ) ---------------*/
+
                 case "afficheCommandes":
                     //Affiche toutes les commandes
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
@@ -102,6 +135,60 @@
 
                     $this -> afficheVue($vue, $data);
                     break;
+
+                /*--------------- Modification(UPDATE) ---------------*/
+
+                case "modifierCommande":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["usagerId"], $params["noCommande"], $params["voitureId"], $params["statutFR"],
+                            $params["statutEN"], $params["depot"], $params["prixVente"])) {
+                            
+                            $modeleCommande -> modifierCommande($params["usagerId"], $params["noCommande"]);
+                            $modeleCommande -> modifierCommandeVoiture($params["noCommande"], $params["voitureId"], 
+                                $params["statutFR"], $params["statutEN"], $params["depot"], $params["prixVente"]);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
+                    break;
+                case "modifierFacture":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], 
+                            $params["modePaiementId"], $params["noFacture"])) {
+                            
+                            $modeleCommande -> modifierFacture($params["expeditionFR"], $params["expeditionEN"],
+                                $params["prixFinal"], $params["modePaiementId"], $params["noFacture"]);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
+                    break;
+                case "modifierModePaiement":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["nomModeFR"], $params["nomModeEN"], $params["idModePaiement"])) {
+                            $modeleCommande -> modifierModePaiement($params["nomModeFR"], $params["nomModeEN"]);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
+                    break;
+                
+                /*--------------- "Suppression" (DELETE) ---------------*/
+
+                case "suppression":
+                    //Suppression d'un élément dans n'importe quelle table avec AJAX
+                    if(isset($_SESSION["admin"])) {
+                        if (isset($params["nomTable"]) && isset($params["id"])) {
+                            $nomId = $modeleCommande -> obtenir_nom_id($params["nomTable"]);
+                            $modeleCommande -> supprime($params["nomTable"], $nomId, $params["id"]);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+					break;
                 default:
                     $this -> afficheVue("Page404");
             }
