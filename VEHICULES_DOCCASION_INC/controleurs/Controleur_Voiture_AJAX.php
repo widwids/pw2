@@ -62,17 +62,16 @@
 							if (isset($params["noSerie"]) &&
 								isset($params["descriptionFR"]) &&
 								isset($params["descriptionEN"]) &&
-								isset($params["visibilite"]) &&
 								isset($params["kilometrage"]) &&
 								isset($params["dateArrivee"]) &&
 								isset($params["prixAchat"]) &&
-								isset($params["groupeMPid"]) &&
+								isset($params["groupeMPId"]) &&
 								isset($params["corpsId"]) &&
-								isset($params["carburanstsId"]) &&
+								isset($params["carburantId"]) &&
 								isset($params["modeleId"]) &&
 								isset($params["transmissionId"]) &&
-								isset($params["anneeId"]))  {
-								$modeleVoiture->modifVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["visibilite"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPid"], $params["corpsId"], $params["carburanstsId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+								isset($params["anneeId"])) {
+								$modeleVoiture->modifVoiture($params["noSerie"],$params["noSerie"],$params["descriptionFR"], $params["descriptionEN"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPId"], $params["corpsId"], $params["carburantId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
 								//$vue = "";	
 							// $this->afficheVue($vue,$data);
 							} else {													

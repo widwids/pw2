@@ -114,7 +114,7 @@
 			}  
 		}
 
-		function modifVoiture($noSerie, $newNoSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId, $visibilite) {		
+		function modifVoiture($noSerie, $newNoSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId) {		
 			try {
 				$stmt = $this->connexion->query("UPDATE voiture 
 												SET noSerie = '".$newNoSerie."', 
@@ -128,8 +128,7 @@
 												carburantId = '".$carburantId."' ,
 												modeleId = '".$modeleId."' ,
 												transmissionId = '".$transmissionId."' ,
-												anneeId = '".$anneeId."' ,
-												visibilite = '".$visibilite."'
+												anneeId = '".$anneeId."'
 												WHERE noSerie = '" . $noSerie . "'");
 				$stmt->execute();
 				return $stmt->fetchAll();

@@ -41,7 +41,7 @@ class GestionFormulaire{
                 this._el.querySelector(`input[name='${key}']`).value = value;
             }
             catch(err) {
-                console.log(err.message);
+                //console.log(err.message);
             }
 
             try
@@ -49,7 +49,7 @@ class GestionFormulaire{
                 this._el.querySelector(`textarea[name='${key}']`).value = value;
             }
             catch(err) {
-                console.log(err.message);
+               //console.log(err.message);
             }
 
             try
@@ -57,7 +57,7 @@ class GestionFormulaire{
                 this._el.querySelector(`select[name='${key}'] option[value='${value}']`).selected = true;
             }
             catch(err) {
-                console.log(err.message);
+                //console.log(err.message);
             }            
 
         }
