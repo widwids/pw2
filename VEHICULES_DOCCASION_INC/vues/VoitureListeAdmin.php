@@ -85,7 +85,7 @@
         </div>
         <div>
             <label for="groupeMPid">Group MP</label>
-            <select name="groupeMPid" id="groupeMPid">
+            <select name="groupeMPId" id="groupeMPid">
                 <option value="">Sélectionnez un groupe MP</option>
                     <?php foreach($data["motopropulseur"] as $groupeMP) { ?>
 
@@ -105,7 +105,7 @@
             </select>
         <div>
             <label for="carburantId">Carburant</label>
-            <select name="carburanstsId" id="carburantId">
+            <select name="carburantId" id="carburantId">
                 <option value="">Sélectionnez un carburant</option>
                     <?php foreach($data["carburant"] as $carburant) { ?>
 
@@ -189,8 +189,8 @@
             <input type="number" name="prixAchat" id="prixAchat">
         </div>
         <div>
-            <label for="groupeMPid">Group MP</label>
-            <select name="groupeMPid" id="groupeMPid">
+            <label for="groupeMPId">Group MP</label>
+            <select name="groupeMPId" id="groupeMPid">
                 <option value="">Sélectionnez un groupe MP</option>
                     <?php foreach($data["motopropulseur"] as $groupeMP) { ?>
 
@@ -210,7 +210,7 @@
             </select>
         <div>
             <label for="carburantId">Carburant</label>
-            <select name="carburanstsId" id="carburantId">
+            <select name="carburantId" id="carburantId">
                 <option value="">Sélectionnez un carburant</option>
                     <?php foreach($data["carburant"] as $carburant) { ?>
 
@@ -327,14 +327,15 @@ function obtenirVoitureAJAX(id)
     let formulaire = new GestionFormulaire(yuModalModifier);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response); 
-            console.log(jsonResponse);
+            let jsonResponse = JSON.parse(this.response);             
+            let voitureDonnees = jsonResponse['voiture'];
+            console.log(voitureDonnees);
             
-            formulaire.remplirFormulaire(jsonResponse);           
+            formulaire.remplirFormulaire(voitureDonnees);           
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=detailVoiture&noSerie=${id}`, true);
+    xhttp.open("GET", `index.php?Voiture_AJAX&action=detailVoitureJson&noSerie=${id}`, true);
     xhttp.send();    
 
 }
@@ -346,7 +347,8 @@ function obtenirVoituresAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response);
+            let jsonResponse = JSON.parse(this.response)['voitures'];
+            console.log(jsonResponse);
 
             let table = document.querySelector("table tbody");
             table.innerHTML = "";
@@ -376,7 +378,7 @@ function obtenirVoituresAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListeVehicule", true);
+    xhttp.open("GET", "index.php?Voiture_AJAX&action=VoitureListeJson", true);
     xhttp.send();
 
 }
@@ -389,11 +391,31 @@ function ajouterVoitureAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.response);
             obtenirVoituresAJAX();
         }
     };
 
     xhttp.open("POST", "index.php?Voiture_AJAX&action=ajoutVoiture", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(formulaire.obtenirQueryString());
+
+}
+
+function modifierVoitureAJAX()
+{
+    let formulaire = new GestionFormulaire(yuModalModifier);
+
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.response);
+            obtenirVoituresAJAX();
+        }
+    };
+
+    xhttp.open("POST", "index.php?Voiture_AJAX&action=modifVoiture", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(formulaire.obtenirQueryString());
 
@@ -405,7 +427,6 @@ function supprimerVoitureAJAX(id)
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
             obtenirVoituresAJAX();
         }
     };
@@ -421,6 +442,15 @@ btnAjouterVoiture.addEventListener("click", (evt) => {
     evt.preventDefault();
     ajouterVoitureAJAX();
     yuModalAjouter.style.width = "0";
+
+});
+
+let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-voiture]");
+btnModifierVoiture.addEventListener("click", (evt) => {
+
+    evt.preventDefault();
+    modifierVoitureAJAX();
+    yuModalModifier.style.width = "0";
 
 });
 
