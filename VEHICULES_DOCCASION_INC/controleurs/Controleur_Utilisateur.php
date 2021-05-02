@@ -74,13 +74,20 @@
 					//Redirection vers la page d'accueil
 					header("Location: index.php");
 					break;
-
+                
+                case "motDePassePerdu":
+                    //Changement de mot de passe
+                    if(isset($params["pseudonyme"])) {
+                        
+                    }
+                    break;
                 /*--------------- Insertion(CREATE) ---------------*/
                 
                 case "creationCompte":
                     //Afficher le formulaire d'ajout d'un utilisateur
                     $this -> afficheFormAjoutUtilisateur();
                     break;
+
                 case "insereUtilisateur":
                     //Création d'un utilisateur
                     if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], $params["adresse"],
@@ -116,6 +123,7 @@
                         trigger_error("Un ou plusieurs paramètres manquants.");
                     }
                     break;
+
                 case "formulaireAjoutVille":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("FormulaireAjoutVille");
@@ -124,6 +132,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "ajouterVille":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomVilleFR"], $params["nomVilleEN"], $params["provinceCode"])) {
@@ -135,6 +144,7 @@
                         }
                     }
                     break;
+
                 case "formulaireAjoutProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("FormulaireAjoutProvince");
@@ -142,7 +152,8 @@
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
-                    break;    
+                    break;
+
                 case "ajouterProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomProvinceFR"], $params["nomProvinceEN"], $params["paysId"])) {
@@ -154,6 +165,7 @@
                         }
                     }
                     break;
+
                 case "formulaireAjoutPays":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("FormulaireAjoutPays");
@@ -161,7 +173,8 @@
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
-                    break;    
+                    break;
+
                 case "ajouterPays":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomPaysFR"], $params["nomPaysEN"])) {
@@ -173,6 +186,7 @@
                         }
                     }
                     break;
+
                 case "formulaireAjoutTaxe":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("FormulaireAjoutTaxe");
@@ -180,7 +194,8 @@
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
-                    break;    
+                    break;
+
                 case "ajouterTaxe":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomTaxeFR"], $params["nomTaxeEN"], $params["taux"], $params["provinceId"])) {
@@ -193,6 +208,7 @@
                         }
                     }
                     break;
+
                 case "formulaireAjoutPrivilege":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("FormulaireAjoutPrivilege");
@@ -200,7 +216,8 @@
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
-                    break;    
+                    break;
+
                 case "ajouterPrivilege":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomPrivilegeFR"], $params["nomPrivilegeEN"])) {
@@ -227,6 +244,7 @@
                         header("Location: index.php?Utilisateur&action=connexion"); 
                     }
 					break;
+
                 case "liste":
                     //Obtenir Liste avec paramètre envoyé avec AJAX
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
@@ -240,6 +258,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "listeUtilisateurs":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
@@ -249,6 +268,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "listeVilles":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
@@ -258,6 +278,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "listeProvinces":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
@@ -267,6 +288,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "listePays":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
@@ -276,6 +298,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "listeTaxes":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
@@ -286,6 +309,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "listePrivileges":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
@@ -295,6 +319,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "listeConnexions":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["connexions"] = $modeleUtilisateur -> obtenir_tous('connexion');
@@ -327,6 +352,7 @@
                         }
                     }
                     break;
+
                 case "modifierVille":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomVilleFR"], $params["nomVilleEN"], $params["provinceCode"], $params["idVille"])) {
@@ -337,6 +363,7 @@
                         }
                     }
                     break;
+
                 case "modifierProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomProvinceFR"], $params["nomProvinceEN"], $params["paysId"], $params["codeProvince"])) {
@@ -347,6 +374,7 @@
                         }
                     }
                     break;
+
                 case "modifierPays":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomPaysFR"], $params["nomPaysEN"], $params["idPays"])) {
@@ -356,6 +384,7 @@
                         }
                     }
                     break;
+
                 case "modifierTaxe":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomTaxeFR"], $params["nomTaxeEN"], $params["idTaxe"], 
@@ -367,6 +396,7 @@
                         }
                     }
                     break;
+
                 case "modifierPrivilege":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomPrivilegeFR"], $params["nomPrivilegeEN"], $params["idPrivilege"])) {
