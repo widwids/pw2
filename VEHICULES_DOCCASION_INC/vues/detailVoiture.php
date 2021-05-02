@@ -19,9 +19,11 @@
     <div class="swiper-button-prev"></div>
 </div>
 
+<?php foreach ($data["voiture"] as $voiture) { ?>
+
 <div class="nomMarque">
-    <h1>Ferrari</h1>
-    <h1>LA FERRARI</h1>
+    <h1><?= $voiture["nomMarque"] ?></h1>
+    <h1><?= $voiture["nomModele"] ?></h1>
 </div>
 
 <div class="details_container">
@@ -29,19 +31,21 @@
     <div class="details">
         <div>
             <ul>
-                <li>Marque: Ferrari</li>
-                <li>Modèle: La ferrari</li>
-                <li>Année: 2013</li>
-                <li>Couleur: Rouge</li>
-                <li>Kilométrage: 18 850Km</li>
-                <li>Carburant: Essence Standard</li>
-                <li>Type de véhicule: Supercar</li>
+                    <li>Marque: <?= $voiture["nomMarque"] ?></li>
+                    <li>Modèle: <?= $voiture["nomModele"] ?></li>
+                    <li>Année: <?= $voiture["anneeId"] ?></li>
+                    <li>No de série: <?= $voiture["noSerie"] ?></li>
+                    <li>Kilométrage: <?= $voiture["kilometrage"] ?></li>
+                    <li>Carburant: Régulière *TEMPORAIRE*</li>
+                    <li>Type de véhicule: <?= $voiture["nomCorpsFR"] ?></li>
+                    <li>Traction: <?= $voiture["nomMotopro"] ?></li>
+                    <li>Transmission: Automatique *TEMPORAIRE*</li>
+                    <li>Date d'arrivée: <?= $voiture["dateArrivee"] ?></li>
+<?php }?>
             </ul>
         </div>
         <div class="description">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Aenean et dolor et libero egestas porttitor et maximus nisl. 
-                Suspendisse vitae leo ut sapien dapibus dapibus a ut sem.</p>
+            <p><?= $voiture["descriptionFR"] ?></p>
         </div>
     </div>
 
