@@ -6,7 +6,7 @@
 		<div class="menu">
 			<ul class="liens">
 				<li><a href="index.php?Voiture&action=listeVoituresNonAdmin">Salle de montre</a></li>
-				<li><a href="#">Promotions</a></li>
+				<li><a href="index.php#promo">Promotions</a></li>
 				<li><a href="#">À propos</a></li>
 				<li><a href="#">Contact</a></li>
 				<li><a href="index.php?Utilisateur&action=langue">EN/FR</a></li>

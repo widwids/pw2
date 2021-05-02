@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <div class="separation"></div>
+    <div class="separation" id="promo"></div>
 
     <div class="promo">
         <img src="assets/images/promo.jpg">

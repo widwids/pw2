@@ -90,6 +90,14 @@
     transform: translate(-500px, 0);
 }
 
+.promo img{
+    transition: all 0.7s ease-out;
+}
+
+.promo img:hover{
+    filter: brightness(50%);
+}
+
 .promo_info p{
     color: white;
     line-height: 3em;
@@ -135,6 +143,14 @@
 
 .promo_photo:hover > .promo_photo_info{
     transform: translate(500px, 0);
+}
+
+.promo_photo img{
+    transition: all 0.7s ease-out;
+}
+
+.promo_photo img:hover{
+    filter: brightness(50%);
 }
 
 .promo_photo_info p{
