@@ -105,6 +105,25 @@
                         $this -> afficheVue("Page404");
                     } 
                     break;
+
+
+                    ///////////////////////////////////////
+                    //Vince Panier
+                    case "affichePanier":
+                        //Affiche une commande spécifique
+                        if (isset($params["idCommande"])) {
+                            //Affiche une commande donnée
+                            $vue = "Panier";
+                            $data["commande"] = $modeleCommande -> obtenirCommande($params["idCommande"]);
+    
+                            $this -> afficheVue($vue, $data); 
+                        } else {													
+                            $this -> afficheVue("Page404");
+                        } 
+                        break;
+
+                        
+
                 case "afficheFactures":
                     //Affiche toutes les factures
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {

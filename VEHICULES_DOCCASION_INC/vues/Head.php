@@ -11,12 +11,16 @@
 	<link rel="stylesheet" href="assets/styles/admin.css">
 	<link rel="stylesheet" href="assets/styles/connexion.css">
 	<link rel="stylesheet" href="assets/styles/detailVoiture.css">
+	<link rel="stylesheet" href="assets/styles/panier.css">
 	
 	<!-- Script -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 	<script type="text/javascript" src="assets/scripts/GestionFormulaire.js"></script>
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
 	<script type="text/javascript" src="assets/scripts/classMapping.js"></script>
 	<script type="text/javascript" src="assets/scripts/connexion.js"></script>
+	<script type="text/javascript" src="assets/scripts/panier.js"></script>
 
 	<script type="module" src="assets/scripts/detailVoiture.js" defer></script>
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
