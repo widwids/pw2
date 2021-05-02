@@ -26,6 +26,7 @@
                 case "formulaireAjoutCommande":
                     $this -> afficheVue("FormulaireAjoutCommande");
                     break;
+
                 case "ajouterCommande":
                     if(isset($params["usagerId"], $params["noCommande"], $params["voitureId"], $params["statutFR"],
                         $params["statutEN"], $params["depot"], $params["prixVente"])) {
@@ -41,9 +42,11 @@
                         trigger_error("Paramètre manquant.");
                     }
                     break;
+
                 case "formulaireAjoutFature":
                     $this -> afficheVue("FormulaireAjoutFacture");
                     break;
+
                 case "ajouterFacture":
                     if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], $params["commandeId"],
                         $params["modePaiementId"])) {
@@ -58,6 +61,7 @@
                         trigger_error("Paramètre manquant.");
                     }
                     break;
+
                 case "formulaireAjoutModePaiement":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("FormulaireAjoutModePaiement");
@@ -66,6 +70,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "ajouterModePaiement":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomModeFR"], $params["nomModeEN"])) {
@@ -93,11 +98,12 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "afficheCommande":
                     //Affiche une commande spécifique
                     if (isset($params["idCommande"])) {
                         //Affiche une commande donnée
-                        $vue = "Commande";
+                        $vue = "Panier";
                         $data["commande"] = $modeleCommande -> obtenirCommande($params["idCommande"]);
 
                         $this -> afficheVue($vue, $data); 
@@ -105,24 +111,6 @@
                         $this -> afficheVue("Page404");
                     } 
                     break;
-
-
-                    ///////////////////////////////////////
-                    //Vince Panier
-                    case "affichePanier":
-                        //Affiche une commande spécifique
-                        if (isset($params["idCommande"])) {
-                            //Affiche une commande donnée
-                            $vue = "Panier";
-                            $data["commande"] = $modeleCommande -> obtenirCommande($params["idCommande"]);
-    
-                            $this -> afficheVue($vue, $data); 
-                        } else {													
-                            $this -> afficheVue("Page404");
-                        } 
-                        break;
-
-                        
 
                 case "afficheFactures":
                     //Affiche toutes les factures
@@ -136,6 +124,7 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
+
                 case "afficheFacture":
                     //Affiche une facture donnée
                     if (isset($params["idCommande"])) {
@@ -148,6 +137,7 @@
                         $this -> afficheVue("Page404");
                     }
                     break;
+
                 case "afficheModePaiement":
                     $vue = "ListeModePaiement";
                     $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
@@ -170,6 +160,7 @@
                         }
                     }
                     break;
+
                 case "modifierFacture":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], 
@@ -182,6 +173,7 @@
                         }
                     }
                     break;
+                    
                 case "modifierModePaiement":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomModeFR"], $params["nomModeEN"], $params["idModePaiement"])) {

@@ -16,3 +16,15 @@
     <li>Pseudonyme : <?= $utilisateur -> getPseudonyme() ?></li>
     <li>Privilège : <?= $utilisateur -> getNomPrivilegeFR() ?></li>
 </ul>
+
+<h2>Changer le mot de passe</h2>
+
+<form method="post">
+		<label for="pseudonyme">Nom d'utilisateur :</label>
+		<input type="text" name="pseudonyme" placeholder="Nom d'utilisateur" required><br>
+		<label for="motDePasse">Nouveau mot de passe :</label>
+		<input type="password" name="motDePasse" placeholder="Mot de passe" required><br>
+        <input type="hidden" name="action" value="modifierMotDePasse">
+		<br>
+		<input type="submit" value="Modifier"/>
+</form>

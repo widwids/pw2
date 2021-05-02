@@ -97,6 +97,17 @@
             return $utilisateur;
         }
 
+        //Déterminer le type d'utilisateur
+        public function obtenir_privilege($pseudonyme) {
+			$requete = "SELECT privilegeId FROM utilisateur WHERE pseudonyme = :ps";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":ps", $pseudonyme);
+            $requetePreparee -> execute();
+			$resultat = $requetePreparee -> fetch();
+			
+			return $resultat[0];
+		}
+
         /* Modification (UPDATE) */
         
         //Modification d'un nouvel utilisateur
@@ -137,16 +148,14 @@
             $requetePreparee -> execute();
         }
 
-        //Déterminer le type d'utilisateur
-        public function obtenir_privilege($pseudonyme) {
-			$requete = "SELECT privilegeId FROM utilisateur WHERE pseudonyme = :ps";
+        //Modification mot de passe
+        public function modifierMotDePasse($motDePasse, $pseudonyme) {
+            $requete = "UPDATE utilisateur SET motDePasse = :mP WHERE pseudonyme = :ps";
 			$requetePreparee = $this -> connexion -> prepare($requete);
-			$requetePreparee -> bindParam(":ps", $pseudonyme);
+            $requetePreparee -> bindParam(":mP", $motDePasse);
+            $requetePreparee -> bindParam(":ps", $pseudonyme);
             $requetePreparee -> execute();
-			$resultat = $requetePreparee -> fetch();
-			
-			return $resultat[0];
-		}
+        }
 
         /*--------------- Table ville ---------------*/
 
