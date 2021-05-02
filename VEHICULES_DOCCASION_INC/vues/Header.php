@@ -9,8 +9,7 @@
 				<li><a href="index.php#promo">Promotions</a></li>
 				<li><a href="index.php?Voiture&action=aPropos">À propos</a></li>
 				<li><a href="index.php#contact">Contact</a></li>
-				<li><a href="index.php?Utilisateur&action=langue">EN/FR</a></li>
-				<li><a href="index.php?Utilisateur&action=deconnexion">LOGOFF</a></li>
+				<!-- <li><a href="index.php?Utilisateur&action=langue">EN/FR</a></li> -->
 			</ul>
 		</div>		
 		
