@@ -1,14 +1,6 @@
 <?php
 	class Modele_Voiture extends TemplateDAO {
 		
-		public function getNomTable() {
-            return "voiture";
-        }
-
-        public function getClePrimaire() {
-            return "noSerie";
-        }
-		
 		/* public function obtenir_par_id($id)
         {
             //on appelle obtenir_par_id du parent et on créé un objet Utilisateur à partir de la rangée retournée
