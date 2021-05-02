@@ -13,7 +13,7 @@
 
         <div class="map">
             <h3>Google Map</h3>        
-            <img class="location" src="assets/images/location.png">
+            <img class="location" src="assets/images/location.PNG">
         </div>
 
         <div class="site_map">
