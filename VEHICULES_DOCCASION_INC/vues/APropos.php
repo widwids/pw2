@@ -1,7 +1,7 @@
 <div class="separation"></div>
 
 <div class="apropos">
-    <img src="assets/images/apropos.jpg">
+    <img class="apropos_cover" src="assets/images/apropos.jpg">
     <div class="apropos_texte">
             <h3>UNE HISTOIRE DE PASSION</h3>
             <p>Quisque ornare ipsum quis odio efficitur, tincidunt rhoncus enim dignissim.

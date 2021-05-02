@@ -8,6 +8,11 @@
     overflow:hidden;
 }
 
+.apropos_cover{
+    position:relative;
+    left: -600px;
+}
+
 .apropos_texte{
     display: flex;
     flex-direction: column;
