@@ -13,7 +13,7 @@
 
         <div class="map">
             <h3>Google Map</h3>        
-            <img class="location" src="../VEHICULES_DOCCASION_INC/assets/images/location.png">
+            <img class="location" src="assets/images/location.png">
         </div>
 
         <div class="site_map">
@@ -30,10 +30,10 @@
         <div class="reseaux_sociaux">
             <h3>Réseaux Sociaux</h3>
             <div class="container_logos_rs">
-                <span><img class="logo_rs" src="../VEHICULES_DOCCASION_INC/assets/logo_icones/facebook.svg"></span>
-                <span><img class="logo_rs" src="../VEHICULES_DOCCASION_INC/assets/logo_icones/linkedin.svg"></span>
-                <span><img class="logo_rs" src="../VEHICULES_DOCCASION_INC/assets/logo_icones/twitter.svg"></span>
-                <span><img class="logo_rs" src="../VEHICULES_DOCCASION_INC/assets/logo_icones/instagram.svg"></span>
+                <span><img class="logo_rs" src="assets/logo_icones/facebook.svg"></span>
+                <span><img class="logo_rs" src="assets/logo_icones/linkedin.svg"></span>
+                <span><img class="logo_rs" src="assets/logo_icones/twitter.svg"></span>
+                <span><img class="logo_rs" src="assets/logo_icones/instagram.svg"></span>
             </div>
         </div>
     </div>

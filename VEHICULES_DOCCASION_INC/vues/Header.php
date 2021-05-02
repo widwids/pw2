@@ -1,6 +1,6 @@
 <header class="header" data-component="Header">
 	<nav class="navbar">
-		<span><img class="logo" src="../VEHICULES_DOCCASION_INC/assets/logo_icones/YVMA_logo_gold.svg"></span>
+		<span><img class="logo" src="assets/logo_icones/YVMA_logo_gold.svg"></span>
         <div class="brand"><a href="#" class="brand_text">YVMA</a></div>
 
 		<div class="menu">
@@ -17,7 +17,7 @@
 		<div class="cart" data-js-cart>
 			<span class="connexion"><a href="index.php?Utilisateur&action=connexion">Connexion</a></span>
             <span class="nbItems" data-js-nbItems>0</span>
-            <img class="handshake_icon" src="../VEHICULES_DOCCASION_INC/assets/logo_icones/handshake.png" data-js-cart></img>
+            <img class="handshake_icon" src="assets/logo_icones/handshake.png" data-js-cart></img>
         </div>
 
 		<div class="ham_icon" data-js-hamburger>
