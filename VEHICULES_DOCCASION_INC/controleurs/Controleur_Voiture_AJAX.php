@@ -17,23 +17,17 @@
 				switch ($params["action"]) {
 					
 					case "detailVoiture":
-						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							if (isset($params["noSerie"])) {
-								//affiche photo d'une seul voiture ////
-								//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
-								// a commenter lorsque vous aurrez votre ($params["noSerie"])
-								$data['voiture'] = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
-								$data['photos'] = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);								
-								$vue = "detailVoiture";
-								$this->afficheVue($vue,$data); 
-							} else {													
-								echo "ERROR PARAMS";
-							}
-						} else {
-							//Redirection vers le formulaire d'authentification
-							header("Location: index.php?Utilisateur&action=connexion");
+						if (isset($params["noSerie"])) {
+							//affiche photo d'une seul voiture ////
+							//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+							// a commenter lorsque vous aurrez votre ($params["noSerie"])
+							$data['voiture'] = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
+							$data['photos'] = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);								
+							$vue = "detailVoiture";
+							$this->afficheVue($vue,$data); 
+						} else {													
+							echo "ERROR PARAMS";
 						}
-
 					break;
 				
 					case "modifVoiture":

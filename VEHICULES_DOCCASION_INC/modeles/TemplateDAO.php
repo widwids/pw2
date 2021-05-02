@@ -24,7 +24,7 @@
             $requetePreparee -> execute();
 
             //Retour de l'identifiant de la dernière insertion
-            return $requetePreparee;
+            return $requetePreparee -> fetch();
         }
 
         public function obtenir_tous($nomTable) {
