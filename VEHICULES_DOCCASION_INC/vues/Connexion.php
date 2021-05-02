@@ -7,16 +7,20 @@
         Connexion
         <span class="underline"></span>
       </button>
-      <form class="form form-login">
+      <form class="form form-login" method="post">
         <fieldset>
           <legend>Veuillez inscrire votre identifiant et mot de passe.</legend>
           <div class="input-block">
             <label for="login-email">Identifiant</label>
-            <input id="login-email" type="email" required>
+
+            <input id="login-email" type="text" name="pseudonyme" placeholder="Nom d'utilisateur" required>
+
           </div>
           <div class="input-block">
             <label for="login-password">Mot de passe</label>
-            <input id="login-password" type="password" required>
+
+            <input id="login-password" type="password" name="motDePasse" placeholder="Mot de passe" required>
+
           </div>
 		  <input type="hidden" name="action" value="authentification">
         </fieldset>
@@ -53,8 +57,7 @@
 </section>
 
 
-
-
+<!--
 <h1>Ouverture de session</h1>
 	<form method="post">
 		<label for="pseudonyme">Nom d'utilisateur (obligatoire) :</label>
@@ -73,3 +76,4 @@
 	
 	<a href="index.php?Utilisateur&action=creationCompte">Nouvel utilisateur? Créez un compte ></a>
 
+-->
