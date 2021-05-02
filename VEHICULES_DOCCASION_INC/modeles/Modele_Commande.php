@@ -19,11 +19,13 @@
 		//Toutes les commandes 
 		public function obtenirCommandes() {
 			try {
-				$requete = $this -> connexion -> query("SELECT * FROM achat JOIN commande ON commandeNo = noCommande
-					JOIN utilisateur ON usagerId = idUtilisateur");
+				$requete = $this -> connexion -> query("SELECT commandeNo, voitureId, statutFR, statutEN, depot, prixVente, 
+					dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, 
+					courriel, pseudonyme, villeId FROM achat JOIN commande ON commandeNo = noCommande JOIN utilisateur ON 
+					usagerId = idUtilisateur");
 				$requete -> execute();
 
-				return $requete -> fetchAll();
+				return $requete -> fetchAll(PDO::FETCH_ASSOC);
 			}
 			catch(Exception $exc) {
 				return 0;
@@ -33,10 +35,13 @@
 		//Obtenir une seule commande donnée
 		public function obtenirCommande($idCommande) {
 			try {
-				$requete = $this -> connexion -> query("SELECT * FROM commande WHERE noCommande = " . $idCommande);
+				$requete = $this -> connexion -> query("SELECT commandeNo, voitureId, statutFR, statutEN, depot, prixVente, 
+				dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, 
+				courriel, pseudonyme, villeId FROM achat JOIN commande ON commandeNo = noCommande JOIN utilisateur ON 
+				usagerId = idUtilisateur WHERE noCommande = " . $idCommande);
 				$requete -> execute();
 
-				return $requete -> fetchAll();
+				return $requete -> fetch(PDO::FETCH_ASSOC);
 			}
 			catch(Exception $exc) {
 				return 0;
@@ -115,7 +120,7 @@
 					modePaiementId = idModePaiement");
 				$requete -> execute();
 
-				return $requete -> fetchAll();
+				return $requete -> fetchAll(PDO::FETCH_ASSOC);
 			}
 			catch(Exception $exc) {
 				return 0;
@@ -131,7 +136,7 @@
 
 				$requete->execute();
 
-				return $requete->fetchAll();
+				return $requete->fetch(PDO::FETCH_ASSOC);
 			}
 			catch(Exception $exc) {
 				return 0;

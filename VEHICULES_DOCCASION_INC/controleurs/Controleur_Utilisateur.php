@@ -19,71 +19,34 @@
         
             //Détermine la vue, remplir le modèle approprié
             switch($commande) {
-                case "compte":
-                    //Afficher le compte d'un utilisateur spécifique
-                    if(isset($_SESSION["utilisateur"])) {
-                        $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
-                        $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
-                
-                        $modeleUtilisateur -> ajouterConnexion($utilisateurId);
-                        
-                        $this -> afficheVue("Compte", $data);
-                    } else {
-                        //Redirection vers le formulaire d'authentification
-                        header("Location: index.php?Utilisateur&action=connexion"); 
-                    }
+                case "connexion":
+					//Afficher le formulaire d'authentification
+                    $this -> afficheFormOuvertureSesssion();
 					break;
-                case "creationCompte":
-                    //Afficher le formulaire d'ajout d'un utilisateur
-                    $this -> afficheFormAjoutUtilisateur();
-                    break;
-                case "insereUtilisateur":
-                    if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], $params["adresse"],
-                        $params["codePostal"], $params["telephone"], $params["courriel"], $params["pseudonyme"], 
-                        $params["motDePasse"], $params["villeId"])) {
-                        
-                        if(!isset($params["cellulaire"])) $params["cellulaire"] = "";
 
-                        //Validation
-                        $messageErreur = $this -> valideFormAjoutUtilisateur($params["prenom"], $params["nom"], 
-                            $params["dateNaissance"], $params["adresse"],$params["codePostal"], 
-                            $params["telephone"], $params["courriel"], $params["pseudonyme"], 
-                            $params["motDePasse"], $params["villeId"]);
-                        if($messageErreur == "") {
-                            //Insertion du nouvel Utilisateur
-                            $nouvelUtilisateur = new Utilisateur(0, $params["prenom"], $params["nom"], 
-                                $params["dateNaissance"], $params["adresse"],$params["codePostal"], 
-                                $params["telephone"], $params["cellulaire"], $params["courriel"],
-                                $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
-                                $params["villeId"]);
-                            $ajoute = $modeleUtilisateur -> sauvegarde($nouvelUtilisateur);
-
-                            if($ajoute)
-                                //Redirection vers la page de connexion
-                                header("Location: index.php?Utilisateur&action=connexion");
-                            else
-                                $this -> afficheFormAjoutUtilisateur();
-                        } else {
-                            //Afficher le formulaire d'ajout d'un utilisateur
-                            $this -> afficheFormAjoutUtilisateur($messageErreur);   
-                        }
-                    } else {
-                        trigger_error("Un ou plusieurs paramètres manquants.");
-                    }
-                    break;
 				case "authentification":
 					if(isset($params["pseudonyme"], $params["motDePasse"])) {
 						$authentifier = $modeleUtilisateur -> authentification($params["pseudonyme"], 
                             $params["motDePasse"]);
 						if($authentifier) {
-                            if($modeleUtilisateur -> obtenir_privilege($params["pseudonyme"]) == 1) {
+
+                            //Variables de session
+                            if($modeleUtilisateur -> obtenir_privilege($params["pseudonyme"]) == 1) 
 								$_SESSION["admin"] = $params["pseudonyme"];
-							}
-                            if($modeleUtilisateur -> obtenir_privilege($params["pseudonyme"]) == 2) {
+							
+                            if($modeleUtilisateur -> obtenir_privilege($params["pseudonyme"]) == 2)
 								$_SESSION["employe"] = $params["pseudonyme"];
-							}
+							
 							$_SESSION["utilisateur"] = $params["pseudonyme"];
 
+                            $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
+
+                            if($modeleUtilisateur -> obtenir_par_id('connexion', 'idConnexion', $utilisateurId) == 0) {
+                                $modeleUtilisateur -> ajouterConnexion($utilisateurId);
+                            } else {
+                                $modeleUtilisateur -> modifierConnexion($utilisateurId);
+                            }
+                            
 							header("Location: index.php?Utilisateur&action=compte");
 						} else {
 							$messageErreur = "La combinaison de l'identifiant et du mot de passe est invalide.";
@@ -94,10 +57,7 @@
                         //Redirection vers le formulaire d'authentification
 						header("Location: index.php?Utilisateur&action=connexion"); 
 					break;
-				case "connexion":
-					//Afficher le formulaire d'authentification
-                    $this -> afficheFormOuvertureSesssion();
-					break;
+				
 				case "deconnexion":
 					//Détruire toutes les variables de session
 					$_SESSION = array();
@@ -116,7 +76,46 @@
 					break;
 
                 /*--------------- Insertion(CREATE) ---------------*/
+                
+                case "creationCompte":
+                    //Afficher le formulaire d'ajout d'un utilisateur
+                    $this -> afficheFormAjoutUtilisateur();
+                    break;
+                case "insereUtilisateur":
+                    //Création d'un utilisateur
+                    if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], $params["adresse"],
+                        $params["codePostal"], $params["telephone"], $params["courriel"], $params["pseudonyme"], 
+                        $params["motDePasse"], $params["villeId"])) {
+                        
+                        if(!isset($params["cellulaire"])) $params["cellulaire"] = "";
 
+                        //Validation
+                        $messageErreur = $this -> valideFormAjoutUtilisateur($params["prenom"], $params["nom"], 
+                            $params["dateNaissance"], $params["adresse"],$params["codePostal"], 
+                            $params["telephone"], $params["courriel"], $params["pseudonyme"], 
+                            $params["motDePasse"], $params["villeId"]);
+                        if($messageErreur == "") {
+                            //Insertion du nouvel Utilisateur
+                            $nouvelUtilisateur = new Utilisateur(0, $params["prenom"], $params["nom"], 
+                                $params["dateNaissance"], $params["adresse"], $params["codePostal"], 
+                                $params["telephone"], $params["cellulaire"], $params["courriel"],
+                                $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
+                                $params["villeId"]);
+                            $ajoute = $modeleUtilisateur -> ajouterUtilisateur($nouvelUtilisateur);
+
+                            if($ajoute)
+                                //Redirection vers la page de connexion
+                                header("Location: index.php?Utilisateur&action=connexion");
+                            else
+                                $this -> afficheFormAjoutUtilisateur();
+                        } else {
+                            //Afficher le formulaire d'ajout d'un utilisateur
+                            $this -> afficheFormAjoutUtilisateur($messageErreur);   
+                        }
+                    } else {
+                        trigger_error("Un ou plusieurs paramètres manquants.");
+                    }
+                    break;
                 case "formulaireAjoutVille":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("FormulaireAjoutVille");
@@ -216,6 +215,18 @@
                 
                 /*--------------- Lecture(READ) ---------------*/
 
+                case "compte":
+                    //Afficher le compte d'un utilisateur spécifique
+                    if(isset($_SESSION["utilisateur"])) {
+                        $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
+                        $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
+                        
+                        $this -> afficheVue("Compte", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion"); 
+                    }
+					break;
                 case "liste":
                     //Obtenir Liste avec paramètre envoyé avec AJAX
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
@@ -228,6 +239,16 @@
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
+                    break;
+                case "listeUtilisateurs":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
+                        $this -> afficheVue("ListeUtilisateurs", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
                 case "listeVilles":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
@@ -267,7 +288,7 @@
                     break;
                 case "listePrivileges":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
                         $this -> afficheVue("ListePrivileges", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -286,6 +307,26 @@
                 
                 /*--------------- Modification(UPDATE) ---------------*/
                 
+                case "modifierUtilisateur":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], 
+                            $params["adresse"], $params["codePostal"], $params["telephone"], 
+                            $params["courriel"], $params["pseudonyme"], $params["motDePasse"], 
+                            $params["villeId"])) {
+                        
+                            if(!isset($params["cellulaire"])) $params["cellulaire"] = "";
+
+                            $utilisateur = new Utilisateur(0, $params["prenom"], $params["nom"], 
+                                $params["dateNaissance"], $params["adresse"], $params["codePostal"], 
+                                $params["telephone"], $params["cellulaire"], $params["courriel"],
+                                $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
+                                $params["villeId"]);
+                            $modifie = $modeleUtilisateur -> modifierUtilisateur($utilisateur);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
+                    break;
                 case "modifierVille":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomVilleFR"], $params["nomVilleEN"], $params["provinceCode"], $params["idVille"])) {

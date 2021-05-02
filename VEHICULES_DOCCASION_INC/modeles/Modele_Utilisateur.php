@@ -3,7 +3,63 @@
 		
         /*--------------- Table utilisateur ---------------*/
 
-        /* Lecture(READ) */
+        //Authentification de l'utilisateur
+        public function authentification($pseudonyme, $motDePasse) {
+            //Déterminer si la combinaison identifiant et mot de passe est valide
+			$requete = "SELECT motDePasse FROM utilisateur WHERE pseudonyme = :ps";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":ps", $pseudonyme);
+            $requetePreparee -> execute();
+			$resultat = $requetePreparee -> fetch();
+			
+			//Y'a-t-il une rangée retournée? Déterminer si un utilisateur avec ce pseudonyme existe
+			if($requetePreparee -> rowCount() > 0) {
+				//Utiliser password_verify pour comparer le mot de passe tapé par l'usager avec le mot de passe encrypté contenu dans la base de données
+				if(password_verify($motDePasse, $resultat[0]))
+					return true;
+			}
+			return false;
+        }
+
+        /* Insertion (CREATE) */
+
+        //Ajout d'un nouvel utilisateur
+        public function ajouterUtilisateur(Utilisateur $utilisateur) {
+            $requetePreparee = $this -> connexion -> prepare("INSERT INTO utilisateur (prenom, nom, 
+                dateNaissance, adresse, codePostal, telephone, cellulaire, courriel, pseudonyme, 
+                motDePasse, villeId, privilegeId, visibilite) 
+                VALUES (:pr,:nm,:dn,:ad,:cp,:te,:ce,:co,:ps,:mo,:vi, 3, 1)");
+            $prenom = $utilisateur -> getPrenom();
+            $nom = $utilisateur -> getNom();
+            $dateNaissance = $utilisateur -> getDateNaissance();
+            $adresse = $utilisateur -> getAdresse();
+            $codePostal = $utilisateur -> getCodePostal();
+            $telephone = $utilisateur -> getTelephone();
+            $cellulaire = $utilisateur -> getCellulaire();
+            $courriel = $utilisateur -> getCourriel();
+            $pseudonyme = $utilisateur -> getPseudonyme();
+            $motDePasse = $utilisateur -> getMotDePasse();
+            $villeId = $utilisateur -> getVilleId();
+            $requetePreparee -> bindParam(":pr", $prenom);
+            $requetePreparee -> bindParam(":nm", $nom);
+            $requetePreparee -> bindParam(":dn", $dateNaissance);
+            $requetePreparee -> bindParam(":ad", $adresse);
+            $requetePreparee -> bindParam(":cp", $codePostal);
+            $requetePreparee -> bindParam(":te", $telephone);
+            $requetePreparee -> bindParam(":ce", $cellulaire);
+            $requetePreparee -> bindParam(":co", $courriel);
+            $requetePreparee -> bindParam(":ps", $pseudonyme);
+            $requetePreparee -> bindParam(":mo", $motDePasse);
+            $requetePreparee -> bindParam(":vi", $villeId);
+            $requetePreparee -> execute();
+            
+            if($requetePreparee -> rowCount() > 0)
+                return $this -> connexion -> lastInsertId();
+            else
+                return false;
+        }
+
+        /* Lecture (READ) */
 
         //Obtenir tous les utilisateurs
         public function obtenir_utilisateurs() {
@@ -40,101 +96,45 @@
             //Retour de l'identifiant de la dernière insertion
             return $utilisateur;
         }
+
+        /* Modification (UPDATE) */
         
-        /* Insertion (CREATE) et modification (UPDATE) */
-
-        //Insérer ou modifier un utilisateur
-        public function sauvegarde(Utilisateur $utilisateur) {
-             //L'utilisateur que j'essaie de sauvegarder existe-t-il déjà (id différent de zéro)?
-             if($utilisateur -> getId() != 0) {
-                //Mise à jour -- UPDATE
-				$requete = "UPDATE utilisateur SET prenom = :pr, nom = :nm, dateNaissance = :dN, 
-                    adresse = :ad, codePostal = :cP, telephone = :te, cellulaire = :ce, courriel = :co, 
-                    pseudonyme = :ps, motDePasse = :mP, villeId = :vId, privilegeId = :pId, visibilite = :vi
-                    WHERE idUtilisateur = :id";
-				$requetePreparee = $this -> connexion -> prepare($requete);
-                $prenom = $utilisateur -> getPrenom();
-                $nom = $utilisateur -> getNom();
-                $dateNaissance = $utilisateur -> getDateNaissance();
-                $adresse = $utilisateur -> getAdresse();
-                $codePostal = $utilisateur -> getCodePostal();
-                $telephone = $utilisateur -> getTelephone();
-                $cellulaire = $utilisateur -> getCellulaire();
-                $courriel = $utilisateur -> getCourriel();
-                $pseudonyme = $utilisateur -> getPseudonyme();
-                $motDePasse = $utilisateur -> getMotDePasse();
-                $villeId = $utilisateur -> getVilleId();
-                $privilegeId = $utilisateur -> getPrivilege();
-                $visibilite = $utilisateur -> getVisibilite();
-				$id = $utilisateur -> getId();
-                $requetePreparee -> bindParam(":pr", $prenom);
-                $requetePreparee -> bindParam(":nm", $nom);
-                $requetePreparee -> bindParam(":dN", $dateNaissance);
-                $requetePreparee -> bindParam(":ad", $adresse);
-                $requetePreparee -> bindParam(":cP", $codePostal);
-                $requetePreparee -> bindParam(":te", $telephone);
-                $requetePreparee -> bindParam(":ce", $cellulaire);
-                $requetePreparee -> bindParam(":co", $courriel);
-                $requetePreparee -> bindParam(":ps", $pseudonyme);
-                $requetePreparee -> bindParam(":mP", $motDePasse);
-                $requetePreparee -> bindParam(":vId", $villeId);
-                $requetePreparee -> bindParam(":pId", $privilegeId);
-                $requetePreparee -> bindParam(":vi", $visibilite);
-				$requetePreparee -> bindParam(":id", $id);
-                $requetePreparee -> execute();
-            } else {
-                //Ajout d'un nouvel utilisateur -- CREATE
-                $requete = "INSERT INTO utilisateur (prenom, nom, dateNaissance, adresse, codePostal, telephone, 
-                    cellulaire, courriel, pseudonyme, motDePasse, villeId, privilegeId, visiblite) VALUES 
-                    (:pr,:nm,:dn,:ad,:cp,:te,:ce,:co,:ps,:mo,:vi, 3, 1)";
-                $requetePreparee = $this -> connexion -> prepare($requete);
-                $prenom = $utilisateur -> getPrenom();
-                $nom = $utilisateur -> getNom();
-                $dateNaissance = $utilisateur -> getDateNaissance();
-                $adresse = $utilisateur -> getAdresse();
-                $codePostal = $utilisateur -> getCodePostal();
-                $telephone = $utilisateur -> getTelephone();
-                $cellulaire = $utilisateur -> getCellulaire();
-                $courriel = $utilisateur -> getCourriel();
-                $pseudonyme = $utilisateur -> getPseudonyme();
-                $motDePasse = $utilisateur -> getMotDePasse();
-                $villeId = $utilisateur -> getVilleId();
-                $requetePreparee -> bindParam(":pr", $prenom);
-                $requetePreparee -> bindParam(":nm", $nom);
-                $requetePreparee -> bindParam(":dn", $dateNaissance);
-                $requetePreparee -> bindParam(":ad", $adresse);
-                $requetePreparee -> bindParam(":cp", $codePostal);
-                $requetePreparee -> bindParam(":te", $telephone);
-                $requetePreparee -> bindParam(":ce", $cellulaire);
-                $requetePreparee -> bindParam(":co", $courriel);
-                $requetePreparee -> bindParam(":ps", $pseudonyme);
-                $requetePreparee -> bindParam(":mo", $motDePasse);
-                $requetePreparee -> bindParam(":vi", $villeId);
-                $requetePreparee -> execute();
-
-				if($requetePreparee -> rowCount() > 0)
-					return $this -> connexion -> lastInsertId();
-				else
-					return false;
-            }
-        }
-
-        //Authentification de l'utilisateur
-        public function authentification($pseudonyme, $motDePasse) {
-            //Déterminer si la combinaison identifiant et mot de passe est valide
-			$requete = "SELECT motDePasse FROM utilisateur WHERE pseudonyme = :ps";
-			$requetePreparee = $this -> connexion -> prepare($requete);
-			$requetePreparee -> bindParam(":ps", $pseudonyme);
+        //Modification d'un nouvel utilisateur
+        public function modifierUtilisateur(Utilisateur $utilisateur) {
+            $requete = "UPDATE utilisateur SET prenom = :pr, nom = :nm, dateNaissance = :dN, 
+                adresse = :ad, codePostal = :cP, telephone = :te, cellulaire = :ce, courriel = :co, 
+                pseudonyme = :ps, motDePasse = :mP, villeId = :vId, privilegeId = :pId, visibilite = :vi
+                WHERE idUtilisateur = :idU";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $prenom = $utilisateur -> getPrenom();
+            $nom = $utilisateur -> getNom();
+            $dateNaissance = $utilisateur -> getDateNaissance();
+            $adresse = $utilisateur -> getAdresse();
+            $codePostal = $utilisateur -> getCodePostal();
+            $telephone = $utilisateur -> getTelephone();
+            $cellulaire = $utilisateur -> getCellulaire();
+            $courriel = $utilisateur -> getCourriel();
+            $pseudonyme = $utilisateur -> getPseudonyme();
+            $motDePasse = $utilisateur -> getMotDePasse();
+            $villeId = $utilisateur -> getVilleId();
+            $privilegeId = $utilisateur -> getPrivilegeId();
+            $visibilite = $utilisateur -> getVisibilite();
+            $id = $utilisateur -> getId();
+            $requetePreparee -> bindParam(":pr", $prenom);
+            $requetePreparee -> bindParam(":nm", $nom);
+            $requetePreparee -> bindParam(":dN", $dateNaissance);
+            $requetePreparee -> bindParam(":ad", $adresse);
+            $requetePreparee -> bindParam(":cP", $codePostal);
+            $requetePreparee -> bindParam(":te", $telephone);
+            $requetePreparee -> bindParam(":ce", $cellulaire);
+            $requetePreparee -> bindParam(":co", $courriel);
+            $requetePreparee -> bindParam(":ps", $pseudonyme);
+            $requetePreparee -> bindParam(":mP", $motDePasse);
+            $requetePreparee -> bindParam(":vId", $villeId);
+            $requetePreparee -> bindParam(":pId", $privilegeId);
+            $requetePreparee -> bindParam(":vi", $visibilite);
+            $requetePreparee -> bindParam(":idU", $id);
             $requetePreparee -> execute();
-			$resultat = $requetePreparee -> fetch();
-			
-			//Y'a-t-il une rangée retournée? Déterminer si un utilisateur avec ce pseudonyme existe
-			if($requetePreparee -> rowCount() > 0) {
-				//Utiliser password_verify pour comparer le mot de passe tapé par l'usager avec le mot de passe encrypté contenu dans la base de données
-				if(password_verify($motDePasse, $resultat[0]))
-					return true;
-			}
-			return false;
         }
 
         //Déterminer le type d'utilisateur
@@ -315,31 +315,27 @@
         
         /*--------------- Table connexion ---------------*/
 
-        //Ajouter la connexion des utilisateurs
+        //Ajouter la connexion de l'utilisateur
         public function ajouterConnexion($idUtilisateur) {
-            if($this -> obtenir_utilisateur($idUtilisateur) -> getId() != 0) {
-                $requete = "UPDATE connexion SET adresseIp = '" . $_SERVER["REMOTE_ADDR"] . "', dateConnexion = '" .
-                    date('Y-m-d H:i:s') . "', visibilite = 1 WHERE idConnexion = :id";
-                $requetePreparee = $this -> connexion -> prepare($requete);
-                $requetePreparee -> bindParam(":id", $idUtilisateur);
-                $requetePreparee -> execute();
-            } else {
-                $requete = "INSERT INTO connexion (idConnexion, adresseIp, dateConnexion, visibilite) 
-                    VALUES (:id, '" . $_SERVER["REMOTE_ADDR"] . "', '" . date('Y-m-d H:i:s') . "', 1)";
-                $requetePreparee = $this -> connexion -> prepare($requete);
-                $requetePreparee -> bindParam(":id", $idUtilisateur);
-                $requetePreparee -> execute();
+           $requete = "INSERT INTO connexion (idConnexion, adresseIp, dateConnexion, visibilite) 
+                VALUES (:idC, '" . $_SERVER["REMOTE_ADDR"] . "', '" . date('Y-m-d H:i:s') . "', 1)";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":idC", $idUtilisateur);
+            $requetePreparee -> execute();
 
-                if($requetePreparee -> rowCount() > 0)
-					return $this -> connexion -> lastInsertId();
-				else
-					return false;
-            }
+            if($requetePreparee -> rowCount() > 0)
+                return $this -> connexion -> lastInsertId();
+            else
+                return false;
         }
 
-        //Connexion d'un utilisateur
-        public function getConnexion($idUtilisateur) {
-            
+        //Modifier une connexion
+        public function modifierConnexion($idUtilisateur) {
+            $requete = "UPDATE connexion SET adresseIp = '" . $_SERVER["REMOTE_ADDR"] . "', dateConnexion = '" .
+                date('Y-m-d H:i:s') . "', visibilite = 1 WHERE idConnexion = :id";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":id", $idUtilisateur);
+            $requetePreparee -> execute();
         }
 	}
 ?>

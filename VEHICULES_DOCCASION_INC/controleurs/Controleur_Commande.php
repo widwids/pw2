@@ -193,7 +193,7 @@
                     $this -> afficheVue("Page404");
             }
 
-            $this->afficheVue("Footer");
+            $this -> afficheVue("Footer");
         }
     }
 ?>
