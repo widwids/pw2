@@ -1,7 +1,7 @@
 <header class="header" data-component="Header">
 	<nav class="navbar">
 		<span><img class="logo" src="assets/logo_icones/YVMA_logo_gold.svg"></span>
-        <div class="brand"><a href="index.php?Voiture&action=listeVoituresNonAdmin" class="brand_text">YVMA</a></div>
+        <div class="brand"><a href="index.php" class="brand_text">YVMA</a></div>
 
 		<div class="menu">
 			<ul class="liens">

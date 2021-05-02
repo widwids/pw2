@@ -1,0 +1,149 @@
+/* TOP SECTION - LOGO/VIDEO*/
+
+.vidSection{
+    width: 100%;
+}
+
+.text_container{
+    position: absolute;
+    top: 200px;
+    left: 140px;
+}
+
+.text_container span{
+    font-size: 70px;
+    font-family: Marcellus SC, sans-serif;
+    color: white;
+    animation: fadeInAnimation ease 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+.text_container span:first-child{
+    position: relative;
+    left: 30px;
+}
+
+.text_container span:nth-child(2){
+    position: relative;
+    top: 200px;
+    left: -200px;
+}
+
+.text_container span:last-child{
+    position: relative;
+    top: 450px;
+    left: -500px;
+    font-size: 150px;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}
+
+/* SÉPARATEUR */
+.separation{
+    width: 100%;
+    height: 30px;
+    background-color: white;
+}
+
+
+/* SECTION PROMO EN COURS*/
+    /* sous section paintjob*/
+.promo{
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-position: center center;
+    transition: all 0.7s ease-out;
+}
+
+.promo:hover{
+    transform: translate(-100px);
+}
+
+.promo_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    padding: 0 30px;
+    top:0;
+    right:-600px;
+    background-color: #171717;
+    border-left: solid 30px white;
+    transition: all 0.7s ease-out;
+}
+
+.promo:hover > .promo_info{
+    transform: translate(-500px, 0);
+}
+
+.promo_info p{
+    color: white;
+    line-height: 3em;
+    font-size: 18px;   
+}
+
+.promo_info h3{
+    color: white;
+    font-size: 30px;   
+}
+
+    /* sous section photographe*/
+
+.promo_photo{
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    object-position: center center;
+    transition: all 0.7s ease-out;
+}
+
+.promo_photo:hover{
+    transform: translate(100px);
+}
+
+.promo_photo_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    padding: 0 30px;
+    top:0;
+    left: -600;
+    background-color: #171717;
+    border-right: solid 30px white;
+    transition: all 0.7s ease-out;
+}
+
+.promo_photo:hover > .promo_photo_info{
+    transform: translate(500px, 0);
+}
+
+.promo_photo_info p{
+    color: white;
+    line-height: 3em;
+    font-size: 18px;
+}
+
+.promo_photo_info h3{
+    color: white;
+    font-size: 30px;
+}
