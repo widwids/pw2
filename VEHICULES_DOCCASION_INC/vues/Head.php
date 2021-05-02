@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="assets/styles/admin.css">
 	<link rel="stylesheet" href="assets/styles/connexion.css">
 	<link rel="stylesheet" href="assets/styles/detailVoiture.css">
+	<link rel="stylesheet" href="assets/styles/accueil.css">
 	<link rel="stylesheet" href="assets/styles/panier.css">
 	
 	<!-- Script -->
