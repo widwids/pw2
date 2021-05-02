@@ -76,7 +76,6 @@
 					break;
                 
                 case "motDePassePerdu":
-                    //Changement de mot de passe
                     if(isset($params["pseudonyme"])) {
                         
                     }
@@ -350,6 +349,17 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    }
+                    break;
+                
+                case "modifierMotDePasse":
+                    //Changement de mot de passe
+                    if(isset($params["motDePasse"], $params["pseudonyme"])) {
+                        $modeleUtilisateur -> modifierMotDePasse(password_hash($params["motDePasse"], PASSWORD_DEFAULT), 
+                            $params["pseudonyme"]);
+                        header("Location: index.php?Utilisateur&action=connexion"); 
+                    } else {
+                        trigger_error("Paramètre manquant.");
                     }
                     break;
 
