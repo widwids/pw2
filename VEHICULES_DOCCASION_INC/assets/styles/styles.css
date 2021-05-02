@@ -167,20 +167,25 @@ td input[type=number] {
 }
 
 .product-image img {
-    width: 400px;
+    width: 420px;
     height: 200px;
     object-fit: cover;
     border: 1px solid rgb(255, 255, 255);
 }
 
 .product-card {
-    margin: 30px;
     flex: 1 15%;
     -webkit-transform: scale(1);
 	transform: scale(1);
 	-webkit-transition: .3s ease-in-out;
 	transition: .3s ease-in-out;
     text-align: center;
+}
+
+.product-info {
+    background-color:rgba(0, 0, 0, 0.75);
+    margin: 50px;
+    margin-top: 0px;
 }
 
 .product-card:hover {

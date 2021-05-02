@@ -26,9 +26,11 @@
 		</div>
 		<div class=product-info>
 			<!-- <p><?php echo $voiture["noSerie"]; ?></p>  -->
-			<p><?php echo $voiture["nomMarque"]; ?></p> 
-			<p><?php echo $voiture["nomModele"]; ?> <?php echo $voiture["anneeId"]; ?></p> 
-			<p><?php echo $voiture["prixAchat"]; ?> $</p>
+			<p><?php echo $voiture["nomMarque"]; ?> <?php echo $voiture["nomModele"]; ?> <?php echo $voiture["anneeId"]; ?></p> 
+			<p><?php echo $voiture["kilometrage"]; ?> Km</p> 
+			<p>Date d'arrivée : <?php echo $voiture["dateArrivee"]; ?></p> 
+			<p></p> 
+			<h2><?php echo $voiture["prixAchat"]; ?> $</h2>
 		</div> 
 	</div> 
 <?php
