@@ -1,6 +1,6 @@
 <footer>
     <div class="container">
-        <div class="contact">
+        <div class="contact" id="contact">
         <h3>Contact</h3>
             <ul>
                 <li>9655 rue Docteur Penfield</li>

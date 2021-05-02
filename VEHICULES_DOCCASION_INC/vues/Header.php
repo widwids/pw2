@@ -7,8 +7,8 @@
 			<ul class="liens">
 				<li><a href="index.php?Voiture&action=listeVoituresNonAdmin">Salle de montre</a></li>
 				<li><a href="index.php#promo">Promotions</a></li>
-				<li><a href="#">À propos</a></li>
-				<li><a href="#">Contact</a></li>
+				<li><a href="index.php?Voiture&action=aPropos">À propos</a></li>
+				<li><a href="index.php#contact">Contact</a></li>
 				<li><a href="index.php?Utilisateur&action=langue">EN/FR</a></li>
 				<li><a href="index.php?Utilisateur&action=deconnexion">LOGOFF</a></li>
 			</ul>

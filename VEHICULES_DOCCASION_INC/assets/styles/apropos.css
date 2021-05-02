@@ -1,0 +1,49 @@
+.apropos{
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-position: center center;
+    overflow:hidden;
+}
+
+.apropos_texte{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    padding: 0 30px;
+    top:0;
+    right:0;
+    background-color: #171717;
+    border-left: solid 30px white;
+    transition: all 0.7s ease-out;
+}
+
+
+.apropos_texte p{
+    color: white;
+    line-height: 3em;
+    font-size: 18px;
+}
+
+.apropos_texte h3{
+    color: white;
+    font-size: 30px;
+}
+
+.signature_svg{
+    position: relative;
+    width: 75%;
+    bottom: 50px;
+}
+
+.signature_texte{
+    position: relative;
+    bottom: 125px;
+    right: -100px;
+}

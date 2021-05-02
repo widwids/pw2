@@ -3,6 +3,9 @@
     color: #666; /*temporaire*/
 }
 /* ELEMENTS */
+html {
+    margin-top: 75px;
+}
 
 body {
     margin: 0;
