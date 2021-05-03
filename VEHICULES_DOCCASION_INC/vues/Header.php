@@ -39,7 +39,10 @@
 				<li><a href="#">Promotions</a></li>
 				<li><a href="index.php?Voiture&action=aPropos">À propos</a></li>
 				<li><a href="#">Contact</a></li>
-				<li><a href="index.php?Utilisateur&action=langue">EN/FR</a></li>
+				<li><a href="#">EN/FR</a></li>
+<?php if(isset($_SESSION["utilisateur"])) { ?>
+				<li><a href="index.php?Utilisateur&action=deconnexion">Déconnexion</a></li>
+<?php } ?>
 			</ul>
 		</div>
     </nav>
