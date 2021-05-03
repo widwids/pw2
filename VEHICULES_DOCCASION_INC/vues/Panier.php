@@ -18,15 +18,15 @@
 
           <h1>Lorem ipsum</h1>
 
-          <p><?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"]; ?> <?= $voiture["anneeId"]; ?></p>
+          <p style="color:#222"><?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"]; ?> <?= $voiture["anneeId"]; ?></p>
         </div>
 
         <footer class="content">
-          <span class="qt-minus">-</span>
-          <span class="qt">1</span>
-          <span class="qt-plus">+</span>
+          <span class="qt-minus" style="color:#222">-</span>
+          <span class="qt" style="color:#222">1</span>
+          <span class="qt-plus" style="color:#222">+</span>
 
-          <h2 class="full-price">
+          <h2 class="full-price" style="color:#222">
             <?= number_format($commande["prixVente"], 2, ',', ' ') ?>
           </h2>
 
@@ -50,7 +50,7 @@
 
       <div class="right">
         <h1 class="total">Total: 
-          <span><?= number_format($commande["prixVente"] + $commande["prixVente"] * 0.14975, 2, ',', ' ') ?></span>$
+          <span style="color:#222"><?= number_format($commande["prixVente"] + $commande["prixVente"] * 0.14975, 2, ',', ' ') ?></span>$
         </h1>
         <a class="btn">Checkout</a>
       </div>
