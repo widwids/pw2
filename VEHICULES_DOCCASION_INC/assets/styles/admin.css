@@ -3,11 +3,12 @@
 
 .header-admin {
 
-    background: black;
+    background-color: #171717;
     padding: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid white;
 
 }
 
@@ -23,9 +24,10 @@
     padding: 10px;
     display: block;
 
-    font-family: Playfair Display;
+    font-family: 'Overpass', sans-serif;
     font-size: 1.5em;
-    text-decoration: underline;
+    text-transform: uppercase;
+    /* text-decoration: underline; */
 
 }
 
@@ -39,7 +41,8 @@
 
     min-width: 1200px;
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    margin: 0;
 
 }
 
@@ -48,10 +51,10 @@
     overflow: hidden;
     max-height: 0;
     position: absolute;
-    padding: 0 15px 11px 15px;
+    padding: 0 15px 0px 15px;
     width: 260px;
     z-index: 1;
-    background: rgba(0,0,0,0.8);
+    background: rgba(23,23,23,1);
     border-radius: 0 0 10px 10px;
 
     transition: padding 1s ease-out, max-height 0.5s ease-out;
@@ -61,6 +64,7 @@
 .header-admin .parent-menu-deroulant{
 
     position: relative;
+    margin-left: 36px;
 
 }
 

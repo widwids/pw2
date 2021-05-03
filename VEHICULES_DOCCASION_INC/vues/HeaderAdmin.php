@@ -1,12 +1,12 @@
+<?php include('Header.php')?>
 <header class="header-admin" data-component="Header">
 	<picture>
-		<img src="./assets/images/YVMA_logo_gold.svg" alt="">
-		<a href="#" class="brand_text">YVMA</a>
+		<!-- <img src="./assets/images/YVMA_logo_gold.svg" alt="">
+		<a href="#" class="brand_text">YVMA</a> -->
 	</picture>
 	<ul class="menu-principale">
 		<li class="parent-menu-deroulant"><a href="#">Gestion de véhicule</a>
 			<ul class="menu-deroulant">
-				<li><a href="index.php?Voiture&action=FormulaireAjouterVoiture">Ajouter un véhicule</a></li>
 				<li><a href="index.php?Voiture&action=ListeVehicule">Liste de véhicule</a></li>
 				<li><a href="index.php?Voiture&action=ListeGroupeMP">Liste de groupe MP</a></li>
 				<li><a href="index.php?Voiture&action=ListeCorps">Liste de corps</a></li>
@@ -21,15 +21,22 @@
 				<li><a href="">Liste d'utilisateur</a></li>
 			</ul>
 		</li>
-		<li class="parent-menu-deroulant"><a href="#">John Doe(administrateur)</a>
+		<!-- <li class="parent-menu-deroulant"><a href="#">John Doe(administrateur)</a>
 			<ul class="menu-deroulant">
 				<li><a href="">Mon compte</a></li>
 				<li><a href="index.php?Utilisateur&action=deconnexion">Fermer la session</a></li>
 			</ul>
 		</li>
-		<li><a href="#">FR</a></li>
+		<li><a href="#">FR</a></li> -->
 	</ul>
 </header>
+
+<script>
+
+	document.querySelector(".navbar").style = "border-bottom: none";
+
+
+</script>
 
 
 
