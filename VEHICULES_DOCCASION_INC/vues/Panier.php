@@ -8,17 +8,16 @@
       <article class="product">
         <header>
           <a class="remove">
-            <img src="http://www.astudio.si/preview/blockedwp/wp-content/uploads/2012/08/1.jpg" alt="">
+            <img src="assets/images/4232.jpg" class="product-list__image">
 
             <h3>Enlever du panier</h3>
           </a>
         </header>
 
         <div class="content">
-
-          <h1>Lorem ipsum</h1>
-
-          <p style="color:#222"><?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"]; ?> <?= $voiture["anneeId"]; ?></p>
+          <h2 style="color:#222"><?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"]; ?> <?= $voiture["anneeId"]; ?></h2>
+          <p style="color:#222"><?= $voiture["kilometrage"] ?> Km</p> 
+          <p style="color:#222">Date d'arrivée : <?= $voiture["dateArrivee"] ?></p> 
         </div>
 
         <footer class="content">
@@ -50,7 +49,7 @@
 
       <div class="right">
         <h1 class="total">Total: 
-          <span style="color:#222"><?= number_format($commande["prixVente"] + $commande["prixVente"] * 0.14975, 2, ',', ' ') ?></span>$
+          <span style="color:#222"><?= number_format($commande["prixVente"] + $commande["prixVente"] * 0.14975, 2, ',', '') ?></span>$
         </h1>
         <a class="btn">Checkout</a>
       </div>
