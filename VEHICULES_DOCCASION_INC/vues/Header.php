@@ -14,7 +14,9 @@
 		</div>		
 		
 		<div class="cart" data-js-cart>
+<?php if(!isset($_SESSION["utilisateur"])) { ?>
 			<span class="connexion"><a href="index.php?Utilisateur&action=connexion">Connexion</a></span>
+<?php } ?>
             <span class="nbItems" data-js-nbItems>0</span>
             <a href="index.php?commande&action=affichePanier&idCommande=1"><img class="handshake_icon" src="assets/logo_icones/handshake.png" data-js-cart></img></a>
         </div>
@@ -30,9 +32,12 @@
 
 		<div class="hamburger slideMenu">
 			<ul class="liens_ham">
+<?php if(isset($_SESSION["utilisateur"])) { ?>
+				<li><a href="index.php?Utilisateur&action=compte">Compte utilisateur</a></li>
+<?php } ?>
 				<li><a href="index.php?Voiture&action=listeVoituresNonAdmin">Salle de montre</a></li>
 				<li><a href="#">Promotions</a></li>
-				<li><a href="#">À propos</a></li>
+				<li><a href="index.php?Voiture&action=aPropos">À propos</a></li>
 				<li><a href="#">Contact</a></li>
 				<li><a href="index.php?Utilisateur&action=langue">EN/FR</a></li>
 			</ul>
