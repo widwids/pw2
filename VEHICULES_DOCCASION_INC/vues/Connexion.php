@@ -33,23 +33,58 @@
         Nouvel utilisateur
         <span class="underline"></span>
       </button>
-      <form class="form form-signup">
+      <form class="form form-signup" method="post">
         <fieldset>
           <legend>Veuillez inscrire vos informations.</legend>
           <div class="input-block">
-            <label for="signup-email">Courriel</label>
-            <input id="signup-email" type="email" required>
+            <label for="prenom">Prénom</label> 
+	          <input type="text" name="prenom" required>
           </div>
           <div class="input-block">
-            <label for="signup-password">Mot de passe</label>
-            <input id="signup-password" type="password" required>
+            <label for="nom">Nom</label>
+            <input type="text" name="nom" required>
           </div>
           <div class="input-block">
-            <label for="signup-password-confirm">Confirmation du mot de passe</label>
-            <input id="signup-password-confirm" type="password" required>
+            <label for="dateNaissance">Date de naissance</label>
+            <input type="date" name="dateNaissance" required>
           </div>
+          <div class="input-block">
+            <label for="adresse">Adresse</label> 
+            <input type="text" name="adresse" required>
+          </div>
+          <div class="input-block">
+            <label for="codePostal">Code postal</label> 
+            <input type="text" name="codePostal" required>
+          </div>
+          <div class="input-block">
+            <label for="telephone">Téléphone</label> 
+            <input type="tel" name="telephone" required>
+          </div>
+          <div class="input-block">
+            <label for="cellulaire">Cellulaire </label>
+            <input type="tel" name="cellulaire">
+          </div>
+          <div class="input-block">
+            <label for="courriel">Courriel </label>
+            <input type="email" name="courriel">
+          </div>
+          <div class="input-block">
+            <label for="pseudonyme">Pseudonyme</label> 
+            <input type="text" name="pseudonyme" required>
+          </div>
+          <div class="input-block">
+            <label for="motDePasse">Mot de passe</label>
+            <input type="password" name="motDePasse" required>
+          </div>
+            <select id="villeId" name="villeId">
+              <option value="1">Montréal</option>
+              <option value="2">Laval</option>
+              <option value="3">Longueuil</option>
+              <option value="4">Toronto</option>
+            </select>
         </fieldset>
-        <button type="submit" class="btn-signup">Continuer</button>
+        <input type="hidden" name="action" value="insereUtilisateur"/>
+        <input class="btn-signup" type="submit" value="Continuer"/>
       </form>
     </div>
 
