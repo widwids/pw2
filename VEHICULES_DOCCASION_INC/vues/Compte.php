@@ -1,8 +1,9 @@
 <?php $utilisateur = $data["utilisateur"] ?>
 
-<h1 style="text-align: left; margin: 20px;">Utilisateur : <?= $utilisateur -> getPrenom() . " " . $utilisateur -> getNom() ?></h1>
+<h1 style="text-align: left; margin: 20px; padding-top: 20px;">
+    Utilisateur : <?= $utilisateur -> getPrenom() . " " . $utilisateur -> getNom() ?></h1>
 
-<ul style="margin: 20px;">
+<ul style="margin: 20px; padding-bottom: 100px">
     <!-- <li>Id : <?= $utilisateur -> getId() ?></li> -->
     <li>Date de naissance : <?= $utilisateur -> getDateNaissance() ?></li>
     <li>Adresse : <?= $utilisateur -> getAdresse() ?></li>
