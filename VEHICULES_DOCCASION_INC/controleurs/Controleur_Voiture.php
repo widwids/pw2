@@ -273,8 +273,11 @@
 
 				case "listeVoituresNonAdmin":
 					// affiche liste voiture//
-					$vue = "VoitureListe";		
-					$data = $modeleVoiture->obtenirListeVoiture();
+					$vue = "VoitureListe";
+					$data["marques"] = $modeleVoiture -> obtenir_tous("marque");
+					$data["modeles"] = $modeleVoiture -> obtenir_tous("modele");
+					$data["annees"] = $modeleVoiture -> obtenir_tous("annee");
+					$data["voitures"] = $modeleVoiture->obtenirListeVoiture();
 					//var_dump($data);
 					$this->afficheVue($vue,$data); 
 					///////////////////////////////
