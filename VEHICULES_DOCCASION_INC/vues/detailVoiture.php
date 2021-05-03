@@ -36,10 +36,10 @@
                     <li>Année: <?= $voiture["anneeId"] ?></li>
                     <li>No de série: <?= $voiture["noSerie"] ?></li>
                     <li>Kilométrage: <?= $voiture["kilometrage"] ?></li>
-                    <li>Carburant: Régulière *TEMPORAIRE*</li>
+                    <li>Carburant: <?= $voiture["typeCarburantFR"] ?></li>
                     <li>Type de véhicule: <?= $voiture["nomCorpsFR"] ?></li>
                     <li>Traction: <?= $voiture["nomMotopro"] ?></li>
-                    <li>Transmission: Automatique *TEMPORAIRE*</li>
+                    <li>Transmission: <?= $voiture["nomTransmissionFR"] ?></li>
                     <li>Date d'arrivée: <?= $voiture["dateArrivee"] ?></li>
 <?php }?>
             </ul>

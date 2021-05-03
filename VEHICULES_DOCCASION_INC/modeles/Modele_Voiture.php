@@ -74,16 +74,19 @@
 
 		public function obtenirUneVoiture($noSerie) {
 			try {
-				$stmt = $this->connexion->query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, dateArrivee, prixAchat,
-				nomMotopro, nomCorpsFR, anneeId, nomModele, nomMarque, groupeMPId, corpsId, carburantId, modeleId, transmissionId, anneeId, marqueId 
-				                                FROM voiture JOIN corps ON idCorps = corpsId
-												LEFT OUTER JOIN motopropulseur ON idMotopro = groupeMPId
-												LEFT OUTER JOIN modele ON idModele = modeleId
-												LEFT OUTER JOIN marque ON idMarque = marqueId
-												WHERE noSerie = '" . $noSerie . "'");
+				$stmt = $this -> connexion -> query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, 
+				dateArrivee, prixAchat, nomMotopro, nomCorpsFR, nomCorpsEN, typeCarburantFR, typeCarburantEN,
+				nomModele, nomMarque, nomTransmissionFR, nomTransmissionEN, anneeId 
+						FROM voiture JOIN corps ON idCorps = corpsId
+						LEFT OUTER JOIN motopropulseur ON idMotopro = groupeMPId
+						LEFT OUTER JOIN modele ON idModele = modeleId
+						LEFT OUTER JOIN marque ON idMarque = marqueId
+						LEFT OUTER JOIN carburant ON idCarburant = carburantId
+						LEFT OUTER JOIN transmission ON idTransmission = transmissionId
+						WHERE noSerie = '" . $noSerie . "'");
 
 				$stmt->execute();
-				return $stmt->fetchAll();
+				return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 			}
 			catch(Exception $exc) {

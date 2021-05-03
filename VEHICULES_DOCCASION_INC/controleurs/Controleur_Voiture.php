@@ -23,16 +23,19 @@
 			// Ce switch détermine la vue $vue et obtient le modèle $data
 			switch($action) {
 				case "accueil":
+					//Page d'accueil
 					$this -> afficheVue("Accueil"); 
 					break;
 
 				case "aPropos":
+					//Page à propos
 					$this -> afficheVue("APropos"); 
 					break;
 
 				case "detailVoiture":
+					//affiche photo d'une seul voiture ////
 					if (isset($params["noSerie"])) {
-						//affiche photo d'une seul voiture ////
+						//
 						//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
 						// a commenter lorsque vous aurrez votre ($params["noSerie"])
 						$data['voiture'] = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
