@@ -1,6 +1,6 @@
 /* GENERIC */
 * {
-    color: #666; /*temporaire*/
+    color: white; /*temporaire*/
 }
 /* ELEMENTS */
 html {
@@ -21,24 +21,6 @@ h1 {
     text-align: center;
     color: white;
 }
-
-/* header {
-    padding: 6vw 8vw;
-    position: relative;
-}
-
-header::after {
-    content: "";
-    background-color: gray;
-    bottom: 0;
-    height: 1px;
-    left: 8vw;
-    opacity: .25;
-    position: absolute;
-    width: 84vw
-} */
-
-
 
 a {
     text-decoration: none;  
@@ -152,6 +134,7 @@ td input[type=number] {
 
 .filtre {
     text-align: center;
+    margin-bottom: 50px;
 }
 
 .select {
@@ -162,7 +145,7 @@ td input[type=number] {
 }
 
 .product-list {
-    border-radius: 20px;
+    margin: 0 100px;
     padding: 5px;
     display: flex;
     flex-wrap: wrap;
@@ -177,9 +160,7 @@ td input[type=number] {
 }
 
 .product-card {
-    flex: 1 15%;
-    -webkit-transform: scale(1);
-	transform: scale(1);
+    margin: 0 10px 0 10px;
 	-webkit-transition: .3s ease-in-out;
 	transition: .3s ease-in-out;
     text-align: center;
@@ -188,7 +169,8 @@ td input[type=number] {
 .product-info {
     background-color:rgba(0, 0, 0, 0.75);
     margin: 50px;
-    margin-top: 0px;
+    margin-top: 10px;
+    padding: 10px;
 }
 
 .product-card:hover {
