@@ -9,7 +9,6 @@
 			$modeleVoiture = new Modele_Voiture();
 
 			$this->afficheVue("Head");
-			//$this -> afficheVue("Header");
 			isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
                 $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
 

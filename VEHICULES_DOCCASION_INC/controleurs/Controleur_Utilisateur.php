@@ -47,7 +47,7 @@
                                 $modeleUtilisateur -> modifierConnexion($utilisateurId);
                             }
                             
-							header("Location: index.php?Utilisateur&action=compte");
+							header("Location: index.php");
 						} else {
 							$messageErreur = "La combinaison de l'identifiant et du mot de passe est invalide.";
                             //Redirection vers le formulaire d'authentification
