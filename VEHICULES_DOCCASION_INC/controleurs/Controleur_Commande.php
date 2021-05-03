@@ -103,8 +103,11 @@
                     //Affiche une commande spécifique
                     if (isset($params["idCommande"])) {
                         //Affiche une commande donnée
+
                         $vue = "Panier";
                         $data["commande"] = $modeleCommande -> obtenirCommande($params["idCommande"]);
+                        $modeleVoiture = new Modele_Voiture();
+                        $data["voiture"] = $modeleVoiture -> obtenirUneVoiture($data["commande"]["voitureId"])[0];
 
                         $this -> afficheVue($vue, $data); 
                     } else {													

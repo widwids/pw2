@@ -1,3 +1,5 @@
+<?php $commande = $data["commande"]; $voiture = $data["voiture"] ?>
+
 <h1>Panier</h1>
 
 <div class="container">
@@ -16,16 +18,16 @@
 
           <h1>Lorem ipsum</h1>
 
-          <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque.</p>
+          <p><?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"]; ?> <?= $voiture["anneeId"]; ?></p>
         </div>
 
         <footer class="content">
           <span class="qt-minus">-</span>
-          <span class="qt">2</span>
+          <span class="qt">1</span>
           <span class="qt-plus">+</span>
 
           <h2 class="full-price">
-            9000$
+            <?= number_format($commande["prixVente"], 2, ',', ' ') ?>
           </h2>
 
         </footer>
@@ -40,13 +42,16 @@
     <div class="container clearfix">
 
       <div class="left">
-        <h2 class="subtotal">Subtotal: <span>9000.00</span>$</h2>
-        <h3 class="tax">Taxes (14.975%): <span>99.99</span>$</h3>
-        <h3 class="Shipping">Manutention: <span>69.00</span>$</h3>
+        <h2 class="subtotal">Subtotal: <span><?= number_format($commande["prixVente"], 2, ',', ' ') ?></span>$</h2>
+        <h3 class="tax">Taxes (14.975%): 
+          <span><?= number_format($commande["prixVente"] * 0.14975, 2, ',', ' ') ?></span>$</h3>
+        <h3 class="Shipping">Manutention: <span>00.00</span>$</h3>
       </div>
 
       <div class="right">
-        <h1 class="total">Total: <span>18 000</span>$</h1>
+        <h1 class="total">Total: 
+          <span><?= number_format($commande["prixVente"] + $commande["prixVente"] * 0.14975, 2, ',', ' ') ?></span>$
+        </h1>
         <a class="btn">Checkout</a>
       </div>
 
