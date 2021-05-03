@@ -20,19 +20,21 @@
 //var_dump($data);
 	foreach ($data as $voiture) {
 ?>
-	<div class="product-card" data-js-inventaire="" data-js-produits="">
-		<div class="product-image">
-	 		<img src="assets/images/<?php echo $voiture["nomPhoto"]; ?>.jpg" class="product-list__image">
+	<a href="index.php?Voiture&action=detailVoiture&noSerie=<?= $voiture['noSerie']?>">
+		<div class="product-card" data-js-inventaire="" data-js-produits="">
+			<div class="product-image">
+				<img src="assets/images/<?php echo $voiture["nomPhoto"]; ?>.jpg" class="product-list__image">
+			</div>
+			<div class=product-info>
+				<!-- <p><?php echo $voiture["noSerie"]; ?></p>  -->
+				<p><?php echo $voiture["nomMarque"]; ?> <?php echo $voiture["nomModele"]; ?> <?php echo $voiture["anneeId"]; ?></p> 
+				<p><?php echo $voiture["kilometrage"]; ?> Km</p> 
+				<p>Date d'arrivée : <?php echo $voiture["dateArrivee"]; ?></p> 
+				<p></p> 
+				<h2><?php echo $voiture["prixAchat"]; ?> $</h2>
+			</div> 
 		</div>
-		<div class=product-info>
-			<!-- <p><?php echo $voiture["noSerie"]; ?></p>  -->
-			<p><?php echo $voiture["nomMarque"]; ?> <?php echo $voiture["nomModele"]; ?> <?php echo $voiture["anneeId"]; ?></p> 
-			<p><?php echo $voiture["kilometrage"]; ?> Km</p> 
-			<p>Date d'arrivée : <?php echo $voiture["dateArrivee"]; ?></p> 
-			<p></p> 
-			<h2><?php echo $voiture["prixAchat"]; ?> $</h2>
-		</div> 
-	</div> 
+	</a>
 <?php
 	}
 ?>
