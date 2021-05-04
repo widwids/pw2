@@ -35,6 +35,9 @@ class VoitureSolo {
 
                         //Les données ont été reçues
                         this.ajoutePanier(JSON.parse(xhr.response));
+
+                        //Traitement du DOM
+                        location.replace("index.php?Commande&action=affichePanier");
                        
                     } else if (xhr.status === 404) {
                         console.log('Le fichier appelé dans la méthode open() n’existe pas.');
@@ -50,11 +53,26 @@ class VoitureSolo {
     ajoutePanier = (response) => {
         let voiture = response.voiture[0],
             photos = response.photos;
+        
+        if(sessionStorage.getItem('panier')) {
+            let panier = JSON.parse(sessionStorage.getItem('panier'));
 
-        for (let photo of photos) {
-            if(photo.ordre == 1) {
-                let photoPrincipale = photo.nomPhoto;
-                sessionStorage.setItem('panier', JSON.stringify([{voiture: voiture, photo: photoPrincipale}]));
+            if(!panier.find(item => item.voiture.noSerie == voiture.noSerie)) {
+                for (let photo of photos) {
+                    if(photo.ordre == 1) {
+                        let photoPrincipale = photo.nomPhoto;
+                        panier.push({voiture: voiture, photo: photoPrincipale});
+                    }
+                }
+            }
+            
+            sessionStorage.setItem('panier', JSON.stringify(panier));
+        } else {
+            for (let photo of photos) {
+                if(photo.ordre == 1) {
+                    let photoPrincipale = photo.nomPhoto;
+                    sessionStorage.setItem('panier', JSON.stringify([{voiture: voiture, photo: photoPrincipale}]));
+                }
             }
         }
     }

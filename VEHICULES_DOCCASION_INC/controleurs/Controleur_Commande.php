@@ -28,18 +28,25 @@
                     break;
 
                 case "ajouterCommande":
-                    if(isset($params["usagerId"], $params["voitureId"], $params["statutFR"],
-                        $params["statutEN"], $params["depot"], $params["prixVente"])) {
-                    
-                        $noCommande = $modeleCommande -> ajouterCommande($params["usagerId"]);
-                        $modeleCommande -> ajouterCommandeVoiture($noCommande, $params["voitureId"], 
-                            $params["statutFR"], $params["statutEN"], $params["depot"], $params["prixVente"]);
-                        
-                        $data["commandes"] = $modeleCommande -> obtenirCommandes();
+                    if(isset($_SESSION["utilisateur"])) {
+                        $modeleUtilisateur =  new Modele_Utilisateur();
+                        $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
 
-                        $this -> afficheVue("ListeCommandes", $data);
+                        if(isset($params["voitureId"], $params["depot"], $params["prixVente"])) {
+                        
+                            $noCommande = $modeleCommande -> ajouterCommande($usagerId);
+                            $modeleCommande -> ajouterCommandeVoiture($noCommande, $params["voitureId"], 
+                                "en attente", "pending", $params["depot"], $params["prixVente"]);
+                            
+                            $data["commandes"] = $modeleCommande -> obtenirCommandes();
+
+                            //$this -> afficheVue("ListeCommandes", $data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
                     } else {
-                        trigger_error("Paramètre manquant.");
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion"); 
                     }
                     break;
 
@@ -85,7 +92,15 @@
                     break;
 
                 /*--------------- Lecture(READ) ---------------*/
-
+                
+                case "affichePanier":
+                    if(isset($_SESSION["utilisateur"])) {
+                        $modeleUtilisateur =  new Modele_Utilisateur();
+                        $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
+                        $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
+                    }
+                    $this -> afficheVue("Panier", $data);
+                    break;
                 case "afficheCommandes":
                     //Affiche toutes les commandes
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
@@ -104,7 +119,7 @@
                     if (isset($params["idCommande"])) {
                         //Affiche une commande donnée
 
-                        $vue = "Panier";
+                        $vue = "Commande";
                         $data["commande"] = $modeleCommande -> obtenirCommande($params["idCommande"]);
                         $modeleVoiture = new Modele_Voiture();
                         $data["voiture"] = $modeleVoiture -> obtenirUneVoiture($data["commande"]["voitureId"])[0];

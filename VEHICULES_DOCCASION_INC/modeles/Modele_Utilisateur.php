@@ -74,8 +74,9 @@
         //Obtenir un utilisateur par idUtilisateur
         public function obtenir_utilisateur($id) {
             $requete = "SELECT idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
-                cellulaire, courriel, pseudonyme, motDePasse, idVille, nomVilleFR, nomVilleEN, codeProvince, nomProvinceFR, nomProvinceEN, 
-                idPays, nomPaysFR, nomPaysEN, privilegeId, nomPrivilegeFR, nomPrivilegeEN FROM utilisateur JOIN ville ON villeId = idVille 
+                cellulaire, courriel, pseudonyme, motDePasse, idVille, nomVilleFR, nomVilleEN, codeProvince, 
+                nomProvinceFR, nomProvinceEN, idPays, nomPaysFR, nomPaysEN, privilegeId, nomPrivilegeFR, 
+                nomPrivilegeEN FROM utilisateur JOIN ville ON villeId = idVille 
                 JOIN province ON provinceCode = codeProvince JOIN pays ON paysId = idPays 
                 JOIN privilege ON privilegeId = idPrivilege WHERE idUtilisateur = :id";
             $requetePreparee = $this -> connexion -> prepare($requete);
@@ -107,6 +108,19 @@
 			
 			return $resultat[0];
 		}
+
+        //Obtenir la taxe par utilisateur
+        public function obtenir_taxe_utilisateur($idUtilisateur) {
+            $requete = "SELECT nomTaxeFR, nomTaxeEn, provinceId, taux FROM taxe JOIN taxeProvince ON idTaxe = taxeId
+                JOIN province ON provinceId = codeProvince JOIN ville ON codeProvince = provinceCode JOIN utilisateur
+                ON idVille = villeId WHERE idUtilisateur = :idU";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":idU", $idUtilisateur);
+            $requetePreparee -> execute();
+			$resultat = $requetePreparee -> fetchAll(PDO::FETCH_ASSOC);
+			
+			return $resultat;
+        }
 
         /* Modification (UPDATE) */
         

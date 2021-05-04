@@ -19,7 +19,7 @@
 			<span class="connexion"><a href="index.php?Utilisateur&action=connexion">Connexion</a></span>
 <?php } ?>
             <span class="nbItems" data-js-nbItems>0</span>
-            <a href="index.php?commande&action=afficheCommande&idCommande=1"><img class="handshake_icon" src="assets/logo_icones/handshake.png" data-js-cart></img></a>
+            <a href="index.php?commande&action=affichePanier"><img class="handshake_icon" src="assets/logo_icones/handshake.png" data-js-cart></img></a>
         </div>
 
 		
