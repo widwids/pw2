@@ -19,6 +19,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 	<script type="text/javascript" src="assets/scripts/GestionFormulaire.js"></script>
+	<script type="text/javascript" src="assets/scripts/Photos.js"></script>
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
 	<script type="text/javascript" src="assets/scripts/classMapping.js"></script>
 	<script type="text/javascript" src="assets/scripts/connexion.js"></script>

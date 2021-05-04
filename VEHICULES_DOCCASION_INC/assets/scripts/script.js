@@ -11,5 +11,4 @@
 			if (componentDataSet == key) new classMapping[componentDataSet](componentElement);
 		}
 	}
-	
 })();

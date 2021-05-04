@@ -161,7 +161,7 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="noSerie">№ sssSérie</label>
+            <label for="noSerie">№ Série</label>
             <input type="text" name="noSerie" value="">
         </div>
         <div>

@@ -819,12 +819,20 @@
 					break;	
 
 					case "ajoutPhotoVoitureX":
-						// affiche liste voiture//
-						$vue = "supportMed";		
-						$data = $modeleVoiture->obtenirListeVoiture();
-						var_dump('ddddddddddddddddddd',$data);
-						$this->afficheVue($vue); 
-						///////////////////////////////
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["nSerie"])) {
+								// affiche liste voiture//
+								$vue = "supportMed";		
+								//$data = $modeleVoiture->obtenirListeVoiture();
+								$this->afficheVue($vue); 
+								///////////////////////////////
+							} else {													
+								echo "ERROR PARAMS";
+							}
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
 
 					break;
 
