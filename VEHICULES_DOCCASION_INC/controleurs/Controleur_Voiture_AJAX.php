@@ -783,6 +783,53 @@
 
 					break;
 
+
+
+					/////  pas encore devloppé////////
+					case "ajoutPhotoVoiture":
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							if (isset($params["nSerie"])) {  
+								$nSerie = $params["nSerie"];
+								$cont = 0;
+								foreach (glob("C:\wamp64\www\pw2\VEHICULES_DOCCASION_INC\assets\images/".$nSerie."*") as $filename) {
+									//echo "$filename\n";
+									$cont+=1;
+								}
+								//echo $cont;
+
+								
+								for ($i=1; $i <= $cont  ; $i++) { 
+									echo $params["nSerie"];
+									$nomPhoto = $params["nSerie"];
+									$ordre = $i;
+									$autoId = $params["nSerie"];
+									$valide = $modeleVoiture->ajoutPhotoVoiture($nomPhoto, $ordre, $autoId);
+
+									if ($valide) {									
+										//echo "merci";		
+									} else {
+										echo "ERROR";
+									}
+								}
+							}
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
+					break;	
+
+					case "ajoutPhotoVoitureX":
+						// affiche liste voiture//
+						$vue = "supportMed";		
+						$data = $modeleVoiture->obtenirListeVoiture();
+						var_dump('ddddddddddddddddddd',$data);
+						$this->afficheVue($vue); 
+						///////////////////////////////
+
+					break;
+
+					/////////////////////////////////////
+
 					default:
                         $vue = "VoitureListe";		
                         $this->afficheVue($vue);

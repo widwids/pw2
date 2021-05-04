@@ -366,6 +366,23 @@
             $requetePreparee -> execute();
 		}
 		
+		public function ajoutPhotoVoiture($nomPhoto, $ordre, $autoId) {
+			echo 'dddddddd',$nomPhoto;
+			echo $ordre;
+			echo $autoId;
+			$requete = "INSERT INTO photo (nomPhoto, ordre, autoId, visibilite) VALUES 
+				(:nomPhoto, :ordre,:autoId, 1)";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":nomPhoto", $nomPhoto);
+			$requetePreparee -> bindParam(":ordre", $ordre);
+			$requetePreparee -> bindParam(":autoId", $autoId);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
+		}
 
 
 	}
