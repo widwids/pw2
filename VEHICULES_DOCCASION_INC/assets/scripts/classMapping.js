@@ -1,4 +1,6 @@
 const classMapping = {
     'Voiture': Voiture,
-    'GestionFormulaire' : GestionFormulaire
+    'GestionFormulaire' : GestionFormulaire,
+    'Panier' : Panier,
+    'VoitureSolo' : VoitureSolo
 };

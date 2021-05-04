@@ -28,11 +28,11 @@
                     break;
 
                 case "ajouterCommande":
-                    if(isset($params["usagerId"], $params["noCommande"], $params["voitureId"], $params["statutFR"],
+                    if(isset($params["usagerId"], $params["voitureId"], $params["statutFR"],
                         $params["statutEN"], $params["depot"], $params["prixVente"])) {
                     
-                        $modeleCommande -> ajouterCommande($params["usagerId"]);
-                        $modeleCommande -> ajouterCommandeVoiture($params["noCommande"], $params["voitureId"], 
+                        $noCommande = $modeleCommande -> ajouterCommande($params["usagerId"]);
+                        $modeleCommande -> ajouterCommandeVoiture($noCommande, $params["voitureId"], 
                             $params["statutFR"], $params["statutEN"], $params["depot"], $params["prixVente"]);
                         
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();

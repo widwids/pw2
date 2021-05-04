@@ -1,85 +1,59 @@
-var check = false;
+class Panier {
+    constructor(el) {
+        this._el = el;
 
-function changeVal(el) {
-  var qt = parseFloat(el.parent().children(".qt").html());
-  var price = parseFloat(el.parent().children(".price").html());
-  var eq = Math.round(price * qt * 100) / 100;
-  
-  el.parent().children(".full-price").html( eq + "€" );
-  
-  changeTotal();      
-}
+        this._articles = this._el.querySelector('[data-js-articles]');
 
-function changeTotal() {
-  
-  var price = 0;
-  
-  $(".full-price").each(function(index){
-    price += parseFloat($(".full-price").eq(index).html());
-  });
-  
-  price = Math.round(price * 100) / 100;
-  var tax = Math.round(price * 0.05 * 100) / 100
-  var shipping = parseFloat($(".shipping span").html());
-  var fullPrice = Math.round((price + tax + shipping) *100) / 100;
-  
-  if(price == 0) {
-    fullPrice = 0;
-  }
-  
-  $(".subtotal span").html(price);
-  $(".tax span").html(tax);
-  $(".total span").html(fullPrice);
-}
+        this._elBtn = this._el.querySelector('[data-js-button]');
 
-$(document).ready(function(){
-  
-  $(".remove").click(function(){
-    var el = $(this);
-    el.parent().parent().addClass("removed");
-    window.setTimeout(
-      function(){
-        el.parent().parent().slideUp('fast', function() { 
-          el.parent().parent().remove(); 
-          if($(".product").length == 0) {
-            if(check) {
-              $("#cart").html("<h1>En construction!</h1><p>Le panier est en construction!</p>");
-            } else {
-              $("#cart").html("<h1>En construction!</h1><p>Le panier est en construction!</p>");
-            }
-          }
-          changeTotal(); 
-        });
-      }, 200);
-  });
-  
-  $(".qt-plus").click(function(){
-    $(this).parent().children(".qt").html(parseInt($(this).parent().children(".qt").html()) + 1);
-    
-    $(this).parent().children(".full-price").addClass("added");
-    
-    var el = $(this);
-    window.setTimeout(function(){el.parent().children(".full-price").removeClass("added"); changeVal(el);}, 150);
-  });
-  
-  $(".qt-minus").click(function(){
-    
-    child = $(this).parent().children(".qt");
-    
-    if(parseInt(child.html()) > 1) {
-      child.html(parseInt(child.html()) - 1);
+        this._total = this._el.querySelector('[data-js-total]');
+
+        this._panier = JSON.parse(sessionStorage.getItem('panier'));
+        
+        this.init();
     }
-    
-    $(this).parent().children(".full-price").addClass("minused");
-    
-    var el = $(this);
-    window.setTimeout(function(){el.parent().children(".full-price").removeClass("minused"); changeVal(el);}, 150);
-  });
-  
-  window.setTimeout(function(){$(".is-open").removeClass("is-open")}, 1200);
-  
-  $(".btn").click(function(){
-    check = true;
-    $(".remove").click();
-  });
-});
+
+    init = () => {
+        this._elBtn.addEventListener('click', this.commande);
+
+        this.affichePanier();
+    }
+
+    affichePanier = () => {
+        let article = '';
+
+        if(this._panier != '') {
+
+            for (let item of this._panier) {
+                article += `<article class="product">
+                                <header>
+                                    <img src="assets/images/${item.photo}.jpg" class="product-list__image">
+                                </header>
+                                <div class="details_container" data-js-voitureInfo>
+                                    <p>${item.voiture.nomMarque} ${item.voiture.nomModele} ${item.voiture.anneeId}</p>
+                                    <p>No de série : ${item.voiture.noSerie}</p>
+                                    <p>Date arrivée : ${item.voiture.dateArrivee}</p>
+                                    <p>Prix : ${(item.voiture.prixAchat * 1.25).toFixed(2)} $</p>
+                                    <label for="depot">Dépôt</label>
+                                    <input type="text" name="depot" id="depot">
+                                </div>
+                            </article>`;
+            }
+        }
+
+        this._articles.innerHTML = article;
+    }
+
+    commande = () => {
+        this.calculeTotal();
+    }
+
+    calculeTotal = () => {
+        let total = 0;
+        for (let item of this._panier) {
+            total += item.voiture.prixAchat * 1.25;
+        }
+
+        this._total.innerHTML = `Total : ${total.toFixed(2)}$`;
+    }
+}
