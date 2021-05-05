@@ -71,7 +71,7 @@
 
 
 					case "detailVoitureJson":
-						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+						//if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 							if (isset($params["noSerie"])) {
 								//affiche photo d'une seul voiture ////
 								//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
@@ -84,10 +84,10 @@
 							} else {													
 								echo "ERROR PARAMS";
 							}
-						} else {
+						/*} else {
 							//Redirection vers le formulaire d'authentification
 							header("Location: index.php?Utilisateur&action=connexion");
-						}
+						}*/
 
 					break;
 

@@ -26,7 +26,7 @@
     <h1><?= $voiture["nomModele"] ?></h1>
 </div>
 
-<div class="details_container">
+<div class="details_container" data-component="VoitureSolo">
     <h1 class="titreDetails">Détails</h1>
     <div class="details">
         <div>
@@ -35,7 +35,7 @@
                 <li>Marque: <?= $voiture["nomMarque"] ?></li>
                 <li>Modèle: <?= $voiture["nomModele"] ?></li>
                 <li>Année: <?= $voiture["anneeId"] ?></li>
-                <li>No de série: <?= $voiture["noSerie"] ?></li>
+                <li>No de série: <span data-js-noSerie><?= $voiture["noSerie"] ?></span></li>
                 <li>Kilométrage: <?= $voiture["kilometrage"] ?></li>
                 <li>Carburant: <?= $voiture["typeCarburantFR"] ?></li>
                 <li>Type de véhicule: <?= $voiture["nomCorpsFR"] ?></li>
