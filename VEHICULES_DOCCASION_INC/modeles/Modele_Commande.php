@@ -60,14 +60,12 @@
 		/*--------------- Table achat ---------------*/
 
 		//Ajouter une commandeVoiture
-		public function ajouterCommandeVoiture($commandeNo, $voitureId, $statutFR, $statutEN, $depot, $prixVente) {
+		public function ajouterCommandeVoiture($commandeNo, $voitureId, $depot, $prixVente) {
 			$requete = "INSERT INTO achat(commandeNo, voitureId, statutFR, statutEN, depot, prixVente, visibilite) 
-				VALUES (:cNo, :vId, :sFR, :sEN, :de, :pV, 1)";
+				VALUES (:cNo, :vId, 'en attente', 'pending', :de, :pV, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":cNo", $commandeNo);
 			$requetePreparee -> bindParam(":vId", $voitureId);
-			$requetePreparee -> bindParam(":sFR", $statutFR);
-			$requetePreparee -> bindParam(":sEN", $statutEN);
 			$requetePreparee -> bindParam(":de", $depot);
 			$requetePreparee -> bindParam(":pV", $prixVente);
             $requetePreparee -> execute();
