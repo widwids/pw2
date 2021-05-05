@@ -10,7 +10,7 @@
         <p>Taxes</p>
 
 <?php foreach ($data["taxes"] as $taxe) { ?>
-        <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span></p>
+        <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span>%</p>
 <?php } ?>
         <h3>Total: <span data-js-total></span>$</h3><br>
         <button data-js-button>Commander</button>

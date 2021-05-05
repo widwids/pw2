@@ -34,10 +34,8 @@ class Panier {
                                 <div class="details_container" data-js-voitureInfo>
                                     <p>${item.voiture.nomMarque} ${item.voiture.nomModele} ${item.voiture.anneeId}</p>
                                     <p>No de série : <span data-js-noSerie>${item.voiture.noSerie}</span></p>
-                                    <p>Date arrivée : ${item.voiture.dateArrivee}</p>
                                     <p>Prix : ${(item.voiture.prixAchat * 1.25).toFixed(2)} $</p>
-                                    <label for="depot">Dépôt</label>
-                                    <input type="text" name="depot" data-js-depot><br><br>
+                                    <p data-js-depot>Dépot requis</p><br><br>
                                     <button data-js-retirer>Retirer du panier</button>
                                 </div>
                             </article><br>`;
