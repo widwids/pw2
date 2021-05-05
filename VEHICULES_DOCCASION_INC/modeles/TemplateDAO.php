@@ -28,7 +28,7 @@
         }
 
         public function obtenir_tous($nomTable) {
-            $requete = "SELECT * FROM $nomTable";
+            $requete = "SELECT * FROM $nomTable WHERE $nomTable.visibilite = 1";
             $resultats = $this -> connexion -> query($requete);
             $resultats -> execute();
             return $resultats -> fetchAll();

@@ -6,7 +6,7 @@
         //Authentification de l'utilisateur
         public function authentification($pseudonyme, $motDePasse) {
             //Déterminer si la combinaison identifiant et mot de passe est valide
-			$requete = "SELECT motDePasse FROM utilisateur WHERE pseudonyme = :ps";
+			$requete = "SELECT motDePasse FROM utilisateur WHERE pseudonyme = :ps AND utilisateur.visibilite = 1";
 			$requetePreparee = $this -> connexion -> prepare($requete);
 			$requetePreparee -> bindParam(":ps", $pseudonyme);
             $requetePreparee -> execute();
@@ -64,7 +64,7 @@
         //Obtenir tous les utilisateurs
         public function obtenir_utilisateurs() {
             //Fetch un tableau d'utilisateurs
-            $requete = "SELECT * FROM utilisateur";
+            $requete = "SELECT * FROM utilisateur WHERE utilisateur.visibilite = 1";
             $resultats = $this -> connexion -> query($requete);
             $resultats -> execute();
             $utilisateurs = $resultats -> fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Utilisateur");
