@@ -219,7 +219,8 @@
 
 					case "ListeModele":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							$data = $modeleVoiture -> obtenir_marque_modele('modele');
+							$data['marque_modele'] = $modeleVoiture -> obtenir_marque_modele('modele');
+							$data['marques'] = $modeleVoiture -> obtenir_tous('marque');
 							$vue = "ListeModeleAdmin";
 							//var_dump($data);
 							$this->afficheVue($vue,$data);
@@ -229,6 +230,30 @@
 						}
 					break;
 					
+					case "ListeMarque":
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$data = $modeleVoiture -> obtenir_tous('marque');
+							$vue = "ListeMarqueAdmin";
+							//var_dump($data);
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
+					break;
+
+					case "ListeAnnee":
+						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+							$data = $modeleVoiture -> obtenir_tous('annee');
+							$vue = "ListeAnneeAdmin";
+							//var_dump($data);
+							$this->afficheVue($vue,$data);
+						}else{
+							//Redirection vers le formulaire d'authentification
+							header("Location: index.php?Utilisateur&action=connexion");
+						}
+					break;
+
 					case "FormulaireAjouterModele":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 							$vue = "FormulaireAjouterModele";
