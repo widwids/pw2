@@ -271,7 +271,7 @@
                 case "listeUtilisateurs":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
-                        $this -> afficheVue("ListeUtilisateurs", $data);
+                        echo json_encode($data);
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
