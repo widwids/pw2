@@ -32,13 +32,19 @@
                         $modeleUtilisateur =  new Modele_Utilisateur();
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
 
-                        if(isset($params["voitureId"], $params["depot"], $params["prixVente"])) {
-                        
+                        if(isset($params["voitureId"], $params["prixVente"])) {
+                            if(!isset($params["depot"])) $params["depot"] = null;
+
                             $noCommande = $modeleCommande -> ajouterCommande($usagerId);
-                            $modeleCommande -> ajouterCommandeVoiture($noCommande, $params["voitureId"], 
-                                "en attente", "pending", $params["depot"], $params["prixVente"]);
+
+                            $listeVoitureId = explode(',', $params["voitureId"]);
+
+                            for($i = 0; $i < count($listeVoitureId); $i++) {
+                                $modeleCommande -> ajouterCommandeVoiture($noCommande, $listeVoitureId[$i], 
+                                $params["depot"], $params["prixVente"]);
+                            }
                             
-                            $data["commandes"] = $modeleCommande -> obtenirCommandes();
+                            //$data["commandes"] = $modeleCommande -> obtenirCommandes();
 
                             //$this -> afficheVue("ListeCommandes", $data);
                         } else {
@@ -98,11 +104,13 @@
                         $modeleUtilisateur =  new Modele_Utilisateur();
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
                         $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
+                        $this -> afficheVue("Panier", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
-                    $this -> afficheVue("Panier", $data);
                     break;
                 case "afficheCommandes":
-                    //Affiche toutes les commandes
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $vue = "ListeCommandes";
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();

@@ -37,7 +37,7 @@ class Panier {
                                     <p>Date arrivée : ${item.voiture.dateArrivee}</p>
                                     <p>Prix : ${(item.voiture.prixAchat * 1.25).toFixed(2)} $</p>
                                     <label for="depot">Dépôt</label>
-                                    <input type="text" name="depot"><br><br>
+                                    <input type="text" name="depot" data-js-depot><br><br>
                                     <button data-js-retirer>Retirer du panier</button>
                                 </div>
                             </article><br>`;
@@ -53,18 +53,68 @@ class Panier {
     }
 
     commande = () => {
-        this.calculeTotal();
+        let noSerieListe = this._articles.querySelectorAll('[data-js-noSerie]'),
+            prixVente = this._el.querySelector('[data-js-total]').textContent,
+            tabNoSerie = [];
 
+        for (let noSerie of noSerieListe) {
+            tabNoSerie.push(noSerie.innerHTML);
+        }
+
+        let paramNoSerie = encodeURIComponent(tabNoSerie),
+            paramPrixVente = encodeURIComponent(prixVente);
+
+        //Déclaration de l'objet XMLHttpRequest
+        var xhr;
+        xhr = new XMLHttpRequest();
         
+        //Initialisation de la requête
+        if (xhr) {	
+
+            // Ouverture de la requête : fichier recherché
+            xhr.open('POST', 'index.php?Commande&action=ajouterCommande');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.addEventListener('readystatechange', () => {
+
+                if (xhr.readyState === 4) {							
+                    if (xhr.status === 200) {
+
+                        //Les données ont été reçues
+                        //Traitement du DOM
+                        sessionStorage.removeItem('panier');
+
+                       
+                    } else if (xhr.status === 404) {
+                        console.log('Le fichier appelé dans la méthode open() n’existe pas.');
+                    }
+                }
+            });
+
+            //Envoi de la requête
+            xhr.send('&voitureId=' + paramNoSerie + '&prixVente=' + paramPrixVente);
+        }
     }
 
     calculeTotal = () => {
-        let total = 0;
+        let sousTotal = 0;
         for (let item of this._panier) {
-            total += item.voiture.prixAchat * 1.25;
+            sousTotal += item.voiture.prixAchat * 1.25;
         }
 
-        this._sousTotal.innerHTML = `Sous-total : ${total.toFixed(2)}$`;
+        this._sousTotal.innerHTML = sousTotal.toFixed(2);
+
+        let tauxTaxe = this._el.querySelectorAll('[data-js-taux]'),
+            total = this._el.querySelector('[data-js-total]'),
+            montant = 0;
+
+        for (let taux of tauxTaxe) {
+            montant += parseFloat(taux.textContent/100);
+        }
+
+        montant = parseFloat(this._sousTotal.innerHTML) + this._sousTotal.innerHTML * montant;
+
+        total.innerHTML = montant.toFixed(2);
     }
 
     retirePanier = (e) => {
