@@ -5,6 +5,7 @@ class GestionFormulaire{
         this.inputs = this._el.querySelectorAll('input');
         this.textareas = this._el.querySelectorAll('textarea'); 
         this.selects = this._el.querySelectorAll('select');
+        
     }
 
 

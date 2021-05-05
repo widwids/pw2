@@ -266,7 +266,7 @@
 					case "listeVoituresNonAdmin":
 						// affiche liste voiture//
 						$vue = "VoitureListe";		
-						$data = $modeleVoiture->obtenirListeVoiture();
+						$data["voitures"] = $modeleVoiture->obtenirListeVoiture();
 						//var_dump($data);
 						$this->afficheVue($vue,$data); 
 						///////////////////////////////
@@ -306,13 +306,14 @@
 
 					/// pas encore devloppé 
 
-					case "ajoutPhotoVoitureX":
+					case "FormulaireAjoutPhotoVoiture":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 							if (isset($params["nSerie"])) {
 								// affiche liste voiture//
-								$vue = "supportMed";		
+								$vue = "FormulaireAjoutPhotos";	
+								$data = $params["nSerie"];	
 								//$data = $modeleVoiture->obtenirListeVoiture();
-								$this->afficheVue($vue); 
+								$this->afficheVue($vue,$data); 
 								///////////////////////////////
 							} else {													
 								echo "ERROR PARAMS";
@@ -321,13 +322,13 @@
 							//Redirection vers le formulaire d'authentification
 							header("Location: index.php?Utilisateur&action=connexion");
 						}
-		
+					break;
 				}			
 			} else {
 
 				// affiche liste voiture//
 				$vue = "VoitureListe";		
-				$data = $modeleVoiture->obtenirListeVoiture();
+				$data["voitures"] = $modeleVoiture->obtenirListeVoiture();
 				//var_dump($data);
 				$this->afficheVue($vue,$data); 
 				///////////////////////////////

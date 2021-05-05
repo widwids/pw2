@@ -782,50 +782,32 @@
 						///////////////////////////////
 
 					break;
-
-
-
-					/////  pas encore devloppé////////
-					case "ajoutPhotoVoiture":
+					
+					case "ajoutPhotosVoiture":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							if (isset($params["nSerie"])) {  
-								$nSerie = $params["nSerie"];
-								$cont = 0;
-								foreach (glob("C:\wamp64\www\pw2\VEHICULES_DOCCASION_INC\assets\images/".$nSerie."*") as $filename) {
-									//echo "$filename\n";
-									$cont+=1;
-								}
-								//echo $cont;
-
+							if (isset($params["imgPrin"]) || isset($params["imgSeco"]) || isset($params["nSerie"]) ) {
 								
-								for ($i=1; $i <= $cont  ; $i++) { 
-									echo $params["nSerie"];
-									$nomPhoto = $params["nSerie"];
-									$ordre = $i;
-									$autoId = $params["nSerie"];
-									$valide = $modeleVoiture->ajoutPhotoVoiture($nomPhoto, $ordre, $autoId);
+								///// photo principale /////
+								$imgPrin = $params["imgPrin"];
+								$file = $imgPrin;
+								$info = pathinfo($file);
+								$file_name =  basename($file,'.'.$info['extension']);
+								//echo  $file_name; 
+								$modeleVoiture->ajoutPhotoVoiture($file_name, 1 , $params["nSerie"]);
 
-									if ($valide) {									
-										//echo "merci";		
-									} else {
-										echo "ERROR";
-									}
+
+								///// photos secondaires /////
+								$imgSecond = explode(",",$params["imgSeco"]);
+								for ($i=0; $i < count($imgSecond); $i++) { 
+
+									$file = $imgSecond[$i];
+									$info = pathinfo($file);
+									$file_name =  basename($file,'.'.$info['extension']);
+
+									//echo ' / ',$file_name; 
+									$modeleVoiture->ajoutPhotoVoiture($file_name, $i+2 , $params["nSerie"]);
 								}
-							}
-						}else{
-							//Redirection vers le formulaire d'authentification
-							header("Location: index.php?Utilisateur&action=connexion");
-						}
-					break;	
 
-					case "ajoutPhotoVoitureX":
-						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							if (isset($params["nSerie"])) {
-								// affiche liste voiture//
-								$vue = "supportMed";		
-								//$data = $modeleVoiture->obtenirListeVoiture();
-								$this->afficheVue($vue); 
-								///////////////////////////////
 							} else {													
 								echo "ERROR PARAMS";
 							}
