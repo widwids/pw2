@@ -35,7 +35,7 @@
 <section class="product-list" data-component="">
 <?php
 //var_dump($data);
-	foreach ($data as $voiture) {
+	foreach ($data['voitures'] as $voiture) {
 ?>
 	<a href="index.php?Voiture&action=detailVoiture&noSerie=<?= $voiture['noSerie']?>">
 		<div class="product-card" data-js-inventaire="" data-js-produits="">
