@@ -1,6 +1,6 @@
 /* GENERIC */
 * {
-    color: white; /*temporaire*/
+    color: white;
 }
 /* ELEMENTS */
 html {
@@ -129,9 +129,6 @@ td input[type=number] {
     pointer-events: none;
 }
 
-
-/* product list */
-
 .filtre {
     text-align: center;
     margin-bottom: 50px;
@@ -142,65 +139,6 @@ td input[type=number] {
     text-align: center;
     background-color: black;
 
-}
-
-.product-list {
-    margin: 0 100px;
-    padding: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.product-image img {
-    width: 420px;
-    height: 200px;
-    object-fit: cover;
-    border: 1px solid rgb(255, 255, 255);
-}
-
-.product-card {
-    margin: 0 10px 0 10px;
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-    text-align: center;
-}
-
-.product-info {
-    background-color:rgba(0, 0, 0, 0.75);
-    margin: 50px;
-    margin-top: 10px;
-    padding: 10px;
-}
-
-.product-card:hover {
-    cursor: pointer;
-    box-shadow: none;
-    -webkit-transform: scale(1.033);
-	transform: scale(1.033);
-}
-
-.product-card:active {
-    opacity: 1;
-	-webkit-animation: flash .4s;
-	animation: flash .4s;
-}
-
-@-webkit-keyframes flash {
-	0% {
-		opacity: .6;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-@keyframes flash {
-	0% {
-		opacity: .6;
-	}
-	100% {
-		opacity: 1;
-	}
 }
 
 .show-more {
