@@ -106,7 +106,19 @@
 								isset($params["modeleId"]) &&
 								isset($params["transmissionId"]) &&
 								isset($params["anneeId"])) {
-								$valide = $modeleVoiture->ajoutVoiture($params["noSerie"], $params["descriptionFR"], $params["descriptionEN"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],$params["groupeMPId"], $params["corpsId"], $params["carburantId"], $params["modeleId"], $params["transmissionId"], $params["anneeId"]);
+
+								if($modeleVoiture -> obtenir_par_id('voiture', 'noSerie', $params["noSerie"]) == 0) {
+									$valide = $modeleVoiture -> ajoutVoiture($params["noSerie"], $params["descriptionFR"],
+									$params["descriptionEN"], $params["kilometrage"], $params["dateArrivee"], 
+									$params["prixAchat"],$params["groupeMPId"], $params["corpsId"],
+									$params["carburantId"], $params["modeleId"], $params["transmissionId"],
+									$params["anneeId"]);
+								} else {
+									$modeleVoiture -> modifVoiture($params["noSerie"],$params["noSerie"],$params["descriptionFR"], 
+									$params["descriptionEN"], $params["kilometrage"], $params["dateArrivee"], $params["prixAchat"],
+									$params["groupeMPId"], $params["corpsId"], $params["carburantId"], $params["modeleId"], 
+									$params["transmissionId"], $params["anneeId"]);
+								}
 								
 								if ($valide) {									
 									//echo "merci";		

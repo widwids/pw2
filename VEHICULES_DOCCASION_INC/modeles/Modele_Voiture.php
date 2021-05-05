@@ -127,7 +127,8 @@
 												carburantId = '".$carburantId."' ,
 												modeleId = '".$modeleId."' ,
 												transmissionId = '".$transmissionId."' ,
-												anneeId = '".$anneeId."'
+												anneeId = '".$anneeId."',
+												visibilite = 1
 												WHERE noSerie = '" . $noSerie . "'");
 				$stmt->execute();
 				return $stmt->fetchAll();
