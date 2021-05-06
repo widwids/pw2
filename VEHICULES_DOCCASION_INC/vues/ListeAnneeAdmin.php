@@ -54,7 +54,7 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>            
-            <input type="hidden" name="annee">
+            <input type="hidden" name="annee" >
         </div>
         <div>
             <label for="annee">Année</label>

@@ -40,7 +40,7 @@
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
             <label for="nomMotopro">Nom de motopropulseur</label>
-            <input type="text" name="nomMotopro">
+            <input type="text" name="nomMotopro" required>
         </div>
         <div>
             <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-mp>
