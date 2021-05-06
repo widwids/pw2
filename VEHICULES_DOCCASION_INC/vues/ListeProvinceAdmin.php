@@ -2,28 +2,28 @@
 <section class="yu-section">
 
     <div class="yu-table-groupeMP yu-btn-ajouter-container">
-    <button class="yu-btn-ajouter">Ajouter une ville</button>
+    <button class="yu-btn-ajouter">Ajouter une province</button>
     </div>
 
-    <table class="yu-table yu-table-ville">
+    <table class="yu-table yu-table-pays">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du ville en français</th>
-                <th>Nom du ville en anglais</th>
+                <th>Nom du province en français</th>
+                <th>Nom du province en anglais</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $ville) { ?>
+    <?php foreach ($data as $province) { ?>
 
         <tr>
-            <td data-js-idVille><?= $ville["idVille"]?></td>
-            <td><?= $ville["nomVilleFR"]?></td>
-            <td><?= $ville["nomVilleEN"]?></td>
+            <td data-js-idProvince><?= $province["codeProvince"]?></td>
+            <td><?= $province["nomProvinceFR"]?></td>
+            <td><?= $province["nomProvinceEN"]?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
     
@@ -41,15 +41,15 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR" required>
+            <label for="nomProvinceFR">Nom du province en français</label>
+            <input type="text" name="nomProvinceFR" required>
         </div>
         <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN" required>
+            <label for="nomProvinceEN">Nom du province en anglais</label>
+            <input type="text" name="nomProvinceEN" required>
         </div>
         <div>
-            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-ville>
+            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-province>
         </div>
     </form>
 
@@ -62,18 +62,18 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>            
-            <input type="hidden" name="idVille">
+            <input type="hidden" name="idProvince">
         </div>
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR">
+            <label for="nomProvinceFR">Nom du province en français</label>
+            <input type="text" name="nomProvinceFR">
         </div>
         <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN">
+            <label for="nomProvinceEN">Nom du province en anglais</label>
+            <input type="text" name="nomProvinceEN">
         </div>
         <div>
-            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-ville>
+            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-province>
         </div>
     </form>
 
@@ -119,7 +119,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').innerHTML; console.log(id);
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -129,8 +129,8 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; 
-            obtenirVilleAJAX(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').innerHTML; 
+            obtenirProvinceAJAX(id);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -139,7 +139,7 @@ function ajouterEvenements()
 
 ajouterEvenements();
 
-function obtenirVilleAJAX(id)
+function obtenirProvinceAJAX(id)
 {
 
     let xhttp = new XMLHttpRequest();
@@ -147,19 +147,19 @@ function obtenirVilleAJAX(id)
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
-            let villeDonnees = jsonResponse['ville'];
-            console.log("villeDonnees",villeDonnees);
+            let provinceDonnees = jsonResponse['province'];
+            console.log("provinceDonnees",provinceDonnees);
             
-            formulaire.remplirFormulaire(villeDonnees);           
+            formulaire.remplirFormulaire(provinceDonnees);           
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=&idVille=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=&idProvince=${id}`, true);
     xhttp.send();    
 
 }
 
-function obtenirVillesAJAX()
+function obtenirProvincesAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
@@ -174,14 +174,14 @@ function obtenirVillesAJAX()
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let ville = jsonResponse[i];
+                let pays = jsonResponse[i];
 
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-idVille>${ ville["idVille"]}</td>
-                    <td>${ ville["nomVilleFR"]}</td>
-                    <td>${ ville["nomVilleEN"]}</td>
+                    <td data-js-idProvinces>${ province["codeProvinces"]}</td>
+                    <td>${ province["nomProvincesFR"]}</td>
+                    <td>${ province["nomProvincesEN"]}</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -192,12 +192,12 @@ function obtenirVillesAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListeVilleJson", true);
+    xhttp.open("GET", "index.php?Utilisateur&action=ListeProvinceJson", true);
     xhttp.send();
 
 }
 
-function ajouterVilleAJAX()
+function ajouterProvincesAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
 
@@ -206,16 +206,16 @@ function ajouterVilleAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log("test");
-            obtenirVillesAJAX();
+            obtenirProvincesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterVille", true);
+    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterProvince", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function modifierVilleAJAX()
+function modifierProvinceAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
 
@@ -224,44 +224,44 @@ function modifierVilleAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.response);
-            obtenirVillesAJAX();
+            obtenirProvincesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierVille", true);
+    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierProvince", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimerVilleAJAX(id)
+function supprimerProvinceAJAX(id)
 {
     let xhttp = new XMLHttpRequest(); 
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenirVillesAJAX();
+            obtenirProvincesAJAX();
         }
     };
 
     xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=ville&id=${id}`);
+    xhttp.send(`nomTable=province&id=${id}`);
 }
 
-let btnAjouterVille = document.querySelector("[data-js-btn-ajouter-ville]");
-btnAjouterVille.addEventListener("click", (evt) => {
+let btnAjouterProvince = document.querySelector("[data-js-btn-ajouter-province]");
+btnAjouterProvince.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterVilleAJAX();
+    ajouterProvinceAJAX();
     yuModalAjouter.style.width = "0";
 
 });
 
-let btnModifierVille = document.querySelector("[data-js-btn-modifier-ville]");
-btnModifierVille.addEventListener("click", (evt) => {
+let btnModifierProvince = document.querySelector("[data-js-btn-modifier-province]");
+btnModifierProvince.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierVilleAJAX();
+    modifierProvinceAJAX();
     yuModalModifier.style.width = "0";
 
 });
@@ -270,7 +270,7 @@ let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]')
 btnOui.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
-    supprimerVilleAJAX(evt.target.dataset.jsId);
+    supprimerPaysAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
 
 });

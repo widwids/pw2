@@ -2,28 +2,28 @@
 <section class="yu-section">
 
     <div class="yu-table-groupeMP yu-btn-ajouter-container">
-    <button class="yu-btn-ajouter">Ajouter une ville</button>
+    <button class="yu-btn-ajouter">Ajouter une taxe</button>
     </div>
 
-    <table class="yu-table yu-table-ville">
+    <table class="yu-table yu-table-taxe">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du ville en français</th>
-                <th>Nom du ville en anglais</th>
+                <th>Nom du taxe en français</th>
+                <th>Nom du taxe en anglais</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $ville) { ?>
+    <?php foreach ($data as $taxe) { ?>
 
         <tr>
-            <td data-js-idVille><?= $ville["idVille"]?></td>
-            <td><?= $ville["nomVilleFR"]?></td>
-            <td><?= $ville["nomVilleEN"]?></td>
+            <td data-js-idTaxe><?= $taxe["idTaxe"]?></td>
+            <td><?= $taxe["nomTaxeFR"]?></td>
+            <td><?= $taxe["nomTaxeEN"]?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
     
@@ -41,15 +41,15 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR" required>
+            <label for="nomTaxeFR">Nom du taxe en français</label>
+            <input type="text" name="nomTaxeFR" required>
         </div>
         <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN" required>
+            <label for="nomTaxeEN">Nom du taxe en anglais</label>
+            <input type="text" name="nomTaxeEN" required>
         </div>
         <div>
-            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-ville>
+            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-taxe>
         </div>
     </form>
 
@@ -62,18 +62,18 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>            
-            <input type="hidden" name="idVille">
+            <input type="hidden" name="idTaxe">
         </div>
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR">
+            <label for="nomTaxeFR">Nom du taxe en français</label>
+            <input type="text" name="nomTaxeFR">
         </div>
         <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN">
+            <label for="nomTaxeEN">Nom du taxe en anglais</label>
+            <input type="text" name="nomTaxeEN">
         </div>
         <div>
-            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-ville>
+            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-taxe>
         </div>
     </form>
 
@@ -119,7 +119,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idTaxe]').innerHTML; console.log(id);
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -129,8 +129,8 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; 
-            obtenirVilleAJAX(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idTaxe]').innerHTML; 
+            obtenirTaxeAJAX(id);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -139,7 +139,7 @@ function ajouterEvenements()
 
 ajouterEvenements();
 
-function obtenirVilleAJAX(id)
+function obtenirTaxeAJAX(id)
 {
 
     let xhttp = new XMLHttpRequest();
@@ -147,19 +147,19 @@ function obtenirVilleAJAX(id)
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
-            let villeDonnees = jsonResponse['ville'];
-            console.log("villeDonnees",villeDonnees);
+            let taxeDonnees = jsonResponse['taxe'];
+            console.log("taxeDonnees",taxeDonnees);
             
-            formulaire.remplirFormulaire(villeDonnees);           
+            formulaire.remplirFormulaire(taxeDonnees);           
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=&idVille=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=&idTaxe=${id}`, true);
     xhttp.send();    
 
 }
 
-function obtenirVillesAJAX()
+function obtenirTaxesAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
@@ -179,9 +179,9 @@ function obtenirVillesAJAX()
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-idVille>${ ville["idVille"]}</td>
-                    <td>${ ville["nomVilleFR"]}</td>
-                    <td>${ ville["nomVilleEN"]}</td>
+                    <td data-js-idTaxe>${ taxe["idTaxe"]}</td>
+                    <td>${ taxe["nomTaxeFR"]}</td>
+                    <td>${ taxe["nomTaxeEN"]}</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -192,12 +192,12 @@ function obtenirVillesAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListeVilleJson", true);
+    xhttp.open("GET", "index.php?Utilisateur&action=ListeVilleJson", true);
     xhttp.send();
 
 }
 
-function ajouterVilleAJAX()
+function ajouterTaxeAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
 
@@ -206,16 +206,16 @@ function ajouterVilleAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log("test");
-            obtenirVillesAJAX();
+            obtenirTaxesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterVille", true);
+    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterTaxe", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function modifierVilleAJAX()
+function modifierTaxeAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
 
@@ -224,44 +224,44 @@ function modifierVilleAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.response);
-            obtenirVillesAJAX();
+            obtenirTaxesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierVille", true);
+    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierTaxe", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimerVilleAJAX(id)
+function supprimerTaxeAJAX(id)
 {
     let xhttp = new XMLHttpRequest(); 
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenirVillesAJAX();
+            obtenirTaxesAJAX();
         }
     };
 
     xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=ville&id=${id}`);
+    xhttp.send(`nomTable=taxe&id=${id}`);
 }
 
-let btnAjouterVille = document.querySelector("[data-js-btn-ajouter-ville]");
-btnAjouterVille.addEventListener("click", (evt) => {
+let btnAjouterTaxe = document.querySelector("[data-js-btn-ajouter-taxe]");
+btnAjouterTaxe.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterVilleAJAX();
+    ajouterTaxeAJAX();
     yuModalAjouter.style.width = "0";
 
 });
 
-let btnModifierVille = document.querySelector("[data-js-btn-modifier-ville]");
-btnModifierVille.addEventListener("click", (evt) => {
+let btnModifierTaxe = document.querySelector("[data-js-btn-modifier-taxe]");
+btnModifierTaxe.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierVilleAJAX();
+    modifierTaxeAJAX();
     yuModalModifier.style.width = "0";
 
 });
