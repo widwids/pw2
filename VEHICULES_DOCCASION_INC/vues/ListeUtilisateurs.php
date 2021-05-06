@@ -2,39 +2,39 @@
 <section class="yu-section">
 
     <div class="yu-table-btn-ajouter">
-        <button class="yu-btn-ajouter">Ajouter un véhicule</button>
+        <button class="yu-btn-ajouter">Ajouter un utilisateur</button>
     </div>
 
     <div class="yu-table-responsive">
-    <table class="yu-table yu-table-voiture">
+    <table class="yu-table yu-table-utilisateur">
         
         <thead>
             <tr>
-                <th>Photo</th>
-                <th>№ Série</th>
-                <th>Kilométrage</th>
-                <th>Date Arrivée</th>
-                <th>Prix Achat</th>
-                <th>Marque</th>
-                <th>Modèle</th>
-                <th>Année</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Date de naissance</th>
+                <th>Adresse</th>
+                <th>Code postal</th>
+                <th>Cellulaire</th>
+                <th>Téléphone</th>
+                <th>Courriel</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
         <tbody>
 
-        <?php foreach ($data["voitures"] as $voiture) { ?>
+        <?php foreach ($data["utilisateurs"] as $utilisateur) { ?>
 
         <tr>
-            <td class="yu-image"><img src="./assets/images/<?= $voiture["nomPhoto"] ?>.jpg" alt="car"></td>
-            <td data-js-noSerie><?= $voiture["noSerie"]?></td>
-            <td><?= $voiture["kilometrage"] ?></td>
-            <td><?= $voiture["dateArrivee"]?></td>
-            <td><?= $voiture["prixAchat"]?></td>
-            <td><?= $voiture["nomMarque"]?></td>
-            <td><?= $voiture["nomModele"]?></td>
-            <td><?= $voiture["anneeId"]?></td>
+            <td><?= $utilisateur->prenom ?></td>
+            <td><?= $utilisateur->nom ?></td>
+            <td><?= $utilisateur->dateNaissance ?></td>
+            <td><?= $utilisateur->adresse?></td>
+            <td><?= $utilisateur->codePostal?></td>
+            <td><?= $utilisateur->cellulaire?></td>
+            <td><?= $utilisateur->telephone?></td>
+            <td><?= $utilisateur->courriel?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
 
@@ -43,11 +43,9 @@
 
         </tbody>
 
-
-
-
     </table>
     </div>
+
 
 </section>
 
@@ -56,98 +54,63 @@
     
     <button class="btn-ferme" data-js-btn-ferme-ajouter>&times;</button>
 
-    <form action="" method="post" class="yu-formulaire yu-modal-container">
+    <form method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="noSerie">№ Série</label>
-            <input type="text" name="noSerie" value="">
+            <label for="prenom">Prénom</label>
+            <input type="text" name="prenom" value="">
         </div>
         <div>
-            <label for="descriptionFR">Description Français</label>
-            <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10"></textarea>
+            <label for="nom">Nom</label>
+            <input name="descriptionFR" id="nom" cols="30" rows="10"></input>
         </div>
         <div>
-            <label for="descriptionEN">Description Anglais</label>
-            <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10"></textarea>
+            <label for="dateNaissance">Date de naissance</label>
+            <input type="date" name="dateNaissance" id="dateNaissance"></input>
         </div>
         <div>
-            <label for="kilometrage">Kilométrage</label>
-            <input type="number" name="kilometrage" value="">
+            <label for="codePostal">Code postal</label>
+            <input type="text" name="codePostal" value="">		
         </div>
         <div>
-            <label for="dateArrivee">Date Arrivée</label>
-            <input type="date" name="dateArrivee" id="dateArrivee">
+            <label for="adresse">Adresse</label>
+            <input type="number" name="adresse" value="">
         </div>
         <div>
-            <label for="prixAchat">Prix Achat</label>
-            <input type="number" name="prixAchat" id="prixAchat">
+            <label for="codePostal">Code postal</label>
+            <input name="codePostal" id="codePostal">
         </div>
         <div>
-            <label for="groupeMPid">Group MP</label>
-            <select name="groupeMPId" id="groupeMPid">
-                <option value="">Sélectionnez un groupe MP</option>
-                    <?php foreach($data["motopropulseur"] as $groupeMP) { ?>
+            <label for="cellulaire">Cellulaire</label>
+            <input type="number" name="cellulaire" id="cellulaire">
+        </div>
+        <div>
+        <div>
+            <label for="telephone">Téléphone</label>
+            <input type="number" name="telephone" id="telephone">
+        </div>
+        <div>
+            <label for="courriel">Courriel</label>
+            <input type="email" name="courriel" value="">		
+        </div>
+        <div>
+            <label for="pseudonyme">Pseudonyme</label>
+            <input type="text" name="pseudonyme" value="">		
+        </div>
+        <div>
+            <label for="motDePasse">Pseudonyme</label>
+            <input type="password" name="motDePasse" value="">		
+        </div>
+        <div>
+            <label for="villeId">Ville</label>
+            <select name="villeId" id="villeId">
+                <option value="">Sélectionnez une Ville</option>
+                    <?php foreach($data["ville"] as $ville) { ?>
 
-                        <option value="<?= $groupeMP["idMotopro"] ?>"><?= $groupeMP["nomMotopro"]?></option>
-
-                    <?php }?>
-            </select>
-        </div>
-            <label for="corpsId">Corps</label>
-            <select name="corpsId" id="corpsId">
-                <option value="">Sélectionnez un corps</option>
-                    <?php foreach($data["corps"] as $corp) { ?>
-
-                        <option value="<?= $corp["idCorps"] ?>"><?= $corp["nomCorpsFR"]?></option>
-
-                    <?php }?>
-            </select>
-        <div>
-            <label for="carburantId">Carburant</label>
-            <select name="carburantId" id="carburantId">
-                <option value="">Sélectionnez un carburant</option>
-                    <?php foreach($data["carburant"] as $carburant) { ?>
-
-                        <option value="<?= $carburant["idCarburant"] ?>"><?= $carburant["typeCarburantFR"]?></option>
-
-                    <?php }?>
-            </select>
-        </div>
-        <div>
-            <label for="modeleId">Modèle</label>
-            <select name="modeleId" id="modeleId">
-                <option value="">Sélectionnez un modèle</option>
-                    <?php foreach($data["modele"] as $modele) { ?>
-
-                        <option value="<?= $modele["idModele"] ?>"><?= $modele["nomModele"]?></option>
+                        <option value="<?= $groupeMP["idVille"] ?>"><?= $ville["nomVilleFR"]?></option>
 
                     <?php }?>
             </select>
-        </div>
-        <div>
-            <label for="transmissionId">Transmission</label>
-            <select name="transmissionId" id="transmissionId">
-                <option value="">Sélectionnez une transmission</option>
-                    <?php foreach($data["transmission"] as $transmission) { ?>
-
-                        <option value="<?= $transmission["idTransmission"] ?>"><?= $transmission["nomTransmissionFR"]?></option>
-
-                    <?php }?>
-            </select>
-        </div>
-        <div>
-            <label for="anneeId">Année</label>
-            <select name="anneeId" id="anneeId">
-                <option value="">Sélectionnez une année</option>
-                    <?php foreach($data["annee"] as $annee) { ?>
-
-                        <option value="<?= $annee["annee"] ?>"><?= $annee["annee"]?></option>
-
-                    <?php }?>
-            </select>
-        </div>
-        <div>
-            <input type="hidden" name="visibilite" checked>
-        </div>
+        </div>1\
         <div>
             <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-voiture>
         </div>
@@ -161,90 +124,58 @@
     <button class="btn-ferme" data-js-btn-ferme-modifier>&times;</button>
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
-        <div>
-            <label for="noSerie">№ Série</label>
-            <input type="text" name="noSerie" value="">
+    <div>
+            <label for="prenom">Prénom</label>
+            <input type="text" name="prenom" value="">
         </div>
         <div>
-            <label for="descriptionFR">Description Français</label>
-            <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10"></textarea>
+            <label for="nom">Nom</label>
+            <input name="descriptionFR" id="nom" cols="30" rows="10"></input>
         </div>
         <div>
-            <label for="descriptionEN">Description Anglais</label>
-            <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10"></textarea>
+            <label for="dateNaissance">Date de naissance</label>
+            <input type="date" name="dateNaissance" id="dateNaissance"></input>
         </div>
         <div>
-            <label for="kilometrage">Kilométrage</label>
-            <input type="number" name="kilometrage" value="">
+            <label for="codePostal">Code postal</label>
+            <input type="text" name="codePostal" value="">		
         </div>
         <div>
-            <label for="dateArrivee">Date Arrivée</label>
-            <input type="date" name="dateArrivee" id="dateArrivee">
+            <label for="adresse">Adresse</label>
+            <input type="number" name="adresse" value="">
         </div>
         <div>
-            <label for="prixAchat">Prix Achat</label>
-            <input type="number" name="prixAchat" id="prixAchat">
+            <label for="codePostal">Code postal</label>
+            <input name="codePostal" id="codePostal">
         </div>
         <div>
-            <label for="groupeMPId">Group MP</label>
-            <select name="groupeMPId" id="groupeMPid">
-                <option value="">Sélectionnez un groupe MP</option>
-                    <?php foreach($data["motopropulseur"] as $groupeMP) { ?>
-
-                        <option value="<?= $groupeMP["idMotopro"] ?>"><?= $groupeMP["nomMotopro"]?></option>
-
-                    <?php }?>
-            </select>
-        </div>
-            <label for="corpsId">Corps</label>
-            <select name="corpsId" id="corpsId">
-                <option value="">Sélectionnez un corps</option>
-                    <?php foreach($data["corps"] as $corp) { ?>
-
-                        <option value="<?= $corp["idCorps"] ?>"><?= $corp["nomCorpsFR"]?></option>
-
-                    <?php }?>
-            </select>
-        <div>
-            <label for="carburantId">Carburant</label>
-            <select name="carburantId" id="carburantId">
-                <option value="">Sélectionnez un carburant</option>
-                    <?php foreach($data["carburant"] as $carburant) { ?>
-
-                        <option value="<?= $carburant["idCarburant"] ?>"><?= $carburant["typeCarburantFR"]?></option>
-
-                    <?php }?>
-            </select>
+            <label for="cellulaire">Cellulaire</label>
+            <input type="number" name="cellulaire" id="cellulaire">
         </div>
         <div>
-            <label for="modeleId">Modèle</label>
-            <select name="modeleId" id="modeleId">
-                <option value="">Sélectionnez un modèle</option>
-                    <?php foreach($data["modele"] as $modele) { ?>
-
-                        <option value="<?= $modele["idModele"] ?>"><?= $modele["nomModele"]?></option>
-
-                    <?php }?>
-            </select>
+        <div>
+            <label for="telephone">Téléphone</label>
+            <input type="number" name="telephone" id="telephone">
         </div>
         <div>
-            <label for="transmissionId">Transmission</label>
-            <select name="transmissionId" id="transmissionId">
-                <option value="">Sélectionnez une transmission</option>
-                    <?php foreach($data["transmission"] as $transmission) { ?>
-
-                        <option value="<?= $transmission["idTransmission"] ?>"><?= $transmission["nomTransmissionFR"]?></option>
-
-                    <?php }?>
-            </select>
+            <label for="courriel">Courriel</label>
+            <input type="email" name="courriel" value="">		
         </div>
         <div>
-            <label for="anneeId">Année</label>
-            <select name="anneeId" id="anneeId">
-                <option value="">Sélectionnez une année</option>
-                    <?php foreach($data["annee"] as $annee) { ?>
+            <label for="pseudonyme">Pseudonyme</label>
+            <input type="text" name="pseudonyme" value="">		
+        </div>
+        <div>
+            <label for="motDePasse">Pseudonyme</label>
+            <input type="password" name="motDePasse" value="">		
+        </div>
+        <div>
+            <label for="villeId">Ville</label>
+            <select name="villeId" id="villeId">
+                <option value="">Sélectionnez une Ville</option>
+                    <?php foreach($data["ville"] as $ville) { ?>
 
-                        <option value="<?= $annee["annee"] ?>"><?= $annee["annee"]?></option>
+                        <option value="<?= $groupeMP["idVille"] ?>"><?= $ville["nomVilleFR"]?></option>
 
                     <?php }?>
             </select>
@@ -264,7 +195,7 @@
             <label>Êtes-vous sûr que vous voulez la supprimer?</label>
         </div>
         <div>
-            <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id=""> Oui </button>
+            <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>
             <button type="submit" name="btnNon" value="Non" class="yu-btn yu-btn-modifier">Non</button>
         </div>
     </form>
@@ -326,9 +257,9 @@ function obtenirVoitureAJAX(id)
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
             let voitureDonnees = jsonResponse['voiture'];
-            console.log("voitureDonnees",voitureDonnees[0]);
+            console.log(voitureDonnees);
             
-            formulaire.remplirFormulaire(voitureDonnees[0]);           
+            formulaire.remplirFormulaire(voitureDonnees);           
         }
         };
 
@@ -396,6 +327,7 @@ function ajouterVoitureAJAX()
     xhttp.open("POST", "index.php?Voiture_AJAX&action=ajoutVoiture", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(formulaire.obtenirQueryString());
+
 }
 
 function modifierVoitureAJAX()
@@ -414,6 +346,7 @@ function modifierVoitureAJAX()
     xhttp.open("POST", "index.php?Voiture_AJAX&action=modifVoiture", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(formulaire.obtenirQueryString());
+
 }
 
 function supprimerVoitureAJAX(id)
@@ -457,5 +390,15 @@ btnOui.addEventListener("click", (evt) => {
     yuModalSupprimer.style.width = "0";
 
 });
+
+
+
+
+
+
+
+
+
+
 
 </script>

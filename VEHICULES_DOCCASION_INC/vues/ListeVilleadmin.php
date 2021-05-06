@@ -2,26 +2,28 @@
 <section class="yu-section">
 
     <div class="yu-table-groupeMP yu-btn-ajouter-container">
-    <button class="yu-btn-ajouter">Ajouter groupe motopropulseur</button>
+    <button class="yu-btn-ajouter">Ajouter une ville</button>
     </div>
 
-    <table class="yu-table yu-table-groupeMP">
+    <table class="yu-table yu-table-ville">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom motopropulseur</th>
+                <th>Nom du ville en français</th>
+                <th>Nom du ville en anglais</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $groupeMP) { ?>
+    <?php foreach ($data as $ville) { ?>
 
         <tr>
-            <td data-js-idMotopro><?= $groupeMP["idMotopro"]?></td>
-            <td><?= $groupeMP["nomMotopro"]?></td>
+            <td data-js-idVille><?= $ville["idVille"]?></td>
+            <td><?= $ville["nomVilleFR"]?></td>
+            <td><?= $ville["nomVilleEN"]?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
     
@@ -39,8 +41,12 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomMotopro">Nom de motopropulseur</label>
-            <input type="text" name="nomMotopro">
+            <label for="nomVilleFR">Nom du ville en français</label>
+            <input type="text" name="nomVilleFR">
+        </div>
+        <div>
+            <label for="nomVilleEN">Nom du ville en anglais</label>
+            <input type="text" name="nomVilleEN">
         </div>
         <div>
             <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-mp>
@@ -59,12 +65,13 @@
             <input type="hidden" name="idMotopro">
         </div>
         <div>
-            <label for="nomMotopro">Nom de motopropulseur</label>
-            <input type="text" name="nomMotopro">
+            <label for="nomVilleFR">Nom du ville en français</label>
+            <input type="text" name="nomVilleFR">
         </div>
         <div>
-            <input type="hidden" name="visibilite" checked>		
-	    </div>
+            <label for="nomVilleEN">Nom du ville en anglais</label>
+            <input type="text" name="nomVilleEN">
+        </div>
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-mp>
         </div>
@@ -112,7 +119,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idMotopro]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; console.log(id);
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -122,8 +129,8 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idMotopro]').innerHTML; 
-            obtenirMPAJAX(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; 
+            obtenirVilleAJAX(id);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -132,7 +139,7 @@ function ajouterEvenements()
 
 ajouterEvenements();
 
-function obtenirMPAJAX(id)
+function obtenirVilleAJAX(id)
 {
 
     let xhttp = new XMLHttpRequest();
@@ -140,19 +147,19 @@ function obtenirMPAJAX(id)
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
-            let motoproDonnees = jsonResponse['motopro'];
-            console.log("motoproDonnees",motoproDonnees);
+            let villeDonnees = jsonResponse['ville'];
+            console.log("villeDonnees",villeDonnees);
             
-            formulaire.remplirFormulaire(motoproDonnees);           
+            formulaire.remplirFormulaire(villeDonnees);           
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=detailGroupeMPJson&idMotopro=${id}`, true);
+    xhttp.open("GET", `index.php?Voiture_AJAX&action=&idVille=${id}`, true);
     xhttp.send();    
 
 }
 
-function obtenirMPsAJAX()
+function obtenirVillesAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
@@ -167,13 +174,14 @@ function obtenirMPsAJAX()
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let groupeMP = jsonResponse[i];
+                let ville = jsonResponse[i];
 
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-idMotopro>${ groupeMP["idMotopro"]}</td>
-                    <td>${ groupeMP["nomMotopro"]}</td>
+                    <td data-js-idVille>${ ville["idVille"]}</td>
+                    <td>${ ville["nomVilleFR"]}</td>
+                    <td>${ ville["nomVilleEN"]}</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -184,12 +192,12 @@ function obtenirMPsAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListeGroupeMPJson", true);
+    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListeVilleJson", true);
     xhttp.send();
 
 }
 
-function ajouterMPAJAX()
+function ajouterVilleAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
 
@@ -198,16 +206,16 @@ function ajouterMPAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log("test");
-            obtenirMPsAJAX();
+            obtenirVillesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Voiture_AJAX&action=ajoutMotoProp", true);
+    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterVille", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function modifierMPAJAX()
+function modifierVilleAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
 
@@ -216,56 +224,54 @@ function modifierMPAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.response);
-            obtenirMPsAJAX();
+            obtenirVillesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Voiture_AJAX&action=modifMotoProp", true);
+    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierVille", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimerMPAJAX(id)
+function supprimerVilleAJAX(id)
 {
     let xhttp = new XMLHttpRequest(); 
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenirMPsAJAX();
+            obtenirVillesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Voiture_AJAX&action=suppression", true);
+    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=motopropulseur&id=${id}`);
+    xhttp.send(`nomTable=ville&id=${id}`);
 }
 
-let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-mp]");
+let btnAjouterVille = document.querySelector("[data-js-btn-ajouter-ville]");
 btnAjouterVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterMPAJAX();
+    ajouterVilleAJAX();
     yuModalAjouter.style.width = "0";
 
 });
 
-let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-mp]");
+let btnModifierVille = document.querySelector("[data-js-btn-modifier-ville]");
 btnModifierVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierMPAJAX();
+    modifierVilleAJAX();
     yuModalModifier.style.width = "0";
 
 });
 
-let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
-formSupprimer.addEventListener("click", (evt) => {
+let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
+btnOui.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
-    if(evt.target.name == "btnOui"){
-    supprimerMPAJAX(evt.target.dataset.jsId);
+    supprimerVilleAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
-    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

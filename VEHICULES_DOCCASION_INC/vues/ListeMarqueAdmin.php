@@ -1,32 +1,31 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-groupeMP yu-btn-ajouter-container">
-    <button class="yu-btn-ajouter">Ajouter groupe motopropulseur</button>
+    <div class="yu-table-modele yu-btn-ajouter-container">
+        <button class="yu-btn-ajouter">Ajouter modèle</button>
     </div>
 
-    <table class="yu-table yu-table-groupeMP">
-        
+    <table class="yu-table yu-table-modele">
+
         <thead>
-            <tr>
-                <th>id</th>
-                <th>Nom motopropulseur</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+        <tr>
+            <th>id</th>
+            <th>Nom du marque</th>
+            <th>Actions</th>
+        </tr>
+        </thead> 
+
 
     <tbody>
-
-    <?php foreach ($data as $groupeMP) { ?>
+    <?php foreach ($data as $marque) { ?>
 
         <tr>
-            <td data-js-idMotopro><?= $groupeMP["idMotopro"]?></td>
-            <td><?= $groupeMP["nomMotopro"]?></td>
+            <td data-js-idMarque><?= $marque["idMarque"]?></td>
+            <td><?= $marque["nomMarque"]?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
-    
-    <?php }?>
 
+    <?php }?> 
     </tbody>
 
     </table>
@@ -39,14 +38,13 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomMotopro">Nom de motopropulseur</label>
-            <input type="text" name="nomMotopro">
+            <label for="nomMarque">Marque</label>
+            <input type="text" name="nomMarque" value="" required>
         </div>
         <div>
-            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-mp>
+            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-marque>
         </div>
     </form>
-
 
 </section>
 
@@ -55,18 +53,16 @@
     <button class="btn-ferme" data-js-btn-ferme-modifier>&times;</button>
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
-        <div>            
-            <input type="hidden" name="idMotopro">
+        <div>
+            <input type="hidden" name="idMarque">
+            <input type="hidden" name="visibilite" checked>
         </div>
         <div>
-            <label for="nomMotopro">Nom de motopropulseur</label>
-            <input type="text" name="nomMotopro">
+            <label for="nomMarque">Marque</label>
+            <input type="text" name="nomMarque" required>
         </div>
         <div>
-            <input type="hidden" name="visibilite" checked>		
-	    </div>
-        <div>
-            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-mp>
+            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-marque>
         </div>
     </form>
 
@@ -112,8 +108,8 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idMotopro]').innerHTML; console.log(id);
-            yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idMarque]').innerHTML; 
+            yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id;
             yuModalSupprimer.style.width = "100%";
         });
     }
@@ -122,8 +118,8 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idMotopro]').innerHTML; 
-            obtenirMPAJAX(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idMarque]').innerHTML; 
+            obtenirMarqueAJAX(id);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -132,7 +128,7 @@ function ajouterEvenements()
 
 ajouterEvenements();
 
-function obtenirMPAJAX(id)
+function obtenirMarqueAJAX(id)
 {
 
     let xhttp = new XMLHttpRequest();
@@ -140,19 +136,18 @@ function obtenirMPAJAX(id)
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
-            let motoproDonnees = jsonResponse['motopro'];
-            console.log("motoproDonnees",motoproDonnees);
+            let marqueDonnees = jsonResponse['marque'];
             
-            formulaire.remplirFormulaire(motoproDonnees);           
+            formulaire.remplirFormulaire(marqueDonnees);           
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=detailGroupeMPJson&idMotopro=${id}`, true);
+    xhttp.open("GET", `index.php?Voiture_AJAX&action=detailMarqueJson&IdMarque=${id}`, true);
     xhttp.send();    
 
 }
 
-function obtenirMPsAJAX()
+function obtenirMarquesAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
@@ -160,20 +155,19 @@ function obtenirMPsAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);
-            console.log(jsonResponse);
 
-            let table = document.querySelector("table tbody"); 
+            let table = document.querySelector("table tbody");
             table.innerHTML = "";
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let groupeMP = jsonResponse[i];
+                let marque = jsonResponse[i];
 
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-idMotopro>${ groupeMP["idMotopro"]}</td>
-                    <td>${ groupeMP["nomMotopro"]}</td>
+                    <td data-js-idMarque>${ marque["idMarque"]}</td>
+                    <td>${ marque["nomMarque"]}</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -184,12 +178,12 @@ function obtenirMPsAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListeGroupeMPJson", true);
+    xhttp.open("GET", "index.php?Voiture_AJAX&action=MarqueListeJson", true);
     xhttp.send();
 
 }
 
-function ajouterMPAJAX()
+function ajouterMarqueAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
 
@@ -198,16 +192,16 @@ function ajouterMPAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log("test");
-            obtenirMPsAJAX();
+            obtenirMarquesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Voiture_AJAX&action=ajoutMotoProp", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Voiture_AJAX&action=ajoutMarque", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function modifierMPAJAX()
+function modifierMarqueAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
 
@@ -216,44 +210,44 @@ function modifierMPAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.response);
-            obtenirMPsAJAX();
+            obtenirMarquesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Voiture_AJAX&action=modifMotoProp", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Voiture_AJAX&action=modifMarque", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimerMPAJAX(id)
+function supprimerMarqueAJAX(id)
 {
-    let xhttp = new XMLHttpRequest(); 
+    let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenirMPsAJAX();
+            obtenirMarquesAJAX();
         }
     };
 
     xhttp.open("POST", "index.php?Voiture_AJAX&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=motopropulseur&id=${id}`);
+    xhttp.send(`nomTable=marque&id=${id}`);
 }
 
-let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-mp]");
-btnAjouterVoiture.addEventListener("click", (evt) => {
+let btnAjouterMarque = document.querySelector("[data-js-btn-ajouter-marque]");
+btnAjouterMarque.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterMPAJAX();
+    ajouterMarqueAJAX();
     yuModalAjouter.style.width = "0";
 
 });
 
-let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-mp]");
-btnModifierVoiture.addEventListener("click", (evt) => {
+let btnModifierMarque = document.querySelector("[data-js-btn-modifier-marque]");
+btnModifierMarque.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierMPAJAX();
+    modifierMarqueAJAX();
     yuModalModifier.style.width = "0";
 
 });
@@ -263,11 +257,10 @@ formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
     if(evt.target.name == "btnOui"){
-    supprimerMPAJAX(evt.target.dataset.jsId);
+    supprimerMarqueAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
     }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 
 </script>
-

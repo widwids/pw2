@@ -12,7 +12,6 @@
                 <th>id</th>
                 <th>Nom du transmission en français</th>
                 <th>Nom du transmission en anglais</th>
-                <th>Visibilité</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,7 +24,6 @@
             <td data-js-idTransmission><?= $transmission["idTransmission"]?></td>
             <td><?= $transmission["nomTransmissionFR"]?></td>
             <td><?= $transmission["nomTransmissionEN"]?></td>
-            <td><?= ($transmission["visibilite"] ==1) ? "OUI" : "NON" ?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
 
@@ -73,9 +71,8 @@
             <label for="nomTransmissionEN">Nom du transmission en anglais</label>
             <input type="text" name="nomTransmissionEN" value="" required>
         </div>
-        <div class="yu-checkbox">
-            <label for="visibilite">Visibilité</label>
-            <input type="checkbox" name="visibilite" value="1">		
+        <div>
+            <input type="hidden" name="visibilite" checked>		
 	    </div>           
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-transmission>
@@ -187,7 +184,6 @@ function obtenirTransmissionsAJAX()
                     <td data-js-idTransmission>${ transmission["idTransmission"]}</td>
                     <td>${ transmission["nomTransmissionFR"]}</td>
                     <td>${ transmission["nomTransmissionEN"]}</td>
-                    <td>${ (transmission["visibilite"] ==1) ? "OUI" : "NON" }</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -254,8 +250,8 @@ function supprimerTransmissionAJAX(id)
     xhttp.send(`nomTable=transmission&id=${id}`);
 }
 
-let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-transmission]");
-btnAjouterVoiture.addEventListener("click", (evt) => {
+let btnAjouterTransmission = document.querySelector("[data-js-btn-ajouter-transmission]");
+btnAjouterTransmission.addEventListener("click", (evt) => {
 
     evt.preventDefault();
     ajouterTransmissionAJAX();
@@ -263,8 +259,8 @@ btnAjouterVoiture.addEventListener("click", (evt) => {
 
 });
 
-let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-transmission]");
-btnModifierVoiture.addEventListener("click", (evt) => {
+let btnModifierTransmission = document.querySelector("[data-js-btn-modifier-transmission]");
+btnModifierTransmission.addEventListener("click", (evt) => {
 
     evt.preventDefault();
     modifierTransmissionAJAX();
@@ -272,12 +268,14 @@ btnModifierVoiture.addEventListener("click", (evt) => {
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
-    supprimerTransmissionAJAX(evt.target.dataset.jsId);
-    yuModalSupprimer.style.width = "0";
+    if(evt.target.name == "btnOui"){
+        supprimerTransmissionAJAX(evt.target.dataset.jsId);        
+        yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

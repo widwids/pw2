@@ -285,8 +285,8 @@
         }
 		//Partie Annee
 		public function ajoutAnnee($annee) {
-			$requete = "INSERT INTO annee(Annee) VALUES 
-				(:Annee, 1 )";
+			$requete = "INSERT INTO annee(annee,visibilite) VALUES 
+				(:annee, 1 )";
 			$requetePreparee = $this -> connexion -> prepare($requete);
 			$requetePreparee -> bindParam(":annee", $annee);
 			$requetePreparee -> execute();
