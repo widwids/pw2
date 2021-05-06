@@ -80,7 +80,7 @@
 			try {
 				$stmt = $this -> connexion -> query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, 
 				dateArrivee, prixAchat, nomMotopro, nomCorpsFR, nomCorpsEN, typeCarburantFR, typeCarburantEN,
-				nomModele, nomMarque, nomTransmissionFR, nomTransmissionEN, anneeId 
+				nomModele, nomMarque, nomTransmissionFR, nomTransmissionEN, anneeId, groupeMPId, corpsId, carburantId, modeleId, transmissionId 
 						FROM voiture JOIN corps ON idCorps = corpsId
 						LEFT OUTER JOIN motopropulseur ON idMotopro = groupeMPId
 						LEFT OUTER JOIN modele ON idModele = modeleId
