@@ -14,7 +14,7 @@
 				$action = $params["action"]; 
             } else {
                 //Commande par défaut
-                $action = "afficheCommande";
+                $action = "affichePanier";
             }
 
             // Switch en fonction de l'action qui nous est envoyée
@@ -38,10 +38,11 @@
                             $noCommande = $modeleCommande -> ajouterCommande($usagerId);
 
                             $listeVoitureId = explode(',', $params["voitureId"]);
+                            $listePrixVente = explode(',', $params["prixVente"]);
 
                             for($i = 0; $i < count($listeVoitureId); $i++) {
                                 $modeleCommande -> ajouterCommandeVoiture($noCommande, $listeVoitureId[$i], 
-                                $params["depot"], $params["prixVente"]);
+                                $params["depot"], $listePrixVente[$i]);
                             }
                             
                             //$data["commandes"] = $modeleCommande -> obtenirCommandes();
@@ -106,8 +107,7 @@
                         $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
                         $this -> afficheVue("Panier", $data);
                     } else {
-                        //Redirection vers le formulaire d'authentification
-                        header("Location: index.php?Utilisateur&action=connexion");
+                        $this -> afficheVue("Panier");
                     }
                     break;
                 case "afficheCommandes":
