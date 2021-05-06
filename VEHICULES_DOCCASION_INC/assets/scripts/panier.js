@@ -54,6 +54,26 @@ class Panier {
         }
     }
 
+    retirePanier = (e) => {
+        //Retirer du DOM
+        e.target.parentNode.parentNode.remove();
+
+        //Retirer du sessionStorage
+        let noSerie = e.target.parentNode.querySelector('[data-js-noSerie]').textContent,
+            nouveauPanier = [];
+        
+        for(let item of this._panier) {
+            if(item.voiture.noSerie != noSerie)
+                nouveauPanier.push(item);
+        }
+
+        sessionStorage.setItem('panier', JSON.stringify(nouveauPanier));
+
+        this._panier = JSON.parse(sessionStorage.getItem('panier'));
+
+        this.calculeSousTotal();
+    }
+
     afficheCaisse = () => {
         if(! this._el.querySelector('[data-js-commande]')) {
             this._el.querySelector('[data-js-connexion]').style.display = 'block';
@@ -66,6 +86,29 @@ class Panier {
 
             this._el.querySelector('[data-js-button]').addEventListener('click', this.commande);
         }
+    }
+
+    calculeSousTotal = () => {
+        let sousTotal = 0, tauxRevente = 1.25;
+        for (let item of this._panier) {
+            sousTotal += item.voiture.prixAchat * tauxRevente;
+        }
+
+        this._sousTotal.innerHTML = sousTotal.toFixed(2);
+    }
+
+    calculeTotal = () => {
+        let tauxTaxe = this._el.querySelectorAll('[data-js-taux]'),
+            total = this._el.querySelector('[data-js-total]'),
+            montant = 0;
+
+        for (let taux of tauxTaxe) {
+            montant += parseFloat(taux.textContent/100);
+        }
+
+        montant = parseFloat(this._sousTotal.innerHTML) + this._sousTotal.innerHTML * montant;
+
+        total.innerHTML = montant.toFixed(2);
     }
 
     commande = () => {
@@ -114,49 +157,6 @@ class Panier {
             //Envoi de la requête
             xhr.send('&voitureId=' + paramNoSerie + '&prixVente=' + paramPrixVente);
         }
-    }
-
-    calculeSousTotal = () => {
-        let sousTotal = 0, tauxRevente = 1.25;
-        for (let item of this._panier) {
-            sousTotal += item.voiture.prixAchat * tauxRevente;
-        }
-
-        this._sousTotal.innerHTML = sousTotal.toFixed(2);
-    }
-
-    calculeTotal = () => {
-        let tauxTaxe = this._el.querySelectorAll('[data-js-taux]'),
-            total = this._el.querySelector('[data-js-total]'),
-            montant = 0;
-
-        for (let taux of tauxTaxe) {
-            montant += parseFloat(taux.textContent/100);
-        }
-
-        montant = parseFloat(this._sousTotal.innerHTML) + this._sousTotal.innerHTML * montant;
-
-        total.innerHTML = montant.toFixed(2);
-    }
-
-    retirePanier = (e) => {
-        //Retirer du DOM
-        e.target.parentNode.parentNode.remove();
-
-        //Retirer du sessionStorage
-        let noSerie = e.target.parentNode.querySelector('[data-js-noSerie]').textContent,
-            nouveauPanier = [];
-        
-        for(let item of this._panier) {
-            if(item.voiture.noSerie != noSerie)
-                nouveauPanier.push(item);
-        }
-
-        sessionStorage.setItem('panier', JSON.stringify(nouveauPanier));
-
-        this._panier = JSON.parse(sessionStorage.getItem('panier'));
-
-        this.calculeSousTotal();
     }
 
     connecte = (e) => {
