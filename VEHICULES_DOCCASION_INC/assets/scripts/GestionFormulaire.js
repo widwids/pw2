@@ -5,6 +5,7 @@ class GestionFormulaire{
         this.inputs = this._el.querySelectorAll('input');
         this.textareas = this._el.querySelectorAll('textarea'); 
         this.selects = this._el.querySelectorAll('select');
+        
     }
 
 
@@ -13,8 +14,14 @@ class GestionFormulaire{
         let query = this.inputs[0].name+"="+this.inputs[0].value;
         for(let i=1; i < this.inputs.length; i++)
         {
-            let input = this.inputs[i];
-            query += "&" + input.name + "=" + input.value;
+            let input = this.inputs[i]; 
+            if(input.name != "visibilite")
+            {
+                query += "&" + input.name + "=" + input.value;
+            }else{                
+                query += "&" + input.name + "=" + (input.checked == true ? "1" : "0");
+            }            
+            
         }
 
         for(let i=0; i < this.textareas.length; i++)
@@ -35,7 +42,7 @@ class GestionFormulaire{
 
     remplirFormulaire = (data) => 
     {
-        for (const [key, value] of Object.entries(data[0])) {
+        for (const [key, value] of Object.entries(data)) {
             try
             {
                 this._el.querySelector(`input[name='${key}']`).value = value;
@@ -58,7 +65,16 @@ class GestionFormulaire{
             }
             catch(err) {
                 //console.log(err.message);
-            }            
+            }     
+            
+            try
+            {
+                if(key == "visibilite" && value == "1")
+                this._el.querySelector(`input[name='${key}']`).checked = true;
+            }
+            catch(err) {
+                //console.log(err.message);
+            }  
 
         }
     }

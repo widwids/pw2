@@ -273,8 +273,15 @@ body{
 
 }
 
+.yu-table-responsive{
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
 
-.yu-table{    
+.yu-table{  
+    width: 100%;
+    max-width: 100%;  
 
     margin: 70px auto;
     background: rgba(0, 0, 0, 0.9);
@@ -290,27 +297,31 @@ body{
 
 .yu-table-groupeMP{
     max-width: 550px;
-    margin: 70px auto;
+    margin: 35px auto;
+}
+
+.yu-btn-ajouter-container{
+    padding-top: 80px;
 }
 
 .yu-table-corp{
 
     max-width: 700px;
-    margin: 70px auto;
+    margin: 35px auto;
 
 }
 
 .yu-table-carburant{
 
     max-width: 700px;
-    margin: 70px auto;
+    margin: 35px auto;
 
 }
 
 .yu-table-modele{
 
     max-width: 600px;
-    margin: 70px auto;
+    margin: 35px auto;
 
 
 }
@@ -318,7 +329,7 @@ body{
 .yu-table-transmission{
 
     max-width: 800px;
-    margin: 70px auto;
+    margin: 35px auto;
 
 }
 

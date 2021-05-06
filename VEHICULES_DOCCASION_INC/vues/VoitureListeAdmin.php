@@ -5,6 +5,7 @@
         <button class="yu-btn-ajouter">Ajouter un véhicule</button>
     </div>
 
+    <div class="yu-table-responsive">
     <table class="yu-table yu-table-voiture">
         
         <thead>
@@ -46,6 +47,7 @@
 
 
     </table>
+    </div>
 
 </section>
 
@@ -54,7 +56,7 @@
     
     <button class="btn-ferme" data-js-btn-ferme-ajouter>&times;</button>
 
-    <form action="index.php?Voiture&action=ajoutVoiture" method="post" class="yu-formulaire yu-modal-container">
+    <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
             <label for="noSerie">№ Série</label>
             <input type="text" name="noSerie" value="">
@@ -267,7 +269,7 @@
             <label>Êtes-vous sûr que vous voulez la supprimer?</label>
         </div>
         <div>
-            <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>
+            <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id=""> Oui </button>
             <button type="submit" name="btnNon" value="Non" class="yu-btn yu-btn-modifier">Non</button>
         </div>
     </form>
@@ -329,9 +331,9 @@ function obtenirVoitureAJAX(id)
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
             let voitureDonnees = jsonResponse['voiture'];
-            console.log(voitureDonnees);
+            console.log("voitureDonnees",voitureDonnees[0]);
             
-            formulaire.remplirFormulaire(voitureDonnees);           
+            formulaire.remplirFormulaire(voitureDonnees[0]);           
         }
         };
 
@@ -399,7 +401,6 @@ function ajouterVoitureAJAX()
     xhttp.open("POST", "index.php?Voiture_AJAX&action=ajoutVoiture", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(formulaire.obtenirQueryString());
-
 }
 
 function modifierVoitureAJAX()
@@ -418,7 +419,6 @@ function modifierVoitureAJAX()
     xhttp.open("POST", "index.php?Voiture_AJAX&action=modifVoiture", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(formulaire.obtenirQueryString());
-
 }
 
 function supprimerVoitureAJAX(id)
@@ -462,15 +462,5 @@ btnOui.addEventListener("click", (evt) => {
     yuModalSupprimer.style.width = "0";
 
 });
-
-
-
-
-
-
-
-
-
-
 
 </script>

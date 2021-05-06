@@ -1,15 +1,5 @@
 <?php
 	class Modele_Voiture extends TemplateDAO {
-		
-		/* public function obtenir_par_id($id)
-        {
-            //on appelle obtenir_par_id du parent et on créé un objet Utilisateur à partir de la rangée retournée
-            $resultats = parent::obtenir_par_id($id);
-            $resultats->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE , "Film");
-            $leUtilisateur = $resultats->fetch();
-            return $leUtilisateur;
-        } */
-		
 
 		//Partie Voiture
 		public function ajoutVoiture($noSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId) {		
@@ -72,6 +62,20 @@
 			}
 		}
 
+		public function obtenir_UNE_marque_modele($idModele) {
+			try {
+				$stmt = $this->connexion->query("SELECT * FROM modele JOIN marque ON marqueId = IdMarque
+												 WHERE  idModele = '" . $idModele . "'");
+
+				$stmt->execute();
+				return $stmt->fetchAll();
+
+			}
+			catch(Exception $exc) {
+				return 0;
+			}
+		}
+
 		public function obtenirUneVoiture($noSerie) {
 			try {
 				$stmt = $this -> connexion -> query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, 
@@ -123,7 +127,8 @@
 												carburantId = '".$carburantId."' ,
 												modeleId = '".$modeleId."' ,
 												transmissionId = '".$transmissionId."' ,
-												anneeId = '".$anneeId."'
+												anneeId = '".$anneeId."',
+												visibilite = 1
 												WHERE noSerie = '" . $noSerie . "'");
 				$stmt->execute();
 				return $stmt->fetchAll();
@@ -134,26 +139,9 @@
 
 		}
 
-		/* public function obtenir_Nom_ID($nomTable) { //Autres tables
-			$requete = "SHOW KEYS FROM $nomTable WHERE Key_name = 'PRIMARY'";
-			$resultats = $this -> connexion -> query($requete);
-			$resultats -> execute();
-			return $resultats -> fetchAll();
-		} */
-
-		/* public function supprimeMed($nomTable, $nomId, $id) {
-			$requete = "UPDATE $nomTable SET visibilite = 0 WHERE $nomId = :id";
-			$requetePreparee = $this -> connexion -> prepare($requete);
-			$requetePreparee -> bindParam(":id", $id);
-			$requetePreparee -> execute();
-
-			//Retour du nombre de rangées affectées 
-			return $requetePreparee -> rowCount();
-		} */
-
 		//Partie Corps
 		//Ajouter un corps
-		public function ajouterCorps($nomCorpsFR, $nomCorpsEN) {
+		public function ajoutCorps($nomCorpsFR, $nomCorpsEN) {
 			$requete = "INSERT INTO corps(nomCorpsFR, nomCorpsEN, visibilite) VALUES 
 				(:nomCorpsFR,:nomCorpsEN, 1 )";
 			$requetePreparee = $this -> connexion -> prepare($requete);
@@ -166,12 +154,16 @@
 			else
 				return false;
 		}
-		/* public function obtenir_nom_idd($nomTable) {
-            $requete = "SHOW KEYS FROM $nomTable WHERE Key_name = 'PRIMARY'";
-            $resultats = $this -> connexion -> query($requete);
-            $resultats -> execute();
-            return $resultats -> fetch()[4];
-        } */
+
+		public function obtenirCorp($id) {
+            $requete = "SELECT * FROM corps WHERE idCorps =:id";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":id", $id);
+            $requetePreparee -> execute();
+
+            //Retour de l'identifiant de la dernière insertion
+            return $requetePreparee -> fetch();
+        }
 
 		// Modifi Corps
 		public function modifCorps($idCorps, $nomCorpsFR, $nomCorpsEN, $visibilite) {
@@ -187,7 +179,7 @@
 		}
 
 		//Partie Groupe motopropulseur
-		public function ajoutGrpMoto($nomMotopro ) {
+		public function ajoutMotoProp($nomMotopro) {
 			$requete = "INSERT INTO motopropulseur(nomMotopro, visibilite) VALUES 
 				(:nomMotopro,1)";
 			$requetePreparee = $this -> connexion -> prepare($requete);
@@ -200,25 +192,33 @@
 				return false;
 		}
 
-		public function modifGrpMoto($id, $nomCorpsFR, $nomCorpsEN, $visibilite) {
-            $requete = "UPDATE motopropulseur SET nomCorpsFR = :nomCorpsFR, nomCorpsEN = :nomCorpsEN,
-                visibilite = :visibilite WHERE idCorps = :idCorps";
+		
+		public function obtenirMotoProp($id) {
+            $requete = "SELECT * FROM motopropulseur WHERE idMotopro =:id";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":id", $id);
+            $requetePreparee -> execute();
+
+            //Retour de l'identifiant de la dernière insertion
+            return $requetePreparee -> fetch();
+        }
+		public function modifMotoProp($idMotopro, $nomMotopro, $visibilite) {
+            $requete = "UPDATE motopropulseur SET nomMotopro = :nomMotopro,
+                visibilite = :visibilite WHERE idMotopro = :idMotopro";
 			$requetePreparee = $this -> connexion -> prepare($requete);
-            $requetePreparee -> bindParam(":nomCorpsFR", $nomCorpsFR);
-            $requetePreparee -> bindParam(":nomCorpsEN", $nomCorpsEN);
-            $requetePreparee -> bindParam(":v", $visibilite);
-            $requetePreparee -> bindParam(":idCorps", $idCorps);
+            $requetePreparee -> bindParam(":nomMotopro", $nomMotopro);
+            $requetePreparee -> bindParam(":visibilite", $visibilite);
+            $requetePreparee -> bindParam(":idMotopro", $idMotopro);
             $requetePreparee -> execute();
 		}
 
 		//Partie Carburant
-		public function ajoutCarburant($typeCarburantFR, $typeCarburantEN, $visibilite) {
+		public function ajoutCarburant($typeCarburantFR, $typeCarburantEN) {
 			$requete = "INSERT INTO carburant(typeCarburantFR, typeCarburantEN, visibilite) VALUES 
-				(:typeCarburantFR,:typeCarburantEN,:visibilite)";
+				(:typeCarburantFR,:typeCarburantEN,1)";
 			$requetePreparee = $this -> connexion -> prepare($requete);
 			$requetePreparee -> bindParam(":typeCarburantFR", $typeCarburantFR);
 			$requetePreparee -> bindParam(":typeCarburantEN", $typeCarburantEN);
-			$requetePreparee -> bindParam(":visibilite", $visibilite);
 			$requetePreparee -> execute();
 			
 			if($requetePreparee -> rowCount() > 0)
@@ -227,25 +227,34 @@
 				return false;
 		}
 
-		public function modifCarburant($id, $nomCorpsFR, $nomCorpsEN, $visibilite) {
-            $requete = "UPDATE carburant SET nomCorpsFR = :nomCorpsFR, nomCorpsEN = :nomCorpsEN,
-                visibilite = :visibilite WHERE idCorps = :idCorps";
+		public function obtenirCarburant($id) {
+            $requete = "SELECT * FROM carburant WHERE idCarburant =:id";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":id", $id);
+            $requetePreparee -> execute();
+
+            //Retour de l'identifiant de la dernière insertion
+            return $requetePreparee -> fetch();
+        }
+
+		public function modifCarburant($idCarburant, $typeCarburantFR, $typeCarburantEN, $visibilite) {
+            $requete = "UPDATE carburant SET idCarburant = :idCarburant, typeCarburantFR = :typeCarburantFR, typeCarburantEN = :typeCarburantEN,
+                visibilite = :visibilite WHERE idCarburant = :idCarburant";
 			$requetePreparee = $this -> connexion -> prepare($requete);
-            $requetePreparee -> bindParam(":nomCorpsFR", $nomCorpsFR);
-            $requetePreparee -> bindParam(":nomCorpsEN", $nomCorpsEN);
-            $requetePreparee -> bindParam(":v", $visibilite);
-            $requetePreparee -> bindParam(":idCorps", $idCorps);
+            $requetePreparee -> bindParam(":typeCarburantFR", $typeCarburantFR);
+            $requetePreparee -> bindParam(":typeCarburantEN", $typeCarburantEN);
+            $requetePreparee -> bindParam(":visibilite", $visibilite);
+            $requetePreparee -> bindParam(":idCarburant", $idCarburant);
             $requetePreparee -> execute();
 		}
 
 		//Partie Transmission
-		public function ajoutTransmission($nomTransmissionFR, $nomTransmissionEN, $visibilite) {
-			$requete = "INSERT INTO transmission(nomTransmissionFR, nomTransmissionEN, visibilite) VALUES 
-				(:nomTransmissionFR,:nomTransmissionEN,:visibilite)";
+		public function ajoutTransmission($nomTransmissionFR, $nomTransmissionEN) {
+			$requete = "INSERT INTO transmission (nomTransmissionFR, nomTransmissionEN, visibilite) VALUES 
+				(:nomTransmissionFR,:nomTransmissionEN, 1 )";
 			$requetePreparee = $this -> connexion -> prepare($requete);
 			$requetePreparee -> bindParam(":nomTransmissionFR", $nomTransmissionFR);
 			$requetePreparee -> bindParam(":nomTransmissionEN", $nomTransmissionEN);
-			$requetePreparee -> bindParam(":visibilite", $visibilite);
 			$requetePreparee -> execute();
 			
 			if($requetePreparee -> rowCount() > 0)
@@ -265,13 +274,21 @@
             $requetePreparee -> execute();
 		}
 
+		public function obtenirTransmission($idTransmission) {
+            $requete = "SELECT * FROM transmission WHERE idTransmission =:idTransmission";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":idTransmission", $idTransmission);
+            $requetePreparee -> execute();
+
+            //Retour de l'identifiant de la dernière insertion
+            return $requetePreparee -> fetch();
+        }
 		//Partie Annee
-		public function ajoutAnnee($annee, $visibilite) {
-			$requete = "INSERT INTO annee(Annee, visibilite) VALUES 
-				(:Annee,:visibilite)";
+		public function ajoutAnnee($annee) {
+			$requete = "INSERT INTO annee(Annee) VALUES 
+				(:Annee, 1 )";
 			$requetePreparee = $this -> connexion -> prepare($requete);
-			$requetePreparee -> bindParam(":annee", $Annee);
-			$requetePreparee -> bindParam(":visibilite", $visibilite);
+			$requetePreparee -> bindParam(":annee", $annee);
 			$requetePreparee -> execute();
 			
 			if($requetePreparee -> rowCount() > 0)
@@ -288,33 +305,141 @@
             $requetePreparee -> execute();
 		}
 
-		//Partie Photo
-		public function ajoutPhoto() {
-			//Ajouter une photo
-		}
 
-		public function modifPhoto($id) {
-			//Modifier photo
-		}
+		public function obtenirAnnee($annee) {
+            $requete = "SELECT * FROM annee WHERE annee =:annee";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":annee", $annee);
+            $requetePreparee -> execute();
+
+            //Retour de l'identifiant de la dernière insertion
+            return $requetePreparee -> fetch();
+        }
+
 
 		//Partie Modele
-		public function ajoutModele() {
-			//Ajouter un modèle
+		public function ajoutModele($nomModele, $marqueId) {
+			$requete = "INSERT INTO modele (nomModele, marqueId, visibilite) VALUES 
+				(:nomModele,:marqueId, 1 )";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":nomModele", $nomModele);
+			$requetePreparee -> bindParam(":marqueId", $marqueId);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
 		}
 
-		public function modifModle($id) {
-			//Modifier modèle
+		public function modifModle($idModele,$nomModele, $marqueId, $visibilite) {
+			$requete = "UPDATE modele SET nomModele = :nomModele, marqueId = :marqueId,
+                visibilite = :visibilite WHERE idModele = :idModele";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nomModele", $nomModele);
+            $requetePreparee -> bindParam(":marqueId", $marqueId);
+            $requetePreparee -> bindParam(":visibilite", $visibilite);
+            $requetePreparee -> bindParam(":idModele", $idModele);
+            $requetePreparee -> execute();
 		}
 
 		//Partie Marque
-		public function ajoutMarque() {
-			//Ajouter une marque
+		public function ajoutMarque($nomMarque) {
+			$requete = "INSERT INTO marque (nomMarque, visibilite) VALUES 
+				(:nomMarque, 1 )";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":nomMarque", $nomMarque);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
 		}
 
-		public function modifMarque($id) {
-			//Modifier une marque
+		public function modifMarque($idMarque,$nomMarque, $visibilite) {
+			$requete = "UPDATE marque SET nomMarque = :nomMarque,
+            			visibilite = :visibilite WHERE idMarque = :idMarque";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nomMarque", $nomMarque);
+            $requetePreparee -> bindParam(":visibilite", $visibilite);
+            $requetePreparee -> bindParam(":idMarque", $idMarque);
+            $requetePreparee -> execute();
+		}
+		
+		public function ajoutPhotoVoiture($nomPhoto, $ordre, $autoId) {
+			echo 'dddddddd',$nomPhoto;
+			echo $ordre;
+			echo $autoId;
+			$requete = "INSERT INTO photo (nomPhoto, ordre, autoId, visibilite) VALUES 
+				(:nomPhoto, :ordre,:autoId, 1)";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+			$requetePreparee -> bindParam(":nomPhoto", $nomPhoto);
+			$requetePreparee -> bindParam(":ordre", $ordre);
+			$requetePreparee -> bindParam(":autoId", $autoId);
+			$requetePreparee -> execute();
+			
+			if($requetePreparee -> rowCount() > 0)
+				return $this -> connexion -> lastInsertId();
+			else
+				return false;
 		}
 
+
+		/* function chargerImage($image_nom){
+
+			$target_dir = "images/livres/";
+			$target_file = $target_dir . basename($_FILES["image"]["name"]);
+	
+			$uploadOk = 1;
+			$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	
+			$n_target_file = $target_dir . $image_nom . "." . $imageFileType;
+	
+			// Check if image file is a actual image or fake image
+			if(isset($_POST["bouton_ajouter"])) {
+				$check = getimagesize($_FILES["image"]["tmp_name"]);
+				if($check !== false) {
+					echo "File is an image - " . $check["mime"] . ".";
+					$uploadOk = 1;
+				} else {
+					echo "File is not an image.";
+					$uploadOk = 0;
+				}
+			}
+	
+			// Check if file already exists
+			if (file_exists($target_file)) {
+				echo "Sorry, file already exists.";
+				$uploadOk = 1;
+			}
+	
+			// Check file size
+			if ($_FILES["image"]["size"] > 500000) {
+				echo "Sorry, your file is too large.";
+				$uploadOk = 0;
+			}
+	
+			// Allow certain file formats
+			if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+				&& $imageFileType != "gif" ) {
+				echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+				$uploadOk = 0;
+			}
+	
+			// Check if $uploadOk is set to 0 by an error
+			if ($uploadOk == 0){
+				echo "Sorry, your file was not uploaded.";
+				// if everything is ok, try to upload file
+			}else{
+				if (move_uploaded_file($_FILES["image"]["tmp_name"], $n_target_file)) {
+					//echo "The file ". $n_target_file. " has been uploaded.";
+				}else{
+					echo "Sorry, there was an error uploading your file.";
+				}
+			}
+	
+		} */
 
 	}
 ?>

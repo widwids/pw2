@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="assets/styles/admin.css">
 	<link rel="stylesheet" href="assets/styles/connexion.css">
 	<link rel="stylesheet" href="assets/styles/detailVoiture.css">
+	<link rel="stylesheet" href="assets/styles/ListeVoitures.css">
 	<link rel="stylesheet" href="assets/styles/accueil.css">
 	<link rel="stylesheet" href="assets/styles/panier.css">
 	<link rel="stylesheet" href="assets/styles/apropos.css">
@@ -20,6 +21,7 @@
 	<script type="text/javascript" src="assets/scripts/Panier.js"></script>
 	<script type="text/javascript" src="assets/scripts/VoitureSolo.js"></script>
 	<script type="text/javascript" src="assets/scripts/GestionFormulaire.js"></script>
+	<script type="text/javascript" src="assets/scripts/Photos.js"></script>
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
 	<script type="text/javascript" src="assets/scripts/classMapping.js"></script>
 	<script type="text/javascript" src="assets/scripts/connexion.js"></script>

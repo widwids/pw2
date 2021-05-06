@@ -24,6 +24,7 @@
 
 	<select data-js-btn-filtre-prix class="select">
 		<option selected disabled hidden>Trier par prix</option>
+
 <?php foreach ($data["voitures"] as $voiture) { ?>
 		<option value="<?= number_format($voiture["prixAchat"] * 1.10, 2, ',', ' ') ?>">
 			<?= number_format($voiture["prixAchat"] * 1.10, 2, ',', ' ') ?>
@@ -35,21 +36,34 @@
 <section class="product-list" data-component="">
 <?php
 //var_dump($data);
-	foreach ($data["voitures"] as $voiture) {
+	foreach ($data['voitures'] as $voiture) {
 ?>
 	<a href="index.php?Voiture&action=detailVoiture&noSerie=<?= $voiture['noSerie']?>">
 		<div class="product-card" data-js-inventaire="" data-js-produits="">
 			<div class="product-image">
 				<img src="assets/images/<?php echo $voiture["nomPhoto"]; ?>.jpg" class="product-list__image">
 			</div>
+
+
 			<div class=product-info>
 				<!-- <p><?=$voiture["noSerie"] ?></p>  -->
-				<p><?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"]; ?> <?= $voiture["anneeId"]; ?></p> 
-				<p><?= $voiture["kilometrage"]; ?> Km</p> 
-				<p>Date d'arrivée : <?= $voiture["dateArrivee"] ?></p> 
-				<p></p> 
+				<h3><?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"]; ?> <?= $voiture["anneeId"]; ?></h3> 
+
+				<small>
+				<li><?= $voiture["nomCorpsFR"] ?> </li>
+                <li><?= $voiture["kilometrage"] ?> Km</li>
+				<li>Carburant: <?= $voiture["typeCarburantFR"] ?></li>
+                <li>Traction: <?= $voiture["nomMotopro"] ?></li>
+                <li>Transmission: <?= $voiture["nomTransmissionFR"] ?></li>
+                <li>No de série: <span data-js-noSerie><?= $voiture["noSerie"] ?></span></li>
+                <li>Date d'arrivée: <?= $voiture["dateArrivee"] ?></li></small>
+				
 				<h2><?= number_format($voiture["prixAchat"] * 1.10, 2, ',', ' ') ?> $</h2>
 			</div> 
+
+
+
+			
 		</div>
 	</a>
 <?php
