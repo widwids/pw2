@@ -287,6 +287,25 @@
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["idUtilisateur"])) {
                             $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($params["idUtilisateur"]);
+                            
+                            $this -> afficheVue("Head");
+                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("UtilisateurAdmin", $data);
+                            $this->afficheVue("Footer");
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                
+                case "afficheUtilisateurAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idUtilisateur"])) {
+                            $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($params["idUtilisateur"]);
                             echo json_encode($data);
                         } else {
                             trigger_error("Paramètre manquant.");
@@ -298,6 +317,25 @@
                     break;
                 
                 case "afficheVille":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idVille"])) {
+                            $data["ville"] = $modeleUtilisateur -> obtenir_par_id('ville', 'idVille', $params["idVille"]);
+
+                            $this -> afficheVue("Head");
+                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("VilleAdmin", $data);
+                            $this->afficheVue("Footer");
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "afficheVilleAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["idVille"])) {
                             $data["ville"] = $modeleUtilisateur -> obtenir_par_id('ville', 'idVille', $params["idVille"]);
@@ -315,6 +353,25 @@
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["codeProvince"])) {
                             $data["province"] = $modeleUtilisateur -> obtenir_par_id('province', 'codeProvince', $params["codeProvince"]);
+
+                            $this -> afficheVue("Head");
+                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("ProvinceAdmin", $data);
+                            $this->afficheVue("Footer");
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "afficheProvinceAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["codeProvince"])) {
+                            $data["province"] = $modeleUtilisateur -> obtenir_par_id('province', 'codeProvince', $params["codeProvince"]);
                             echo json_encode($data);
                         } else {
                             trigger_error("Paramètre manquant.");
@@ -329,7 +386,12 @@
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["idPays"])) {
                             $data["pays"] = $modeleUtilisateur -> obtenir_par_id('pays', 'idPays', $params["idPays"]);
-                            echo json_encode($data);
+                            
+                            $this -> afficheVue("Head");
+                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("PaysAdmin", $data);
+                            $this->afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -339,7 +401,75 @@
                     }
                     break;
 
+                case "affichePaysAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idPays"])) {
+                            $data["pays"] = $modeleUtilisateur -> obtenir_par_id('pays', 'idPays', $params["idPays"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                
+                case "afficheTaxe":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idTaxe"], $params["provinceId"])) {
+                            $data["taxe"] = $modeleUtilisateur -> obtenir_par_id('taxe', 'idTaxe', $params["idTaxe"]);
+                            $data["taxeProvince"] = $modeleUtilisateur -> obtenir_par_id('taxeProvince', 'provinceId', $params["provinceId"]);
+                            
+                            $this -> afficheVue("Head");
+                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("TaxeAdmin", $data);
+                            $this->afficheVue("Footer");
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        } 
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                
+                case "afficheTaxeAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idTaxe"], $params["provinceId"])) {
+                            $data["taxe"] = $modeleUtilisateur -> obtenir_par_id('taxe', 'idTaxe', $params["idTaxe"]);
+                            $data["taxeProvince"] = $modeleUtilisateur -> obtenir_par_id('taxeProvince', 'provinceId', $params["provinceId"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        } 
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                
                 case "affichePrivilege":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idPrivilege"])) {
+                            $data["privilege"] = $modeleUtilisateur -> obtenir_par_id('privilege', 'idPrivilege', $params["idPrivilege"]);
+                            
+                            $this -> afficheVue("Head");
+                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("PrivilegeAdmin", $data);
+                            $this->afficheVue("Footer");
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "affichePrivilegeAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["idPrivilege"])) {
                             $data["privilege"] = $modeleUtilisateur -> obtenir_par_id('privilege', 'idPrivilege', $params["idPrivilege"]);
@@ -352,8 +482,27 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
-                
+
                 case "afficheConnexion":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idConnexion"])) {
+                            $data["connexion"] = $modeleUtilisateur -> obtenir_par_id('connexion', 'idConnexion', $params["idConnexion"]);
+                            
+                            $this -> afficheVue("Head");
+                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("ConnexionAdmin", $data);
+                            $this->afficheVue("Footer");
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                
+                case "afficheConnexionAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["idConnexion"])) {
                             $data["connexion"] = $modeleUtilisateur -> obtenir_par_id('connexion', 'idConnexion', $params["idConnexion"]);
@@ -380,8 +529,23 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
-
+                
                 case "listeUtilisateurs":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
+
+                        $this -> afficheVue("Head");
+                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeUtilisateursAdmin", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                
+                case "listeUtilisateursAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
                         echo json_encode($data);
@@ -394,6 +558,21 @@
                 case "listeVilles":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+            
+                        $this -> afficheVue("Head");
+                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeVillesAdmin", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listeVillesAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
                         echo json_encode($data);
                         //$this -> afficheVue("ListeVilles", $data);
                     } else {
@@ -401,8 +580,23 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
-
+                
                 case "listeProvinces":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        
+                        $this -> afficheVue("Head");
+                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeProvincesAdmin", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listeProvincesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
                         echo json_encode($data);
@@ -412,8 +606,23 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
-
+                
                 case "listePays":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
+                        
+                        $this -> afficheVue("Head");
+                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("ListePaysAdmin", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listePaysAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         echo json_encode($data);
@@ -423,8 +632,24 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
-
+                
                 case "listeTaxes":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
+                        $data["taxeProvince"] = $modeleUtilisateur -> obtenir_tous('taxeProvince');
+                        
+                        $this -> afficheVue("Head");
+                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeTaxesAdmin", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listeTaxesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
                         $data["taxeProvince"] = $modeleUtilisateur -> obtenir_tous('taxeProvince');
@@ -435,8 +660,23 @@
                         header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
-
+                
                 case "listePrivileges":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
+                        
+                        $this -> afficheVue("Head");
+                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("ListePrivilegesAdmin", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listePrivilegesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
                         echo json_encode($data);
@@ -448,6 +688,21 @@
                     break;
 
                 case "listeConnexions":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["connexions"] = $modeleUtilisateur -> obtenir_tous('connexion');
+
+                        $this -> afficheVue("Head");
+                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
+                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeConnexionsAdmin", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listeConnexionsAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["connexions"] = $modeleUtilisateur -> obtenir_tous('connexion');
                         echo json_encode($data);
