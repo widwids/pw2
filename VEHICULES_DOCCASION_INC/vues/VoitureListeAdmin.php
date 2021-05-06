@@ -52,38 +52,38 @@
 </section>
 
 
-<section class="yu-modal yu-modal-ajouter">
+<section class="yu-modal yu-modal-ajouter" data-component="Photos">
     
     <button class="btn-ferme" data-js-btn-ferme-ajouter>&times;</button>
 
-    <form action="" method="post" class="yu-formulaire yu-modal-container">
+    <form action="" method="post" class="yu-formulaire yu-modal-container" enctype="multipart/form-data">
         <div>
             <label for="noSerie">№ Série</label>
-            <input type="text" name="noSerie" value="">
+            <input type="text" name="noSerie" value="" data-js-nserie required>
         </div>
         <div>
             <label for="descriptionFR">Description Français</label>
-            <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10"></textarea>
+            <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10" required></textarea >
         </div>
         <div>
             <label for="descriptionEN">Description Anglais</label>
-            <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10"></textarea>
+            <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10" required></textarea>
         </div>
         <div>
             <label for="kilometrage">Kilométrage</label>
-            <input type="number" name="kilometrage" value="">
+            <input type="number" name="kilometrage" value="" required>
         </div>
         <div>
             <label for="dateArrivee">Date Arrivée</label>
-            <input type="date" name="dateArrivee" id="dateArrivee">
+            <input type="date" name="dateArrivee" id="dateArrivee" required>
         </div>
         <div>
             <label for="prixAchat">Prix Achat</label>
-            <input type="number" name="prixAchat" id="prixAchat">
+            <input type="number" name="prixAchat" id="prixAchat" required>
         </div>
         <div>
             <label for="groupeMPid">Group MP</label>
-            <select name="groupeMPId" id="groupeMPid">
+            <select name="groupeMPId" id="groupeMPid" >
                 <option value="">Sélectionnez un groupe MP</option>
                     <?php foreach($data["motopropulseur"] as $groupeMP) { ?>
 
@@ -145,6 +145,17 @@
                     <?php }?>
             </select>
         </div>
+        <div>
+        <p>Photo principale</p>
+		<label for="imgPrincipale">Select image:</label>
+		<input type="file" id="imgPrincipale" name="imgPrincipale" accept=".jpg, .jpeg">
+        </div>
+        <div>
+            <p>Photo secondaire</p>
+            <label for="imgimgSecondaire">Select image :</label>
+            <input type="file" id="imgSecondaire" name="imgSecondaire" accept=".jpg, .jpeg" multiple>
+        </div>
+        <button data-js-btn-soumettre>Telecharger les images</button>
         <div>
             <input type="hidden" name="visibilite" checked>
         </div>

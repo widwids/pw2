@@ -42,14 +42,14 @@
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
             <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR">
+            <input type="text" name="nomVilleFR" required>
         </div>
         <div>
             <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN">
+            <input type="text" name="nomVilleEN" required>
         </div>
         <div>
-            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-mp>
+            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-ville>
         </div>
     </form>
 
@@ -62,7 +62,7 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>            
-            <input type="hidden" name="idMotopro">
+            <input type="hidden" name="idVille">
         </div>
         <div>
             <label for="nomVilleFR">Nom du ville en français</label>
@@ -73,7 +73,7 @@
             <input type="text" name="nomVilleEN">
         </div>
         <div>
-            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-mp>
+            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-ville>
         </div>
     </form>
 
@@ -249,7 +249,7 @@ function supprimerVilleAJAX(id)
 }
 
 let btnAjouterVille = document.querySelector("[data-js-btn-ajouter-ville]");
-btnAjouterVoiture.addEventListener("click", (evt) => {
+btnAjouterVille.addEventListener("click", (evt) => {
 
     evt.preventDefault();
     ajouterVilleAJAX();
@@ -258,7 +258,7 @@ btnAjouterVoiture.addEventListener("click", (evt) => {
 });
 
 let btnModifierVille = document.querySelector("[data-js-btn-modifier-ville]");
-btnModifierVoiture.addEventListener("click", (evt) => {
+btnModifierVille.addEventListener("click", (evt) => {
 
     evt.preventDefault();
     modifierVilleAJAX();
