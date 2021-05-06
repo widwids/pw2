@@ -43,7 +43,9 @@
                                 $modeleUtilisateur -> modifierConnexion($utilisateurId);
                             }
                             
-							header("Location: index.php");
+                            if(! isset($params["ajax"])) {
+                                header("Location: index.php");
+                            }
 						} else {
 							$messageErreur = "La combinaison de l'identifiant et du mot de passe est invalide.";
                             //Redirection vers le formulaire d'authentification
@@ -115,11 +117,18 @@
                                 $params["villeId"]);
                             $ajoute = $modeleUtilisateur -> ajouterUtilisateur($nouvelUtilisateur);
 
-                            if($ajoute)
-                                //Redirection vers la page de connexion
-                                header("Location: index.php?Utilisateur&action=connexion");
-                            else
-                                $this -> afficheFormAjoutUtilisateur();
+                            if(! isset($params["ajax"])) {
+                                if($ajoute)
+                                    //Redirection vers la page de connexion
+                                    header("Location: index.php?Utilisateur&action=connexion");
+                                else
+                                    $this -> afficheFormAjoutUtilisateur();
+                            } else {
+                                $modeleUtilisateur -> authentification($params["pseudonyme"], 
+                                    $params["motDePasse"]);
+
+                                $_SESSION["utilisateur"] = $params["pseudonyme"];
+                            }
                         } else {
                             //Afficher le formulaire d'ajout d'un utilisateur
                             $this -> afficheFormAjoutUtilisateur($messageErreur);   
