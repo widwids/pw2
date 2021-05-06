@@ -282,6 +282,90 @@
                         header("Location: index.php?Utilisateur&action=connexion"); 
                     }
 					break;
+                
+                case "afficheUtilisateur":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idUtilisateur"])) {
+                            $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($params["idUtilisateur"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                
+                case "afficheVille":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idVille"])) {
+                            $data["ville"] = $modeleUtilisateur -> obtenir_par_id('ville', 'idVille', $params["idVille"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "afficheProvince":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["codeProvince"])) {
+                            $data["province"] = $modeleUtilisateur -> obtenir_par_id('province', 'codeProvince', $params["codeProvince"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "affichePays":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idPays"])) {
+                            $data["pays"] = $modeleUtilisateur -> obtenir_par_id('pays', 'idPays', $params["idPays"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "affichePrivilege":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idPrivilege"])) {
+                            $data["privilege"] = $modeleUtilisateur -> obtenir_par_id('privilege', 'idPrivilege', $params["idPrivilege"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+                
+                case "afficheConnexion":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idConnexion"])) {
+                            $data["connexion"] = $modeleUtilisateur -> obtenir_par_id('connexion', 'idConnexion', $params["idConnexion"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
 
                 case "liste":
                     //Obtenir Liste avec paramètre envoyé avec AJAX
