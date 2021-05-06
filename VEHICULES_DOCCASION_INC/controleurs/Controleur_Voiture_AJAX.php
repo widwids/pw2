@@ -674,7 +674,7 @@
 
 					case "ModeleListeJson":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							$data = $modeleVoiture -> obtenir_tous('modele');
+							$data = $modeleVoiture -> obtenir_marque_modele('modele');
 							echo json_encode($data);
 						}else{
 							//Redirection vers le formulaire d'authentification

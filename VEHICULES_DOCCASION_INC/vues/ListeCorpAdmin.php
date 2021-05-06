@@ -12,7 +12,6 @@
                 <th>id</th>
                 <th>Type de véhicule en français</th>
                 <th>Type de véhicule en anglais</th>
-                <th>Visibilité</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,7 +24,6 @@
             <td data-js-idCorps><?= $corp["idCorps"]?></td>
             <td><?= $corp["nomCorpsFR"]?></td>
             <td><?= $corp["nomCorpsEN"]?></td>
-            <td><?= ($corp["visibilite"] ==1) ? "OUI" : "NON" ?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
 
@@ -73,9 +71,8 @@
             <label for="nomCorpsEN">Type de véhicule en anglais</label>
             <input type="text" name="nomCorpsEN" value="" required>
         </div>
-        <div class="yu-checkbox">
-            <label for="visibilite">Visibilité</label>
-            <input type="checkbox" name="visibilite" value="1">		
+        <div>
+            <input type="hidden" name="visibilite" checked>		
 	    </div>        
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-corp>
@@ -187,7 +184,6 @@ function obtenirCorpsAJAX()
                     <td data-js-idCorps>${ corp["idCorps"]}</td>
                     <td>${ corp["nomCorpsFR"]}</td>
                     <td>${ corp["nomCorpsEN"]}</td>
-                    <td>${ (corp["visibilite"] ==1) ? "OUI" : "NON" }</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -272,12 +268,14 @@ btnModifierVoiture.addEventListener("click", (evt) => {
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
+    if(evt.target.name == "btnOui"){
     supprimerCorpAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

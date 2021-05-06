@@ -11,7 +11,9 @@
 				<li><a href="index.php?Voiture&action=ListeGroupeMP">Motopropulseurs</a></li>
 				<li><a href="index.php?Voiture&action=ListeCorps">Types de véhicules</a></li>
 				<li><a href="index.php?Voiture&action=ListeCarburant">Carburants</a></li>
-				<li><a href="index.php?Voiture&action=ListeModele">Marques/Modèles</a></li>
+				<li><a href="index.php?Voiture&action=ListeModele">Modèles</a></li>
+				<li><a href="index.php?Voiture&action=ListeMarque">Marques</a></li>
+				<li><a href="index.php?Voiture&action=ListeAnnee">Années</a></li>				
 				<li><a href="index.php?Voiture&action=ListeTransmission">Transmission</a></li>
 			</ul>
 		</li>
