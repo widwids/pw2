@@ -38,10 +38,6 @@
     transform: scale(1.1);
 }
 
-form input{
-    color: #171717;
-}
-
 .sous-total {
     background-color:rgba(0, 0, 0, 0.8);
     font-size: 1.5em;
@@ -52,4 +48,16 @@ form input{
 .caisse {
     display: block;
     margin: 0 auto;
+}
+
+.panier form {
+    margin: 40px 15%;
+    min-width: 300px;
+}
+
+.panier input, .panier select {
+    color: #171717;
+    padding: 10px;
+	width: 100%;
+	margin-bottom: 30px;
 }

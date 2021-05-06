@@ -19,8 +19,8 @@
     </div>
 <?php } ?>
     <div style="display:none" data-js-connexion>
-        <h2>Connectez-vous</h2>
         <form method="post">
+            <h2>Connectez-vous</h2>
             <label for="pseudonyme">Nom d'utilisateur</label>
             <input type="text" name="pseudonyme" placeholder="Nom d'utilisateur" required data-js-pseudonyme><br>
             <label for="motDePasse">Mot de passe</label>
@@ -31,8 +31,8 @@
     </div>
 
     <div style="display:none" data-js-creation>
-        <h2>Créez un compte</h2>
         <form method="post">
+            <h2>Créez un compte</h2>
             <label for="prenom">Prénom</label> 
             <input type="text" name="prenom" required data-js-prenom><br>
             <label for="nom">Nom</label>
