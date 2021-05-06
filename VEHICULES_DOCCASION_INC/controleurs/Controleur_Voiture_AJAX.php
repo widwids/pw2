@@ -797,32 +797,51 @@
 					
 					case "ajoutPhotosVoiture":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							if (isset($params["imgPrin"]) || isset($params["imgSeco"]) || isset($params["nSerie"]) ) {
-								
-								///// photo principale /////
-								$imgPrin = $params["imgPrin"];
-								$file = $imgPrin;
-								$info = pathinfo($file);
-								$file_name =  basename($file,'.'.$info['extension']);
-								//echo  $file_name; 
-								$modeleVoiture->ajoutPhotoVoiture($file_name, 1 , $params["nSerie"]);
+							//if (isset($params["nSerie"])) {
+					
+								///// injection nom photo.jpg principale dans le serveur /////
+								$fileNamePrin = basename($_FILES['imgPrincipale']["name"]);
 
+								//file extension
+								$imageFileType = strtolower(pathinfo($fileNamePrin, PATHINFO_EXTENSION));
+								//file size
+								$fileSize = $_FILES["imgPrincipale"]["size"];
+								$folder = "assets/images/";
+								$error =  FALSE;
+								//check extension
+								if($imageFileType !="jpg"){
 
-								///// photos secondaires /////
-								$imgSecond = explode(",",$params["imgSeco"]);
-								for ($i=0; $i < count($imgSecond); $i++) { 
+										echo '<strong>File must be JPG '; /* , JPEG, PNG, GIF */
+										$error = TRUE;
+								}								
 
-									$file = $imgSecond[$i];
-									$info = pathinfo($file);
-									$file_name =  basename($file,'.'.$info['extension']);
-
-									//echo ' / ',$file_name; 
-									$modeleVoiture->ajoutPhotoVoiture($file_name, $i+2 , $params["nSerie"]);
+								if(! file_exists($folder.$fileNamePrin)){
+									if(move_uploaded_file($_FILES["imgPrincipale"]["tmp_name"], $folder.$fileNamePrin)){
+										///// injection nom photo principale dans BD /////
+										$file = $fileNamePrin;
+										$info = pathinfo($file);
+										$file_name =  basename($file,'.'.$info['extension']);
+										$modeleVoiture->ajoutPhotoVoiture($file_name, 1 , 'ZFA16900014979233');	
+									}
 								}
-
-							} else {													
+								
+								for ($i=0; $i < count($_FILES['imgSecondaire']["tmp_name"]); $i++) {
+									$fileNamePSec = basename($_FILES['imgSecondaire']["name"][$i]);
+									if(! file_exists($folder.$fileNamePSec)){
+										///// injection noms photos secondaires dans le serveur/////
+										if(move_uploaded_file($_FILES["imgSecondaire"]["tmp_name"][$i], $folder.$fileNamePSec)){
+											///// injection noms photos secondaires dans BD/////
+											$file = $_FILES['imgSecondaire']["name"][$i];
+											$info = pathinfo($file);
+											$file_name =  basename($file,'.'.$info['extension']);
+											echo $file,' / ';
+											$modeleVoiture->ajoutPhotoVoiture($file_name, $i+2 , 'ZFA16900014979233');
+										}
+									}							
+								}
+							/* } else {													
 								echo "ERROR PARAMS";
-							}
+							} */
 						}else{
 							//Redirection vers le formulaire d'authentification
 							header("Location: index.php?Utilisateur&action=connexion");
