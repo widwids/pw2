@@ -107,7 +107,8 @@
                         $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
                         $this -> afficheVue("Panier", $data);
                     } else {
-                        $this -> afficheVue("Panier");
+                        $data["villes"] = $modeleCommande -> obtenir_tous('ville');
+                        $this -> afficheVue("Panier", $data);
                     }
                     break;
                 case "afficheCommandes":

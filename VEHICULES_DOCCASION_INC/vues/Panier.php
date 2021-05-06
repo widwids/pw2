@@ -25,7 +25,6 @@
             <input type="text" name="pseudonyme" placeholder="Nom d'utilisateur" required data-js-pseudonyme><br>
             <label for="motDePasse">Mot de passe</label>
             <input type="password" name="motDePasse" placeholder="Mot de passe" required data-js-motDePasse><br>
-            <input type="hidden" name="action" value="authentification">
             <br>
             <input type="submit" value="Se connecter" data-js-btnConnexion>
         </form>
@@ -35,36 +34,34 @@
         <h2>Créez un compte</h2>
         <form method="post">
             <label for="prenom">Prénom</label> 
-            <input type="text" name="prenom" required><br>
+            <input type="text" name="prenom" required data-js-prenom><br>
             <label for="nom">Nom</label>
-            <input type="text" name="nom" required><br>
+            <input type="text" name="nom" required data-js-nom><br>
             <label for="dateNaissance">Date de naissance</label>
-            <input type="date" name="dateNaissance" required><br>
+            <input type="date" name="dateNaissance" required data-js-date><br>
             <label for="adresse">Adresse</label> 
-            <input type="text" name="adresse" required><br>
+            <input type="text" name="adresse" required data-js-adresse><br>
             <label for="codePostal">Code postal</label> 
-            <input type="text" name="codePostal" required><br>
+            <input type="text" name="codePostal" required data-js-postal><br>
             <label for="telephone">Téléphone</label> 
-            <input type="tel" name="telephone" required><br>
+            <input type="tel" name="telephone" required data-js-telephone><br>
             <label for="cellulaire">Cellulaire </label>
-            <input type="tel" name="cellulaire"><br>
+            <input type="tel" name="cellulaire" data-js-cellulaire><br>
             <label for="courriel">Courriel </label>
-            <input type="email" name="courriel"><br>
+            <input type="email" name="courriel" data-js-courriel><br>
             <label for="pseudonyme">Pseudonyme</label> 
-            <input type="text" name="pseudonyme" required><br>
+            <input type="text" name="pseudonyme" required data-js-pseudo><br>
             <label for="motDePasse">Mot de passe</label>
-            <input type="password" name="motDePasse" required><br>
-            <label for="villeId">Ville</label> 
-            <select id="villeId" name="villeId">
-                <option value="1">Montréal</option>
-                <option value="2">Laval</option>
-                <option value="3">Longueuil</option>
-                <option value="4">Toronto</option>
+            <input type="password" name="motDePasse" required data-js-mdp><br>
+            <label for="villeId">Ville</label>
+            <select id="villeId" name="villeId" data-js-ville>
+<?php foreach ($data["villes"] as $ville) { ?>
+                <option value="<?= $ville["idVille"] ?>"><?= $ville["nomVilleFR"] ?></option>
+<?php } ?>
             </select>
             <br>
-            <input type="hidden" name="action" value="insereUtilisateur"/>
             <br>
-            <input class="submit" type="submit" value="Enregistrer"/>
+            <input class="submit" type="submit" value="Enregistrer" data-js-btnCreation>
         </form>
     </div>
 </section>

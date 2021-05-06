@@ -117,11 +117,18 @@
                                 $params["villeId"]);
                             $ajoute = $modeleUtilisateur -> ajouterUtilisateur($nouvelUtilisateur);
 
-                            if($ajoute)
-                                //Redirection vers la page de connexion
-                                header("Location: index.php?Utilisateur&action=connexion");
-                            else
-                                $this -> afficheFormAjoutUtilisateur();
+                            if(! isset($params["ajax"])) {
+                                if($ajoute)
+                                    //Redirection vers la page de connexion
+                                    header("Location: index.php?Utilisateur&action=connexion");
+                                else
+                                    $this -> afficheFormAjoutUtilisateur();
+                            } else {
+                                $modeleUtilisateur -> authentification($params["pseudonyme"], 
+                                    $params["motDePasse"]);
+
+                                $_SESSION["utilisateur"] = $params["pseudonyme"];
+                            }
                         } else {
                             //Afficher le formulaire d'ajout d'un utilisateur
                             $this -> afficheFormAjoutUtilisateur($messageErreur);   

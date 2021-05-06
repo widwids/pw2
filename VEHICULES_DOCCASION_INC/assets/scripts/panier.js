@@ -77,8 +77,11 @@ class Panier {
     afficheCaisse = () => {
         if(! this._el.querySelector('[data-js-commande]')) {
             this._el.querySelector('[data-js-connexion]').style.display = 'block';
+            this._el.querySelector('[data-js-creation]').style.display = 'block';
 
             this._el.querySelector('[data-js-btnConnexion]').addEventListener('click', this.connecte);
+            this._el.querySelector('[data-js-btnCreation]').addEventListener('click', this.creeCompte);
+
         } else {
             this.calculeTotal();
             this._el.querySelector('[data-js-commande]').style.display = 'block';
@@ -186,6 +189,7 @@ class Panier {
                         //Les données ont été reçues
                         //Traitement du DOM
                         this._el.querySelector('[data-js-connexion]').style.display = 'none';
+                        this._el.querySelector('[data-js-creation]').style.display = 'none';
                         location.replace("index.php?Commande&action=affichePanier");
                          
                     } else if (xhr.status === 404) {
@@ -196,6 +200,78 @@ class Panier {
 
             //Envoi de la requête
             xhr.send('&pseudonyme=' + paramPseudonyme + '&motDePasse=' + paramMotDePasse + '&ajax=true');
+        }
+    }
+
+    creeCompte = (e) => {
+        e.preventDefault();
+
+        let prenom = this._el.querySelector('[data-js-prenom]').value,
+            nom = this._el.querySelector('[data-js-nom]').value,
+            dateNaissance = this._el.querySelector('[data-js-date]').value,
+            adresse = this._el.querySelector('[data-js-adresse]').value,
+            codePostal = this._el.querySelector('[data-js-postal]').value,
+            telephone = this._el.querySelector('[data-js-telephone]').value,
+            cellulaire = this._el.querySelector('[data-js-cellulaire]').value,
+            courriel = this._el.querySelector('[data-js-courriel]').value,
+            pseudonyme = this._el.querySelector('[data-js-pseudo]').value,
+            motDePasse = this._el.querySelector('[data-js-mdp]').value,
+            villeId = this._el.querySelector('[data-js-ville]').value,
+            paramPrenom = encodeURIComponent(prenom),
+            paramNom = encodeURIComponent(nom),
+            paramDateNaissance = encodeURIComponent(dateNaissance),
+            paramAdresse = encodeURIComponent(adresse),
+            paramCodePostal = encodeURIComponent(codePostal),
+            paramTelephone = encodeURIComponent(telephone),
+            paramCellulaire = encodeURIComponent(cellulaire),
+            paramCourriel = encodeURIComponent(courriel),
+            paramPseudonyme = encodeURIComponent(pseudonyme),
+            paramMotDePasse = encodeURIComponent(motDePasse),
+            paramVilleId = encodeURIComponent(villeId);
+
+        //Déclaration de l'objet XMLHttpRequest
+        var xhr;
+        xhr = new XMLHttpRequest();
+        
+        //Initialisation de la requête
+        if (xhr) {	
+
+            // Ouverture de la requête : fichier recherché
+            xhr.open('POST', 'index.php?Utilisateur&action=insereUtilisateur');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.addEventListener('readystatechange', () => {
+
+                if (xhr.readyState === 4) {							
+                    if (xhr.status === 200) {
+
+                        //Les données ont été reçues
+                        //Traitement du DOM
+                        this._el.querySelector('[data-js-connexion]').style.display = 'none';
+                        this._el.querySelector('[data-js-creation]').style.display = 'none';
+                        location.replace("index.php?Commande&action=affichePanier");
+                         
+                    } else if (xhr.status === 404) {
+                        console.log('Le fichier appelé dans la méthode open() n’existe pas.');
+                    }
+                }
+            });
+
+            //Envoi de la requête
+            xhr.send(
+                '&prenom=' + paramPrenom +
+                '&nom=' + paramNom +
+                '&dateNaissance=' + paramDateNaissance +
+                '&adresse=' + paramAdresse +
+                '&codePostal=' + paramCodePostal +
+                '&telephone=' + paramTelephone +
+                '&cellulaire=' + paramCellulaire +
+                '&courriel=' + paramCourriel +
+                '&pseudonyme=' + paramPseudonyme + 
+                '&motDePasse=' + paramMotDePasse + 
+                '&villeId=' + paramVilleId +
+                '&ajax=1'
+            );
         }
     }
 }
