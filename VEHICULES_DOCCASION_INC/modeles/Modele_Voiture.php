@@ -51,7 +51,7 @@
 
 		public function obtenir_marque_modele() {
 			try {
-				$stmt = $this->connexion->query("SELECT * FROM modele JOIN marque ON marqueId = IdMarque ");
+				$stmt = $this->connexion->query("SELECT * FROM modele JOIN marque ON marqueId = IdMarque WHERE modele.visibilite = 1 ");
 
 				$stmt->execute();
 				return $stmt->fetchAll();
