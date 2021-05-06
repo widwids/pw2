@@ -16,13 +16,13 @@ class Panier {
     init = () => {
         this._elBtn.addEventListener('click', this.afficheCaisse);
 
-        if(this._panier != undefined) {
+        if(this._panier == undefined || this._panier.length == 0) {
+            this._el.innerHTML = `<h1>Panier</h1>
+                                    <p>Votre panier est vide.</p>`;
+        } else {
             this.affichePanier();
 
             this.calculeSousTotal();
-        } else {
-            this._el.innerHTML = `<h1>Panier</h1>
-                                    <p>Votre panier est vide.</p>`;
         }
     }
 
@@ -32,17 +32,16 @@ class Panier {
         for (let item of this._panier) {
             article += `<article class="contenant">
                             <header>
-                                <img src="assets/images/${item.photo}.jpg" class="product-list__image">
+                                <img src="assets/images/${item.photo}.jpg">
                             </header>
-                            <div data-js-voitureInfo>
+                            <main data-js-voitureInfo>
                                 <p>${item.voiture.nomMarque} ${item.voiture.nomModele} ${item.voiture.anneeId}</p>
                                 <p>No de série : <span data-js-noSerie>${item.voiture.noSerie}</span></p>
                                 <p>Prix : <span data-js-prixVente>${(item.voiture.prixAchat * 1.25).toFixed(2)}</span>$</p>
-                                <p data-js-depot>Dépot requis</p><br><br>
-                                <button data-js-retirer>Retirer du panier</button>
-                            </div>
+                                <p data-js-depot>Dépot requis</p>
+                            </main>
+                            <button data-js-retirer>Retirer du panier</button>
                         </article>
-                        <div class="separation"></div>
                         `;
         }
        

@@ -1,10 +1,10 @@
 <section class="panier" data-component="Panier">
     <div data-js-panier>
-        <h1>Panier (en construction)</h1>
+        <h1>Panier</h1>
         <div data-js-articles></div><br>
-        <p>Sous-total : <span data-js-sousTotal></span>$</p><br>
+        <p class="sous-total">Sous-total : <span data-js-sousTotal></span>$</p><br>
     </div>
-    <button data-js-caisse>Passez à la caisse</button>
+    <button class="caisse" data-js-caisse>Passez à la caisse</button>
 
 <?php if(isset($_SESSION["utilisateur"])) { ?>
     
