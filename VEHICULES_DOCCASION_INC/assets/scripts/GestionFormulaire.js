@@ -5,6 +5,10 @@ class GestionFormulaire{
         this.inputs = this._el.querySelectorAll('input');
         this.textareas = this._el.querySelectorAll('textarea'); 
         this.selects = this._el.querySelectorAll('select');
+
+        this.nSerie = this._el.querySelector("[data-js-nserie]");
+        this.imgPrincipale = this._el.querySelector("#imgPrincipale");
+        this.imgSecondaire = this._el.querySelector("#imgSecondaire"); console.log(this.nSerie, this.imgPrincipale, this.imgSecondaire);
         
     }
 
@@ -97,5 +101,39 @@ class GestionFormulaire{
             this.selects[i].value = "";
         }     
 
+    }
+
+    envoyerPhotos = () =>
+    {
+        var formData = new FormData();
+        formData.append('imgPrincipale', this.imgPrincipale.files[0]);
+
+        for(var i=0; i<this.imgSecondaire.files.length; i++){
+            formData.append("imgSecondaire[]", this.imgSecondaire.files[i]);
+        }
+
+        formData.append("nSerie", this.nSerie.value);
+
+        var xhr;
+        xhr = new XMLHttpRequest();
+
+        if (xhr) {
+            xhr.open("POST",'index.php?Voiture_AJAX&action=ajoutPhotosVoiture');
+            // xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+            
+            xhr.addEventListener("readystatechange", () => {
+
+                if (xhr.readyState === 4) {							
+                    if (xhr.status === 200) {
+                        console.log(xhr.response);
+                    } else if (xhr.status === 404) {
+                        console.log('Le fichier appelé dans la méthode open() n’existe pas.');
+                    }
+                }
+            });
+        }
+
+            // Envoi de la requète
+        xhr.send(formData);
     }
 }

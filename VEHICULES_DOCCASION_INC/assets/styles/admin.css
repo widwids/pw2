@@ -380,6 +380,17 @@ body{
 
 }
 
+.yu-file input{
+    display: none;
+}
+
+.yu-file label:last-of-type{
+    padding: 7px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
 
 
 

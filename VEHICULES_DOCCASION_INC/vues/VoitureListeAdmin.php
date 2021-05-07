@@ -145,17 +145,16 @@
                     <?php }?>
             </select>
         </div>
-        <div>
-        <p>Photo principale</p>
-		<label for="imgPrincipale">Select image:</label>
-		<input type="file" id="imgPrincipale" name="imgPrincipale" accept=".jpg, .jpeg">
+        <div class="yu-file">
+            <label>Photo principale</label>
+            <label for="imgPrincipale">Sélectionnez une image</label>
+            <input type="file" id="imgPrincipale" name="imgPrincipale" accept=".jpg, .jpeg">
         </div>
-        <div>
-            <p>Photo secondaire</p>
-            <label for="imgimgSecondaire">Select image :</label>
-            <input type="file" id="imgSecondaire" name="imgSecondaire" accept=".jpg, .jpeg" multiple>
+        <div class="yu-file">
+            <label>Photo secondaire</label>
+            <label for="imgSecondaire">Sélectionnez une image</label>
+            <input type="file" id="imgSecondaire" name="imgSecondaire[]" accept=".jpg, .jpeg" multiple>
         </div>
-        <button data-js-btn-soumettre>Telecharger les images</button>
         <div>
             <input type="hidden" name="visibilite" checked>
         </div>
@@ -394,6 +393,7 @@ function obtenirVoituresAJAX()
 function ajouterVoitureAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
+    formulaire.envoyerPhotos();
 
     let xhttp = new XMLHttpRequest();
 
@@ -467,6 +467,15 @@ btnOui.addEventListener("click", (evt) => {
     supprimerVoitureAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
 
+});
+
+
+yuModalAjouter.addEventListener("change", (evt) => 
+{
+    if(evt.target.type == "file"){
+        let filename = evt.target.value.split(/(\\|\/)/g).pop();
+        evt.target.previousElementSibling.innerHTML = filename;
+    }
 });
 
 </script>
