@@ -719,35 +719,35 @@
                 
                 case "modifierUtilisateur":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], 
-                            $params["adresse"], $params["codePostal"], $params["telephone"], 
-                            $params["courriel"], $params["pseudonyme"], $params["motDePasse"], 
-                            $params["villeId"])) {
+                        if(isset($params["idUtilisateur"], $params["prenom"], $params["nom"], 
+                            $params["dateNaissance"], $params["adresse"], $params["codePostal"], 
+                            $params["telephone"], $params["courriel"], $params["pseudonyme"], 
+                            $params["motDePasse"], $params["villeId"], $params["privilegeId"])) {
                         
                             if(!isset($params["cellulaire"])) $params["cellulaire"] = "";
 
-                            $utilisateur = new Utilisateur(0, $params["prenom"], $params["nom"], 
-                                $params["dateNaissance"], $params["adresse"], $params["codePostal"], 
-                                $params["telephone"], $params["cellulaire"], $params["courriel"],
-                                $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
-                                $params["villeId"]);
+                            $utilisateur = new Utilisateur($params["idUtilisateur"], $params["prenom"], 
+                                $params["nom"], $params["dateNaissance"], $params["adresse"], 
+                                $params["codePostal"], $params["telephone"], $params["cellulaire"], 
+                                $params["courriel"], $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
+                                $params["villeId"], $params["privilegeId"]);
                             $modifie = $modeleUtilisateur -> modifierUtilisateur($utilisateur);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
                     } else {
-                        if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], 
-                            $params["adresse"], $params["codePostal"], $params["telephone"], 
-                            $params["courriel"], $params["pseudonyme"], $params["motDePasse"], 
-                            $params["villeId"])) {
+                        if(isset($params["idUtilisateur"], $params["prenom"], $params["nom"], 
+                            $params["dateNaissance"], $params["adresse"], $params["codePostal"], 
+                            $params["telephone"], $params["courriel"], $params["pseudonyme"], 
+                            $params["motDePasse"], $params["villeId"])) {
                         
                             if(!isset($params["cellulaire"])) $params["cellulaire"] = "";
 
-                            $utilisateur = new Utilisateur(0, $params["prenom"], $params["nom"], 
-                                $params["dateNaissance"], $params["adresse"], $params["codePostal"], 
-                                $params["telephone"], $params["cellulaire"], $params["courriel"],
-                                $params["pseudonyme"], password_hash($params["motDePasse"], PASSWORD_DEFAULT),
-                                $params["villeId"]);
+                            $utilisateur = new Utilisateur($params["idUtilisateur"], $params["prenom"], 
+                                $params["nom"], $params["dateNaissance"], $params["adresse"], 
+                                $params["codePostal"], $params["telephone"], $params["cellulaire"], 
+                                $params["courriel"], $params["pseudonyme"], 
+                                password_hash($params["motDePasse"], PASSWORD_DEFAULT), $params["villeId"]);
                             $modifie = $modeleUtilisateur -> modifierUtilisateur($utilisateur);
 
                             $this -> afficheVue("ListeUtilisateurs", $data);

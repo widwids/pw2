@@ -1,34 +1,35 @@
-.connexionWrapper {
-    padding-top: 170px;
-    padding-bottom: 200px;
-	min-width: 600px;
+.creationCompteWrapper {
+    padding-top: 30px;
+    padding-bottom: 50px;
+    min-width: 600px;
 }
 
-.login {
+.creationCompte {
 	margin: auto;
 	width: 50%;
 	border-radius: 5px;
     background: rgba(0, 0, 0, 0.8);
     max-width: 400px;
+
     box-shadow: 0 0 16px 15px rgba(0, 0, 0, 0.7);   
 
 	text-decoration: none;
 	text-align: center;
 }
 
-.login > label {
+.creationCompte > label {
     font-weight: 100;
     font-size: 1.5em;
 }
 
-.login > a {
+.creationCompte > a {
 	display: block;
     font-size: .7em;
 	padding-top: 5px;
-	font-weight: 100;
+    font-weight: 100;
 }
 
-.login > input {
+.creationCompte > input {
 	width: 70%;
 	height: 30px;
 	color: black;
@@ -36,7 +37,7 @@
 	text-align: center;
 }
 
-.login > button {
+.creationCompte > button {
 	display: block;
     color: rgb(0, 0, 0);
     font-size: 1em;
@@ -45,4 +46,8 @@
     margin: 0 auto;
     border-radius: 5px;
     box-shadow: 0 0 8px 1px rgb(0 0 0 / 70%);
+}
+
+.creationCompte > select {
+    color: rgb(0, 0, 0);
 }

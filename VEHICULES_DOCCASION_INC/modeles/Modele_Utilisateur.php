@@ -133,7 +133,7 @@
         public function modifierUtilisateur(Utilisateur $utilisateur) {
             $requete = "UPDATE utilisateur SET prenom = :pr, nom = :nm, dateNaissance = :dN, 
                 adresse = :ad, codePostal = :cP, telephone = :te, cellulaire = :ce, courriel = :co, 
-                pseudonyme = :ps, motDePasse = :mP, villeId = :vId, privilegeId = :pId, visibilite = :vi
+                pseudonyme = :ps, motDePasse = :mP, villeId = :vId, privilegeId = :pId
                 WHERE idUtilisateur = :idU";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $prenom = $utilisateur -> getPrenom();
@@ -148,7 +148,6 @@
             $motDePasse = $utilisateur -> getMotDePasse();
             $villeId = $utilisateur -> getVilleId();
             $privilegeId = $utilisateur -> getPrivilegeId();
-            $visibilite = $utilisateur -> getVisibilite();
             $id = $utilisateur -> getId();
             $requetePreparee -> bindParam(":pr", $prenom);
             $requetePreparee -> bindParam(":nm", $nom);
@@ -162,7 +161,6 @@
             $requetePreparee -> bindParam(":mP", $motDePasse);
             $requetePreparee -> bindParam(":vId", $villeId);
             $requetePreparee -> bindParam(":pId", $privilegeId);
-            $requetePreparee -> bindParam(":vi", $visibilite);
             $requetePreparee -> bindParam(":idU", $id);
             $requetePreparee -> execute();
         }
