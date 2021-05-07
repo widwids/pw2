@@ -327,6 +327,13 @@ body{
 
 }
 
+.yu-table-province{
+
+    max-width: 930px;
+    margin: 35px auto;
+    
+}
+
 .yu-table-ville{
 
     max-width: 930px;
