@@ -1,29 +1,34 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-groupeMP yu-btn-ajouter-container">
+    <div class="yu-table-ville yu-btn-ajouter-container">
     <button class="yu-btn-ajouter">Ajouter une ville</button>
     </div>
 
+    <div class="yu-table-responsive">
     <table class="yu-table yu-table-ville">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du ville en français</th>
-                <th>Nom du ville en anglais</th>
+                <th>Nom du ville (fr)</th>
+                <th>Nom du ville (eng)</th>
+                <th>Nom de la province (fr)</th>
+                <th>Nom de la province (eng)</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $ville) { ?>
+    <?php foreach ($data['villes'] as $ville) { ?>
 
         <tr>
             <td data-js-idVille><?= $ville["idVille"]?></td>
             <td><?= $ville["nomVilleFR"]?></td>
             <td><?= $ville["nomVilleEN"]?></td>
+            <td><?= $ville["nomProvinceFR"]?></td>
+            <td><?= $ville["nomProvinceEN"]?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
     
@@ -32,6 +37,7 @@
     </tbody>
 
     </table>
+    </div>
 
 </section>
 
@@ -47,6 +53,17 @@
         <div>
             <label for="nomVilleEN">Nom du ville en anglais</label>
             <input type="text" name="nomVilleEN" required>
+        </div>
+        <div>
+            <label for="provinceCode">Province</label>
+            <select name="provinceCode" id="provinceCode">
+                <option value="">Sélectionnez une province</option>
+                    <?php foreach($data["provinces"] as $province) { ?>
+
+                        <option value="<?= $province["codeProvince"] ?>"><?= $province["nomProvinceFR"]?></option>
+
+                    <?php }?>
+            </select>            
         </div>
         <div>
             <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-ville>
@@ -72,6 +89,17 @@
             <label for="nomVilleEN">Nom du ville en anglais</label>
             <input type="text" name="nomVilleEN">
         </div>
+        <div>
+            <label for="provinceCode">Province</label>
+            <select name="provinceCode" id="provinceCode">
+                <option value="">Sélectionnez une province</option>
+                    <?php foreach($data["provinces"] as $province) { ?>
+
+                        <option value="<?= $province["codeProvince"] ?>"><?= $province["nomProvinceFR"]?></option>
+
+                    <?php }?>
+            </select>            
+        </div>        
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-ville>
         </div>
@@ -119,7 +147,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -154,7 +182,7 @@ function obtenirVilleAJAX(id)
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=&idVille=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=afficheVilleAJAX&idVille=${id}`, true);
     xhttp.send();    
 
 }
@@ -192,7 +220,7 @@ function obtenirVillesAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListeVilleJson", true);
+    xhttp.open("GET", "index.php?Utilisateur&action=listeVillesAJAX", true);
     xhttp.send();
 
 }
@@ -205,13 +233,13 @@ function ajouterVilleAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("test");
+            console.log("response ajouter", this.response);
             obtenirVillesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterVille", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Utilisateur&action=ajouterVille", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log(formulaire.obtenirQueryString());
     xhttp.send(formulaire.obtenirQueryString());
 }
 
@@ -228,7 +256,7 @@ function modifierVilleAJAX()
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierVille", true);
+    xhttp.open("POST", "index.php?Utilisateur&action=modifierVille", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
@@ -243,7 +271,7 @@ function supprimerVilleAJAX(id)
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
+    xhttp.open("POST", "index.php?Utilisateur&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(`nomTable=ville&id=${id}`);
 }
@@ -266,12 +294,14 @@ btnModifierVille.addEventListener("click", (evt) => {
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
+    if(evt.target.name == "btnOui"){
     supprimerVilleAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

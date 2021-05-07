@@ -324,7 +324,13 @@ body{
     max-width: 600px;
     margin: 35px auto;
 
+}
 
+.yu-table-ville{
+
+    max-width: 650px;
+    margin: 35px auto;
+    
 }
 
 .yu-table-transmission{
