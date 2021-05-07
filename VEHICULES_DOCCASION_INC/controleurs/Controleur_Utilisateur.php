@@ -551,6 +551,7 @@
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
                         echo json_encode($data);
+                        var_dump($data);
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
