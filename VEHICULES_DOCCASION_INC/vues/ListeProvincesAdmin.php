@@ -1,12 +1,12 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-pays yu-btn-ajouter-container">
+    <div class="yu-table-province yu-btn-ajouter-container">
     <button class="yu-btn-ajouter">Ajouter une province</button>
     </div>
 
-    <div class="yu-table-responsivev">
-    <table class="yu-table yu-table-pays">
+    <div class="yu-table-responsive">
+    <table class="yu-table yu-table-province">
         
         <thead>
             <tr>
