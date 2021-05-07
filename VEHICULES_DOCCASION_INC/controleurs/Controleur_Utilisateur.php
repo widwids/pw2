@@ -559,7 +559,7 @@
 
                 case "listeVilles":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $data["villes"] = $modeleUtilisateur -> obtenir_villes();
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
             
@@ -576,7 +576,7 @@
 
                 case "listeVillesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $data["villes"] = $modeleUtilisateur -> obtenir_villes();
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         echo json_encode($data);
@@ -589,7 +589,7 @@
                 
                 case "listeProvinces":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_provinces();
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         
                         $this -> afficheVue("Head");
@@ -605,7 +605,7 @@
 
                 case "listeProvincesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_provinces();
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         echo json_encode($data);
                         //$this -> afficheVue("ListeProvinces", $data);

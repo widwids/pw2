@@ -1,8 +1,8 @@
 <?php include_once('Header.php')?>
-<header class="header-admin" data-component="Header">
+<!-- <header class="header-admin" data-component="Header">
 	<picture>
-		<!-- <img src="./assets/images/YVMA_logo_gold.svg" alt="">
-		<a href="#" class="brand_text">YVMA</a> -->
+		<img src="./assets/images/YVMA_logo_gold.svg" alt="">
+		<a href="#" class="brand_text">YVMA</a>
 	</picture>
 	<ul class="menu-principale">
 		<li class="parent-menu-deroulant"><a href="#">Gestion de véhicule</a>
@@ -28,7 +28,7 @@
 				<li><a href="">Commandes</a></li>
 				<li><a href="">Factures</a></li>
 			</ul>
-		</li>
+		</li> -->
 		<!-- <li class="parent-menu-deroulant"><a href="#">John Doe(administrateur)</a>
 			<ul class="menu-deroulant">
 				<li><a href="">Mon compte</a></li>

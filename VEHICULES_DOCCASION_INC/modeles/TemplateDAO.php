@@ -24,14 +24,14 @@
             $requetePreparee -> execute();
 
             //Retour de l'identifiant de la dernière insertion
-            return $requetePreparee -> fetch();
+            return $requetePreparee -> fetch(PDO::FETCH_ASSOC);
         }
 
         public function obtenir_tous($nomTable) {
             $requete = "SELECT * FROM $nomTable WHERE $nomTable.visibilite = 1";
             $resultats = $this -> connexion -> query($requete);
             $resultats -> execute();
-            return $resultats -> fetchAll();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
         }
 
         //"Suppression" (DELETE)
