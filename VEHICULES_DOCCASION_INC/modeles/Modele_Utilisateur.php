@@ -215,10 +215,11 @@
         /*--------------- Table province ---------------*/
 
         //Ajouter une province
-        public function ajouterProvince($nomProvinceFR, $nomProvinceEN, $paysId) {
-            $requete = "INSERT INTO province(nomProvinceFR, nomProvinceEN, paysId, visibilite) VALUES 
-                (:nFR,:nEN,:pId, 1)";
+        public function ajouterProvince($codeProvince, $nomProvinceFR, $nomProvinceEN, $paysId) {
+            $requete = "INSERT INTO province(codeProvince, nomProvinceFR, nomProvinceEN, paysId, visibilite) 
+            VALUES (:cPr, :nFR, :nEN, :pId, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":cPr", $codeProvince);
             $requetePreparee -> bindParam(":nFR", $nomProvinceFR);
             $requetePreparee -> bindParam(":nEN", $nomProvinceEN);
             $requetePreparee -> bindParam(":pId", $paysId);
