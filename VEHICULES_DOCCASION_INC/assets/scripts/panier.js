@@ -86,7 +86,7 @@ class Panier {
                 choixCree = this._el.querySelector('[data-js-creer]');
 
                 this._el.querySelector('[data-js-choix]').classList.remove('hidden');
-                this._el.querySelector('[data-js-caisse]').classList.add('hidden');
+                this._el.querySelector('[data-js-caisse]').style.display='none';
 
                 choixConnecte.addEventListener('click', this.afficheConnecte);
                 choixCree.addEventListener('click', this.afficheCree);
