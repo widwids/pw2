@@ -42,8 +42,8 @@ class Panier {
                                     Réservez pour ${item.voiture.prixAchat * 0.10}$ (dépôt de 10%)    
                                 </label>
                                 <select name="depot" data-js-depot>
-                                    <option value="" selected disabled>Choisir votre option</option>
-                                    <option value=""></option>
+                                    <option value="0" selected disabled>Choisir votre option</option>
+                                    <option value="0"></option>
                                     <option value="${item.voiture.prixAchat * 0.10}">Réserver</option>
                                 </select>
                             </main>
@@ -137,16 +137,12 @@ class Panier {
         }
 
         for (let depot of depots) {
-            tabDepots.push(depot.value);
+            if(depot)
+                tabDepots.push(depot.value);
         }
 
         let paramNoSerie = encodeURIComponent(tabNoSerie),
             paramPrixVente = encodeURIComponent(tabPrixVente),
-            paramDepot;
-
-        if(tabDepots.length == 0)
-            paramDepot = null;
-        else
             paramDepot = encodeURIComponent(tabDepots);
 
         //Déclaration de l'objet XMLHttpRequest
@@ -169,6 +165,13 @@ class Panier {
                         //Traitement du DOM
                         sessionStorage.removeItem('panier');
 
+                        this._el.querySelector('[data-js-confirmer]').style.display = 'block';
+                        this._el.querySelector('[data-js-panier]').style.display = 'none';
+                        this._el.querySelector('[data-js-commande]').style.display = 'none';
+
+                        setTimeout(function(){
+                            window.location.href = 'index.php';
+                        }, 5000);
                        
                     } else if (xhr.status === 404) {
                         console.log('Le fichier appelé dans la méthode open() n’existe pas.');

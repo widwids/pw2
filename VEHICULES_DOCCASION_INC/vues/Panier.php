@@ -72,4 +72,9 @@
         <button data-js-button>Commander</button>
     </div>
 <?php } ?>
+
+    <div style="display:none" data-js-confirmer>
+        <h2>Commande complétée.</h2>
+        
+    </div>
 </section>

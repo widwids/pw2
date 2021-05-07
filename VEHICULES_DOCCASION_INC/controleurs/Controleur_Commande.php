@@ -32,27 +32,25 @@
                         $modeleUtilisateur =  new Modele_Utilisateur();
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
 
-                        if(isset($params["voitureId"], $params["prixVente"])) {
+                        //if(isset($params["voitureId"], $params["prixVente"])) {
 
                             $noCommande = $modeleCommande -> ajouterCommande($usagerId);
 
                             $listeVoitureId = explode(',', $params["voitureId"]);
                             $listePrixVente = explode(',', $params["prixVente"]);
-                            if(! count($params["depot"]) > 0) 
-                                $params["depot"] = null;
                             $listeDepots = explode(',', $params["depot"]);
 
                             for($i = 0; $i < count($listeVoitureId); $i++) {
                                 $modeleCommande -> ajouterCommandeVoiture($noCommande, $listeVoitureId[$i], 
-                                $params["depot"], $listePrixVente[$i]);
+                                $listeDepots[$i], $listePrixVente[$i]);
                             }
                             
                             //$data["commandes"] = $modeleCommande -> obtenirCommandes();
 
                             //$this -> afficheVue("ListeCommandes", $data);
-                        } else {
+                        //} else {
                             trigger_error("Paramètre manquant.");
-                        }
+                        //}
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion"); 
