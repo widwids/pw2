@@ -38,7 +38,14 @@ class Panier {
                                 <p>${item.voiture.nomMarque} ${item.voiture.nomModele} ${item.voiture.anneeId}</p>
                                 <p>No de série : <span data-js-noSerie>${item.voiture.noSerie}</span></p>
                                 <p>Prix : <span data-js-prixVente>${(item.voiture.prixAchat * 1.25).toFixed(2)}</span>$</p>
-                                <p data-js-depot>Dépot requis</p>
+                                <label for="depot">
+                                    Réservez pour ${item.voiture.prixAchat * 0.10}$ (dépôt de 10%)    
+                                </label>
+                                <select name="depot" data-js-depot>
+                                    <option value="" selected disabled>Choisir votre option</option>
+                                    <option value=""></option>
+                                    <option value="${item.voiture.prixAchat * 0.10}">Réserver</option>
+                                </select>
                             </main>
                             <button data-js-retirer>Retirer du panier</button>
                         </article>
@@ -75,12 +82,14 @@ class Panier {
 
     afficheCaisse = () => {
         if(! this._el.querySelector('[data-js-commande]')) {
-            this._el.querySelector('[data-js-connexion]').style.display = 'block';
-            this._el.querySelector('[data-js-creation]').style.display = 'block';
+            let choixConnecte = this._el.querySelector('[data-js-connecter]'),
+                choixCree = this._el.querySelector('[data-js-creer]');
 
-            this._el.querySelector('[data-js-btnConnexion]').addEventListener('click', this.connecte);
-            this._el.querySelector('[data-js-btnCreation]').addEventListener('click', this.creeCompte);
+                this._el.querySelector('[data-js-choix]').style.display = 'block';
+                this._el.querySelector('[data-js-caisse]').style.display = 'none';
 
+                choixConnecte.addEventListener('click', this.afficheConnecte);
+                choixCree.addEventListener('click', this.afficheCree);
         } else {
             this.calculeTotal();
             this._el.querySelector('[data-js-commande]').style.display = 'block';
@@ -116,7 +125,8 @@ class Panier {
     commande = () => {
         let noSerieListe = this._articles.querySelectorAll('[data-js-noSerie]'),
             prixVentes = this._el.querySelectorAll('[data-js-prixVente]'),
-            tabNoSerie = [], tabPrixVente = [];
+            depots = this._articles.querySelectorAll('[data-js-depot]'),
+            tabNoSerie = [], tabPrixVente = [], tabDepots = [];
 
         for (let noSerie of noSerieListe) {
             tabNoSerie.push(noSerie.innerHTML);
@@ -126,8 +136,18 @@ class Panier {
             tabPrixVente.push(prixVente.innerHTML);
         }
 
+        for (let depot of depots) {
+            tabDepots.push(depot.value);
+        }
+
         let paramNoSerie = encodeURIComponent(tabNoSerie),
-            paramPrixVente = encodeURIComponent(tabPrixVente);
+            paramPrixVente = encodeURIComponent(tabPrixVente),
+            paramDepot;
+
+        if(tabDepots.length == 0)
+            paramDepot = null;
+        else
+            paramDepot = encodeURIComponent(tabDepots);
 
         //Déclaration de l'objet XMLHttpRequest
         var xhr;
@@ -157,8 +177,19 @@ class Panier {
             });
 
             //Envoi de la requête
-            xhr.send('&voitureId=' + paramNoSerie + '&prixVente=' + paramPrixVente);
+            xhr.send('&voitureId=' + paramNoSerie + '&prixVente=' + paramPrixVente + '&depot=' + paramDepot);
         }
+    }
+
+    afficheConnecte = (e) => {
+        e.preventDefault();
+
+        this._el.querySelector('[data-js-choix]').style.display = 'none';
+        this._el.querySelector('[data-js-connexion]').style.display = 'block';
+        this._el.querySelector('[data-js-creation]').style.display = 'none';
+
+        this._el.querySelector('[data-js-btnConnexion]').addEventListener('click', this.connecte);
+        this._el.querySelector('[data-js-retour]').addEventListener('click', this.afficheCree);
     }
 
     connecte = (e) => {
@@ -200,6 +231,17 @@ class Panier {
             //Envoi de la requête
             xhr.send('&pseudonyme=' + paramPseudonyme + '&motDePasse=' + paramMotDePasse + '&ajax=true');
         }
+    }
+
+    afficheCree = (e) => {
+        e.preventDefault();
+
+        this._el.querySelector('[data-js-choix]').style.display = 'none';
+        this._el.querySelector('[data-js-connexion]').style.display = 'none';
+        this._el.querySelector('[data-js-creation]').style.display = 'block';
+
+        this._el.querySelector('[data-js-btnCreation]').addEventListener('click', this.creeCompte);
+        this._el.querySelector('[data-js-retourConnecte]').addEventListener('click', this.afficheConnecte);
     }
 
     creeCompte = (e) => {

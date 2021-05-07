@@ -6,18 +6,11 @@
     </div>
     <button class="caisse" data-js-caisse>Passez à la caisse</button>
 
-<?php if(isset($_SESSION["utilisateur"])) { ?>
-    
-    <div style="display:none" data-js-commande>
-        <p>Taxes</p>
-
-<?php foreach ($data["taxes"] as $taxe) { ?>
-        <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span>%</p>
-<?php } ?>
-        <h3>Total: <span data-js-total></span>$</h3><br>
-        <button data-js-button>Commander</button>
+    <div style="display:none" data-js-choix>
+        <button data-js-connecter>Un compte? Connectez-vous.</button>
+        <button data-js-creer>Nouvel utilisateur? Créez un compte.</button>
     </div>
-<?php } ?>
+
     <div style="display:none" data-js-connexion>
         <form method="post">
             <h2>Connectez-vous</h2>
@@ -28,6 +21,7 @@
             <br>
             <input type="submit" value="Se connecter" data-js-btnConnexion>
         </form>
+        <button data-js-retour>Nouvel utilisateur? Créez un compte.</button>
     </div>
 
     <div style="display:none" data-js-creation>
@@ -63,5 +57,19 @@
             <br>
             <input class="submit" type="submit" value="Enregistrer" data-js-btnCreation>
         </form>
+        <button data-js-retourConnecte>Un compte? Connectez-vous.</button>
     </div>
+
+<?php if(isset($_SESSION["utilisateur"])) { ?>
+    
+    <div style="display:none" data-js-commande>
+        <p>Taxes</p>
+
+<?php foreach ($data["taxes"] as $taxe) { ?>
+        <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span>%</p>
+<?php } ?>
+        <h3>Total: <span data-js-total></span>$</h3><br>
+        <button data-js-button>Commander</button>
+    </div>
+<?php } ?>
 </section>
