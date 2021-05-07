@@ -64,7 +64,12 @@
         //Obtenir tous les utilisateurs
         public function obtenir_utilisateurs() {
             //Fetch un tableau d'utilisateurs
-            $requete = "SELECT * FROM utilisateur WHERE utilisateur.visibilite = 1";
+            $requete = "SELECT idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
+            cellulaire, courriel, pseudonyme, motDePasse, idVille, nomVilleFR, nomVilleEN, codeProvince, 
+            nomProvinceFR, nomProvinceEN, idPays, nomPaysFR, nomPaysEN, privilegeId, nomPrivilegeFR, 
+            nomPrivilegeEN FROM utilisateur JOIN ville ON villeId = idVille 
+            JOIN province ON provinceCode = codeProvince JOIN pays ON paysId = idPays 
+            JOIN privilege ON privilegeId = idPrivilege WHERE utilisateur.visibilite = 1";
             $resultats = $this -> connexion -> query($requete);
             $resultats -> execute();
             $utilisateurs = $resultats -> fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, "Utilisateur");

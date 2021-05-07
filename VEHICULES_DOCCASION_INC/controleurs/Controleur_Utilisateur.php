@@ -533,6 +533,8 @@
                 case "listeUtilisateurs":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["utilisateurs"] = $modeleUtilisateur -> obtenir_utilisateurs();
+                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
 
                         $this -> afficheVue("Head");
                         isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
