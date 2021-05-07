@@ -85,15 +85,15 @@ class Panier {
             let choixConnecte = this._el.querySelector('[data-js-connecter]'),
                 choixCree = this._el.querySelector('[data-js-creer]');
 
-                this._el.querySelector('[data-js-choix]').style.display = 'block';
-                this._el.querySelector('[data-js-caisse]').style.display = 'none';
+                this._el.querySelector('[data-js-choix]').classList.remove('hidden');
+                this._el.querySelector('[data-js-caisse]').classList.add('hidden');
 
                 choixConnecte.addEventListener('click', this.afficheConnecte);
                 choixCree.addEventListener('click', this.afficheCree);
         } else {
             this.calculeTotal();
-            this._el.querySelector('[data-js-commande]').style.display = 'block';
-            this._el.querySelector('[data-js-caisse]').style.display = 'none';
+            this._el.querySelector('[data-js-commande]').classList.remove('hidden');
+            this._el.querySelector('[data-js-caisse]').classList.add('hidden');
 
             this._el.querySelector('[data-js-button]').addEventListener('click', this.commande);
         }
@@ -165,9 +165,9 @@ class Panier {
                         //Traitement du DOM
                         sessionStorage.removeItem('panier');
 
-                        this._el.querySelector('[data-js-confirmer]').style.display = 'block';
-                        this._el.querySelector('[data-js-panier]').style.display = 'none';
-                        this._el.querySelector('[data-js-commande]').style.display = 'none';
+                        this._el.querySelector('[data-js-confirmer]').classList.remove('hidden');
+                        this._el.querySelector('[data-js-panier]').classList.add('hidden');
+                        this._el.querySelector('[data-js-commande]').classList.add('hidden');
 
                         setTimeout(function(){
                             window.location.href = 'index.php';
@@ -187,9 +187,9 @@ class Panier {
     afficheConnecte = (e) => {
         e.preventDefault();
 
-        this._el.querySelector('[data-js-choix]').style.display = 'none';
-        this._el.querySelector('[data-js-connexion]').style.display = 'block';
-        this._el.querySelector('[data-js-creation]').style.display = 'none';
+        this._el.querySelector('[data-js-choix]').classList.add('hidden');
+        this._el.querySelector('[data-js-connexion]').classList.remove('hidden');
+        this._el.querySelector('[data-js-creation]').classList.add('hidden');
 
         this._el.querySelector('[data-js-btnConnexion]').addEventListener('click', this.connecte);
         this._el.querySelector('[data-js-retour]').addEventListener('click', this.afficheCree);
@@ -221,8 +221,8 @@ class Panier {
 
                         //Les données ont été reçues
                         //Traitement du DOM
-                        this._el.querySelector('[data-js-connexion]').style.display = 'none';
-                        this._el.querySelector('[data-js-creation]').style.display = 'none';
+                        this._el.querySelector('[data-js-connexion]').classList.add('hidden');
+                        this._el.querySelector('[data-js-creation]').classList.add('hidden');
                         location.replace("index.php?Commande&action=affichePanier");
                          
                     } else if (xhr.status === 404) {
@@ -239,9 +239,9 @@ class Panier {
     afficheCree = (e) => {
         e.preventDefault();
 
-        this._el.querySelector('[data-js-choix]').style.display = 'none';
-        this._el.querySelector('[data-js-connexion]').style.display = 'none';
-        this._el.querySelector('[data-js-creation]').style.display = 'block';
+        this._el.querySelector('[data-js-choix]').classList.add('hidden');
+        this._el.querySelector('[data-js-connexion]').classList.add('hidden');
+        this._el.querySelector('[data-js-creation]').classList.remove('hidden');
 
         this._el.querySelector('[data-js-btnCreation]').addEventListener('click', this.creeCompte);
         this._el.querySelector('[data-js-retourConnecte]').addEventListener('click', this.afficheConnecte);
@@ -291,8 +291,8 @@ class Panier {
 
                         //Les données ont été reçues
                         //Traitement du DOM
-                        this._el.querySelector('[data-js-connexion]').style.display = 'none';
-                        this._el.querySelector('[data-js-creation]').style.display = 'none';
+                        this._el.querySelector('[data-js-connexion]').classList.add('hidden');
+                        this._el.querySelector('[data-js-creation]').classList.add('hidden');
                         location.replace("index.php?Commande&action=affichePanier");
                          
                     } else if (xhr.status === 404) {

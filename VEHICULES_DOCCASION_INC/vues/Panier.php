@@ -6,12 +6,12 @@
     </div>
     <button class="caisse" data-js-caisse>Passez à la caisse</button>
 
-    <div style="display:none" data-js-choix>
+    <div class="hidden" data-js-choix>
         <button data-js-connecter>Un compte? Connectez-vous.</button>
         <button data-js-creer>Nouvel utilisateur? Créez un compte.</button>
     </div>
 
-    <div style="display:none" data-js-connexion>
+    <div class="hidden" data-js-connexion>
         <form method="post">
             <h2>Connectez-vous</h2>
             <label for="pseudonyme">Nom d'utilisateur</label>
@@ -24,7 +24,7 @@
         <button data-js-retour>Nouvel utilisateur? Créez un compte.</button>
     </div>
 
-    <div style="display:none" data-js-creation>
+    <div class="hidden" data-js-creation>
         <form method="post">
             <h2>Créez un compte</h2>
             <label for="prenom">Prénom</label> 
@@ -62,7 +62,7 @@
 
 <?php if(isset($_SESSION["utilisateur"])) { ?>
     
-    <div style="display:none" data-js-commande>
+    <div class="hidden" data-js-commande>
         <p>Taxes</p>
 
 <?php foreach ($data["taxes"] as $taxe) { ?>
@@ -79,7 +79,7 @@
     </div>
 <?php } ?>
 
-    <div style="display:none" data-js-confirmer>
+    <div class="hidden" data-js-confirmer>
         <h2>Commande complétée.</h2>
         
     </div>
