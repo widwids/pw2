@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="assets/styles/footer.css">
 	<link rel="stylesheet" href="assets/styles/admin.css">
 	<link rel="stylesheet" href="assets/styles/connexion.css">
+	<link rel="stylesheet" href="assets/styles/creationCompte.css">
 	<link rel="stylesheet" href="assets/styles/detailVoiture.css">
 	<link rel="stylesheet" href="assets/styles/ListeVoitures.css">
 	<link rel="stylesheet" href="assets/styles/accueil.css">
