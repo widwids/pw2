@@ -194,7 +194,7 @@ function obtenirVillesAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response);
+            let jsonResponse = JSON.parse(this.response)['villes'];
             console.log(jsonResponse);
 
             let table = document.querySelector("table tbody"); 
@@ -210,6 +210,8 @@ function obtenirVillesAJAX()
                     <td data-js-idVille>${ ville["idVille"]}</td>
                     <td>${ ville["nomVilleFR"]}</td>
                     <td>${ ville["nomVilleEN"]}</td>
+                    <td>${ ville["nomProvinceFR"]}</td>
+                    <td>${ ville["nomProvinceEN"]}</td>                    
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -251,7 +253,7 @@ function modifierVilleAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
+            console.log("response modifier",this.response);
             obtenirVillesAJAX();
         }
     };
