@@ -178,8 +178,10 @@
 
                 case "ajouterProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["nomProvinceFR"], $params["nomProvinceEN"], $params["paysId"])) {
-                            $modeleUtilisateur -> ajouterProvince($params["nomProvinceFR"], $params["nomProvinceEN"], $params["paysId"]);
+                        if(isset($params["codeProvince"], $params["nomProvinceFR"], $params["nomProvinceEN"], 
+                            $params["paysId"])) {
+                            $modeleUtilisateur -> ajouterProvince($params["codeProvince"], $params["nomProvinceFR"], 
+                                $params["nomProvinceEN"], $params["paysId"]);
                             $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
                             //$this -> afficheVue("ListeProvinces", $data);
                         } else {
@@ -559,7 +561,9 @@
 
                 case "listeVilles":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $data["villes"] = $modeleUtilisateur -> obtenir_villes();
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
             
                         $this -> afficheVue("Head");
                         isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
@@ -574,7 +578,9 @@
 
                 case "listeVillesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $data["villes"] = $modeleUtilisateur -> obtenir_villes();
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         echo json_encode($data);
                         //$this -> afficheVue("ListeVilles", $data);
                     } else {
@@ -585,7 +591,8 @@
                 
                 case "listeProvinces":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_provinces();
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         
                         $this -> afficheVue("Head");
                         isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
@@ -600,7 +607,8 @@
 
                 case "listeProvincesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_provinces();
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         echo json_encode($data);
                         //$this -> afficheVue("ListeProvinces", $data);
                     } else {

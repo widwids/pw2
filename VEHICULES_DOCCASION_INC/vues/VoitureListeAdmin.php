@@ -460,12 +460,14 @@ btnModifierVoiture.addEventListener("click", (evt) => {
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
-    evt.preventDefault();
+    evt.preventDefault(); 
+    if(evt.target.name == "btnOui"){
     supprimerVoitureAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

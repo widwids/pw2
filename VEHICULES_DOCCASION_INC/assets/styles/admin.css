@@ -114,7 +114,8 @@
 
 body{
 
-    background-image: url(../images/adminV1.png);
+    /* background-image: url(../images/adminV1.png); */
+    background-color: black;
     background-size: cover;
     background-attachment: fixed;
     background-position-y: 75px;
@@ -324,7 +325,20 @@ body{
     max-width: 600px;
     margin: 35px auto;
 
+}
 
+.yu-table-province{
+
+    max-width: 930px;
+    margin: 35px auto;
+    
+}
+
+.yu-table-ville{
+
+    max-width: 930px;
+    margin: 35px auto;
+    
 }
 
 .yu-table-transmission{

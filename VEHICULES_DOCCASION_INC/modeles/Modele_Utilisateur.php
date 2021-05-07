@@ -192,9 +192,17 @@
 				return false;
         }
 
+        public function obtenir_villes() {
+            $requete = "SELECT * FROM ville JOIN province ON provinceCode = codeProvince 
+                WHERE ville.visibilite = 1";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
+        }
+
         //Modifier ville
         public function modifierVille($nomVilleFR, $nomVilleEN, $provinceCode, $idVille) {
-            $requete = "UPDATE ville SET nomVilleFR = :nFR, nomVilleEN = :nEN, provinceCode = :pC, 
+            $requete = "UPDATE ville SET nomVilleFR = :nFR, nomVilleEN = :nEN, provinceCode = :pC 
                 WHERE idVille = :idV";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomVilleFR);
@@ -207,10 +215,11 @@
         /*--------------- Table province ---------------*/
 
         //Ajouter une province
-        public function ajouterProvince($nomProvinceFR, $nomProvinceEN, $paysId) {
-            $requete = "INSERT INTO province(nomProvinceFR, nomProvinceEN, paysId, visibilite) VALUES 
-                (:nFR,:nEN,:pId, 1)";
+        public function ajouterProvince($codeProvince, $nomProvinceFR, $nomProvinceEN, $paysId) {
+            $requete = "INSERT INTO province(codeProvince, nomProvinceFR, nomProvinceEN, paysId, visibilite) 
+            VALUES (:cPr, :nFR, :nEN, :pId, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":cPr", $codeProvince);
             $requetePreparee -> bindParam(":nFR", $nomProvinceFR);
             $requetePreparee -> bindParam(":nEN", $nomProvinceEN);
             $requetePreparee -> bindParam(":pId", $paysId);
@@ -220,6 +229,14 @@
 				return $this -> connexion -> lastInsertId();
 			else
 				return false;
+        }
+
+        public function obtenir_provinces() {
+            $requete = "SELECT * FROM province JOIN pays ON paysId = idPays 
+                WHERE province.visibilite = 1";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
         }
 
         //Modifier province
