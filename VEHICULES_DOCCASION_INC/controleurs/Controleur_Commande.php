@@ -33,12 +33,14 @@
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
 
                         if(isset($params["voitureId"], $params["prixVente"])) {
-                            if(!isset($params["depot"])) $params["depot"] = null;
 
                             $noCommande = $modeleCommande -> ajouterCommande($usagerId);
 
                             $listeVoitureId = explode(',', $params["voitureId"]);
                             $listePrixVente = explode(',', $params["prixVente"]);
+                            if(! count($params["depot"]) > 0) 
+                                $params["depot"] = null;
+                            $listeDepots = explode(',', $params["depot"]);
 
                             for($i = 0; $i < count($listeVoitureId); $i++) {
                                 $modeleCommande -> ajouterCommandeVoiture($noCommande, $listeVoitureId[$i], 

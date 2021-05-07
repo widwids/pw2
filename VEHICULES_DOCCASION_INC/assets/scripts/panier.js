@@ -41,8 +41,9 @@ class Panier {
                                 <label for="depot">
                                     Réservez pour ${item.voiture.prixAchat * 0.10}$ (dépôt de 10%)    
                                 </label>
-                                <select name="depot" placeholder="Faire un dépôt">
+                                <select name="depot" data-js-depot>
                                     <option value="" selected disabled>Choisir votre option</option>
+                                    <option value=""></option>
                                     <option value="${item.voiture.prixAchat * 0.10}">Réserver</option>
                                 </select>
                             </main>
@@ -124,7 +125,8 @@ class Panier {
     commande = () => {
         let noSerieListe = this._articles.querySelectorAll('[data-js-noSerie]'),
             prixVentes = this._el.querySelectorAll('[data-js-prixVente]'),
-            tabNoSerie = [], tabPrixVente = [];
+            depots = this._articles.querySelectorAll('[data-js-depot]'),
+            tabNoSerie = [], tabPrixVente = [], tabDepots = [];
 
         for (let noSerie of noSerieListe) {
             tabNoSerie.push(noSerie.innerHTML);
@@ -134,8 +136,18 @@ class Panier {
             tabPrixVente.push(prixVente.innerHTML);
         }
 
+        for (let depot of depots) {
+            tabDepots.push(depot.value);
+        }
+
         let paramNoSerie = encodeURIComponent(tabNoSerie),
-            paramPrixVente = encodeURIComponent(tabPrixVente);
+            paramPrixVente = encodeURIComponent(tabPrixVente),
+            paramDepot;
+
+        if(tabDepots.length == 0)
+            paramDepot = null;
+        else
+            paramDepot = encodeURIComponent(tabDepots);
 
         //Déclaration de l'objet XMLHttpRequest
         var xhr;
@@ -165,7 +177,7 @@ class Panier {
             });
 
             //Envoi de la requête
-            xhr.send('&voitureId=' + paramNoSerie + '&prixVente=' + paramPrixVente);
+            xhr.send('&voitureId=' + paramNoSerie + '&prixVente=' + paramPrixVente + '&depot=' + paramDepot);
         }
     }
 
