@@ -48,7 +48,7 @@
             $this -> nomVilleFR = $nomVilleFR;
             $this -> nomVilleEN = $nomVilleEN;
             $this -> codeProvince = $codeProvince;
-            $this -> nomProvince = $nomProvinceFR;
+            $this -> nomProvinceFR = $nomProvinceFR;
             $this -> nomProvinceEN = $nomProvinceEN;
             $this -> idPays = $idPays;
             $this -> nomPaysFR = $nomPaysFR;
