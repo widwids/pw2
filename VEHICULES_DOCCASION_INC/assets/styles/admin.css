@@ -114,7 +114,8 @@
 
 body{
 
-    background-image: url(../images/adminV1.png);
+    /* background-image: url(../images/adminV1.png); */
+    background-color: black;
     background-size: cover;
     background-attachment: fixed;
     background-position-y: 75px;

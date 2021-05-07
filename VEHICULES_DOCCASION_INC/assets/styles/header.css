@@ -1,6 +1,10 @@
 header{
     font-family: 'Overpass', sans-serif;
     font-weight: 100;
+    font-size: 14px;
+    max-width: 100%;
+    min-width: 800px;
+    max-height: 75px;
 }
 
 .navbar{
@@ -13,8 +17,6 @@ header{
     left:0;
     width: 100%;
     height: 75px;
-    max-height: 75px;
-    min-width: 750px;
     color: white;
     background-color: #171717;
     border-bottom: 2px solid white;
@@ -29,7 +31,7 @@ header{
 .brand_text{
     font-family: 'Marcellus SC', serif;
     color: white; 
-    font-size: 75px;
+    font-size: 50px;
     transition: 0.2s all ease-out;
 }
 
@@ -42,9 +44,7 @@ header{
     margin-left: 30px;
 }
 
-.connexion{
-    margin-right: 30px;
-}
+
 
 .cart{
     display: flex;
@@ -54,6 +54,7 @@ header{
 }
 
 .handshake_icon{
+    margin-right: 15px;
     width: 75px;
 }
 
@@ -135,6 +136,10 @@ header{
   left: 0; 
 }
 
+.connexion{
+    margin-right: 15px;
+}
+
 .liens_ham{
     display: flex;
     flex-direction: column;
@@ -164,6 +169,7 @@ header{
 }
 
 .ham_icon div{
+    justify-self: center;
     width: 35px;
     height: 5px;
     background-color: white;
@@ -171,20 +177,71 @@ header{
     margin-right: 30px;
 }
 
+.container_connexion{
+    display: flex;
+    flex-direction: column;
+}
+
 .hamburger{
     position: absolute;
     right: -210;
     top: 52px;
+    margin-left: 15px;
     z-index: 100;
 }
-  
-@media screen and (max-width: 1500px){
-    .liens a{
+
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content{
+    display: flex;
+    position: absolute;
+    justify-content: space-evenly;
+    left: -280px;
+    z-index: -1;
+    background-color: #171717;
+    margin-top: 23px;
+    padding: 20px 0;
+    width: 700px;
+}
+
+.vertical_line{
+    border-left: 2px solid white;
+    height: 300px;
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    line-height: 3em;
+}
+
+.content span{
+    font-size: 18px;
+    text-decoration: underline white;
+    margin-bottom: 20px;
+}
+
+.hide{
+    display: none;
+}
+
+@media screen and (max-width: 1200px){
+    .liens li{
         display:none;
+    }
+
+    .brand, .brand-text{
+        transform: scale(0.7);
+        margin-left: -15px;
     }
 }
 
-@media screen and (min-width: 1501px){
+@media screen and (min-width: 1201px){
     .ham_icon,
     .liens_ham {
         display:none;
