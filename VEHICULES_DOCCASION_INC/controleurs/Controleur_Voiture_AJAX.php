@@ -797,7 +797,7 @@
 					
 					case "ajoutPhotosVoiture":
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							//if (isset($params["nSerie"])) {
+							if (isset($params["nSerie"])) {
 					
 								///// injection nom photo.jpg principale dans le serveur /////
 								$fileNamePrin = basename($_FILES['imgPrincipale']["name"]);
@@ -821,7 +821,7 @@
 										$file = $fileNamePrin;
 										$info = pathinfo($file);
 										$file_name =  basename($file,'.'.$info['extension']);
-										$modeleVoiture->ajoutPhotoVoiture($file_name, 1 , 'ZFA16900014979233');	
+										$modeleVoiture->ajoutPhotoVoiture($file_name, 1 , $params["nSerie"]);	
 									}
 								}
 								
@@ -835,13 +835,13 @@
 											$info = pathinfo($file);
 											$file_name =  basename($file,'.'.$info['extension']);
 											echo $file,' / ';
-											$modeleVoiture->ajoutPhotoVoiture($file_name, $i+2 , 'ZFA16900014979233');
+											$modeleVoiture->ajoutPhotoVoiture($file_name, $i+2 , $params["nSerie"]);
 										}
 									}							
 								}
-							/* } else {													
+							 } else {													
 								echo "ERROR PARAMS";
-							} */
+							} 
 						}else{
 							//Redirection vers le formulaire d'authentification
 							header("Location: index.php?Utilisateur&action=connexion");
