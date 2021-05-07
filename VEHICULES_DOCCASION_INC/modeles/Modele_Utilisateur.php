@@ -192,6 +192,14 @@
 				return false;
         }
 
+        public function obtenir_villes() {
+            $requete = "SELECT * FROM ville JOIN province ON provinceCode = codeProvince 
+                WHERE ville.visibilite = 1";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
+        }
+
         //Modifier ville
         public function modifierVille($nomVilleFR, $nomVilleEN, $provinceCode, $idVille) {
             $requete = "UPDATE ville SET nomVilleFR = :nFR, nomVilleEN = :nEN, provinceCode = :pC, 
@@ -220,6 +228,14 @@
 				return $this -> connexion -> lastInsertId();
 			else
 				return false;
+        }
+
+        public function obtenir_provinces() {
+            $requete = "SELECT * FROM province JOIN pays ON paysId = idPays 
+                WHERE province.visibilite = 1";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
         }
 
         //Modifier province
