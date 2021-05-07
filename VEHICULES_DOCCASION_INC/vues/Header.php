@@ -18,18 +18,22 @@
 								<a href="index.php?Voiture&action=ListeGroupeMP">Motopropulseurs</a>
 								<a href="index.php?Voiture&action=ListeCorps">Types de véhicules</a>
 								<a href="index.php?Voiture&action=ListeCarburant">Carburants</a>
-								<a href="index.php?Voiture&action=ListeModele">Marques/Modèles</a>
+								<a href="index.php?Voiture&action=ListeModele">Modèles</a>
+								<a href="index.php?Voiture&action=ListeMarque">Marques</a>
+								<a href="index.php?Voiture&action=ListeAnnee">Années</a>				
 								<a href="index.php?Voiture&action=ListeTransmission">Transmission</a>
 							</div>
 							<div class="vertical_line"></div>
 							<div class="content">
 								<span>Gestion Utilisateur</span>
-								<a href="#">Ajouter un utilisateur</a>
-								<a href="#">Liste d'utilisateurs</a>
-								<a href="#">Villes</a>
-								<a href="#">Provinces/Pays</a>
-								<a href="#">Taxes</a>
-								<a href="#">Commandes</a>
+								<a href="index.php?Utilisateur&action=listeUtilisateurs">Liste d'utilisateurs</a>
+								<a href="index.php?Utilisateur&action=listeVilles">Villes</a>
+								<a href="">Provinces</a>
+								<a href="">Pays</a>
+								<a href="">Taxes</a>
+								<a href="">Modes paiement</a>
+								<a href="">Commandes</a>
+								<a href="">Factures</a>
 							</div>
 						</div>
 						<?php } ?>
