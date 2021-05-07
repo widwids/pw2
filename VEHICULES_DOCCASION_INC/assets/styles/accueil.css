@@ -1,40 +1,31 @@
 /* TOP SECTION - LOGO/VIDEO*/
 
-.vidSection{
-    width: 100%;
+.image_accueil{
+    position: relative;
 }
 
-.text_container{
+.image_accueil img{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+    min-width: 800px;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.YVMA_text{
     position: absolute;
-    top: 200px;
-    left: 140px;
-}
-
-.text_container span{
-    font-size: 70px;
-    font-family: Marcellus SC, sans-serif;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    margin: 0;
     color: white;
+    font-size: 10vw;
     animation: fadeInAnimation ease 3s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-}
-
-.text_container span:first-child{
-    position: relative;
-    left: 30px;
-}
-
-.text_container span:nth-child(2){
-    position: relative;
-    top: 200px;
-    left: -200px;
-}
-
-.text_container span:last-child{
-    position: relative;
-    top: 450px;
-    left: -500px;
-    font-size: 150px;
 }
 
 @keyframes fadeInAnimation {
@@ -56,110 +47,102 @@
 
 /* SECTION PROMO EN COURS*/
     /* sous section paintjob*/
-.promo{
+.promo_couleur{
     position: relative;
-    display: inline-block;
-    max-width: 100%;
+    display: block;
     width: 100%;
     height: auto;
     object-position: center center;
     transition: all 0.7s ease-out;
 }
 
-.promo:hover{
-    transform: translate(-100px);
-}
-
-.promo_info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.promo_couleur_info{
+    width: 80%;
     position: absolute;
-    width: 25%;
-    height: 100%;
-    padding: 0 30px;
-    top:0;
-    right:-600px;
-    background-color: #171717;
-    border-left: solid 30px white;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: all 0.7s ease-out;
+    color: white;
+    pointer-events: none;
+}
+
+.promo_couleur:hover > .promo_couleur_info{
+    opacity: 1;
+}
+
+.promo_couleur img:hover{
+    filter: blur(3px) saturate(2.2) sepia(100%) brightness(40%);
+}
+
+.promo_couleur img{
+    max-width: 100%;
+    height: auto;
     transition: all 0.7s ease-out;
 }
 
-.promo:hover > .promo_info{
-    transform: translate(-500px, 0);
+.promo_couleur_info h3{
+    font-size: 4vw; 
 }
 
-.promo img{
-    transition: all 0.7s ease-out;
+.promo_couleur_info p{
+    line-height: 1.5em;
+    font-size: 2vw; 
 }
 
-.promo img:hover{
-    filter: brightness(50%);
-}
-
-.promo_info p{
-    color: white;
-    line-height: 3em;
-    font-size: 18px;   
-}
-
-.promo_info h3{
-    color: white;
-    font-size: 30px;   
-}
 
     /* sous section photographe*/
 
 .promo_photo{
     position: relative;
     display: inline-block;
-    max-width: 100%;
     width: 100%;
     height: auto;
     object-position: center center;
     transition: all 0.7s ease-out;
+    
 }
 
 .promo_photo:hover{
-    transform: translate(100px);
 }
 
 .promo_photo_info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 80%;
     position: absolute;
-    width: 25%;
-    height: 100%;
-    padding: 0 30px;
-    top:0;
-    left: -600;
-    background-color: #171717;
-    border-right: solid 30px white;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
     transition: all 0.7s ease-out;
+    color: white;
+    pointer-events: none;
 }
 
 .promo_photo:hover > .promo_photo_info{
-    transform: translate(500px, 0);
-}
-
-.promo_photo img{
-    transition: all 0.7s ease-out;
+    opacity: 1;
 }
 
 .promo_photo img:hover{
-    filter: brightness(50%);
+    filter: blur(3px) saturate(2.2) sepia(100%) brightness(40%);
 }
 
-.promo_photo_info p{
-    color: white;
-    line-height: 3em;
-    font-size: 18px;
+.promo_photo img{
+    max-width: 100%;
+    height: auto;
+    transition: all 0.7s ease-out;
+}
+
+.promo_photo:hover:not(){
+    filter: blur(3px) saturate(2.2) sepia(100%) brightness(40%);
 }
 
 .promo_photo_info h3{
-    color: white;
-    font-size: 30px;
+    width: 100%;
+    font-size: 4vw; 
+}
+
+.promo_photo_info p{
+    line-height: 1.5em;
+    font-size: 2vw; 
 }

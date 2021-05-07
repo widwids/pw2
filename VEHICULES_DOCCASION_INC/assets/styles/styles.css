@@ -4,14 +4,15 @@
 }
 /* ELEMENTS */
 html {
-    margin-top: 75px;
+    /* padding-top: 75px; */
 }
 
 body {
-    margin: 0;
+    max-width: 100%;
+    margin-top: calc(75px - 30px);
     box-sizing: border-box;
     font-family: 'Overpass', sans-serif;
-
+    overflow-x: hidden;
 }
 
 h1 {

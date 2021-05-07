@@ -11,10 +11,7 @@
             </ul>
         </div>
 
-        <div class="map">
-            <h3>Google Map</h3>        
-            <img class="location" src="assets/images/location.PNG">
-        </div>
+        <div class="separator"></div>
 
         <div class="site_map">
             <h3>Mappe du site</h3>        
@@ -26,6 +23,8 @@
                 <li><a href="#">Promotions</a></li>
             </ul>
         </div>
+        
+        <div class="separator"></div>
 
         <div class="reseaux_sociaux">
             <h3>Réseaux Sociaux</h3>

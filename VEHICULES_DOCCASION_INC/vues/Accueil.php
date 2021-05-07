@@ -1,20 +1,20 @@
 <div class="accueil">
 
-    <div class="vidSection">
-        <img src="assets/images/accueil_placeholder.png">
-        <div class="text_container">
-            <span>Bienvenue</span>
-            <span>Chez</span>
-            <span>YVMA</span>
+    <div class="separation" id="promo"></div>
+
+    <div class="image_accueil">
+        <img src="assets/images/Lion.gif">
+        <div class="YVMA_text_container">
+            <h1 class="YVMA_text">YVMA</h1>
         </div>
     </div>
 
     <div class="separation" id="promo"></div>
 
-    <div class="promo">
+    <div class="promo_couleur">
         <img src="assets/images/promo.jpg">
-        <div class="promo_info">
-        <h3>Promotion couleur personnalisée</h3>
+        <div class="promo_couleur_info">
+            <h3>Promotion couleur personnalisée</h3>
             <p>Quisque ornare ipsum quis odio efficitur, tincidunt rhoncus enim dignissim.
                 In hendrerit tellus nec odio condimentum, tincidunt dapibus eros semper. 
                 Nullam in diam sodales, imperdiet magna varius, pretium eros. 
