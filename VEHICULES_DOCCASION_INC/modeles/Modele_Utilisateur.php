@@ -202,7 +202,7 @@
 
         //Modifier ville
         public function modifierVille($nomVilleFR, $nomVilleEN, $provinceCode, $idVille) {
-            $requete = "UPDATE ville SET nomVilleFR = :nFR, nomVilleEN = :nEN, provinceCode = :pC, 
+            $requete = "UPDATE ville SET nomVilleFR = :nFR, nomVilleEN = :nEN, provinceCode = :pC 
                 WHERE idVille = :idV";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomVilleFR);
