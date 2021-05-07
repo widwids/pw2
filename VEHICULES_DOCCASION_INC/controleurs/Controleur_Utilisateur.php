@@ -560,6 +560,8 @@
                 case "listeVilles":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
             
                         $this -> afficheVue("Head");
                         isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
@@ -575,6 +577,8 @@
                 case "listeVillesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         echo json_encode($data);
                         //$this -> afficheVue("ListeVilles", $data);
                     } else {
@@ -586,6 +590,7 @@
                 case "listeProvinces":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         
                         $this -> afficheVue("Head");
                         isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
@@ -601,6 +606,7 @@
                 case "listeProvincesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         echo json_encode($data);
                         //$this -> afficheVue("ListeProvinces", $data);
                     } else {
