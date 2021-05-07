@@ -1,6 +1,6 @@
 <?php
     class Utilisateur {
-        private $idUtilisateur;
+        private $identifiantUtilisateur;
         private $prenomUtilisateur;
         private $nomUtilisateur;
         private $dateNaissanceUtilisateur;
