@@ -38,7 +38,13 @@ class Panier {
                                 <p>${item.voiture.nomMarque} ${item.voiture.nomModele} ${item.voiture.anneeId}</p>
                                 <p>No de série : <span data-js-noSerie>${item.voiture.noSerie}</span></p>
                                 <p>Prix : <span data-js-prixVente>${(item.voiture.prixAchat * 1.25).toFixed(2)}</span>$</p>
-                                <p data-js-depot>Dépot requis</p>
+                                <label for="depot">
+                                    Réservez pour ${item.voiture.prixAchat * 0.10}$ (dépôt de 10%)    
+                                </label>
+                                <select name="depot" placeholder="Faire un dépôt">
+                                    <option value="" selected disabled>Choisir votre option</option>
+                                    <option value="${item.voiture.prixAchat * 0.10}">Réserver</option>
+                                </select>
                             </main>
                             <button data-js-retirer>Retirer du panier</button>
                         </article>
@@ -75,12 +81,14 @@ class Panier {
 
     afficheCaisse = () => {
         if(! this._el.querySelector('[data-js-commande]')) {
-            this._el.querySelector('[data-js-connexion]').style.display = 'block';
-            this._el.querySelector('[data-js-creation]').style.display = 'block';
+            let choixConnecte = this._el.querySelector('[data-js-connecter]'),
+                choixCree = this._el.querySelector('[data-js-creer]');
 
-            this._el.querySelector('[data-js-btnConnexion]').addEventListener('click', this.connecte);
-            this._el.querySelector('[data-js-btnCreation]').addEventListener('click', this.creeCompte);
+                this._el.querySelector('[data-js-choix]').style.display = 'block';
+                this._el.querySelector('[data-js-caisse]').style.display = 'none';
 
+                choixConnecte.addEventListener('click', this.afficheConnecte);
+                choixCree.addEventListener('click', this.afficheCree);
         } else {
             this.calculeTotal();
             this._el.querySelector('[data-js-commande]').style.display = 'block';
@@ -161,6 +169,17 @@ class Panier {
         }
     }
 
+    afficheConnecte = (e) => {
+        e.preventDefault();
+
+        this._el.querySelector('[data-js-choix]').style.display = 'none';
+        this._el.querySelector('[data-js-connexion]').style.display = 'block';
+        this._el.querySelector('[data-js-creation]').style.display = 'none';
+
+        this._el.querySelector('[data-js-btnConnexion]').addEventListener('click', this.connecte);
+        this._el.querySelector('[data-js-retour]').addEventListener('click', this.afficheCree);
+    }
+
     connecte = (e) => {
         e.preventDefault();
 
@@ -200,6 +219,17 @@ class Panier {
             //Envoi de la requête
             xhr.send('&pseudonyme=' + paramPseudonyme + '&motDePasse=' + paramMotDePasse + '&ajax=true');
         }
+    }
+
+    afficheCree = (e) => {
+        e.preventDefault();
+
+        this._el.querySelector('[data-js-choix]').style.display = 'none';
+        this._el.querySelector('[data-js-connexion]').style.display = 'none';
+        this._el.querySelector('[data-js-creation]').style.display = 'block';
+
+        this._el.querySelector('[data-js-btnCreation]').addEventListener('click', this.creeCompte);
+        this._el.querySelector('[data-js-retourConnecte]').addEventListener('click', this.afficheConnecte);
     }
 
     creeCompte = (e) => {
