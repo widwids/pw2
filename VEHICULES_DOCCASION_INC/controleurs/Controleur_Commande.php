@@ -105,6 +105,7 @@
                         $modeleUtilisateur =  new Modele_Utilisateur();
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
                         $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
                         $this -> afficheVue("Panier", $data);
                     } else {
                         $data["villes"] = $modeleCommande -> obtenir_tous('ville');

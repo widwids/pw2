@@ -69,6 +69,12 @@
         <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span>%</p>
 <?php } ?>
         <h3>Total: <span data-js-total></span>$</h3><br>
+        <label for="modePaiement">Mode de paiement</label>
+        <select name="modePaiement">
+<?php foreach ($data["modePaiement"] as $modePaiement) { ?>
+            <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
+<?php } ?>
+        </select>
         <button data-js-button>Commander</button>
     </div>
 <?php } ?>
