@@ -52,42 +52,38 @@
 </section>
 
 
-<section class="yu-modal yu-modal-ajouter">
+<section class="yu-modal yu-modal-ajouter" data-component="Photos">
     
     <button class="btn-ferme" data-js-btn-ferme-ajouter>&times;</button>
 
-    <form action="" method="post" class="yu-formulaire yu-modal-container">
+    <form action="" method="post" class="yu-formulaire yu-modal-container" enctype="multipart/form-data">
         <div>
             <label for="noSerie">№ Série</label>
-            <input type="text" name="noSerie" value="">
+            <input type="text" name="noSerie" value="" data-js-nserie required>
         </div>
         <div>
             <label for="descriptionFR">Description Français</label>
-            <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10"></textarea>
+            <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10" required></textarea >
         </div>
         <div>
             <label for="descriptionEN">Description Anglais</label>
-            <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10"></textarea>
-        </div>
-        <div class="yu-checkbox">
-            <label for="visibilite">Visibilité</label>
-            <input type="checkbox" name="visibilite" value="oui">		
+            <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10" required></textarea>
         </div>
         <div>
             <label for="kilometrage">Kilométrage</label>
-            <input type="number" name="kilometrage" value="">
+            <input type="number" name="kilometrage" value="" required>
         </div>
         <div>
             <label for="dateArrivee">Date Arrivée</label>
-            <input type="date" name="dateArrivee" id="dateArrivee">
+            <input type="date" name="dateArrivee" id="dateArrivee" required>
         </div>
         <div>
             <label for="prixAchat">Prix Achat</label>
-            <input type="number" name="prixAchat" id="prixAchat">
+            <input type="number" name="prixAchat" id="prixAchat" required>
         </div>
         <div>
             <label for="groupeMPid">Group MP</label>
-            <select name="groupeMPId" id="groupeMPid">
+            <select name="groupeMPId" id="groupeMPid" >
                 <option value="">Sélectionnez un groupe MP</option>
                     <?php foreach($data["motopropulseur"] as $groupeMP) { ?>
 
@@ -149,6 +145,19 @@
                     <?php }?>
             </select>
         </div>
+        <div class="yu-file">
+            <label>Photo principale</label>
+            <label for="imgPrincipale">Sélectionnez une image</label>
+            <input type="file" id="imgPrincipale" name="imgPrincipale" accept=".jpg, .jpeg">
+        </div>
+        <div class="yu-file">
+            <label>Photo secondaire</label>
+            <label for="imgSecondaire">Sélectionnez une image</label>
+            <input type="file" id="imgSecondaire" name="imgSecondaire[]" accept=".jpg, .jpeg" multiple>
+        </div>
+        <div>
+            <input type="hidden" name="visibilite" checked>
+        </div>
         <div>
             <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-voiture>
         </div>
@@ -173,10 +182,6 @@
         <div>
             <label for="descriptionEN">Description Anglais</label>
             <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10"></textarea>
-        </div>
-        <div class="yu-checkbox">
-            <label for="visibilite">Visibilité</label>
-            <input type="checkbox" name="visibilite" value="oui">		
         </div>
         <div>
             <label for="kilometrage">Kilométrage</label>
@@ -388,6 +393,7 @@ function obtenirVoituresAJAX()
 function ajouterVoitureAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
+    formulaire.envoyerPhotos();
 
     let xhttp = new XMLHttpRequest();
 
@@ -461,6 +467,15 @@ btnOui.addEventListener("click", (evt) => {
     supprimerVoitureAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
 
+});
+
+
+yuModalAjouter.addEventListener("change", (evt) => 
+{
+    if(evt.target.type == "file"){
+        let filename = evt.target.value.split(/(\\|\/)/g).pop();
+        evt.target.previousElementSibling.innerHTML = filename;
+    }
 });
 
 </script>

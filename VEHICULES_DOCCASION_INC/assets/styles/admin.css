@@ -118,6 +118,7 @@ body{
     background-size: cover;
     background-attachment: fixed;
     background-position-y: 75px;
+    overflow-x: hidden;
 
 }
 
@@ -378,6 +379,19 @@ body{
     color:blanchedalmond;
 
 }
+
+.yu-file input{
+    display: none;
+}
+
+.yu-file label:last-of-type{
+    padding: 7px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+
 
 
 

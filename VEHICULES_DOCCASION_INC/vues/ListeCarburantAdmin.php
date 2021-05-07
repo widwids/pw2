@@ -12,7 +12,6 @@
                 <th>id</th>
                 <th>Type de carburant en français</th>
                 <th>Type de carburant en anglais</th>
-                <th>Visibilité</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,7 +24,6 @@
                 <td data-js-idCarburant><?= $carburant["idCarburant"]?></td>
                 <td><?= $carburant["typeCarburantFR"]?></td>
                 <td><?= $carburant["typeCarburantEN"]?></td>
-                <td><?= ($carburant["visibilite"] ==1) ? "OUI" : "NON" ?></td>
                 <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
             </tr>
 
@@ -74,9 +72,8 @@
             <label for="typeCarburantEN">Type de carburant en anglais</label>
             <input type="text" name="typeCarburantEN" value="" required>
         </div>
-        <div class="yu-checkbox">
-            <label for="visibilite">Visibilité</label>
-            <input type="checkbox" name="visibilite" value="1">		
+        <div>
+            <input type="hidden" name="visibilite" checked>		
 	    </div>          
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-carburant>
@@ -187,7 +184,6 @@ function obtenirCarburantsAJAX()
                     <td data-js-idCarburant>${ сarburant["idCarburant"]}</td>
                     <td>${ сarburant["typeCarburantFR"]}</td>
                     <td>${ сarburant["typeCarburantEN"]}</td>
-                    <td>${ (сarburant["visibilite"] ==1) ? "OUI" : "NON" }</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -272,12 +268,14 @@ btnModifierVoiture.addEventListener("click", (evt) => {
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
+    if(evt.target.name == "btnOui"){
     supprimerCarburantAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

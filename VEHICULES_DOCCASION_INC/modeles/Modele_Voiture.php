@@ -51,7 +51,7 @@
 
 		public function obtenir_marque_modele() {
 			try {
-				$stmt = $this->connexion->query("SELECT * FROM modele JOIN marque ON marqueId = IdMarque ");
+				$stmt = $this->connexion->query("SELECT * FROM modele JOIN marque ON marqueId = IdMarque WHERE modele.visibilite = 1 ");
 
 				$stmt->execute();
 				return $stmt->fetchAll();
@@ -80,7 +80,7 @@
 			try {
 				$stmt = $this -> connexion -> query("SELECT noSerie, descriptionFR, descriptionEN, kilometrage, 
 				dateArrivee, prixAchat, nomMotopro, nomCorpsFR, nomCorpsEN, typeCarburantFR, typeCarburantEN,
-				nomModele, nomMarque, nomTransmissionFR, nomTransmissionEN, anneeId 
+				nomModele, nomMarque, nomTransmissionFR, nomTransmissionEN, anneeId, groupeMPId, corpsId, carburantId, modeleId, transmissionId 
 						FROM voiture JOIN corps ON idCorps = corpsId
 						LEFT OUTER JOIN motopropulseur ON idMotopro = groupeMPId
 						LEFT OUTER JOIN modele ON idModele = modeleId
@@ -285,8 +285,8 @@
         }
 		//Partie Annee
 		public function ajoutAnnee($annee) {
-			$requete = "INSERT INTO annee(Annee) VALUES 
-				(:Annee, 1 )";
+			$requete = "INSERT INTO annee(annee,visibilite) VALUES 
+				(:annee, 1 )";
 			$requetePreparee = $this -> connexion -> prepare($requete);
 			$requetePreparee -> bindParam(":annee", $annee);
 			$requetePreparee -> execute();

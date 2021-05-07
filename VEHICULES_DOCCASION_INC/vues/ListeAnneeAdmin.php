@@ -2,27 +2,25 @@
 <section class="yu-section">
 
     <div class="yu-table-groupeMP yu-btn-ajouter-container">
-    <button class="yu-btn-ajouter">Ajouter groupe motopropulseur</button>
+    <button class="yu-btn-ajouter">Ajouter Année</button>
     </div>
 
     <table class="yu-table yu-table-groupeMP">
         
         <thead>
             <tr>
-                <th>id</th>
-                <th>Nom motopropulseur</th>
+                <th>Année</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $groupeMP) { ?>
+    <?php foreach ($data as $annee) { ?>
 
         <tr>
-            <td data-js-idMotopro><?= $groupeMP["idMotopro"]?></td>
-            <td><?= $groupeMP["nomMotopro"]?></td>
-            <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
+            <td data-js-idAnnee><?= $annee["annee"]?></td>
+            <td><!--<button class="yu-btn-modifier yu-btn">Modifier</button>--><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
     
     <?php }?>
@@ -39,11 +37,11 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomMotopro">Nom de motopropulseur</label>
-            <input type="text" name="nomMotopro" required>
+            <label for="annee">Année</label>
+            <input type="number" name="annee" required>
         </div>
         <div>
-            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-mp>
+            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-annee>
         </div>
     </form>
 
@@ -56,17 +54,18 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>            
-            <input type="hidden" name="idMotopro">
+            <input type="hidden" name="annee" >
         </div>
         <div>
-            <label for="nomMotopro">Nom de motopropulseur</label>
-            <input type="text" name="nomMotopro">
+            <label for="annee">Année</label>
+            <input type="text" name="annee">
         </div>
         <div>
-            <input type="hidden" name="visibilite" checked>		
+            <label for="visibilite">Visibilité</label>
+            <input type="checkbox" name="visibilite" value="1">		
 	    </div>
         <div>
-            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-mp>
+            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-annee>
         </div>
     </form>
 
@@ -112,7 +111,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idMotopro]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idAnnee]').innerHTML; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -122,8 +121,8 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idMotopro]').innerHTML; 
-            obtenirMPAJAX(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idAnnee]').innerHTML; 
+            obtenirAnneeAJAX(id);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -132,7 +131,7 @@ function ajouterEvenements()
 
 ajouterEvenements();
 
-function obtenirMPAJAX(id)
+function obtenirAnneeAJAX(id)
 {
 
     let xhttp = new XMLHttpRequest();
@@ -140,19 +139,19 @@ function obtenirMPAJAX(id)
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
-            let motoproDonnees = jsonResponse['motopro'];
-            console.log("motoproDonnees",motoproDonnees);
+            let anneeDonnees = jsonResponse['annee'];
+            console.log("anneeDonnees",anneeDonnees);
             
-            formulaire.remplirFormulaire(motoproDonnees);           
+            formulaire.remplirFormulaire(anneeDonnees);           
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=detailGroupeMPJson&idMotopro=${id}`, true);
+    xhttp.open("GET", `index.php?Voiture_AJAX&action=detailAnneeJson&annee=${id}`, true);
     xhttp.send();    
 
 }
 
-function obtenirMPsAJAX()
+function obtenirAnneesAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
@@ -160,21 +159,19 @@ function obtenirMPsAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);
-            console.log(jsonResponse);
 
             let table = document.querySelector("table tbody"); 
             table.innerHTML = "";
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let groupeMP = jsonResponse[i];
+                let annee = jsonResponse[i];
 
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-idMotopro>${ groupeMP["idMotopro"]}</td>
-                    <td>${ groupeMP["nomMotopro"]}</td>
-                    <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
+                    <td data-js-idAnnee>${ annee["annee"]}</td>
+                    <td><!--<button class="yu-btn-modifier yu-btn">Modifier</button>--><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
             }     
@@ -184,12 +181,12 @@ function obtenirMPsAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListeGroupeMPJson", true);
+    xhttp.open("GET", "index.php?Voiture_AJAX&action=AnneeListeJson", true);
     xhttp.send();
 
 }
 
-function ajouterMPAJAX()
+function ajouterAnneeAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
 
@@ -197,17 +194,17 @@ function ajouterMPAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("test");
-            obtenirMPsAJAX();
+            console.log(this.response);
+            obtenirAnneesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Voiture_AJAX&action=ajoutMotoProp", true);
+    xhttp.open("POST", "index.php?Voiture_AJAX&action=ajoutannee", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function modifierMPAJAX()
+function modifierAnneeAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
 
@@ -216,44 +213,44 @@ function modifierMPAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.response);
-            obtenirMPsAJAX();
+            obtenirAnneesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Voiture_AJAX&action=modifMotoProp", true);
+    xhttp.open("POST", "index.php?Voiture_AJAX&action=modifAnnee", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimerMPAJAX(id)
+function supprimerAnneeAJAX(id)
 {
     let xhttp = new XMLHttpRequest(); 
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenirMPsAJAX();
+            obtenirAnneesAJAX();
         }
     };
 
     xhttp.open("POST", "index.php?Voiture_AJAX&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=motopropulseur&id=${id}`);
+    xhttp.send(`nomTable=annee&id=${id}`);
 }
 
-let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-mp]");
-btnAjouterVoiture.addEventListener("click", (evt) => {
+let btnAjouterAnnee = document.querySelector("[data-js-btn-ajouter-annee]"); 
+btnAjouterAnnee.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterMPAJAX();
+    ajouterAnneeAJAX();
     yuModalAjouter.style.width = "0";
 
 });
 
-let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-mp]");
-btnModifierVoiture.addEventListener("click", (evt) => {
+let btnModifierAnnee = document.querySelector("[data-js-btn-modifier-annee]");
+btnModifierAnnee.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierMPAJAX();
+    modifierAnneeAJAX();
     yuModalModifier.style.width = "0";
 
 });
@@ -263,7 +260,7 @@ formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
     if(evt.target.name == "btnOui"){
-    supprimerMPAJAX(evt.target.dataset.jsId);
+    supprimerAnneeAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
     }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 

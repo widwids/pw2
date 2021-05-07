@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="assets/styles/accueil.css">
 	<link rel="stylesheet" href="assets/styles/panier.css">
 	<link rel="stylesheet" href="assets/styles/apropos.css">
+	<link rel="stylesheet" href="assets/styles/politiques.css">
 	
 	<!-- Script -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -3,7 +3,7 @@ class Photos{
         this._el = el
         this._elBtnenvoi = this._el.querySelector('[data-js-btn-soumettre]');
         this._elDivNSerie = this._el.querySelector('[data-js-nserie]');
-        console.log(this._elDivNSerie);
+        console.log(this._elBtnenvoi);
         
         this.init();
     }
@@ -11,14 +11,11 @@ class Photos{
     init = () => {
         
         this._elBtnenvoi.addEventListener('click', (e) => {
-            //e.preventDefault();
+           /*  //e.preventDefault();
             var fileInputPrin = document.getElementById("imgPrincipale");
             var filesPrin = fileInputPrin.files;
-            //console.log(filesPrin);
             var imgPrincipale;
             imgPrincipale = filesPrin[0];
-            //console.log(imgPrincipale.name);
-
             var fileInput = document.getElementById("imgSecondaire");
             var files = fileInput.files;
             var imgSecondaire;
@@ -29,8 +26,6 @@ class Photos{
                 imgSecondaire = files[i];
                 tabImgSecondaire[i] = imgSecondaire.name;
             }
-
-            //console.log(files);
             if ((imgSecondaire) && (imgPrincipale)) {
                 this.EnvoiPhotos(imgPrincipale,tabImgSecondaire);
             }else{
@@ -44,12 +39,12 @@ class Photos{
                         console.log('vous devez choisir au moins, une image secondaire')
                     }
                 }
-            }
+            }  */
 
-        });
+        }); 
     }
 
-    EnvoiPhotos = (imgPrincipale,files) => { 
+    /* EnvoiPhotos = (imgPrincipale,files) => { 
         let imgPrin = imgPrincipale.name;
         var tabImgSec = new Array();
         tabImgSec = files;
@@ -81,5 +76,5 @@ class Photos{
             // Envoi de la requète
             xhr.send(params);
         }  
-    }  
+    }  */ 
 }

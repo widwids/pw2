@@ -6,26 +6,31 @@
     </div>
 
     <table class="yu-table yu-table-modele">
-               
+
+        <thead>
         <tr>
             <th>id</th>
             <th>Nom du modèle</th>
             <th>Marque</th>
-            <th>Visibilité</th>
             <th>Actions</th>
         </tr>
+        </thead>   
 
-    <?php foreach ($data as $modele) { ?>
+
+    <tbody>
+
+    <?php foreach ($data['marque_modele'] as $modele) { ?>
 
         <tr>
-            <td data-js-id><?= $modele["idModele"]?></td>
+            <td data-js-idModele><?= $modele["idModele"]?></td>
             <td><?= $modele["nomModele"]?></td>
             <td><?= $modele["nomMarque"]?></td>
-            <td><?= ($modele["visibilite"] ==1) ? "OUI" : "NON" ?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
 
     <?php }?> 
+
+    </tbody>
 
     </table>
 
@@ -41,8 +46,13 @@
             <input type="text" name="nomModele" value="" required>
         </div>
         <div>
-            <label for="nomMarque">Marque</label>
-            <input type="text" name="nomMarque" value="" required>
+            <label for="marqueId">Marque</label>
+            <select name="marqueId" id="marqueId">
+                <option value="">Sélectionnez une marque</option>
+                <?php foreach ($data['marques'] as $marque) { ?>
+                <option value="<?=$marque['idMarque']?>"><?=$marque['nomMarque']?></option>
+                <?php } ?>
+            </select>
         </div>
         <div>
             <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-modele>
@@ -56,13 +66,24 @@
     <button class="btn-ferme" data-js-btn-ferme-modifier>&times;</button>
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
+        <div>            
+            <input type="hidden" name="idModele">
+        </div>
         <div>
             <label for="nomModele">Nom du modèle</label>
             <input type="text" name="nomModele" value="" required>
         </div>
         <div>
-            <label for="nomMarque">Marque</label>
-            <input type="text" name="nomMarque" value="" required>
+            <label for="marqueId">Marque</label>
+            <select name="marqueId" id="marqueId">
+                <option value="">Sélectionnez une marque</option>
+                <?php foreach ($data['marques'] as $marque) { ?>
+                <option value="<?=$marque['idMarque']?>"><?=$marque['nomMarque']?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div>
+            <input type="hidden" name="visibilite" checked>
         </div>
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-modele>
@@ -111,7 +132,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-id]').innerHTML; 
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idModele]').innerHTML; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id;
             yuModalSupprimer.style.width = "100%";
         });
@@ -121,8 +142,8 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-id]').innerHTML; 
-            obtenirMPAJAX(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idModele]').innerHTML; 
+            obtenirModeleAJAX(id);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -159,7 +180,7 @@ function obtenirModelesAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);
-            console.log(jsonResponse);
+            console.log("modeles",jsonResponse);
 
             let table = document.querySelector("table tbody");
             table.innerHTML = "";
@@ -171,10 +192,9 @@ function obtenirModelesAJAX()
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-id>${ modele["idModele"]}</td>
+                    <td data-js-idModele>${ modele["idModele"]}</td>
                     <td>${ modele["nomModele"]}</td>
                     <td>${ modele["nomMarque"]}</td>
-                    <td>${ (modele["visibilite"] ==1) ? "OUI" : "NON" }</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -212,11 +232,10 @@ function modifierModeleAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
 
-    let xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest(); 
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
             obtenirModelesAJAX();
         }
     };
@@ -235,14 +254,14 @@ function supprimerModeleAJAX(id)
             obtenirModelesAJAX();
         }
     };
-
+    console.log("id pour supprimer",id);
     xhttp.open("POST", "index.php?Voiture_AJAX&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(`nomTable=modele&id=${id}`);
 }
 
-let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-modele]");
-btnAjouterVoiture.addEventListener("click", (evt) => {
+let btnAjouterModele = document.querySelector("[data-js-btn-ajouter-modele]");
+btnAjouterModele.addEventListener("click", (evt) => {
 
     evt.preventDefault();
     ajouterModeleAJAX();
@@ -250,8 +269,8 @@ btnAjouterVoiture.addEventListener("click", (evt) => {
 
 });
 
-let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-modele]");
-btnModifierVoiture.addEventListener("click", (evt) => {
+let btnModifierModele = document.querySelector("[data-js-btn-modifier-modele]");
+btnModifierModele.addEventListener("click", (evt) => {
 
     evt.preventDefault();
     modifierModeleAJAX();
@@ -259,12 +278,14 @@ btnModifierVoiture.addEventListener("click", (evt) => {
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
+    if(evt.target.name == "btnOui"){
     supprimerModeleAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

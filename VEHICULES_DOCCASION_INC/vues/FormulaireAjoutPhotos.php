@@ -2,20 +2,19 @@
 
 <div data-component="Photos" >
 
-	<form data-js-nserie ='<?php echo $data; ?>'>
+	<form action="index.php?Voiture_AJAX&action=ajoutPhotosVoiture" method="post" enctype="multipart/form-data" data-js-nserie ='<?php echo $data; ?>'>
 		<p>Photo principale</p>
 		<label for="imgPrincipale">Select image:</label>
 		<input type="file" id="imgPrincipale" name="imgPrincipale" accept=".jpg, .jpeg">
 		<br>
 		<br>
 		<p>Photo secondaire</p>
-		<label for="imgimgSecondaire">Select image :</label>
-		<input type="file" id="imgSecondaire" name="imgSecondaire" accept=".jpg, .jpeg" multiple>
+		<label for="imgSecondaire">Select image :</label>
+		<input type="file" id="imgSecondaire" name="imgSecondaire[]" accept=".jpg" multiple>
 		<br>
 		<br>
-		
-	
+		<button data-js-btn-soumettre>Soumettre</button>
 	</form>
-	<button data-js-btn-soumettre>Soumettre</button>
+	
 </div>
 

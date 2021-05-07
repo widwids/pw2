@@ -29,6 +29,9 @@
 				case "aPropos":
 					$this -> afficheVue("APropos");
 					break;
+				case "politiques":
+					$this -> afficheVue("Politiques");
+					break;
 				case "detailVoiture":
 					//if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 						if (isset($params["noSerie"])) {

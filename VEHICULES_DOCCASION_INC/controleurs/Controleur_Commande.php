@@ -113,12 +113,14 @@
                         $this -> afficheVue("Panier", $data);
                     }
                     break;
+
                 case "afficheCommandes":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $vue = "ListeCommandes";
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();
-                    
-                        $this -> afficheVue($vue, $data);
+                        
+                        echo json_encode($data);
+                        //$this -> afficheVue($vue, $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -130,12 +132,13 @@
                     if (isset($params["idCommande"])) {
                         //Affiche une commande donnée
 
-                        $vue = "Commande";
+                        //$vue = "Commande";
                         $data["commande"] = $modeleCommande -> obtenirCommande($params["idCommande"]);
                         $modeleVoiture = new Modele_Voiture();
                         $data["voiture"] = $modeleVoiture -> obtenirUneVoiture($data["commande"]["voitureId"])[0];
-
-                        $this -> afficheVue($vue, $data); 
+                        
+                        echo json_encode($data);
+                        //$this -> afficheVue($vue, $data); 
                     } else {													
                         $this -> afficheVue("Page404");
                     } 
@@ -144,10 +147,11 @@
                 case "afficheFactures":
                     //Affiche toutes les factures
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $vue = "ListeFactures";
+                        //$vue = "ListeFactures";
                         $data["factures"] = $modeleCommande -> obtenirFactures();
                     
-                        $this -> afficheVue($vue, $data);
+                        echo json_encode($data);
+                        //$this -> afficheVue($vue, $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -156,22 +160,29 @@
 
                 case "afficheFacture":
                     //Affiche une facture donnée
-                    if (isset($params["idCommande"])) {
-                        //Affiche une Facture d'une commande donnée
-                        $vue = "Facture";
-                        $data["facture"] = $modeleCommande -> obtenirFacture($params["idCommande"]);
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if (isset($params["idCommande"])) {
+                            //Affiche une Facture d'une commande donnée
+                            //$vue = "Facture";
+                            $data["facture"] = $modeleCommande -> obtenirFacture($params["idCommande"]);
 
-                        $this -> afficheVue($vue, $data);
-                    } else {													
-                        $this -> afficheVue("Page404");
+                            echo json_encode($data);
+                            //$this -> afficheVue($vue, $data);
+                        } else {													
+                            $this -> afficheVue("Page404");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
                 case "afficheModePaiement":
-                    $vue = "ListeModePaiement";
+                    //$vue = "ListeModePaiement";
                     $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
 
-                    $this -> afficheVue($vue, $data);
+                    echo json_encode($data);
+                    //$this -> afficheVue($vue, $data);
                     break;
 
                 /*--------------- Modification(UPDATE) ---------------*/
