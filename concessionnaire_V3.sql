@@ -124,6 +124,7 @@ CREATE TABLE taxeProvince (
 	provinceId CHAR(2),
 	taxeId SMALLINT UNSIGNED,
 	taux DECIMAL(5,3) NOT NULL,
+	visibilite BOOLEAN NOT NULL,
 	PRIMARY KEY(provinceId, taxeId),
 	FOREIGN KEY(provinceId) REFERENCES province(codeProvince),
 	FOREIGN KEY(taxeId) REFERENCES taxe(idTaxe)
@@ -353,24 +354,24 @@ INSERT INTO taxe (nomTaxeFR, nomTaxeEN, visibilite) VALUES
 	('TVP', 'PST', 1),
 	('TVQ', 'QST', 1);
 
-INSERT INTO taxeProvince (provinceId, taxeId, taux) VALUES
-	('AL', 1, 5.000),
-	('BC', 1, 5.000),
-	('BC', 3, 7.000),
-	('MB', 1, 5.000),
-	('MB', 3, 7.000),
-	('NB', 2, 15.000),
-	('NL', 2, 15.000),
-	('NS', 2, 15.000),
-	('NT', 1, 5.000),
-	('NU', 1, 5.000),
-	('ON', 2, 13.000),
-	('PE', 2, 15.000),
-	('QC', 1, 5.000),
-	('QC', 4, 9.975),
-	('SK', 1, 5.000),
-	('SK', 3, 6.000),
-	('YT', 1, 5.000);
+INSERT INTO taxeProvince (provinceId, taxeId, taux, visibilite) VALUES
+	('AL', 1, 5.000, 1),
+	('BC', 1, 5.000, 1),
+	('BC', 3, 7.000, 1),
+	('MB', 1, 5.000, 1),
+	('MB', 3, 7.000, 1),
+	('NB', 2, 15.000, 1),
+	('NL', 2, 15.000, 1),
+	('NS', 2, 15.000, 1),
+	('NT', 1, 5.000, 1),
+	('NU', 1, 5.000, 1),
+	('ON', 2, 13.000, 1),
+	('PE', 2, 15.000, 1),
+	('QC', 1, 5.000, 1),
+	('QC', 4, 9.975, 1),
+	('SK', 1, 5.000, 1),
+	('SK', 3, 6.000, 1),
+	('YT', 1, 5.000, 1);
 
 INSERT INTO voiture (noSerie, descriptionFR, descriptionEN, kilometrage, dateArrivee, prixAchat, groupeMPId, corpsId, carburantId, modeleId, transmissionId, anneeId, visibilite) VALUES 
 	('ACC12578400954379', 'Ce modèle reçu cette année, remis à neuf, comprend toutes les caractéristiques recherchées dans les véhicules de grand prestige. Comfort, utilité, puissance et l’art de faire tourner toutes les têtes. Une occasion à ne pas manquer!', 

@@ -307,7 +307,7 @@
 
         //Ajouter la taxe dans la table taxeProvince
         public function ajouterTaxeProvince($provinceId, $taxeId, $taux) {
-            $requete = "INSERT INTO taxeProvince(provinceId, taxeId, taux) VALUES (:pId,:tId, :ta)";
+            $requete = "INSERT INTO taxeProvince(provinceId, taxeId, taux, visibilite) VALUES (:pId,:tId, :ta, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":pId", $provinceId);
             $requetePreparee -> bindParam(":tId", $taxeId);
