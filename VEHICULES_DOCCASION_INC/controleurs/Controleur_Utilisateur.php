@@ -178,8 +178,10 @@
 
                 case "ajouterProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["nomProvinceFR"], $params["nomProvinceEN"], $params["paysId"])) {
-                            $modeleUtilisateur -> ajouterProvince($params["nomProvinceFR"], $params["nomProvinceEN"], $params["paysId"]);
+                        if(isset($params["codeProvince"], $params["nomProvinceFR"], $params["nomProvinceEN"], 
+                            $params["paysId"])) {
+                            $modeleUtilisateur -> ajouterProvince($params["codeProvince"], $params["nomProvinceFR"], 
+                                $params["nomProvinceEN"], $params["paysId"]);
                             $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
                             //$this -> afficheVue("ListeProvinces", $data);
                         } else {
