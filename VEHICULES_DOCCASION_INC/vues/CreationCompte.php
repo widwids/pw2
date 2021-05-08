@@ -8,7 +8,7 @@
         <label for="dateNaissance">Date de naissance</label><br>
         <input type="date" name="dateNaissance" placeholder="YYYY-MM-DD" required><br>
         <label for="adresse">Adresse</label> <br>
-        <input type="text" name="adresse" placeholder="123 Fake Street" required><br>
+        <input type="text" name="adresse" placeholder="123 Votre Rue" required><br>
         <label for="codePostal">Code postal</label> <br>
         <input type="text" name="codePostal" placeholder="XXX XXX" required><br>
         <label for="telephone">Téléphone</label> <br>
@@ -16,7 +16,7 @@
         <label for="cellulaire">Cellulaire </label><br>
         <input type="tel" name="cellulaire"placeholder="XXX-XXX-XXXX" ><br>
         <label for="courriel">Courriel </label><br>
-        <input type="email" name="courriel"placeholder="xyz@email.xyz" ><br>
+        <input type="email" name="courriel"placeholder="xyz@email.xyz" required><br>
         <label for="pseudonyme">Pseudonyme</label> <br>
         <input type="text" name="pseudonyme" placeholder="Identifiant" required><br>
         <label for="motDePasse">Mot de passe</label><br>

@@ -28,25 +28,25 @@
         <form method="post" class="creationCompte">
             <h2>Création de compte</h2>
             <label for="prenom">Prénom</label> <br>
-            <input type="text" name="prenom" placeholder="Prénom" required><br>
+            <input type="text" name="prenom" placeholder="Prénom" required data-js-prenom><br>
             <label for="nom">Nom</label><br>
-            <input type="text" name="nom" placeholder="Nom" required><br>
+            <input type="text" name="nom" placeholder="Nom" required data-js-nom><br>
             <label for="dateNaissance">Date de naissance</label><br>
-            <input type="date" name="dateNaissance" placeholder="AAAA-MM-JJ" required><br>
+            <input type="date" name="dateNaissance" placeholder="AAAA-MM-JJ" required data-js-date><br>
             <label for="adresse">Adresse</label> <br>
-            <input type="text" name="adresse" placeholder="123 Votre Rue" required><br>
+            <input type="text" name="adresse" placeholder="123 Votre Rue" required data-js-adresse><br>
             <label for="codePostal">Code postal</label> <br>
-            <input type="text" name="codePostal" placeholder="XXX XXX" required><br>
+            <input type="text" name="codePostal" placeholder="XXX XXX" required data-js-postal><br>
             <label for="telephone">Téléphone</label> <br>
-            <input type="tel" name="telephone" placeholder="XXX-XXX-XXXX" required><br>
+            <input type="tel" name="telephone" placeholder="XXX-XXX-XXXX" required data-js-telephone><br>
             <label for="cellulaire">Cellulaire </label><br>
-            <input type="tel" name="cellulaire"placeholder="XXX-XXX-XXXX" ><br>
+            <input type="tel" name="cellulaire"placeholder="XXX-XXX-XXXX" data-js-cellulaire><br>
             <label for="courriel">Courriel </label><br>
-            <input type="email" name="courriel"placeholder="xyz@email.xyz" ><br>
+            <input type="email" name="courriel"placeholder="xyz@email.xyz" required data-js-courriel><br>
             <label for="pseudonyme">Pseudonyme</label> <br>
-            <input type="text" name="pseudonyme" placeholder="Identifiant" required><br>
+            <input type="text" name="pseudonyme" placeholder="Identifiant" required data-js-pseudo><br>
             <label for="motDePasse">Mot de passe</label><br>
-            <input type="password" name="motDePasse" placeholder="Mot de passe" required><br>
+            <input type="password" name="motDePasse" placeholder="Mot de passe" required data-js-mdp><br>
             <label for="villeId">Ville</label> <br>
             <select id="villeId" name="villeId" data-js-ville>
 <?php foreach ($data["villes"] as $ville) { ?>
