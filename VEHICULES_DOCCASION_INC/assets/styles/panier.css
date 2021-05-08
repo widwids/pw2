@@ -1,7 +1,13 @@
 .panier {
-    margin: 0 15%;
+    margin: 0 3%;
     min-height: 40%;
     padding: 40px;
+}
+
+@media (min-width: 1150px) {
+    .panier {
+        margin: 0 15%;
+    }
 }
 
 .panier h1 {
@@ -14,17 +20,31 @@
     background-color:rgba(0, 0, 0, 0.8);
     border: 1px solid rgb(255, 255, 255);
     display: grid;
-    grid-template-columns: 2fr 4fr 1fr;
+    grid-template-columns: '1fr' '1fr' '1fr';
+    line-height: 30px;
     margin-bottom: 40px;
-    padding: 40px;
+    padding: 20px;
 }
 
-.contenant main {
-    margin-left: 30px;
-    margin-top: -18px;
+@media (min-width: 850px) {
+    .contenant {
+        grid-template-columns: 4fr 5fr 2fr;
+        padding-bottom: 0;
+    }
 }
 
-.contenant img {
+.milieu {
+    margin: 0;
+}
+
+@media (min-width: 850px) {
+    .milieu {
+        margin-left: 30px;
+        margin-top: -18px;
+    }
+}
+
+.gauche img {
     height: auto;
     width: 100%;
 }
@@ -45,6 +65,7 @@
 .sous-total {
     background-color:rgba(0, 0, 0, 0.8);
     font-size: 1.5em;
+    margin-top: 0;
     padding: 20px 0;
     text-align: center;
 }
@@ -65,40 +86,43 @@
     color: #171717;
 }
 
-/*Style Modal Yuliya*/
-.yu-modal{
-    background: rebeccapurple;
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 101; 
-    left: 0;
-    top: 0;
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0, 0.9); 
-    overflow-x: hidden; 
-    transition: 0.5s;
+.lien {
+    display: block;
+    font-size: 1.1em;
+    margin: 0 auto;
+    text-align: center;
 }
 
-/*Style Modal Yuliya*/
-.yu-modal-container{
-    position: relative;
-    top: 25%; 
-    width: 100%; 
-    text-align: center; 
-    margin-top: 30px; 
-}
-  
-/*Style Modal Yuliya*/
-.yu-modal .btn-ferme{
-    background: transparent;
-    position: absolute;
-    top: 65px;
-    right: 45px;
-    font-size: 60px;
+.lien:hover {
+    color: rgb(0, 107, 87, 1);
 }
 
-/*Style Modal Yuliya*/
-.yu-modal .btn-ferme:hover{
-    color:blanchedalmond;
+.haut {
+    margin-top: -170px;
+}
+
+.choix {
+    display: flex;
+    justify-content: center;
+}
+
+.choix button:first-of-type {
+    margin-right: 40px;
+}
+
+.commande, .paiement {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.commande {
+    justify-content: flex-start;
+}
+
+.complete {
+    background-color: rgba(0,0,0,0.8); 
+    margin: 100px auto;
+    padding: 15px;
+    text-align: center;
+    width: 300px;
 }

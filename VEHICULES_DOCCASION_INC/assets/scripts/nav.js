@@ -15,27 +15,31 @@
           liens_ham.style.transform = "translateX(-210px)";
         }
     });
+  
+  if(gestion) {
+    gestion.addEventListener('click', () => {
+        if (dropdown.classList.contains("hide")) {
+          dropdown.classList.remove("hide");
+        } else {
+          dropdown.classList.add("hide");
+        }
+    });
+  }
 
-  gestion.addEventListener('click', () => {
-      if (dropdown.classList.contains("hide")) {
-        dropdown.classList.remove("hide");
-      } else {
-        dropdown.classList.add("hide");
-      }
-  });
+  if(menu_user) {
+    menu_user.addEventListener('click', () => {
+        if (dropdown_user.classList.contains("hide")) {
+          dropdown_user.classList.remove("hide");
+        } else {
+          dropdown_user.classList.add("hide");
+        }
 
-  menu_user.addEventListener('click', () => {
-      if (dropdown_user.classList.contains("hide")) {
-        dropdown_user.classList.remove("hide");
-      } else {
-        dropdown_user.classList.add("hide");
-      }
+        if (dropdown.classList.contains("hide")){
 
-      if (dropdown.classList.contains("hide")){
-
-      } else {
-         dropdown_user.classList.add("hide");
-      }
-  });
+        } else {
+          dropdown_user.classList.add("hide");
+        }
+    });
+  }
 	
 })();

@@ -31,23 +31,25 @@ class Panier {
 
         for (let item of this._panier) {
             article += `<article class="contenant">
-                            <header>
+                            <div class="gauche">
                                 <img src="assets/images/${item.photo}.jpg">
-                            </header>
-                            <main data-js-voitureInfo>
+                            </div>
+                            <div class="milieu" data-js-voitureInfo>
                                 <p>${item.voiture.nomMarque} ${item.voiture.nomModele} ${item.voiture.anneeId}</p>
                                 <p>No de série : <span data-js-noSerie>${item.voiture.noSerie}</span></p>
-                                <p>Prix : <span data-js-prixVente>${(item.voiture.prixAchat * 1.25).toFixed(2)}</span>$</p>
+                                <p>Prix : <span data-js-prixVente>${(item.voiture.prixAchat * 1.25).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}</span>$</p>
                                 <label for="depot">
-                                    Réservez pour ${item.voiture.prixAchat * 0.10}$ (dépôt de 10%)    
+                                    Réservez pour ${(item.voiture.prixAchat * 1.25 * 0.10).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}$ (dépôt de 10%)    
                                 </label>
                                 <select name="depot" data-js-depot>
-                                    <option value="" selected disabled>Choisir votre option</option>
-                                    <option value=""></option>
-                                    <option value="${item.voiture.prixAchat * 0.10}">Réserver</option>
+                                    <option value="0" selected disabled>Choisir votre option</option>
+                                    <option value="0"></option>
+                                    <option value="${(item.voiture.prixAchat * 1.25 * 0.10).toFixed(2)}">Réserver</option>
                                 </select>
-                            </main>
-                            <button data-js-retirer>Retirer du panier</button>
+                            </div>
+                            <div class="droite">
+                                <button data-js-retirer>Retirer du panier</button>
+                            </div>
                         </article>
                         `;
         }
@@ -81,20 +83,20 @@ class Panier {
     }
 
     afficheCaisse = () => {
+        this._el.querySelector('[data-js-caisse]').style.display='none';
+
         if(! this._el.querySelector('[data-js-commande]')) {
             let choixConnecte = this._el.querySelector('[data-js-connecter]'),
                 choixCree = this._el.querySelector('[data-js-creer]');
 
-                this._el.querySelector('[data-js-choix]').style.display = 'block';
-                this._el.querySelector('[data-js-caisse]').style.display = 'none';
+                this._el.querySelector('[data-js-choix]').classList.remove('hidden');
+                this._el.querySelector('[data-js-choix]').classList.add('choix');
 
                 choixConnecte.addEventListener('click', this.afficheConnecte);
                 choixCree.addEventListener('click', this.afficheCree);
         } else {
             this.calculeTotal();
-            this._el.querySelector('[data-js-commande]').style.display = 'block';
-            this._el.querySelector('[data-js-caisse]').style.display = 'none';
-
+            this._el.querySelector('[data-js-commande]').classList.remove('hidden');
             this._el.querySelector('[data-js-button]').addEventListener('click', this.commande);
         }
     }
@@ -105,7 +107,7 @@ class Panier {
             sousTotal += item.voiture.prixAchat * tauxRevente;
         }
 
-        this._sousTotal.innerHTML = sousTotal.toFixed(2);
+        this._sousTotal.innerHTML = sousTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
     calculeTotal = () => {
@@ -117,15 +119,19 @@ class Panier {
             montant += parseFloat(taux.textContent/100);
         }
 
-        montant = parseFloat(this._sousTotal.innerHTML) + this._sousTotal.innerHTML * montant;
+        let sousTotal = this._sousTotal.innerHTML.replace(/\s/g, '');
+        
+        montant = parseInt(sousTotal) + (sousTotal * montant);
 
-        total.innerHTML = montant.toFixed(2);
+        total.innerHTML = montant.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
     commande = () => {
         let noSerieListe = this._articles.querySelectorAll('[data-js-noSerie]'),
             prixVentes = this._el.querySelectorAll('[data-js-prixVente]'),
             depots = this._articles.querySelectorAll('[data-js-depot]'),
+            expeditionId = this._el.querySelector('[data-js-expedition]').value,
+            modePaiementNo = this._el.querySelector('[data-js-modePaiement]').value,
             tabNoSerie = [], tabPrixVente = [], tabDepots = [];
 
         for (let noSerie of noSerieListe) {
@@ -133,7 +139,7 @@ class Panier {
         }
 
         for (let prixVente of prixVentes) {
-            tabPrixVente.push(prixVente.innerHTML);
+            tabPrixVente.push(prixVente.innerHTML.replace(/\s/g, ''));
         }
 
         for (let depot of depots) {
@@ -142,12 +148,9 @@ class Panier {
 
         let paramNoSerie = encodeURIComponent(tabNoSerie),
             paramPrixVente = encodeURIComponent(tabPrixVente),
-            paramDepot;
-
-        if(tabDepots.length == 0)
-            paramDepot = null;
-        else
-            paramDepot = encodeURIComponent(tabDepots);
+            paramDepot = encodeURIComponent(tabDepots),
+            paramExpedition = encodeURIComponent(expeditionId),
+            paramModePaiement = encodeURIComponent(modePaiementNo);
 
         //Déclaration de l'objet XMLHttpRequest
         var xhr;
@@ -169,6 +172,13 @@ class Panier {
                         //Traitement du DOM
                         sessionStorage.removeItem('panier');
 
+                        this._el.querySelector('[data-js-confirmer]').classList.remove('hidden');
+                        this._el.querySelector('[data-js-panier]').classList.add('hidden');
+                        this._el.querySelector('[data-js-commande]').classList.add('hidden');
+
+                        setTimeout(function(){
+                            window.location.href = 'index.php?Voiture&action=politiques';
+                        }, 2000);
                        
                     } else if (xhr.status === 404) {
                         console.log('Le fichier appelé dans la méthode open() n’existe pas.');
@@ -177,16 +187,22 @@ class Panier {
             });
 
             //Envoi de la requête
-            xhr.send('&voitureId=' + paramNoSerie + '&prixVente=' + paramPrixVente + '&depot=' + paramDepot);
+            xhr.send('&voitureId=' + paramNoSerie + 
+                    '&prixVente=' + paramPrixVente + 
+                    '&depot=' + paramDepot +
+                    '&expeditionId=' + paramExpedition +
+                    '&modePaiementNo=' + paramModePaiement
+                    );
         }
     }
 
     afficheConnecte = (e) => {
         e.preventDefault();
 
-        this._el.querySelector('[data-js-choix]').style.display = 'none';
-        this._el.querySelector('[data-js-connexion]').style.display = 'block';
-        this._el.querySelector('[data-js-creation]').style.display = 'none';
+        this._el.querySelector('[data-js-choix]').classList.add('hidden');
+        this._el.querySelector('[data-js-choix]').classList.remove('choix');
+        this._el.querySelector('[data-js-connexion]').classList.remove('hidden');
+        this._el.querySelector('[data-js-creation]').classList.add('hidden');
 
         this._el.querySelector('[data-js-btnConnexion]').addEventListener('click', this.connecte);
         this._el.querySelector('[data-js-retour]').addEventListener('click', this.afficheCree);
@@ -218,8 +234,8 @@ class Panier {
 
                         //Les données ont été reçues
                         //Traitement du DOM
-                        this._el.querySelector('[data-js-connexion]').style.display = 'none';
-                        this._el.querySelector('[data-js-creation]').style.display = 'none';
+                        this._el.querySelector('[data-js-connexion]').classList.add('hidden');
+                        this._el.querySelector('[data-js-creation]').classList.add('hidden');
                         location.replace("index.php?Commande&action=affichePanier");
                          
                     } else if (xhr.status === 404) {
@@ -236,9 +252,9 @@ class Panier {
     afficheCree = (e) => {
         e.preventDefault();
 
-        this._el.querySelector('[data-js-choix]').style.display = 'none';
-        this._el.querySelector('[data-js-connexion]').style.display = 'none';
-        this._el.querySelector('[data-js-creation]').style.display = 'block';
+        this._el.querySelector('[data-js-choix]').classList.add('hidden');
+        this._el.querySelector('[data-js-connexion]').classList.add('hidden');
+        this._el.querySelector('[data-js-creation]').classList.remove('hidden');
 
         this._el.querySelector('[data-js-btnCreation]').addEventListener('click', this.creeCompte);
         this._el.querySelector('[data-js-retourConnecte]').addEventListener('click', this.afficheConnecte);
@@ -288,8 +304,8 @@ class Panier {
 
                         //Les données ont été reçues
                         //Traitement du DOM
-                        this._el.querySelector('[data-js-connexion]').style.display = 'none';
-                        this._el.querySelector('[data-js-creation]').style.display = 'none';
+                        this._el.querySelector('[data-js-connexion]').classList.add('hidden');
+                        this._el.querySelector('[data-js-creation]').classList.add('hidden');
                         location.replace("index.php?Commande&action=affichePanier");
                          
                     } else if (xhr.status === 404) {

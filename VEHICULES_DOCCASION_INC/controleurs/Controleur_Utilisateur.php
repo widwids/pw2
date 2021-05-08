@@ -141,8 +141,7 @@
                 case "formulaireAjoutVille":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutVille");
                         $this->afficheVue("Footer");
                     } else {
@@ -166,8 +165,7 @@
                 case "formulaireAjoutProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutProvince");
                         $this->afficheVue("Footer");
                     } else {
@@ -193,8 +191,7 @@
                 case "formulaireAjoutPays":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutPays");
                         $this->afficheVue("Footer");
                     } else {
@@ -218,8 +215,7 @@
                 case "formulaireAjoutTaxe":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutTaxe");
                         $this->afficheVue("Footer");
                     } else {
@@ -244,8 +240,7 @@
                 case "formulaireAjoutPrivilege":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutPrivilege");
                         $this->afficheVue("Footer");
                     } else {
@@ -276,9 +271,9 @@
                         $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
                         
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("Compte", $data);
+                        $this->afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion"); 
@@ -291,8 +286,7 @@
                             $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($params["idUtilisateur"]);
                             
                             $this -> afficheVue("Head");
-                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("Header");
                             $this -> afficheVue("UtilisateurAdmin", $data);
                             $this->afficheVue("Footer");
                         } else {
@@ -324,8 +318,7 @@
                             $data["ville"] = $modeleUtilisateur -> obtenir_par_id('ville', 'idVille', $params["idVille"]);
 
                             $this -> afficheVue("Head");
-                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("Header");
                             $this -> afficheVue("VilleAdmin", $data);
                             $this->afficheVue("Footer");
                         } else {
@@ -357,8 +350,7 @@
                             $data["province"] = $modeleUtilisateur -> obtenir_par_id('province', 'codeProvince', $params["codeProvince"]);
 
                             $this -> afficheVue("Head");
-                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("Header");
                             $this -> afficheVue("ProvinceAdmin", $data);
                             $this->afficheVue("Footer");
                         } else {
@@ -390,8 +382,7 @@
                             $data["pays"] = $modeleUtilisateur -> obtenir_par_id('pays', 'idPays', $params["idPays"]);
                             
                             $this -> afficheVue("Head");
-                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("Header");
                             $this -> afficheVue("PaysAdmin", $data);
                             $this->afficheVue("Footer");
                         } else {
@@ -424,8 +415,7 @@
                             $data["taxeProvince"] = $modeleUtilisateur -> obtenir_par_id('taxeProvince', 'provinceId', $params["provinceId"]);
                             
                             $this -> afficheVue("Head");
-                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("Header");
                             $this -> afficheVue("TaxeAdmin", $data);
                             $this->afficheVue("Footer");
                         } else {
@@ -458,8 +448,7 @@
                             $data["privilege"] = $modeleUtilisateur -> obtenir_par_id('privilege', 'idPrivilege', $params["idPrivilege"]);
                             
                             $this -> afficheVue("Head");
-                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("Header");
                             $this -> afficheVue("PrivilegeAdmin", $data);
                             $this->afficheVue("Footer");
                         } else {
@@ -491,8 +480,7 @@
                             $data["connexion"] = $modeleUtilisateur -> obtenir_par_id('connexion', 'idConnexion', $params["idConnexion"]);
                             
                             $this -> afficheVue("Head");
-                            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                            $this -> afficheVue("Header");
                             $this -> afficheVue("ConnexionAdmin", $data);
                             $this->afficheVue("Footer");
                         } else {
@@ -539,8 +527,7 @@
                         $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
 
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("ListeUtilisateursAdmin", $data);
                         $this->afficheVue("Footer");
                     } else {
@@ -566,8 +553,7 @@
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
             
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("ListeVillesAdmin", $data);
                         $this->afficheVue("Footer");
                     } else {
@@ -595,8 +581,7 @@
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("ListeProvincesAdmin", $data);
                         $this->afficheVue("Footer");
                     } else {
@@ -622,8 +607,7 @@
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
                         
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("ListePaysAdmin", $data);
                         $this->afficheVue("Footer");
                     } else {
@@ -649,8 +633,7 @@
                         $data["taxeProvince"] = $modeleUtilisateur -> obtenir_tous('taxeProvince');
                         
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("ListeTaxesAdmin", $data);
                         $this->afficheVue("Footer");
                     } else {
@@ -676,8 +659,7 @@
                         $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
                         
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("ListePrivilegesAdmin", $data);
                         $this->afficheVue("Footer");
                     } else {
@@ -702,8 +684,7 @@
                         $data["connexions"] = $modeleUtilisateur -> obtenir_tous('connexion');
 
                         $this -> afficheVue("Head");
-                        isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                            $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("ListeConnexionsAdmin", $data);
                         $this->afficheVue("Footer");
                     } else {
@@ -755,10 +736,10 @@
                                 $params["nom"], $params["dateNaissance"], $params["adresse"], 
                                 $params["codePostal"], $params["telephone"], $params["cellulaire"], 
                                 $params["courriel"], $params["pseudonyme"], 
-                                password_hash($params["motDePasse"], PASSWORD_DEFAULT), $params["villeId"]);
+                                password_hash($params["motDePasse"], PASSWORD_DEFAULT), $params["villeId"], 3);
                             $modifie = $modeleUtilisateur -> modifierUtilisateur($utilisateur);
 
-                            $this -> afficheVue("ListeUtilisateurs", $data);
+                            $this -> afficheVue("Compte", $data);
                         }
                     }
                     break;
@@ -844,7 +825,10 @@
                     }
 					break;
 				default:
+                    $this -> afficheVue("Head");
+                    $this -> afficheVue("Header");
                     $this -> afficheVue("Page404");
+                    $this->afficheVue("Footer");
             }
         }
 
@@ -870,8 +854,7 @@
             //Aller porter les erreurs dans la vue
             $data["erreurs"] = $messageErreur;
             $this -> afficheVue("Head");
-            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+            $this -> afficheVue("Header");
             $this -> afficheVue("CreationCompte", $data);
             $this->afficheVue("Footer");
         }
@@ -881,8 +864,7 @@
             //Aller porter les erreurs dans la vue
             $data["erreurs"] = $messageErreur;
             $this -> afficheVue("Head");
-            isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+            $this -> afficheVue("Header");
             $this -> afficheVue("Connexion", $data);
             $this->afficheVue("Footer");
         }

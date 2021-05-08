@@ -7,8 +7,7 @@
             $modeleCommande = new Modele_Commande();
             
 			$this -> afficheVue("Head");
-			isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+            $this -> afficheVue("Header");
 
             if(isset($params["action"])) {
 				$action = $params["action"]; 
@@ -32,19 +31,24 @@
                         $modeleUtilisateur =  new Modele_Utilisateur();
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
 
-                        if(isset($params["voitureId"], $params["prixVente"])) {
+                        if(isset($params["voitureId"], $params["prixVente"], $params["depot"], $params["expeditionId"],
+                            $params["modePaiementNo"])) {
 
                             $noCommande = $modeleCommande -> ajouterCommande($usagerId);
 
                             $listeVoitureId = explode(',', $params["voitureId"]);
                             $listePrixVente = explode(',', $params["prixVente"]);
-                            if(! count($params["depot"]) > 0) 
-                                $params["depot"] = null;
                             $listeDepots = explode(',', $params["depot"]);
+                            $listeStatutId = array();
+
+                            foreach ($listeDepots as $depot) {
+                                $depot > 0 ? $listeStatutId[] = 2 : $listeStatutId[] = 1;
+                            }
 
                             for($i = 0; $i < count($listeVoitureId); $i++) {
                                 $modeleCommande -> ajouterCommandeVoiture($noCommande, $listeVoitureId[$i], 
-                                $params["depot"], $listePrixVente[$i]);
+                                    $listePrixVente[$i], $listeDepots[$i], $listeStatutId[$i], $params["expeditionId"],
+                                    $params["modePaiementNo"]);
                             }
                             
                             //$data["commandes"] = $modeleCommande -> obtenirCommandes();
@@ -107,6 +111,8 @@
                         $modeleUtilisateur =  new Modele_Utilisateur();
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
                         $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+                        $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
                         $this -> afficheVue("Panier", $data);
                     } else {
                         $data["villes"] = $modeleCommande -> obtenir_tous('ville');

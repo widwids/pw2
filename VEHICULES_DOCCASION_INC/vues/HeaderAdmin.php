@@ -1,4 +1,4 @@
-<?php include_once('Header.php')?>
+<?php //include_once('Header.php')?>
 <!-- <header class="header-admin" data-component="Header">
 	<picture>
 		<img src="./assets/images/YVMA_logo_gold.svg" alt="">
@@ -35,7 +35,7 @@
 				<li><a href="index.php?Utilisateur&action=deconnexion">Fermer la session</a></li>
 			</ul>
 		</li>
-		<li><a href="#">FR</a></li> -->
+		<li><a href="#">FR</a></li>
 	</ul>
 </header>
 
@@ -44,4 +44,4 @@
 	document.querySelector(".navbar").style = "border-bottom: none";
 
 
-</script>
+</script> -->

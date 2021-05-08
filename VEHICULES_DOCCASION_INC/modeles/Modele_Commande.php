@@ -21,7 +21,7 @@
 			try {
 				$requete = $this -> connexion -> query("SELECT commandeNo, voitureId, statutFR, statutEN, depot, prixVente, 
 					dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, 
-					courriel, pseudonyme, villeId FROM achat JOIN commande ON commandeNo = noCommande JOIN utilisateur ON 
+					courriel, pseudonyme, villeId FROM commandeVoiture JOIN commande ON commandeNo = noCommande JOIN utilisateur ON 
 					usagerId = idUtilisateur");
 				$requete -> execute();
 
@@ -37,7 +37,7 @@
 			try {
 				$requete = $this -> connexion -> query("SELECT commandeNo, voitureId, statutFR, statutEN, depot, prixVente, 
 				dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, 
-				courriel, pseudonyme, villeId FROM achat JOIN commande ON commandeNo = noCommande JOIN utilisateur ON 
+				courriel, pseudonyme, villeId FROM commandeVoiture JOIN commande ON commandeNo = noCommande JOIN utilisateur ON 
 				usagerId = idUtilisateur WHERE noCommande = " . $idCommande);
 				$requete -> execute();
 
@@ -57,17 +57,21 @@
             $requetePreparee -> execute();
 		}
 
-		/*--------------- Table achat ---------------*/
+		/*--------------- Table commandeVoiture ---------------*/
 
 		//Ajouter une commandeVoiture
-		public function ajouterCommandeVoiture($commandeNo, $voitureId, $depot, $prixVente) {
-			$requete = "INSERT INTO achat(commandeNo, voitureId, statutFR, statutEN, depot, prixVente, visibilite) 
-				VALUES (:cNo, :vId, 'en attente', 'pending', :de, :pV, 1)";
+		public function ajouterCommandeVoiture($commandeNo, $voitureId, $prixVente, $depot, $statuId, 
+				$expeditionId, $modePaiementNo) {
+			$requete = "INSERT INTO commandeVoiture(commandeNo, voitureId, prixVente, depot, statutId,
+				expeditionId, modePaiementNo, visibilite) VALUES (:cNo, :vId, :pV, :de, :stId, :exId, :mP, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":cNo", $commandeNo);
 			$requetePreparee -> bindParam(":vId", $voitureId);
-			$requetePreparee -> bindParam(":de", $depot);
 			$requetePreparee -> bindParam(":pV", $prixVente);
+			$requetePreparee -> bindParam(":de", $depot);
+			$requetePreparee -> bindParam(":stId", $statuId);
+			$requetePreparee -> bindParam(":exId", $expeditionId);
+			$requetePreparee -> bindParam(":mP", $modePaiementNo);
             $requetePreparee -> execute();
             
             if($requetePreparee -> rowCount() > 0)
@@ -77,7 +81,7 @@
 		}
 
 		public function modifierCommandeVoiture($commandeNo, $voitureId, $statutFR, $statutEN, $depot, $prixVente) {
-			$requete = "UPDATE achat SET statutFR = :sFR, statutEN = :sEN, depot = :de, prixVente = :pV, 
+			$requete = "UPDATE commandeVoiture SET statutFR = :sFR, statutEN = :sEN, depot = :de, prixVente = :pV, 
                 WHERE commandeNo = :cNo AND voitureId = :vId";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":sFR", $statutFR);
