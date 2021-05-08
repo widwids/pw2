@@ -11,8 +11,8 @@
         <button data-js-creer>Nouvel utilisateur? Créez un compte.</button>
     </div>
 
-    <div class="hidden" data-js-connexion>
-        <form method="post">
+    <div class="hidden connexionWrapper" data-js-connexion>
+        <form method="post" class="login">
             <h2>Connectez-vous</h2>
             <label for="pseudonyme">Nom d'utilisateur</label>
             <input type="text" name="pseudonyme" placeholder="Nom d'utilisateur" required data-js-pseudonyme><br>
@@ -21,43 +21,41 @@
             <br>
             <input type="submit" value="Se connecter" data-js-btnConnexion>
         </form>
-        <button data-js-retour>Nouvel utilisateur? Créez un compte.</button>
+        <a href="#" data-js-retour>Nouvel utilisateur? Créez un compte.</a>
     </div>
 
-    <div class="hidden" data-js-creation>
-        <form method="post">
-            <h2>Créez un compte</h2>
-            <label for="prenom">Prénom</label> 
-            <input type="text" name="prenom" required data-js-prenom><br>
-            <label for="nom">Nom</label>
-            <input type="text" name="nom" required data-js-nom><br>
-            <label for="dateNaissance">Date de naissance</label>
-            <input type="date" name="dateNaissance" required data-js-date><br>
-            <label for="adresse">Adresse</label> 
-            <input type="text" name="adresse" required data-js-adresse><br>
-            <label for="codePostal">Code postal</label> 
-            <input type="text" name="codePostal" required data-js-postal><br>
-            <label for="telephone">Téléphone</label> 
-            <input type="tel" name="telephone" required data-js-telephone><br>
-            <label for="cellulaire">Cellulaire </label>
-            <input type="tel" name="cellulaire" data-js-cellulaire><br>
-            <label for="courriel">Courriel </label>
-            <input type="email" name="courriel" data-js-courriel><br>
-            <label for="pseudonyme">Pseudonyme</label> 
-            <input type="text" name="pseudonyme" required data-js-pseudo><br>
-            <label for="motDePasse">Mot de passe</label>
-            <input type="password" name="motDePasse" required data-js-mdp><br>
-            <label for="villeId">Ville</label>
+    <div class="hidden creationCompteWrapper" data-js-creation>
+        <form method="post" class="creationCompte">
+            <label for="prenom">Prénom</label> <br>
+            <input type="text" name="prenom" placeholder="Prénom" required><br>
+            <label for="nom">Nom</label><br>
+            <input type="text" name="nom" placeholder="Nom" required><br>
+            <label for="dateNaissance">Date de naissance</label><br>
+            <input type="date" name="dateNaissance" placeholder="AAAA-MM-JJ" required><br>
+            <label for="adresse">Adresse</label> <br>
+            <input type="text" name="adresse" placeholder="123 Votre Rue" required><br>
+            <label for="codePostal">Code postal</label> <br>
+            <input type="text" name="codePostal" placeholder="XXX XXX" required><br>
+            <label for="telephone">Téléphone</label> <br>
+            <input type="tel" name="telephone" placeholder="XXX-XXX-XXXX" required><br>
+            <label for="cellulaire">Cellulaire </label><br>
+            <input type="tel" name="cellulaire"placeholder="XXX-XXX-XXXX" ><br>
+            <label for="courriel">Courriel </label><br>
+            <input type="email" name="courriel"placeholder="xyz@email.xyz" ><br>
+            <label for="pseudonyme">Pseudonyme</label> <br>
+            <input type="text" name="pseudonyme" placeholder="Identifiant" required><br>
+            <label for="motDePasse">Mot de passe</label><br>
+            <input type="password" name="motDePasse" placeholder="Mot de passe" required><br>
+            <label for="villeId">Ville</label> <br>
             <select id="villeId" name="villeId" data-js-ville>
 <?php foreach ($data["villes"] as $ville) { ?>
                 <option value="<?= $ville["idVille"] ?>"><?= $ville["nomVilleFR"] ?></option>
 <?php } ?>
             </select>
             <br>
-            <br>
             <input class="submit" type="submit" value="Enregistrer" data-js-btnCreation>
         </form>
-        <button data-js-retourConnecte>Un compte? Connectez-vous.</button>
+        <a href="#" data-js-retourConnecte>Un compte? Connectez-vous.</a>
     </div>
 
 <?php if(isset($_SESSION["utilisateur"])) { ?>

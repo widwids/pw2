@@ -51,7 +51,7 @@
 			</div>
 		</div>
 <?php } ?>
-            <a href="index.php?commande&action=afficheCommande&idCommande=1"><img class="handshake_icon" src="assets/logo_icones/handshake.png" data-js-cart></img></a>
+            <a href="index.php?commande&action=affichePanier"><img class="handshake_icon" src="assets/logo_icones/handshake.png" data-js-cart></img></a>
         </div>
 
 		<div class="ham_icon" data-js-hamburger>

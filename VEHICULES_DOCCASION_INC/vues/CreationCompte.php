@@ -23,15 +23,14 @@
         <input type="password" name="motDePasse" placeholder="Mot de passe" required><br>
         <label for="villeId">Ville</label> <br>
         <select id="villeId" name="villeId">
-            <option value="1">Montréal</option>
-            <option value="2">Laval</option>
-            <option value="3">Longueuil</option>
-            <option value="4">Toronto</option>
+<?php foreach ($data["villes"] as $ville) { ?>
+                <option value="<?= $ville["idVille"] ?>"><?= $ville["nomVilleFR"] ?></option>
+<?php } ?>
         </select>
         <br>
         <input type="hidden" name="action" value="insereUtilisateur"/>
         <br>
-        <button class="submit" type="submit" value="Enregistrer">Enregistrer</button>
+        <button type="submit" value="Enregistrer">Enregistrer</button>
         <a href="index.php?Utilisateur&action=connexion">Connexion</a>
     </form>
 </section>    
