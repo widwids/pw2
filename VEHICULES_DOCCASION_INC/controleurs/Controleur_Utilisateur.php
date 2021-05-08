@@ -630,7 +630,6 @@
                 case "listeTaxes":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
-                        $data["taxeProvince"] = $modeleUtilisateur -> obtenir_tous('taxeProvince');
                         
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
@@ -645,6 +644,30 @@
                 case "listeTaxesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
+                        echo json_encode($data);
+                        //$this -> afficheVue("ListeTaxes", $data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listeTaxeProvince":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["taxeProvince"] = $modeleUtilisateur -> obtenir_tous('taxeProvince');
+                        
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeTaxeProvinceAdmin", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listeTaxeProvinceAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["taxeProvince"] = $modeleUtilisateur -> obtenir_tous('taxeProvince');
                         echo json_encode($data);
                         //$this -> afficheVue("ListeTaxes", $data);
@@ -792,6 +815,16 @@
                         if(isset($params["nomTaxeFR"], $params["nomTaxeEN"], $params["idTaxe"], 
                                 $params["taux"], $params["provinceId"])) {
                             $modeleUtilisateur -> modifierTaxe($params["nomTaxeFR"], $params["nomTaxeEN"], $params["idTaxe"]);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
+                    break;
+
+                case "modifierTaxeProvince":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["nomTaxeFR"], $params["nomTaxeEN"], $params["idTaxe"], 
+                                $params["taux"], $params["provinceId"])) {
                             $modeleUtilisateur -> modifierTaxeProvince($params["provinceId"], $params["idTaxe"], $params["taux"]);
                         } else {
                             trigger_error("Paramètre manquant.");
