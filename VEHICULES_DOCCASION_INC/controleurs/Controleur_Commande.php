@@ -7,8 +7,7 @@
             $modeleCommande = new Modele_Commande();
             
 			$this -> afficheVue("Head");
-			isset($_SESSION["employe"]) || isset($_SESSION["admin"]) ?
-                $this -> afficheVue("HeaderAdmin") : $this -> afficheVue("Header");
+            $this -> afficheVue("Header");
 
             if(isset($params["action"])) {
 				$action = $params["action"]; 
