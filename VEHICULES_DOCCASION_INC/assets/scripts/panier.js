@@ -130,6 +130,8 @@ class Panier {
         let noSerieListe = this._articles.querySelectorAll('[data-js-noSerie]'),
             prixVentes = this._el.querySelectorAll('[data-js-prixVente]'),
             depots = this._articles.querySelectorAll('[data-js-depot]'),
+            expeditionId = this._el.querySelector('[data-js-expedition]').value,
+            modePaiementNo = this._el.querySelector('[data-js-modePaiement]').value,
             tabNoSerie = [], tabPrixVente = [], tabDepots = [];
 
         for (let noSerie of noSerieListe) {
@@ -146,7 +148,9 @@ class Panier {
 
         let paramNoSerie = encodeURIComponent(tabNoSerie),
             paramPrixVente = encodeURIComponent(tabPrixVente),
-            paramDepot = encodeURIComponent(tabDepots);
+            paramDepot = encodeURIComponent(tabDepots),
+            paramExpedition = encodeURIComponent(expeditionId),
+            paramModePaiement = encodeURIComponent(modePaiementNo);
 
         //Déclaration de l'objet XMLHttpRequest
         var xhr;
@@ -174,7 +178,7 @@ class Panier {
 
                         setTimeout(function(){
                             window.location.href = 'index.php?Voiture&action=politiques';
-                        }, 3000);
+                        }, 2000);
                        
                     } else if (xhr.status === 404) {
                         console.log('Le fichier appelé dans la méthode open() n’existe pas.');
@@ -183,7 +187,12 @@ class Panier {
             });
 
             //Envoi de la requête
-            xhr.send('&voitureId=' + paramNoSerie + '&prixVente=' + paramPrixVente + '&depot=' + paramDepot);
+            xhr.send('&voitureId=' + paramNoSerie + 
+                    '&prixVente=' + paramPrixVente + 
+                    '&depot=' + paramDepot +
+                    '&expeditionId=' + paramExpedition +
+                    '&modePaiementNo=' + paramModePaiement
+                    );
         }
     }
 

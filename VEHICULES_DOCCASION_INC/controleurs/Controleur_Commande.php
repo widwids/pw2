@@ -31,25 +31,32 @@
                         $modeleUtilisateur =  new Modele_Utilisateur();
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
 
-                        //if(isset($params["voitureId"], $params["prixVente"])) {
+                        if(isset($params["voitureId"], $params["prixVente"], $params["depot"], $params["expeditionId"],
+                            $params["modePaiementNo"])) {
 
                             $noCommande = $modeleCommande -> ajouterCommande($usagerId);
 
                             $listeVoitureId = explode(',', $params["voitureId"]);
                             $listePrixVente = explode(',', $params["prixVente"]);
                             $listeDepots = explode(',', $params["depot"]);
+                            $listeStatutId = array();
+
+                            foreach ($listeDepots as $depot) {
+                                $depot > 0 ? $listeStatutId[] = 2 : $listeStatutId[] = 1;
+                            }
 
                             for($i = 0; $i < count($listeVoitureId); $i++) {
                                 $modeleCommande -> ajouterCommandeVoiture($noCommande, $listeVoitureId[$i], 
-                                $listeDepots[$i], $listePrixVente[$i]);
+                                    $listePrixVente[$i], $listeDepots[$i], $listeStatutId[$i], $params["expeditionId"],
+                                    $params["modePaiementNo"]);
                             }
                             
                             //$data["commandes"] = $modeleCommande -> obtenirCommandes();
 
                             //$this -> afficheVue("ListeCommandes", $data);
-                        //} else {
+                        } else {
                             trigger_error("Paramètre manquant.");
-                        //}
+                        }
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion"); 
@@ -105,6 +112,7 @@
                         $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
                         $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
                         $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+                        $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
                         $this -> afficheVue("Panier", $data);
                     } else {
                         $data["villes"] = $modeleCommande -> obtenir_tous('ville');

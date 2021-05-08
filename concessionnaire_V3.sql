@@ -177,18 +177,36 @@ CREATE TABLE modePaiement (
 	PRIMARY KEY(idModePaiement)
 );
 
+CREATE TABLE statut (
+	idStatut SMALLINT UNSIGNED AUTO_INCREMENT,
+	nomStatutFR VARCHAR(50) NOT NULL,
+	nomStatutEN VARCHAR(50) NOT NULL,
+	visibilite BOOLEAN NOT NULL,
+	PRIMARY KEY(idStatut)
+);
+
+CREATE TABLE expedition (
+	idExpedition SMALLINT UNSIGNED AUTO_INCREMENT,
+	nomExpeditionFR VARCHAR(50) NOT NULL,
+	nomExpeditionEN VARCHAR(50) NOT NULL,
+	visibilite BOOLEAN NOT NULL,
+	PRIMARY KEY(idExpedition)
+);
+
 CREATE TABLE commandeVoiture (
 	commandeNo SMALLINT UNSIGNED,
 	voitureId CHAR(17),
-	statutFR ENUM('en attente', 'réservé', 'facturé') NOT NULL,
-	statutEN ENUM('pending', 'reserved ', 'invoiced') NOT NULL,
-	depot DECIMAL(8,2),
 	prixVente DECIMAL(8,2) NOT NULL,
+	depot DECIMAL(8,2),
+	statutId SMALLINT UNSIGNED NOT NULL,
+	expeditionId SMALLINT UNSIGNED NOT NULL,
 	modePaiementNo SMALLINT UNSIGNED NOT NULL,
 	visibilite BOOLEAN NOT NULL,
 	PRIMARY KEY(commandeNo, voitureId),
 	FOREIGN KEY(commandeNo) REFERENCES commande(noCommande),
 	FOREIGN KEY(voitureId) REFERENCES voiture(noSerie),
+	FOREIGN KEY(statutId) REFERENCES statut(idStatut),
+	FOREIGN KEY(expeditionId) REFERENCES expedition(idExpedition),
 	FOREIGN KEY (modePaiementNo) REFERENCES modePaiement(idModePaiement)
 );
 
@@ -504,10 +522,19 @@ INSERT INTO modePaiement (nomModeFR, nomModeEN, visibilite) VALUES
 	('Carte de débit', 'Debit card', 1), 
 	('Virement bancaire', 'Bank transfer', 1), 
 	('Passerelle de paiement', 'Payment Gateway', 1);
+
+INSERT INTO statut (nomStatutFR, nomStatutEN, visibilite) VALUES
+	('En attente', 'Pending', 1), 
+	('Réservé', 'Reserved', 1), 
+	('Facturé', 'Invoiced', 1);
+
+INSERT INTO expedition (nomExpeditionFR, nomExpeditionEN, visibilite) VALUES
+	('Livraison locale', 'Local Delivery', 1), 
+	('Ramassage', 'Pickup', 1);
 	
-INSERT INTO commandeVoiture (commandeNo, voitureId, statutFR, statutEN, depot, prixVente, modePaiementNo, visibilite) VALUES 
-	(1, 'ABC12300067154336', 'en attente', 'pending', NULL, 15000.00, 2, 1),
-	(1, 'AVF51847456154145', 'réservé', 'reserved', 5000.00, 15000.00, 2, 1);
+INSERT INTO commandeVoiture (commandeNo, voitureId, prixVente, depot, statutId, expeditionId, modePaiementNo, visibilite) VALUES 
+	(1, 'ABC12300067154336', 15000.00, 0, 1, 2, 2, 1),
+	(1, 'AVF51847456154145', 15000.00, 5000.00, 2, 2, 2, 1);
 
 INSERT INTO facture (dateFacture, expeditionFR, expeditionEN, prixFinal, commandeId, modePaiementId, visibilite) VALUES 
 	('2021-04-14 01:01:12', 'ramassage', 'pickup', 15000, 1, 2, 1);

@@ -13,7 +13,7 @@
 
     <div class="hidden connexionWrapper haut" data-js-connexion>
         <form method="post" class="login">
-            <h2>Connectez-vous</h2>
+            <h2>Connexion</h2>
             <label for="pseudonyme">Nom d'utilisateur</label>
             <input type="text" name="pseudonyme" placeholder="Nom d'utilisateur" required data-js-pseudonyme><br>
             <label for="motDePasse">Mot de passe</label>
@@ -26,6 +26,7 @@
 
     <div class="hidden creationCompteWrapper" data-js-creation>
         <form method="post" class="creationCompte">
+            <h2>Création de compte</h2>
             <label for="prenom">Prénom</label> <br>
             <input type="text" name="prenom" placeholder="Prénom" required><br>
             <label for="nom">Nom</label><br>
@@ -62,23 +63,37 @@
     
     <div class="hidden" data-js-commande>
         <div class="commande">
-            <div classe="taxes">
-                <h2>Taxes</h2>
 
-<?php foreach ($data["taxes"] as $taxe) { ?>
-                <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span>%</p>
-<?php } ?>
-                <h2 class="sous-total">Total: <span data-js-total></span>$</h3>
-            </div>
             <div classe="modePaiement">
                 <label for="modePaiement">Mode de paiement</label>
-                <select name="modePaiement">
-                    <option value='' selected disabled>Choisissez un mode de paiement</option>
+                <select name="modePaiement" data-js-modePaiement>
+                    <option value='' selected disabled>Choisissez le mode de paiement</option>
 <?php foreach ($data["modePaiement"] as $modePaiement) { ?>
                     <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
 <?php } ?>
                 </select>
             </div>
+                
+            <div class="expedition">
+                <label for="expedition">Mode d'expédition</label>
+                <select name="expedition" data-js-expedition>
+                    <option value='' selected disabled>Choisissez le mode d'expédition</option>
+<?php foreach ($data["expeditions"] as $expedition) { ?>
+                    <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
+<?php } ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="paiement">
+            <div classe="taxes">
+                <h2>Taxes</h2>
+    <?php foreach ($data["taxes"] as $taxe) { ?>
+                <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span>%</p>
+    <?php } ?>
+            </div>
+
+            <h2 class="sous-total">Total: <span data-js-total></span>$</h2>
         </div>
         <br>
         <button class="caisse" data-js-button>Commander</button>
@@ -87,7 +102,9 @@
 <?php } ?>
 
     <div class="hidden" data-js-confirmer>
-        <h2 class="complete">Commande complétée.</h2>
-        <p>Merci.</p>
+        <div class="complete">
+            <h2>Commande complétée.</h2>
+            <p>Merci.</p>
+        </div>
     </div>
 </section>

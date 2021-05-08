@@ -110,9 +110,13 @@
     margin-right: 40px;
 }
 
-.commande {
+.commande, .paiement {
     display: flex;
     justify-content: flex-end;
+}
+
+.commande {
+    justify-content: flex-start;
 }
 
 .complete {
