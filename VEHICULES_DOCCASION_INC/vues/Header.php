@@ -29,7 +29,7 @@
 								<a href="index.php?Utilisateur&action=listeUtilisateurs">Liste d'utilisateurs</a>
 								<a href="index.php?Utilisateur&action=listeVilles">Villes</a>
 								<a href="index.php?Utilisateur&action=listeProvinces">Provinces</a>
-								<a href="">Pays</a>
+								<a href="index.php?Utilisateur&action=listePays">Pays</a>
 								<a href="">Taxes</a>
 								<a href="">Modes paiement</a>
 								<a href="">Commandes</a>
