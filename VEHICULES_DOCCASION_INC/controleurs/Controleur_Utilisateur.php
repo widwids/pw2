@@ -410,9 +410,8 @@
                 
                 case "afficheTaxe":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["idTaxe"], $params["provinceId"])) {
+                        if(isset($params["idTaxe"])) {
                             $data["taxe"] = $modeleUtilisateur -> obtenir_par_id('taxe', 'idTaxe', $params["idTaxe"]);
-                            $data["taxeProvince"] = $modeleUtilisateur -> obtenir_par_id('taxeProvince', 'provinceId', $params["provinceId"]);
                             
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
@@ -429,8 +428,39 @@
                 
                 case "afficheTaxeAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["idTaxe"], $params["provinceId"])) {
+                        if(isset($params["idTaxe"])) {
                             $data["taxe"] = $modeleUtilisateur -> obtenir_par_id('taxe', 'idTaxe', $params["idTaxe"]);
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        } 
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "afficheTaxeProvince":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["provinceId"])) {
+                            $data["taxeProvince"] = $modeleUtilisateur -> obtenir_par_id('taxeProvince', 'provinceId', $params["provinceId"]);
+                            
+                            $this -> afficheVue("Head");
+                            $this -> afficheVue("Header");
+                            $this -> afficheVue("TaxeProvinceAdmin", $data);
+                            $this->afficheVue("Footer");
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        } 
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "afficheTaxeProvinceAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["provinceId"])) {
                             $data["taxeProvince"] = $modeleUtilisateur -> obtenir_par_id('taxeProvince', 'provinceId', $params["provinceId"]);
                             echo json_encode($data);
                         } else {
@@ -729,6 +759,20 @@
                 
                 /*--------------- Modification(UPDATE) ---------------*/
                 
+                case "formulaireModifierUtilisateur":
+                    if (isset($_SESSION["utilisateur"])) {
+                        $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
+                        $this -> afficheVue("FormulaireModifierUtilisateur", $data);
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
                 case "modifierUtilisateur":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["idUtilisateur"], $params["prenom"], $params["nom"], 
@@ -747,15 +791,16 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
-                    } else {
-                        if(isset($params["idUtilisateur"], $params["prenom"], $params["nom"], 
-                            $params["dateNaissance"], $params["adresse"], $params["codePostal"], 
-                            $params["telephone"], $params["courriel"], $params["pseudonyme"], 
-                            $params["motDePasse"], $params["villeId"])) {
+                    } else if (isset($_SESSION["utilisateur"])) {
+                        if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], $params["adresse"], 
+                            $params["codePostal"], $params["telephone"], $params["courriel"], 
+                            $params["pseudonyme"], $params["motDePasse"], $params["villeId"])) {
                         
                             if(!isset($params["cellulaire"])) $params["cellulaire"] = "";
+                            
+                            $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
 
-                            $utilisateur = new Utilisateur($params["idUtilisateur"], $params["prenom"], 
+                            $utilisateur = new Utilisateur($utilisateurId, $params["prenom"], 
                                 $params["nom"], $params["dateNaissance"], $params["adresse"], 
                                 $params["codePostal"], $params["telephone"], $params["cellulaire"], 
                                 $params["courriel"], $params["pseudonyme"], 
@@ -812,8 +857,7 @@
 
                 case "modifierTaxe":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["nomTaxeFR"], $params["nomTaxeEN"], $params["idTaxe"], 
-                                $params["taux"], $params["provinceId"])) {
+                        if(isset($params["nomTaxeFR"], $params["nomTaxeEN"], $params["idTaxe"])) {
                             $modeleUtilisateur -> modifierTaxe($params["nomTaxeFR"], $params["nomTaxeEN"], $params["idTaxe"]);
                         } else {
                             trigger_error("Paramètre manquant.");
@@ -823,8 +867,7 @@
 
                 case "modifierTaxeProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["nomTaxeFR"], $params["nomTaxeEN"], $params["idTaxe"], 
-                                $params["taux"], $params["provinceId"])) {
+                        if(isset($params["idTaxe"], $params["taux"], $params["provinceId"])) {
                             $modeleUtilisateur -> modifierTaxeProvince($params["provinceId"], $params["idTaxe"], $params["taux"]);
                         } else {
                             trigger_error("Paramètre manquant.");
