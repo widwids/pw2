@@ -1,0 +1,25 @@
+.compteWrapper {
+    padding-top: 100px;
+    padding-bottom: 200px;
+	min-width: 600px;
+    text-align: center;
+    display: flex;
+    margin: auto;
+    width: 45%;
+}
+
+.logoCompte {
+    height: 281px;
+    padding: 50px;
+}
+
+.compte {    
+    background: rgba(0, 0, 0, 0.8);
+    max-width: 400px;
+	text-decoration: none;
+}
+
+.columns {
+    column-count: 2;
+    text-align: left;
+}

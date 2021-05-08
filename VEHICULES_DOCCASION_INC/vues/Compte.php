@@ -1,22 +1,39 @@
 <?php $utilisateur = $data["utilisateur"] ?>
+<div class="compteWrapper">        
+    <img class="logoCompte" src="assets/logo_icones/YVMA_logo_gold.svg">    
 
-<h1 style="text-align: left; margin: 20px; padding-top: 20px;">
-    Utilisateur : <?= $utilisateur -> getPrenom() . " " . $utilisateur -> getNom() ?></h1>
+    <div class="compte">
 
-<ul style="margin: 20px; padding-bottom: 100px">
-    <!-- <li>Id : <?= $utilisateur -> getId() ?></li> -->
-    <li>Date de naissance : <?= $utilisateur -> getDateNaissance() ?></li>
-    <li>Adresse : <?= $utilisateur -> getAdresse() ?></li>
-    <li>Code postal : <?= $utilisateur -> getCodePostal() ?></li>
-    <li>Ville : <?= $utilisateur -> getNomVilleFR() ?></li>
-    <li>Province : <?= $utilisateur -> getNomProvinceFR() ?></li>
-    <li>Pays : <?= $utilisateur -> getNomPaysFR() ?></li>
-    <li>Téléphone : <?= $utilisateur -> getTelephone() ?></li>
-    <li>Cellulaire : <?= $utilisateur -> getCellulaire() ?></li>
-    <li>Courriel : <?= $utilisateur -> getCourriel() ?></li>
-    <li>Pseudonyme : <?= $utilisateur -> getPseudonyme() ?></li>
-    <!--<li>Privilège : <?= $utilisateur -> getNomPrivilegeFR() ?></li>-->
-</ul>
+        <h1><?= $utilisateur -> getPrenom() . " " . $utilisateur -> getNom() ?></h1>
+        <h3>"<?= $utilisateur -> getPseudonyme() ?>"</h3>
+
+        <div class="columns">
+            <!-- <div>Id : <?= $utilisateur -> getId() ?></div> -->
+
+            <div>Date de naissance</div>
+            <div>Adresse</div>
+            <div>Code postal</div>
+            <div>Ville</div>
+            <div>Province</div>
+            <div>Pays</div>
+            <div>Téléphone</div>
+            <div>Cellulaire</div>
+            <div>Courriel</div>
+
+            <div><?= $utilisateur -> getDateNaissance() ?></div>
+            <div><?= $utilisateur -> getAdresse() ?></div>
+            <div><?= $utilisateur -> getCodePostal() ?></div>
+            <div><?= $utilisateur -> getNomVilleFR() ?></div>
+            <div><?= $utilisateur -> getNomProvinceFR() ?></div>
+            <div><?= $utilisateur -> getNomPaysFR() ?></div>
+            <div><?= $utilisateur -> getTelephone() ?></div>
+            <div><?= $utilisateur -> getCellulaire() ?></div>
+            <div><?= $utilisateur -> getCourriel() ?></div>
+
+            <!--<div>Privilège : <?= $utilisateur -> getNomPrivilegeFR() ?></div>-->
+        </div>
+    </div>    
+</div>
 
 <!-- <h2>Changer le mot de passe</h2>
 

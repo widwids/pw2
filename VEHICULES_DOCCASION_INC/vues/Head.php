@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="assets/styles/footer.css">
 	<link rel="stylesheet" href="assets/styles/admin.css">
 	<link rel="stylesheet" href="assets/styles/connexion.css">
+	<link rel="stylesheet" href="assets/styles/compte.css">
 	<link rel="stylesheet" href="assets/styles/creationCompte.css">
 	<link rel="stylesheet" href="assets/styles/detailVoiture.css">
 	<link rel="stylesheet" href="assets/styles/ListeVoitures.css">
@@ -26,7 +27,6 @@
 	<script type="text/javascript" src="assets/scripts/Photos.js"></script>
 	<script type="text/javascript" src="assets/scripts/Voiture.js"></script>
 	<script type="text/javascript" src="assets/scripts/classMapping.js"></script>
-	<script type="text/javascript" src="assets/scripts/connexion.js"></script>
 	
 
 	<script type="module" src="assets/scripts/detailVoiture.js" defer></script>
