@@ -7,11 +7,11 @@
     <button class="caisse" data-js-caisse>Passez à la caisse</button>
 
     <div class="hidden" data-js-choix>
-        <button data-js-connecter>Un compte? Connectez-vous.</button>
-        <button data-js-creer>Nouvel utilisateur? Créez un compte.</button>
+        <button data-js-connecter>Connectez-vous.</button>
+        <button data-js-creer>Créez un compte.</button>
     </div>
 
-    <div class="hidden connexionWrapper" data-js-connexion>
+    <div class="hidden connexionWrapper haut" data-js-connexion>
         <form method="post" class="login">
             <h2>Connectez-vous</h2>
             <label for="pseudonyme">Nom d'utilisateur</label>
@@ -21,7 +21,7 @@
             <br>
             <input type="submit" value="Se connecter" data-js-btnConnexion>
         </form>
-        <a href="#" data-js-retour>Nouvel utilisateur? Créez un compte.</a>
+        <a class="lien" href="#" data-js-retour>Nouvel utilisateur? Créez un compte.</a>
     </div>
 
     <div class="hidden creationCompteWrapper" data-js-creation>
@@ -53,32 +53,41 @@
 <?php } ?>
             </select>
             <br>
-            <input class="submit" type="submit" value="Enregistrer" data-js-btnCreation>
+            <input type="submit" value="Enregistrer" data-js-btnCreation>
         </form>
-        <a href="#" data-js-retourConnecte>Un compte? Connectez-vous.</a>
+        <a class="lien" href="#" data-js-retourConnecte>Un compte? Connectez-vous.</a>
     </div>
 
 <?php if(isset($_SESSION["utilisateur"])) { ?>
     
     <div class="hidden" data-js-commande>
-        <p>Taxes</p>
+        <div class="commande">
+            <div classe="taxes">
+                <h2>Taxes</h2>
 
 <?php foreach ($data["taxes"] as $taxe) { ?>
-        <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span>%</p>
+                <p><?= $taxe["nomTaxeFR"] ?> <span data-js-taux><?= $taxe["taux"] ?></span>%</p>
 <?php } ?>
-        <h3>Total: <span data-js-total></span>$</h3><br>
-        <label for="modePaiement">Mode de paiement</label>
-        <select name="modePaiement">
+                <h2 class="sous-total">Total: <span data-js-total></span>$</h3>
+            </div>
+            <div classe="modePaiement">
+                <label for="modePaiement">Mode de paiement</label>
+                <select name="modePaiement">
+                    <option value='' selected disabled>Choisissez un mode de paiement</option>
 <?php foreach ($data["modePaiement"] as $modePaiement) { ?>
-            <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
+                    <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
 <?php } ?>
-        </select>
-        <button data-js-button>Commander</button>
+                </select>
+            </div>
+        </div>
+        <br>
+        <button class="caisse" data-js-button>Commander</button>
     </div>
+
 <?php } ?>
 
     <div class="hidden" data-js-confirmer>
-        <h2>Commande complétée.</h2>
-        
+        <h2 class="complete">Commande complétée.</h2>
+        <p>Merci.</p>
     </div>
 </section>

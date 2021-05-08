@@ -169,25 +169,27 @@ CREATE TABLE commande (
 	FOREIGN KEY(usagerId) REFERENCES utilisateur(idUtilisateur)
 );
 
-CREATE TABLE achat (
-	commandeNo SMALLINT UNSIGNED,
-	voitureId CHAR(17),
-	statutFR ENUM('en attente', 'réservé', 'facturé') NOT NULL,
-	statutEN ENUM('pending', 'reserved ', 'invoiced') NOT NULL,
-	depot DECIMAL(8,2),
-	prixVente DECIMAL(8,2) NOT NULL,
-	visibilite BOOLEAN NOT NULL,
-	PRIMARY KEY(commandeNo, voitureId),
-	FOREIGN KEY(commandeNo) REFERENCES commande(noCommande),
-	FOREIGN KEY(voitureId) REFERENCES voiture(noSerie)
-);
-
 CREATE TABLE modePaiement (
 	idModePaiement SMALLINT UNSIGNED AUTO_INCREMENT,
 	nomModeFR VARCHAR(50),
 	nomModeEN VARCHAR(50),
 	visibilite BOOLEAN NOT NULL,
 	PRIMARY KEY(idModePaiement)
+);
+
+CREATE TABLE commandeVoiture (
+	commandeNo SMALLINT UNSIGNED,
+	voitureId CHAR(17),
+	statutFR ENUM('en attente', 'réservé', 'facturé') NOT NULL,
+	statutEN ENUM('pending', 'reserved ', 'invoiced') NOT NULL,
+	depot DECIMAL(8,2),
+	prixVente DECIMAL(8,2) NOT NULL,
+	modePaiementNo SMALLINT UNSIGNED NOT NULL,
+	visibilite BOOLEAN NOT NULL,
+	PRIMARY KEY(commandeNo, voitureId),
+	FOREIGN KEY(commandeNo) REFERENCES commande(noCommande),
+	FOREIGN KEY(voitureId) REFERENCES voiture(noSerie),
+	FOREIGN KEY (modePaiementNo) REFERENCES modePaiement(idModePaiement)
 );
 
 CREATE TABLE facture (
@@ -410,7 +412,7 @@ INSERT INTO voiture (noSerie, descriptionFR, descriptionEN, kilometrage, dateArr
 	('XVC48574837458848', 'Véhicule puissant datant de quelques années, peu de kilométrage, état impeccable. Toute imperfection préalablement corrigée par nos techniciens chevronnés YVMA. Look sportive, courbes attrayantes, contrôle sur la route irréprochable. Partez à l’aventure avec la crème des véhicules sport. Ce modèle est toujours populaire aujourd’hui grâce à sa grande performance et sa fiabilité. Faites vite, ils ne restent jamais longtemps!', 
 	'Powerful vehicle a few years old, low mileage, immaculate condition. Any imperfection previously corrected by our experienced YVMA technicians. Sporty look, attractive curves, impeccable road control. Go on an adventure with the cream of sports vehicles. This model is still popular today thanks to its great performance and reliability. Hurry, they never stay long!', 5585, '2021-02-18', '172000.00', 1, 2, 2, 28, 1, 2020, 1),
 	('JYC48374832219067', 'Cet arrivage récent et en parfait état est parfait pour le gentleman désireux de luxe et de prestige. Un intérieur en cuir véritable, une puissance inégalée et un design unique en son genre; quoi désirer de plus pour un véhicule de rêve comme celui-ci? N’hésitez pas et communiquez avec nous pour réserver!', 
-	'This recent arrival is in mint condition and perfect for the distinguished gentleman seeking luxury and prestige. Genuine leather interior, unmatched power and one-of-a-kind design; what more could you want for a dream vehicle like this? Do not hesitate and contact us to reserve!', 975, '2021-02-18', '80000.00', 1, 2, 2, 29, 1, 2019, 1);
+	'This recent arrival is in mint condition and perfect for the distinguished gentleman seeking luxury and prestige. Genuine leather interior, unmatched power and one-of-a-kind design; what more could you want for a dream vehicle like this? Do not hesitate and contact us to reserve!', 975, '2021-02-18', '80000.00', 1, 2, 2, 28, 1, 2019, 1);
 
 
 INSERT INTO photo (nomPhoto, ordre, autoId, visibilite) VALUES
@@ -495,10 +497,6 @@ INSERT INTO utilisateur (prenom, nom, dateNaissance, adresse, codePostal, teleph
 
 INSERT INTO commande (dateCommande, usagerId, visibilite) VALUES 
 	('2021-04-13 00:45:52', 2, 1);
-	
-INSERT INTO achat (commandeNo, voitureId, statutFR, statutEN, depot, prixVente, visibilite) VALUES 
-	(1, 'ABC12300067154336', 'en attente', 'pending', NULL, 15000.00, 1),
-	(1, 'AVF51847456154145', 'réservé', 'reserved', 5000.00, 15000.00, 1);
 
 INSERT INTO modePaiement (nomModeFR, nomModeEN, visibilite) VALUES
 	('Espèces', 'Cash', 1), 
@@ -506,6 +504,10 @@ INSERT INTO modePaiement (nomModeFR, nomModeEN, visibilite) VALUES
 	('Carte de débit', 'Debit card', 1), 
 	('Virement bancaire', 'Bank transfer', 1), 
 	('Passerelle de paiement', 'Payment Gateway', 1);
+	
+INSERT INTO commandeVoiture (commandeNo, voitureId, statutFR, statutEN, depot, prixVente, modePaiementNo, visibilite) VALUES 
+	(1, 'ABC12300067154336', 'en attente', 'pending', NULL, 15000.00, 2, 1),
+	(1, 'AVF51847456154145', 'réservé', 'reserved', 5000.00, 15000.00, 2, 1);
 
 INSERT INTO facture (dateFacture, expeditionFR, expeditionEN, prixFinal, commandeId, modePaiementId, visibilite) VALUES 
 	('2021-04-14 01:01:12', 'ramassage', 'pickup', 15000, 1, 2, 1);

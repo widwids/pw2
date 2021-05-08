@@ -31,23 +31,25 @@ class Panier {
 
         for (let item of this._panier) {
             article += `<article class="contenant">
-                            <header>
+                            <div class="gauche">
                                 <img src="assets/images/${item.photo}.jpg">
-                            </header>
-                            <main data-js-voitureInfo>
+                            </div>
+                            <div class="milieu" data-js-voitureInfo>
                                 <p>${item.voiture.nomMarque} ${item.voiture.nomModele} ${item.voiture.anneeId}</p>
                                 <p>No de série : <span data-js-noSerie>${item.voiture.noSerie}</span></p>
-                                <p>Prix : <span data-js-prixVente>${(item.voiture.prixAchat * 1.25).toFixed(2)}</span>$</p>
+                                <p>Prix : <span data-js-prixVente>${(item.voiture.prixAchat * 1.25).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}</span>$</p>
                                 <label for="depot">
-                                    Réservez pour ${item.voiture.prixAchat * 0.10}$ (dépôt de 10%)    
+                                    Réservez pour ${(item.voiture.prixAchat * 1.25 * 0.10).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}$ (dépôt de 10%)    
                                 </label>
                                 <select name="depot" data-js-depot>
                                     <option value="0" selected disabled>Choisir votre option</option>
                                     <option value="0"></option>
-                                    <option value="${item.voiture.prixAchat * 0.10}">Réserver</option>
+                                    <option value="${(item.voiture.prixAchat * 1.25 * 0.10).toFixed(2)}">Réserver</option>
                                 </select>
-                            </main>
-                            <button data-js-retirer>Retirer du panier</button>
+                            </div>
+                            <div class="droite">
+                                <button data-js-retirer>Retirer du panier</button>
+                            </div>
                         </article>
                         `;
         }
@@ -81,20 +83,20 @@ class Panier {
     }
 
     afficheCaisse = () => {
+        this._el.querySelector('[data-js-caisse]').style.display='none';
+
         if(! this._el.querySelector('[data-js-commande]')) {
             let choixConnecte = this._el.querySelector('[data-js-connecter]'),
                 choixCree = this._el.querySelector('[data-js-creer]');
 
                 this._el.querySelector('[data-js-choix]').classList.remove('hidden');
-                this._el.querySelector('[data-js-caisse]').style.display='none';
+                this._el.querySelector('[data-js-choix]').classList.add('choix');
 
                 choixConnecte.addEventListener('click', this.afficheConnecte);
                 choixCree.addEventListener('click', this.afficheCree);
         } else {
             this.calculeTotal();
             this._el.querySelector('[data-js-commande]').classList.remove('hidden');
-            this._el.querySelector('[data-js-caisse]').classList.add('hidden');
-
             this._el.querySelector('[data-js-button]').addEventListener('click', this.commande);
         }
     }
@@ -105,7 +107,7 @@ class Panier {
             sousTotal += item.voiture.prixAchat * tauxRevente;
         }
 
-        this._sousTotal.innerHTML = sousTotal.toFixed(2);
+        this._sousTotal.innerHTML = sousTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
     calculeTotal = () => {
@@ -117,9 +119,11 @@ class Panier {
             montant += parseFloat(taux.textContent/100);
         }
 
-        montant = parseFloat(this._sousTotal.innerHTML) + this._sousTotal.innerHTML * montant;
+        let sousTotal = this._sousTotal.innerHTML.replace(/\s/g, '');
+        
+        montant = parseInt(sousTotal) + (sousTotal * montant);
 
-        total.innerHTML = montant.toFixed(2);
+        total.innerHTML = montant.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     }
 
     commande = () => {
@@ -133,12 +137,11 @@ class Panier {
         }
 
         for (let prixVente of prixVentes) {
-            tabPrixVente.push(prixVente.innerHTML);
+            tabPrixVente.push(prixVente.innerHTML.replace(/\s/g, ''));
         }
 
         for (let depot of depots) {
-            if(depot)
-                tabDepots.push(depot.value);
+            tabDepots.push(depot.value);
         }
 
         let paramNoSerie = encodeURIComponent(tabNoSerie),
@@ -170,8 +173,8 @@ class Panier {
                         this._el.querySelector('[data-js-commande]').classList.add('hidden');
 
                         setTimeout(function(){
-                            window.location.href = 'index.php';
-                        }, 5000);
+                            window.location.href = 'index.php?Voiture&action=politiques';
+                        }, 3000);
                        
                     } else if (xhr.status === 404) {
                         console.log('Le fichier appelé dans la méthode open() n’existe pas.');
@@ -188,6 +191,7 @@ class Panier {
         e.preventDefault();
 
         this._el.querySelector('[data-js-choix]').classList.add('hidden');
+        this._el.querySelector('[data-js-choix]').classList.remove('choix');
         this._el.querySelector('[data-js-connexion]').classList.remove('hidden');
         this._el.querySelector('[data-js-creation]').classList.add('hidden');
 
