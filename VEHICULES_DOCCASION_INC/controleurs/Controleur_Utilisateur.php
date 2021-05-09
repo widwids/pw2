@@ -608,7 +608,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListeVillesAdmin", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -620,8 +620,8 @@
                         $data["villes"] = $modeleUtilisateur -> obtenir_villes();
                         $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
                         $data["pays"] = $modeleUtilisateur -> obtenir_tous('pays');
+                        
                         echo json_encode($data);
-                        //$this -> afficheVue("ListeVilles", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
