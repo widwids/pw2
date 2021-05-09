@@ -67,7 +67,7 @@ class Panier {
         e.target.parentNode.parentNode.remove();
 
         //Retirer du sessionStorage
-        let noSerie = e.target.parentNode.querySelector('[data-js-noSerie]').textContent,
+        let noSerie = e.target.parentNode.parentNode.querySelector('[data-js-noSerie]').textContent,
             nouveauPanier = [];
         
         for(let item of this._panier) {
@@ -253,6 +253,7 @@ class Panier {
         e.preventDefault();
 
         this._el.querySelector('[data-js-choix]').classList.add('hidden');
+        this._el.querySelector('[data-js-choix]').classList.remove('choix');
         this._el.querySelector('[data-js-connexion]').classList.add('hidden');
         this._el.querySelector('[data-js-creation]').classList.remove('hidden');
 

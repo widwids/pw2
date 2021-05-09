@@ -5,9 +5,6 @@
 
             //Modèle pour les commandes
             $modeleCommande = new Modele_Commande();
-            
-			$this -> afficheVue("Head");
-            $this -> afficheVue("Header");
 
             if(isset($params["action"])) {
 				$action = $params["action"]; 
@@ -21,10 +18,6 @@
             switch($action) {
 
                 /*--------------- Insertion(CREATE) ---------------*/
-
-                case "formulaireAjoutCommande":
-                    $this -> afficheVue("FormulaireAjoutCommande");
-                    break;
 
                 case "ajouterCommande":
                     if(isset($_SESSION["utilisateur"])) {
@@ -50,10 +43,6 @@
                                     $listePrixVente[$i], $listeDepots[$i], $listeStatutId[$i], $params["expeditionId"],
                                     $params["modePaiementNo"]);
                             }
-                            
-                            //$data["commandes"] = $modeleCommande -> obtenirCommandes();
-
-                            //$this -> afficheVue("ListeCommandes", $data);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -63,31 +52,35 @@
                     }
                     break;
 
-                case "formulaireAjoutFature":
-                    $this -> afficheVue("FormulaireAjoutFacture");
+                case "ajouterCommandeEmploye":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($param["usagerId"], $params["voitureId"], $params["prixVente"], 
+                            $params["statutId"], $params["expeditionId"], $params["modePaiementNo"])) {
+
+                            if(!isset($params["depot"]))  $params["depot"] = 0;
+
+                            $noCommande = $modeleCommande -> ajouterCommande($param["usagerId"]);
+                            $modeleCommande -> ajouterCommandeVoiture($noCommande, $params["voitureId"], 
+                                $params["prixVente"], $params["depot"], $params["statutId"], 
+                                $params["expeditionId"], $params["modePaiementNo"]);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
                     break;
 
                 case "ajouterFacture":
-                    if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], $params["commandeId"],
-                        $params["modePaiementId"])) {
+                    if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], 
+                        $params["commandeId"], $params["modePaiementId"])) {
                         
                         $modeleCommande -> ajouterFacture($params["expeditionFR"], $params["expeditionEN"], 
                             $params["prixFinal"], $params["commandeId"], $params["modePaiementId"]);
                         
                         $data["factures"] = $modeleCommande -> obtenirFactures();
 
-                        $this -> afficheVue("ListeFactures", $data);
+                        //$this -> afficheVue("ListeFactures", $data);
                     } else {
                         trigger_error("Paramètre manquant.");
-                    }
-                    break;
-
-                case "formulaireAjoutModePaiement":
-                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $this -> afficheVue("FormulaireAjoutModePaiement");
-                    } else {
-                        //Redirection vers le formulaire d'authentification
-                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
@@ -95,9 +88,9 @@
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomModeFR"], $params["nomModeEN"])) {
                             $modeleCommande -> ajouterModePaiement($params["nomModeFR"], $params["nomModeEN"]);
-                            $data["modePaiement"] = $modeleCommande -> obtenirModePaiement();
+                            $data["modePaiement"] = $modeleCommande -> obtenir_tous('modePaiement');
 
-                            $this -> afficheVue("ListeModePaiement", $data);
+                            //$this -> afficheVue("ListeModePaiement", $data);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -113,20 +106,42 @@
                         $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
                         $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
                         $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("Panier", $data);
+                        $this -> afficheVue("Footer");
                     } else {
                         $data["villes"] = $modeleCommande -> obtenir_tous('ville');
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
                         $this -> afficheVue("Panier", $data);
+                        $this -> afficheVue("Footer");
                     }
                     break;
 
                 case "afficheCommandes":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $vue = "ListeCommandes";
+                        $data["commandes"] = $modeleCommande -> obtenirCommandes();
+                        $data["statuts"] = $modeleCommande -> obtenir_tous("statut");
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+                        $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
+                        $data["utilisateurs"] = $modeleCommande -> obtenir_tous("utilisateur");
+
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeCommandesAdmin", $data);
+                        $this -> afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;    
+
+                case "afficheCommandesAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();
                         
                         echo json_encode($data);
-                        //$this -> afficheVue($vue, $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -146,7 +161,7 @@
                         echo json_encode($data);
                         //$this -> afficheVue($vue, $data); 
                     } else {													
-                        $this -> afficheVue("Page404");
+                        trigger_error("Paramètre manquant.");
                     } 
                     break;
 
@@ -175,7 +190,7 @@
                             echo json_encode($data);
                             //$this -> afficheVue($vue, $data);
                         } else {													
-                            $this -> afficheVue("Page404");
+                            trigger_error("Paramètre manquant.");
                         }
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -184,19 +199,70 @@
                     break;
 
                 case "afficheModePaiement":
-                    //$vue = "ListeModePaiement";
-                    $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idModePaiement"])) {
+                            $data["modePaiement"] = $modeleCommande -> obtenir_par_id('modePaiement', 'idModePaiement', $params["idModePaiement"]);
 
-                    echo json_encode($data);
-                    //$this -> afficheVue($vue, $data);
+                            $this -> afficheVue("Head");
+                            $this -> afficheVue("Header");
+                            $this -> afficheVue("ListeModePaiement", $data);
+                            $this -> afficheVue("Footer");
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "afficheModePaiementAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["idModePaiement"])) {
+                            $data["modePaiement"] = $modeleCommande -> obtenir_par_id('modePaiement', 'idModePaiement', $params["idModePaiement"]);
+
+                            echo json_encode($data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listeModePaiement":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeModePaiement", $data);
+                        $this -> afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "listeModePaiementAJAX":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+
+                        echo json_encode($data);
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
                     break;
 
                 /*--------------- Modification(UPDATE) ---------------*/
 
                 case "modifierCommande":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["usagerId"], $params["noCommande"], $params["voitureId"], $params["statutFR"],
-                            $params["statutEN"], $params["depot"], $params["prixVente"])) {
+                        if(isset($param["usagerId"], $params["voitureId"], $params["prixVente"], 
+                        $params["depot"], $params["statutId"], $params["expeditionId"], 
+                        $params["modePaiementNo"])) {
                             
                             $modeleCommande -> modifierCommande($params["usagerId"], $params["noCommande"]);
                             $modeleCommande -> modifierCommandeVoiture($params["noCommande"], $params["voitureId"], 
@@ -247,10 +313,13 @@
                     }
 					break;
                 default:
+                    $this -> afficheVue("Head");
+                    $this -> afficheVue("Header");
                     $this -> afficheVue("Page404");
+                    $this -> afficheVue("Footer");
             }
 
-            $this -> afficheVue("Footer");
+            //$this -> afficheVue("Footer");
         }
     }
 ?>

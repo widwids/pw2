@@ -5,7 +5,8 @@
 
 		//Ajouter une commande
 		public function ajouterCommande($usagerId) {
-			$requete = "INSERT INTO commande(dateCommande, usagerId, visibilite) VALUES ('" . date('Y-m-d H:i:s') . "', :uI, 1)";
+			$requete = "INSERT INTO commande(dateCommande, usagerId, visibilite) 
+				VALUES ('" . date('Y-m-d H:i:s') . "', :uI, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":uI", $usagerId);
             $requetePreparee -> execute();
@@ -18,34 +19,32 @@
 
 		//Toutes les commandes 
 		public function obtenirCommandes() {
-			try {
-				$requete = $this -> connexion -> query("SELECT commandeNo, voitureId, statutFR, statutEN, depot, prixVente, 
-					dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, 
-					courriel, pseudonyme, villeId FROM commandeVoiture JOIN commande ON commandeNo = noCommande JOIN utilisateur ON 
-					usagerId = idUtilisateur");
-				$requete -> execute();
-
-				return $requete -> fetchAll(PDO::FETCH_ASSOC);
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
+			$requete = "SELECT commandeNo, voitureId, prixVente, depot, statutId, expeditionId, modePaiementNo, 
+				dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
+				cellulaire, courriel, pseudonyme, villeId, nomExpeditionFR, nomExpeditionEN, nomStatutFR, 
+				nomStatutEN, nomModeFR, nomModeEN FROM commandeVoiture JOIN statut ON statutId = idStatut 
+				JOIN expedition ON expeditionId = idExpedition JOIN modePaiement ON 
+				modePaiementNo = idModePaiement JOIN commande ON commandeNo = noCommande JOIN utilisateur 
+				ON usagerId = idUtilisateur WHERE commandeVoiture.visibilite = 1";
+			$resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		//Obtenir une seule commande donnée
-		public function obtenirCommande($idCommande) {
-			try {
-				$requete = $this -> connexion -> query("SELECT commandeNo, voitureId, statutFR, statutEN, depot, prixVente, 
-				dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, 
-				courriel, pseudonyme, villeId FROM commandeVoiture JOIN commande ON commandeNo = noCommande JOIN utilisateur ON 
-				usagerId = idUtilisateur WHERE noCommande = " . $idCommande);
-				$requete -> execute();
+		public function obtenirCommande($commandeNo) {
+			$requete = "SELECT commandeNo, voitureId, prixVente, depot, statutId, expeditionId, modePaiementNo,
+				dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
+				cellulaire, courriel, pseudonyme, villeId, nomExpeditionFR, nomExpeditionEN, nomStatutFR, 
+				nomStatutEN, nomModeFR, nomModeEN FROM commandeVoiture JOIN statut ON statutId = idStatut 
+				JOIN expedition ON expeditionId = idExpedition JOIN modePaiement ON modePaiementNo = 
+				idModePaiement JOIN commande ON commandeNo = noCommande JOIN utilisateur 
+				ON usagerId = idUtilisateur WHERE commandeVoiture.visibilite = 1 AND commandeNo = " . $commandeNo;
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":id", $id);
+            $requetePreparee -> execute();
 
-				return $requete -> fetch(PDO::FETCH_ASSOC);
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
+            return $requetePreparee -> fetch(PDO::FETCH_ASSOC);			
 		}
 
 		//Modifier une commande
@@ -80,16 +79,18 @@
 				return false;
 		}
 
-		public function modifierCommandeVoiture($commandeNo, $voitureId, $statutFR, $statutEN, $depot, $prixVente) {
-			$requete = "UPDATE commandeVoiture SET statutFR = :sFR, statutEN = :sEN, depot = :de, prixVente = :pV, 
-                WHERE commandeNo = :cNo AND voitureId = :vId";
+		public function modifierCommandeVoiture($commandeNo, $voitureId, $prixVente, $depot, $statuId, 
+				$expeditionId, $modePaiementNo) {
+			$requete = "UPDATE commandeVoiture SET prixVente = :pV, depot = :de, statutId = :stId,
+				expeditionId = :exId, modePaiementNo = :mP WHERE commandeNo = :cNo AND voitureId = :vId";
 			$requetePreparee = $this -> connexion -> prepare($requete);
-            $requetePreparee -> bindParam(":sFR", $statutFR);
-            $requetePreparee -> bindParam(":sEN", $statutEN);
-            $requetePreparee -> bindParam(":de", $depot);
-            $requetePreparee -> bindParam(":pV", $prixVente);
-			$requetePreparee -> bindParam(":cNo", $commandeNo);
-            $requetePreparee -> bindParam(":vId", $voitureId);
+            $requetePreparee -> bindParam(":cNo", $commandeNo);
+			$requetePreparee -> bindParam(":vId", $voitureId);
+			$requetePreparee -> bindParam(":pV", $prixVente);
+			$requetePreparee -> bindParam(":de", $depot);
+			$requetePreparee -> bindParam(":stId", $statuId);
+			$requetePreparee -> bindParam(":exId", $expeditionId);
+			$requetePreparee -> bindParam(":mP", $modePaiementNo);
             $requetePreparee -> execute();
 		}
 
