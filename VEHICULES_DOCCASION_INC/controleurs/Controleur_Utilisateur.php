@@ -226,9 +226,32 @@
 
                 case "ajouterTaxe":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["nomTaxeFR"], $params["nomTaxeEN"], $params["taux"], $params["provinceId"])) {
-                            $taxeId = $modeleUtilisateur -> ajouterTaxe($params["nomTaxeFR"], $params["nomTaxeEN"]);
-                            $modeleUtilisateur -> ajouterTaxeProvince($params["provinceId"], $taxeId, $params["taux"]);
+                        if(isset($params["nomTaxeFR"], $params["nomTaxeEN"])) {
+                            $modeleUtilisateur -> ajouterTaxe($params["nomTaxeFR"], $params["nomTaxeEN"]);
+                            $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
+                            //$this -> afficheVue("ListeTaxes", $data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
+                    }
+                    break;
+
+                case "formulaireAjoutTaxeProvince":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
+                        $this -> afficheVue("FormulaireAjoutTaxeProvince");
+                        $this->afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
+
+                case "ajouterTaxeProvince":
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["taux"], $params["provinceId"], $params["taxeId"])) {
+                            $modeleUtilisateur -> ajouterTaxeProvince($params["provinceId"], $params["taxeId"], $params["taux"]);
                             $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
                             //$this -> afficheVue("ListeTaxes", $data);
                         } else {
