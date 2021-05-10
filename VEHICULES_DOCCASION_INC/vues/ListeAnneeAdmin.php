@@ -58,11 +58,10 @@
         </div>
         <div>
             <label for="annee">Année</label>
-            <input type="text" name="annee">
+            <input type="text" name="annee" required>
         </div>
         <div>
-            <label for="visibilite">Visibilité</label>
-            <input type="checkbox" name="visibilite" value="1">		
+            <input type="hidden" name="visibilite" value="1">		
 	    </div>
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-annee>
@@ -241,8 +240,12 @@ let btnAjouterAnnee = document.querySelector("[data-js-btn-ajouter-annee]");
 btnAjouterAnnee.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterAnneeAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterAnneeAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -250,8 +253,12 @@ let btnModifierAnnee = document.querySelector("[data-js-btn-modifier-annee]");
 btnModifierAnnee.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierAnneeAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierAnneeAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

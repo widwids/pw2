@@ -60,7 +60,7 @@
         </div>
         <div>
             <label for="nomMotopro">Nom de motopropulseur</label>
-            <input type="text" name="nomMotopro">
+            <input type="text" name="nomMotopro" required>
         </div>
         <div>
             <input type="hidden" name="visibilite" checked>		
@@ -244,8 +244,12 @@ let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-mp]");
 btnAjouterVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterMPAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterMPAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -253,8 +257,12 @@ let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-mp]");
 btnModifierVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierMPAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierMPAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

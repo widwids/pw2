@@ -66,11 +66,11 @@
         </div>
         <div>
             <label for="nomPrivilegeFR">Nom du privilège en français</label>
-            <input type="text" name="nomPrivilegeFR">
+            <input type="text" name="nomPrivilegeFR" required>
         </div>
         <div>
             <label for="nomPrivilegeEN">Nom du privilège en anglais</label>
-            <input type="text" name="nomPrivilegeEN">
+            <input type="text" name="nomPrivilegeEN" required>
         </div>
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-privilege>
@@ -252,8 +252,12 @@ let btnAjouterPrivilege = document.querySelector("[data-js-btn-ajouter-privilege
 btnAjouterPrivilege.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterPrivilegeAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterPrivilegeAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -261,8 +265,12 @@ let btnModifierPrivilege = document.querySelector("[data-js-btn-modifier-privile
 btnModifierPrivilege.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierPrivilegeAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierPrivilegeAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

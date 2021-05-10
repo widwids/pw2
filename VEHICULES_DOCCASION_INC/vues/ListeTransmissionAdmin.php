@@ -254,8 +254,12 @@ let btnAjouterTransmission = document.querySelector("[data-js-btn-ajouter-transm
 btnAjouterTransmission.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterTransmissionAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterTransmissionAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -263,8 +267,12 @@ let btnModifierTransmission = document.querySelector("[data-js-btn-modifier-tran
 btnModifierTransmission.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierTransmissionAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierTransmissionAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

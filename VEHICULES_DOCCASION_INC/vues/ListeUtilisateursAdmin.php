@@ -63,11 +63,11 @@
         </div>
         <div>
             <label for="nom">Nom</label>
-            <input name="nom" id="nom" cols="30" rows="10"></input>
+            <input name="nom" id="nom" cols="30" rows="10" required>
         </div>
         <div>
             <label for="dateNaissance">Date de naissance</label>
-            <input type="date" name="dateNaissance" id="dateNaissance" required></input>
+            <input type="date" name="dateNaissance" id="dateNaissance" required>
         </div>
         <div>
             <label for="codePostal">Code postal</label>
@@ -142,11 +142,11 @@
         </div>
         <div>
             <label for="nom">Nom</label>
-            <input name="nom" id="nom" cols="30" rows="10"></input>
+            <input name="nom" id="nom" cols="30" rows="10" required>
         </div>
         <div>
             <label for="dateNaissance">Date de naissance</label>
-            <input type="date" name="dateNaissance" id="dateNaissance" required></input>
+            <input type="date" name="dateNaissance" id="dateNaissance" required>
         </div>
         <div>
             <label for="codePostal">Code postal</label>
@@ -388,8 +388,12 @@ let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-voiture]");
 btnAjouterVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterUtilisateurAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterUtilisateurAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -397,8 +401,12 @@ let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-voiture]"
 btnModifierVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierUtilisateurAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierUtilisateurAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 
