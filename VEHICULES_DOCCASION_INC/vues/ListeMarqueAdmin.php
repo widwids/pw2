@@ -238,8 +238,12 @@ let btnAjouterMarque = document.querySelector("[data-js-btn-ajouter-marque]");
 btnAjouterMarque.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterMarqueAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterMarqueAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -247,8 +251,12 @@ let btnModifierMarque = document.querySelector("[data-js-btn-modifier-marque]");
 btnModifierMarque.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierMarqueAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierMarqueAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

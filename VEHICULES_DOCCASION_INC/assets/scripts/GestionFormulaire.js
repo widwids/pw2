@@ -1,6 +1,7 @@
 class GestionFormulaire{
     constructor(el)
     {
+        this._modal = el;
         this._el = el.querySelector('form');
         this.inputs = this._el.querySelectorAll('input');
         this.textareas = this._el.querySelectorAll('textarea'); 
@@ -100,6 +101,99 @@ class GestionFormulaire{
         {
             this.selects[i].value = "";
         }     
+
+    }
+
+    valide = () =>
+    {
+        let valide = true; 
+        let erreurTopInputs = 0;
+        let erreurTopTextares = 0;
+
+        for(let i=0; i < this.inputs.length; i++)
+        {
+            let input = this.inputs[i]; 
+            if(input.required)
+            {
+                if(input.value == ""){ 
+
+                    let spanErreur = document.createElement("span");
+                    spanErreur.classList.add("yu-erreur-validation");
+                    spanErreur.innerHTML = "Ce champ est required";
+                    valide = false;
+                    if (erreurTopInputs == 0) 
+                    {
+                        console.log("input",input);
+                        erreurTopInputs = $(input).position().top;
+                    }
+
+                    if(!input.nextElementSibling)
+                    {
+                        input.parentNode.append(spanErreur);
+                        input.classList.add("yu-erreur-validation");                        
+                    }
+                }
+                else
+                {
+                    if(input.nextElementSibling)
+                    {
+                        input.parentNode.removeChild(input.nextElementSibling);
+                        input.classList.remove("yu-erreur-validation");
+                    }
+                    
+                }
+            }
+            
+        }
+
+        for(let i=0; i < this.textareas.length; i++)
+        {
+            let textarea = this.textareas[i]; 
+            if(textarea.required)
+            {
+                if(textarea.value == ""){ 
+
+                    let spanErreur = document.createElement("span");
+                    spanErreur.classList.add("yu-erreur-validation");
+                    spanErreur.innerHTML = "Ce champ est required";
+                    valide = false;
+                    if (erreurTopTextares == 0) 
+                    {
+                        console.log("textarea",textarea);
+                        erreurTopTextares = $(textarea).position().top;
+                    }
+
+                    if(!textarea.nextElementSibling)
+                    {
+                        textarea.parentNode.append(spanErreur);
+                        textarea.classList.add("yu-erreur-validation");
+                    }
+                }
+                else
+                {
+                    if(textarea.nextElementSibling)
+                    {
+                        textarea.parentNode.removeChild(textarea.nextElementSibling);
+                        textarea.classList.remove("yu-erreur-validation");
+                    }
+                    
+                }
+            }           
+        }
+
+        let erreurTop; console.log(erreurTopInputs, erreurTopTextares);
+        if (erreurTopInputs < erreurTopTextares) 
+        {
+            erreurTop = erreurTopInputs;
+        }
+        else
+        {            
+            erreurTop = erreurTopTextares;
+            if(erreurTopTextares == 0) erreurTop = erreurTopInputs;
+        } 
+        $(this._modal).animate({scrollTop:erreurTop}, '500');
+
+        return valide;
 
     }
 

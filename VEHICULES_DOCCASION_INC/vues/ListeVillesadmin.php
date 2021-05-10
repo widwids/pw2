@@ -83,11 +83,11 @@
         </div>
         <div>
             <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR">
+            <input type="text" name="nomVilleFR" required>
         </div>
         <div>
             <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN">
+            <input type="text" name="nomVilleEN" required>
         </div>
         <div>
             <label for="provinceCode">Province</label>
@@ -282,8 +282,12 @@ let btnAjouterVille = document.querySelector("[data-js-btn-ajouter-ville]");
 btnAjouterVille.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterVilleAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterVilleAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -291,8 +295,12 @@ let btnModifierVille = document.querySelector("[data-js-btn-modifier-ville]");
 btnModifierVille.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierVilleAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierVilleAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

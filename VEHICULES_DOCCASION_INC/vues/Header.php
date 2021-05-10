@@ -30,8 +30,9 @@
 								<a href="index.php?Utilisateur&action=listeVilles">Villes</a>
 								<a href="index.php?Utilisateur&action=listeProvinces">Provinces</a>
 								<a href="index.php?Utilisateur&action=listePays">Pays</a>
-								<a href="">Taxes</a>
-								<a href="">Modes paiement</a>
+								<a href="index.php?Utilisateur&action=listeTaxes">Taxes</a>
+								<a href="index.php?Utilisateur&action=listeTaxeProvince">Taxes - Province</a>
+								<a href="index.php?Utilisateur&action=liste">Modes paiement</a>
 								<a href="">Commandes</a>
 								<a href="">Factures</a>
 							</div>
