@@ -252,8 +252,12 @@ let btnAjouterModePaiement = document.querySelector("[data-js-btn-ajouter-modePa
 btnAjouterModePaiement.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterModePaiementAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterModePaiementAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -261,8 +265,12 @@ let btnModifierModePaiement = document.querySelector("[data-js-btn-modifier-mode
 btnModifierModePaiement.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierModePaiementAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierModePaiementAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

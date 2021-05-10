@@ -1,10 +1,11 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-groupeMP yu-btn-ajouter-container">
+    <div class="yu-table-pays yu-btn-ajouter-container">
     <button class="yu-btn-ajouter">Ajouter un pays</button>
     </div>
 
+    <div class="yu-table-responsive">
     <table class="yu-table yu-table-pays">
         
         <thead>
@@ -18,7 +19,7 @@
 
     <tbody>
 
-    <?php foreach ($data as $pays) { ?>
+    <?php foreach ($data["pays"] as $pays) { ?>
 
         <tr>
             <td data-js-idPays><?= $pays["idPays"]?></td>
@@ -32,6 +33,7 @@
     </tbody>
 
     </table>
+    </div>
 
 </section>
 
@@ -66,11 +68,11 @@
         </div>
         <div>
             <label for="nomPaysFR">Nom du pays en français</label>
-            <input type="text" name="nomPaysFR">
+            <input type="text" name="nomPaysFR" required>
         </div>
         <div>
             <label for="nomPaysEN">Nom du pays en anglais</label>
-            <input type="text" name="nomPaysEN">
+            <input type="text" name="nomPaysEN" required>
         </div>
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-pays>
@@ -154,19 +156,19 @@ function obtenirPaysAJAX(id)
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=&idPays=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=affichePaysAJAX&idPays=${id}`, true);
     xhttp.send();    
 
 }
 
-function obtenirPaysAJAX()
+function obtenirPayssAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response);
+            let jsonResponse = JSON.parse(this.response)['pays'];
             console.log(jsonResponse);
 
             let table = document.querySelector("table tbody"); 
@@ -192,7 +194,7 @@ function obtenirPaysAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Voiture_AJAX&action=ListePaysJson", true);
+    xhttp.open("GET", "index.php?Utilisateur&action=listePaysAJAX", true);
     xhttp.send();
 
 }
@@ -205,12 +207,12 @@ function ajouterPaysAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("test");
-            obtenirPaysAJAX();
+            console.log("ajouter pays response",this.response);
+            obtenirPayssAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterPays", true);
+    xhttp.open("POST", "index.php?Utilisateur&action=ajouterPays", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
@@ -223,13 +225,13 @@ function modifierPaysAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
-            obtenirPaysAJAX();
+            console.log("response modifier",this.response);
+            obtenirPayssAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierPays", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Utilisateur&action=modifierPays", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer sur serveur",formulaire.obtenirQueryString());
     xhttp.send(formulaire.obtenirQueryString());
 }
 
@@ -239,21 +241,25 @@ function supprimerPaysAJAX(id)
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenirPaysAJAX();
+            obtenirPayssAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
+    xhttp.open("POST", "index.php?Utilisateur&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=ville&id=${id}`);
+    xhttp.send(`nomTable=pays&id=${id}`);
 }
 
 let btnAjouterPays = document.querySelector("[data-js-btn-ajouter-pays]");
 btnAjouterPays.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterPaysAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterPaysAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -261,17 +267,23 @@ let btnModifierPays = document.querySelector("[data-js-btn-modifier-pays]");
 btnModifierPays.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierPaysAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierPaysAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
+    if(evt.target.name == "btnOui"){
     supprimerPaysAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

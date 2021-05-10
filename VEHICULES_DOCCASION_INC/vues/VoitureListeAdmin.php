@@ -173,7 +173,7 @@
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
             <label for="noSerie">№ Série</label>
-            <input type="text" name="noSerie" value="">
+            <input type="text" name="noSerie" value="" required>
         </div>
         <div>
             <label for="descriptionFR">Description Français</label>
@@ -446,8 +446,12 @@ let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-voiture]");
 btnAjouterVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterVoitureAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterVoitureAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -455,8 +459,12 @@ let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-voiture]"
 btnModifierVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierVoitureAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierVoitureAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

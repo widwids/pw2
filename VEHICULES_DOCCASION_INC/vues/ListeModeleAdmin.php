@@ -264,8 +264,12 @@ let btnAjouterModele = document.querySelector("[data-js-btn-ajouter-modele]");
 btnAjouterModele.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterModeleAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterModeleAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -273,8 +277,12 @@ let btnModifierModele = document.querySelector("[data-js-btn-modifier-modele]");
 btnModifierModele.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierModeleAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierModeleAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 

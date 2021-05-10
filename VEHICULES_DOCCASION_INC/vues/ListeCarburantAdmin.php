@@ -254,8 +254,12 @@ let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-carburant]"
 btnAjouterVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterCarburantAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterCarburantAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -263,8 +267,12 @@ let btnModifierVoiture = document.querySelector("[data-js-btn-modifier-carburant
 btnModifierVoiture.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierCarburantAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierCarburantAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 
