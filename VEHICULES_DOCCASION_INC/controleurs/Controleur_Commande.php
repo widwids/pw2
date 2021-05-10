@@ -119,7 +119,7 @@
                     }
                     break;
 
-                case "afficheCommandes":
+                case "listeCommandes":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();
                         $data["statuts"] = $modeleCommande -> obtenir_tous("statut");
@@ -137,7 +137,7 @@
                     }
                     break;    
 
-                case "afficheCommandesAJAX":
+                case "listeCommandesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();
                         
@@ -165,7 +165,22 @@
                     } 
                     break;
 
-                case "afficheFactures":
+                case "listeFactures":
+                    //Affiche toutes les factures
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["factures"] = $modeleCommande -> obtenirFactures();
+                        
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeFacturesAdmin", $data);
+                        $this -> afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;    
+
+                case "listeFacturesAJAX":
                     //Affiche toutes les factures
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         //$vue = "ListeFactures";

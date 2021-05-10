@@ -31,9 +31,9 @@
 								<a href="index.php?Utilisateur&action=listeProvinces">Provinces</a>
 								<a href="index.php?Utilisateur&action=listePays">Pays</a>
 								<a href="">Taxes</a>
-								<a href="">Modes paiement</a>
-								<a href="">Commandes</a>
-								<a href="">Factures</a>
+								<a href="index.php?Commande&action=listeModePaiement">Modes paiement</a>
+								<a href="index.php?Commande&action=listeCommandes">Commandes</a>
+								<a href="index.php?Commande&action=listeFactures">Factures</a>
 							</div>
 						</div>
 						<?php } ?>

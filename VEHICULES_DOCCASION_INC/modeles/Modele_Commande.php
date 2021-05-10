@@ -5,8 +5,8 @@
 
 		//Ajouter une commande
 		public function ajouterCommande($usagerId) {
-			$requete = "INSERT INTO commande(dateCommande, usagerId, visibilite) 
-				VALUES ('" . date('Y-m-d H:i:s') . "', :uI, 1)";
+			$requete = "INSERT INTO commande(dateCommande, quantite, usagerId, visibilite) 
+				VALUES ('" . date('Y-m-d H:i:s') . "', 1, :uI, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":uI", $usagerId);
             $requetePreparee -> execute();
@@ -28,6 +28,7 @@
 				ON usagerId = idUtilisateur WHERE commandeVoiture.visibilite = 1";
 			$resultats = $this -> connexion -> query($requete);
             $resultats -> execute();
+
             return $resultats -> fetchAll(PDO::FETCH_ASSOC);
 		}
 
@@ -117,9 +118,9 @@
 
 		//Toutes les factures
 		public function obtenirFactures() {
-			try {
-				$requete = $this -> connexion -> query("SELECT noFacture, dateFacture, expeditionFR, expeditionEN,
-					prixFinal, commandeId, nomModeFR, nomModeEN FROM facture LEFT JOIN modepaiement ON 
+			$requete = "SELECT noFacture, dateFacture, prixFinal, idModePaiement, nomModeFR, nomModeEN, 
+				idExpedition, nomExpeditonFR, nomExpeditionEN, usagerId, prenom, nom, voitureId
+				FROM facture LEFT JOIN modepaiement ON 
 					modePaiementId = idModePaiement");
 				$requete -> execute();
 
