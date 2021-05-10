@@ -465,8 +465,8 @@
 
                 case "afficheTaxeProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["provinceId"])) {
-                            $data["taxeProvince"] = $modeleUtilisateur -> obtenir_par_id('taxeProvince', 'provinceId', $params["provinceId"]);
+                        if(isset($params["provinceId"], $params["taxeId"])) {
+                            $data["taxeProvince"] = $modeleUtilisateur -> obtenir_taxeProvince($params["provinceId"], $params["taxeId"]);
                             
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
@@ -483,8 +483,9 @@
 
                 case "afficheTaxeProvinceAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["provinceId"])) {
-                            $data["taxeProvince"] = $modeleUtilisateur -> obtenir_par_id('taxeProvince', 'provinceId', $params["provinceId"]);
+                        if(isset($params["provinceId"], $params["taxeId"])) {
+                            $data["taxeProvince"] = $modeleUtilisateur -> obtenir_taxeProvince($params["provinceId"], $params["taxeId"]);
+                            
                             echo json_encode($data);
                         } else {
                             trigger_error("Paramètre manquant.");
@@ -707,7 +708,9 @@
 
                 case "listeTaxeProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["taxeProvince"] = $modeleUtilisateur -> obtenir_tous('taxeProvince');
+                        $data["taxeProvince"] = $modeleUtilisateur -> obtenir_taxesProvince();
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
                         
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
@@ -721,7 +724,9 @@
 
                 case "listeTaxeProvinceAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["taxeProvince"] = $modeleUtilisateur -> obtenir_tous('taxeProvince');
+                        $data["taxeProvince"] = $modeleUtilisateur -> obtenir_taxesProvince();
+                        $data["provinces"] = $modeleUtilisateur -> obtenir_tous('province');
+                        $data["taxes"] = $modeleUtilisateur -> obtenir_tous('taxe');
                         echo json_encode($data);
                         //$this -> afficheVue("ListeTaxes", $data);
                     } else {
@@ -911,6 +916,18 @@
 
                 /*--------------- "Suppression" (DELETE) ---------------*/
 
+                case "suppressionTaxeProvince":
+                    if(isset($_SESSION["admin"])) {
+                        if (isset($params["provinceId"], $params["taxeId"])) {
+                            $modeleUtilisateur -> supprimerTaxeProvince($params["provinceId"], $params["taxeId"]);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }    
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;
                 case "suppression":
                     //Suppression d'un élément dans n'importe quelle table avec AJAX
                     if(isset($_SESSION["admin"])) {
