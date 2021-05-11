@@ -1,24 +1,25 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-groupeMP yu-btn-ajouter-container">
+    <div class="yu-table-modePaiement yu-btn-ajouter-container">
     <button class="yu-btn-ajouter">Ajouter un mode de paiement</button>
     </div>
 
+    <div class="yu-table-responsive">
     <table class="yu-table yu-table-modePaiement">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du mode de paiement en français</th>
-                <th>Nom du mode de paiement en anglais</th>
+                <th>Mode de paiement (fr)</th>
+                <th>Mode de paiement (eng)</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $modePaiement) { ?>
+    <?php foreach ($data['modePaiement'] as $modePaiement) { ?>
 
         <tr>
             <td data-js-idModePaiement><?= $modePaiement["idModePaiement"]?></td>
@@ -32,6 +33,7 @@
     </tbody>
 
     </table>
+    </div>
 
 </section>
 
@@ -119,7 +121,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idModePaiement]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idModePaiement]').innerHTML; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -154,19 +156,19 @@ function obtenirModePaiementAJAX(id)
         }
         };
 
-    xhttp.open("GET", `index.php?Utilisateur&action=&idModePaiement=${id}`, true);
+    xhttp.open("GET", `index.php?Commande&action=afficheModePaiementAJAX&idModePaiement=${id}`, true);
     xhttp.send();    
 
 }
 
-function obtenirModePaiementAJAX()
+function obtenirModePaiementsAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response);
+            let jsonResponse = JSON.parse(this.response)['modePaiement'];
             console.log(jsonResponse);
 
             let table = document.querySelector("table tbody"); 
@@ -174,7 +176,7 @@ function obtenirModePaiementAJAX()
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let ville = jsonResponse[i];
+                let modePaiement = jsonResponse[i];
 
                 table.innerHTML += 
                 `
@@ -192,7 +194,7 @@ function obtenirModePaiementAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Utilisateur&action=listeModePaiementAJAX", true);
+    xhttp.open("GET", "index.php?Commande&action=listeModePaiementAJAX", true);
     xhttp.send();
 
 }
@@ -210,7 +212,7 @@ function ajouterModePaiementAJAX()
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Commande&action=ajouterModePaiement", true);
+    xhttp.open("POST", "index.php?Commande&action=ajouterModePaiement", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
@@ -228,7 +230,7 @@ function modifierModePaiementAJAX()
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierModePaiement", true);
+    xhttp.open("POST", "index.php?Commande&action=modifierModePaiement", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
@@ -243,7 +245,7 @@ function supprimerModePaiementAJAX(id)
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
+    xhttp.open("POST", "index.php?Commande&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(`nomTable=modepaiement&id=${id}`);
 }
@@ -274,12 +276,14 @@ btnModifierModePaiement.addEventListener("click", (evt) => {
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
+    if(evt.target.name == "btnOui"){
     supprimerModePaiementAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 
