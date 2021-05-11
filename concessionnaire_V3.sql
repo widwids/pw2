@@ -163,7 +163,6 @@ CREATE TABLE utilisateur (
 CREATE TABLE commande (
 	noCommande SMALLINT UNSIGNED AUTO_INCREMENT,
 	dateCommande DATETIME NOT NULL,
-	/* prix DECIMAL(8,2) NOT NULL,  */
 	usagerId SMALLINT UNSIGNED NOT NULL,
 	visibilite BOOLEAN NOT NULL,
 	PRIMARY KEY (noCommande),
@@ -214,15 +213,14 @@ CREATE TABLE commandeVoiture (
 CREATE TABLE facture (
 	noFacture SMALLINT UNSIGNED AUTO_INCREMENT,
 	dateFacture DATETIME NOT NULL,
-	expeditionFR ENUM('livraison locale', 'ramassage') NOT NULL,
-	expeditionEN ENUM('local delivery', 'pickup') NOT NULL,
 	prixFinal DECIMAL(8,2) NOT NULL,
-	commandeId SMALLINT UNSIGNED NOT NULL,
 	modePaiementId SMALLINT UNSIGNED NOT NULL,
+	expeditionNo SMALLINT UNSIGNED NOT NULL,
 	visibilite BOOLEAN NOT NULL,
 	PRIMARY KEY (noFacture),
-	FOREIGN KEY (commandeId) REFERENCES commande(noCommande),
-	FOREIGN KEY (modePaiementId) REFERENCES modePaiement(idModePaiement)
+	FOREIGN KEY (noFacture) REFERENCES commande(noCommande),
+	FOREIGN KEY (modePaiementId) REFERENCES modePaiement(idModePaiement),
+	FOREIGN KEY (expeditionNo) REFERENCES expedition(idExpedition)
 );
 
 CREATE TABLE connexion (
@@ -526,7 +524,7 @@ INSERT INTO modePaiement (nomModeFR, nomModeEN, visibilite) VALUES
 
 INSERT INTO statut (nomStatutFR, nomStatutEN, visibilite) VALUES
 	('En attente', 'Pending', 1), 
-	('Réservé', 'Reserved', 1), 
+	('Réservé', 'Reserved', 1),
 	('Facturé', 'Invoiced', 1);
 
 INSERT INTO expedition (nomExpeditionFR, nomExpeditionEN, visibilite) VALUES
@@ -537,5 +535,5 @@ INSERT INTO commandeVoiture (commandeNo, voitureId, prixVente, depot, statutId, 
 	(1, 'ABC12300067154336', 15000.00, 0, 1, 2, 2, 1),
 	(1, 'AVF51847456154145', 15000.00, 5000.00, 2, 2, 2, 1);
 
-INSERT INTO facture (dateFacture, expeditionFR, expeditionEN, prixFinal, commandeId, modePaiementId, visibilite) VALUES 
-	('2021-04-14 01:01:12', 'ramassage', 'pickup', 15000, 1, 2, 1);
+INSERT INTO facture (dateFacture, prixFinal, modePaiementId, expeditionNo, visibilite) VALUES 
+	('2021-04-14 01:01:12', 15000, 2, 2, 1);

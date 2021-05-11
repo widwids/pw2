@@ -371,7 +371,7 @@
         /*--------------- Table privilege ---------------*/
 
         //Ajout privilège
-        public function ajouterPrivilege($nomPrivilegeFR, $nomProvinceEN) {
+        public function ajouterPrivilege($nomPrivilegeFR, $nomPrivilegeEN) {
             $requete = "INSERT INTO privilege(nomPrivilegeFR, nomPrivilegeEN, visibilite) VALUES (:nFR,:nEN, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomPrivilegeFR);
@@ -385,7 +385,7 @@
         }
 
         //Modifier le privilège
-        public function modifierPrivilege($nomPrivilegeFR, $nomProvinceEN, $idPrivilege) {
+        public function modifierPrivilege($nomPrivilegeFR, $nomPrivilegeEN, $idPrivilege) {
             $requete = "UPDATE privilege SET nomPrivilegeFR = :nFR, nomPrivilegeEN = :nEN WHERE idPrivilege = :idP";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomPrivilegeFR);
