@@ -169,6 +169,9 @@
                     //Affiche toutes les factures
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["factures"] = $modeleCommande -> obtenirFactures();
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+                        $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
+                        $data["utilisateurs"] = $modeleCommande -> obtenir_tous("utilisateur");
                         
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
@@ -185,6 +188,9 @@
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         //$vue = "ListeFactures";
                         $data["factures"] = $modeleCommande -> obtenirFactures();
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+                        $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
+                        $data["utilisateurs"] = $modeleCommande -> obtenir_tous("utilisateur");
                     
                         echo json_encode($data);
                         //$this -> afficheVue($vue, $data);

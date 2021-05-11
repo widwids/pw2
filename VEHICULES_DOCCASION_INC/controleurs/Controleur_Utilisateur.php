@@ -278,10 +278,12 @@
                             $modeleUtilisateur -> ajouterPrivilege($params["nomPrivilegeFR"], $params["nomPrivilegeEN"]);
                             $data["privileges"] = $modeleUtilisateur -> obtenir_tous('privilege');
                             
-                            //$this -> afficheVue("ListePrivileges", $data);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
                 

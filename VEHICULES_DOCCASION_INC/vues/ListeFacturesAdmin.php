@@ -46,29 +46,32 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR" required>
+            <label for="prixFinal">Prix final</label>
+            <input type="text" name="prixFinal" required>
         </div>
         <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN" required>
-        </div>
-        <div>
-            <label for="provinceCode">Province</label>
-            <select name="provinceCode" id="provinceCode">
-                <option value="">Sélectionnez une province</option>
-                    <?php foreach($data["provinces"] as $province) { ?>
+            <label for="modePaiementId">Mode de paiement</label>
+            <select name="modePaiementId" id="modePaiementId">
+                <option value="" selected hidden disabled>Sélectionnez un mode de paiement</option>
+<?php foreach($data["modePaiement"] as $modePaiement) { ?>
+                <option value="<?= $modePaiement["idModePaiement"] ?>">
+                    <?= $modePaiement["nomModeFR"] ?>
+                </option>
+<?php }?>
+            </select>
 
-                        <option value="<?= $province["codeProvince"] ?>"><?= $province["nomProvinceFR"]?></option>
-
-                    <?php }?>
+            <label for="expeditionNo">Expédition</label>
+            <select name="expeditionNo" id="expeditionNo">
+                <option value="" selected hidden disabled>Veuillez choisir un mode d'expédition</option>
+<?php foreach ($data["expeditions"] as $expedition) { ?>           
+                <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
+<?php } ?>
             </select>            
         </div>
         <div>
-            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-ville>
+            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-facture>
         </div>
     </form>
-
 
 </section>
 
