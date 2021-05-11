@@ -1,24 +1,25 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-groupeMP yu-btn-ajouter-container">
+    <div class="yu-table-privilege yu-btn-ajouter-container">
     <button class="yu-btn-ajouter">Ajouter un privilège</button>
     </div>
 
+    <div class="yu-table-responsive">
     <table class="yu-table yu-table-privilege">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du privilège en français</th>
-                <th>Nom du privilège en anglais</th>
+                <th>Privilège (fr)</th>
+                <th>Privilège (eng)</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $privilege) { ?>
+    <?php foreach ($data['privileges'] as $privilege) { ?>
 
         <tr>
             <td data-js-idPrivilege><?= $privilege["idPrivilege"]?></td>
@@ -32,6 +33,7 @@
     </tbody>
 
     </table>
+    </div>
 
 </section>
 
@@ -119,7 +121,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idPrivilege]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idPrivilege]').innerHTML; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -154,7 +156,7 @@ function obtenirPrivilegeAJAX(id)
         }
         };
 
-    xhttp.open("GET", `index.php?Voiture_AJAX&action=&idPrivilege=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=affichePrivilegeAJAX&idPrivilege=${id}`, true);
     xhttp.send();    
 
 }
@@ -166,7 +168,7 @@ function obtenirPrivilegesAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response);
+            let jsonResponse = JSON.parse(this.response)['privileges'];
             console.log(jsonResponse);
 
             let table = document.querySelector("table tbody"); 
@@ -174,7 +176,7 @@ function obtenirPrivilegesAJAX()
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let ville = jsonResponse[i];
+                let privilege = jsonResponse[i];
 
                 table.innerHTML += 
                 `
@@ -205,13 +207,13 @@ function ajouterPrivilegeAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("test");
+            console.log("response ajouter", this.response);
             obtenirPrivilegesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterPrivilege", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Utilisateur&action=ajouterPrivilege", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer les donnees sur serveur",formulaire.obtenirQueryString());
     xhttp.send(formulaire.obtenirQueryString());
 }
 
@@ -223,13 +225,13 @@ function modifierPrivilegeAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
+            console.log("response modifier",this.response);
             obtenirPrivilegesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierPrivilege", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Utilisateur&action=modifierPrivilege", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer sur serveur",formulaire.obtenirQueryString());
     xhttp.send(formulaire.obtenirQueryString());
 }
 
@@ -243,7 +245,7 @@ function supprimerPrivilegeAJAX(id)
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
+    xhttp.open("POST", "index.php?Utilisateur&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(`nomTable=privilege&id=${id}`);
 }

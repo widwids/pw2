@@ -25,9 +25,9 @@
     <?php foreach ($data['taxeProvince'] as $taxeProvince) { ?>
 
         <tr>
-            <td data-js-idProvince><?= $taxeProvince["provinceId"]?></td>
+            <td data-js-idProvince data-js-idTaxe="<?=$taxeProvince["idTaxe"]?>"><?= $taxeProvince["codeProvince"]?></td>
             <td><?= $taxeProvince["nomProvinceFR"]?></td>
-            <td><?= $taxeProvince["nomProvinceEN"]?></td>            
+            <td><?= $taxeProvince["nomProvinceEn"]?></td>            
             <td><?= $taxeProvince["nomTaxeFR"]?></td>
             <td><?= $taxeProvince["nomTaxeEN"]?></td>
             <td><?= $taxeProvince["taux"]?></td>
@@ -160,8 +160,10 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').innerHTML; 
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').innerHTML;
+            let idTaxe = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').dataset.jsIdtaxe; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
+            yuModalSupprimer.querySelector("[data-js-id]").dataset.jsIdt = idTaxe; 
             yuModalSupprimer.style.width = "100%";
         });
     }
@@ -170,8 +172,9 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').innerHTML; 
-            obtenirTaxeProvinceAJAX(id);
+            let idProvince = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').innerHTML; 
+            let idTaxe = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').dataset.jsIdtaxe;
+            obtenirTaxeProvinceAJAX(idProvince, idTaxe);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -180,10 +183,10 @@ function ajouterEvenements()
 
 ajouterEvenements();
 
-function obtenirTaxeProvinceAJAX(id)
+function obtenirTaxeProvinceAJAX(idProvince, idTaxe)
 {
 
-    let xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest(); console.log(idProvince, idTaxe);
     let formulaire = new GestionFormulaire(yuModalModifier);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
@@ -195,7 +198,7 @@ function obtenirTaxeProvinceAJAX(id)
         }
         };
 
-    xhttp.open("GET", `index.php?Utilisateur&action=afficheTaxeProvinceAJAX&provinceId=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=afficheTaxeProvinceAJAX&provinceId=${idProvince}&taxeId=${idTaxe}`, true);
     xhttp.send();    
 
 }
@@ -220,9 +223,9 @@ function obtenirTaxeProvincesAJAX()
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-idProvince>${ taxeProvince["codeProvince"]}</td>
+                    <td data-js-idProvince data-js-idTaxe="${taxeProvince["idTaxe"]}">${ taxeProvince["codeProvince"]}</td>
                     <td>${ taxeProvince["nomProvinceFR"]}</td>
-                    <td>${ taxeProvince["nomProvinceEN"]}</td>            
+                    <td>${ taxeProvince["nomProvinceEn"]}</td>            
                     <td>${ taxeProvince["nomTaxeFR"]}</td>
                     <td>${ taxeProvince["nomTaxeEN"]}</td>
                     <td>${ taxeProvince["taux"]}</td>
@@ -273,23 +276,24 @@ function modifierTaxeProvinceAJAX()
     };
 
     xhttp.open("POST", "index.php?Utilisateur&action=modifierTaxeProvince", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer les donnees sur serveur", formulaire.obtenirQueryString());
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimerTaxeProvinceAJAX(id)
+function supprimerTaxeProvinceAJAX(idP, idT)
 {
     let xhttp = new XMLHttpRequest(); 
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            console.log("response supprimer",this.response);
             obtenirTaxeProvincesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Utilisateur&action=suppression", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=taxeProvince&id=${id}`);
+    xhttp.open("POST", "index.php?Utilisateur&action=suppressionTaxeProvince", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log(idP,idT);
+    xhttp.send(`provinceId=${idP}&taxeId=${idT}`);
 }
 
 let btnAjouterTaxeProvince = document.querySelector("[data-js-btn-ajouter-taxeProvince]");
@@ -323,7 +327,7 @@ formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
     if(evt.target.name == "btnOui"){
-    supprimerTaxeProvincesAJAX(evt.target.dataset.jsId);
+    supprimerTaxeProvinceAJAX(evt.target.dataset.jsId, evt.target.dataset.jsIdt);
     yuModalSupprimer.style.width = "0";
     }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 

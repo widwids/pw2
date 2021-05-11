@@ -369,6 +369,20 @@ body{
 
 }
 
+.yu-table-privilege{
+
+    max-width: 600px;
+    margin: 35px auto;
+
+}
+
+.yu-table-modePaiement{
+
+    max-width: 600px;
+    margin: 35px auto;
+
+}
+
 
 
 .yu-table .yu-image img{
