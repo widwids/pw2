@@ -66,24 +66,31 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion"); 
                     }
                     break;
 
                 case "ajouterFacture":
-                    if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], 
-                        $params["commandeId"], $params["modePaiementId"])) {
-                        
-                        $modeleCommande -> ajouterFacture($params["expeditionFR"], $params["expeditionEN"], 
-                            $params["prixFinal"], $params["commandeId"], $params["modePaiementId"]);
-                        
-                        $data["factures"] = $modeleCommande -> obtenirFactures();
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        if(isset($params["noFacture"], $params["prixFinal"], $params["idUsager"], 
+                            $params["serieNo"], $params["modePaiementId"], $params["expeditionNo"])) {
+                            
+                            $modeleCommande -> ajouterFacture($params["noFacture"], $params["prixFinal"], 
+                                $params["idUsager"], $params["serieNo"], $params["modePaiementId"], 
+                                $params["expeditionNo"]);
+                            
+                            $data["factures"] = $modeleCommande -> obtenirFactures();
 
-                        //$this -> afficheVue("ListeFactures", $data);
+                        } else {
+                            trigger_error("Paramètre manquant.");
+                        }
                     } else {
-                        trigger_error("Paramètre manquant.");
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion"); 
                     }
                     break;
-
                 case "ajouterModePaiement":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomModeFR"], $params["nomModeEN"])) {
@@ -169,10 +176,13 @@
                     //Affiche toutes les factures
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["factures"] = $modeleCommande -> obtenirFactures();
+                        $data["commandes"] = $modeleCommande -> obtenir_tous("commande");
                         $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
                         $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
                         $data["utilisateurs"] = $modeleCommande -> obtenir_tous("utilisateur");
-                        
+                        $modeleVoiture = new Modele_Voiture();
+                        $data["voitures"] = $modeleVoiture -> obtenirListeVoiture();
+
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListeFacturesAdmin", $data);
@@ -188,9 +198,12 @@
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         //$vue = "ListeFactures";
                         $data["factures"] = $modeleCommande -> obtenirFactures();
+                        $data["commandes"] = $modeleCommande -> obtenirCommandes();
                         $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
                         $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
                         $data["utilisateurs"] = $modeleCommande -> obtenir_tous("utilisateur");
+                        $modeleVoiture = new Modele_Voiture();
+                        $data["voitures"] = $modeleVoiture -> obtenirListeVoiture();
                     
                         echo json_encode($data);
                         //$this -> afficheVue($vue, $data);
@@ -200,7 +213,7 @@
                     }
                     break;
 
-                case "afficheFacture":
+                case "afficheFactureAJAX":
                     //Affiche une facture donnée
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if (isset($params["noFacture"])) {
@@ -298,11 +311,12 @@
 
                 case "modifierFacture":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["expeditionFR"], $params["expeditionEN"], $params["prixFinal"], 
-                            $params["modePaiementId"], $params["noFacture"])) {
+                        if(isset($params["prixFinal"], $params["idUsager"], $params["serieNo"], 
+                            $params["modePaiementId"], $params["expeditionNo"], $params["noFacture"])) {
                             
-                            $modeleCommande -> modifierFacture($params["expeditionFR"], $params["expeditionEN"],
-                                $params["prixFinal"], $params["modePaiementId"], $params["noFacture"]);
+                            $modeleCommande -> modifierFacture($params["prixFinal"], $params["idUsager"], 
+                                $params["serieNo"], $params["modePaiementId"], $params["expeditionNo"], 
+                                $params["noFacture"]);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -347,8 +361,6 @@
                     $this -> afficheVue("Page404");
                     $this -> afficheVue("Footer");
             }
-
-            //$this -> afficheVue("Footer");
         }
     }
 ?>

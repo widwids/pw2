@@ -214,11 +214,15 @@ CREATE TABLE facture (
 	noFacture SMALLINT UNSIGNED AUTO_INCREMENT,
 	dateFacture DATETIME NOT NULL,
 	prixFinal DECIMAL(8,2) NOT NULL,
+	idUsager SMALLINT UNSIGNED NOT NULL,
+	serieNo CHAR(17),
 	modePaiementId SMALLINT UNSIGNED NOT NULL,
 	expeditionNo SMALLINT UNSIGNED NOT NULL,
 	visibilite BOOLEAN NOT NULL,
-	PRIMARY KEY (noFacture),
+	PRIMARY KEY (noFacture, serieNo),
 	FOREIGN KEY (noFacture) REFERENCES commande(noCommande),
+	FOREIGN KEY (idUsager) REFERENCES utilisateur(idUtilisateur),
+	FOREIGN KEY (serieNo) REFERENCES voiture(noSerie),
 	FOREIGN KEY (modePaiementId) REFERENCES modePaiement(idModePaiement),
 	FOREIGN KEY (expeditionNo) REFERENCES expedition(idExpedition)
 );
@@ -535,5 +539,5 @@ INSERT INTO commandeVoiture (commandeNo, voitureId, prixVente, depot, statutId, 
 	(1, 'ABC12300067154336', 15000.00, 0, 1, 2, 2, 1),
 	(1, 'AVF51847456154145', 15000.00, 5000.00, 2, 2, 2, 1);
 
-INSERT INTO facture (dateFacture, prixFinal, modePaiementId, expeditionNo, visibilite) VALUES 
-	('2021-04-14 01:01:12', 15000, 2, 2, 1);
+INSERT INTO facture (dateFacture, prixFinal, idUsager, serieNo, modePaiementId, expeditionNo, visibilite) VALUES 
+	('2021-04-14 01:01:12', 15000, 2, 'AVF51847456154145', 2, 2, 1);
