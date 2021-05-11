@@ -197,13 +197,12 @@
                 case "afficheFacture":
                     //Affiche une facture donnée
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if (isset($params["idCommande"])) {
+                        if (isset($params["noFacture"])) {
                             //Affiche une Facture d'une commande donnée
                             //$vue = "Facture";
-                            $data["facture"] = $modeleCommande -> obtenirFacture($params["idCommande"]);
+                            $data["facture"] = $modeleCommande -> obtenirFacture($params["noFacture"]);
 
                             echo json_encode($data);
-                            //$this -> afficheVue($vue, $data);
                         } else {													
                             trigger_error("Paramètre manquant.");
                         }

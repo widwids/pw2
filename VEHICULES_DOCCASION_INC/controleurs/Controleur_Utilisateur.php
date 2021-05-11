@@ -143,7 +143,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutVille");
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -167,7 +167,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutProvince");
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -193,7 +193,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutPays");
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -217,7 +217,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutTaxe");
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -241,7 +241,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutTaxeProvince");
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -265,7 +265,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireAjoutPrivilege");
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -296,7 +296,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("Compte", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion"); 
@@ -311,7 +311,7 @@
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
                             $this -> afficheVue("UtilisateurAdmin", $data);
-                            $this->afficheVue("Footer");
+                            $this -> afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -343,7 +343,7 @@
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
                             $this -> afficheVue("VilleAdmin", $data);
-                            $this->afficheVue("Footer");
+                            $this -> afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -375,7 +375,7 @@
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
                             $this -> afficheVue("ProvinceAdmin", $data);
-                            $this->afficheVue("Footer");
+                            $this -> afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -407,7 +407,7 @@
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
                             $this -> afficheVue("PaysAdmin", $data);
-                            $this->afficheVue("Footer");
+                            $this -> afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -439,7 +439,7 @@
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
                             $this -> afficheVue("TaxeAdmin", $data);
-                            $this->afficheVue("Footer");
+                            $this -> afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         } 
@@ -471,7 +471,7 @@
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
                             $this -> afficheVue("TaxeProvinceAdmin", $data);
-                            $this->afficheVue("Footer");
+                            $this -> afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         } 
@@ -504,7 +504,7 @@
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
                             $this -> afficheVue("PrivilegeAdmin", $data);
-                            $this->afficheVue("Footer");
+                            $this -> afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -536,7 +536,7 @@
                             $this -> afficheVue("Head");
                             $this -> afficheVue("Header");
                             $this -> afficheVue("ConnexionAdmin", $data);
-                            $this->afficheVue("Footer");
+                            $this -> afficheVue("Footer");
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -583,7 +583,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListeUtilisateursAdmin", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -637,7 +637,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListeProvincesAdmin", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -663,7 +663,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListePaysAdmin", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -688,7 +688,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListeTaxesAdmin", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -715,7 +715,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListeTaxeProvinceAdmin", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -742,7 +742,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListePrivilegesAdmin", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -859,6 +859,9 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
@@ -870,6 +873,9 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
@@ -880,6 +886,9 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
@@ -890,16 +899,22 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
                 case "modifierTaxeProvince":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if(isset($params["idTaxe"], $params["taux"], $params["provinceId"])) {
-                            $modeleUtilisateur -> modifierTaxeProvince($params["provinceId"], $params["idTaxe"], $params["taux"]);
+                        if(isset($params["taxeId"], $params["taux"], $params["provinceId"])) {
+                            $modeleUtilisateur -> modifierTaxeProvince($params["provinceId"], $params["taxeId"], $params["taux"]);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
@@ -911,6 +926,9 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
@@ -944,7 +962,7 @@
                     $this -> afficheVue("Head");
                     $this -> afficheVue("Header");
                     $this -> afficheVue("Page404");
-                    $this->afficheVue("Footer");
+                    $this -> afficheVue("Footer");
             }
         }
 

@@ -5,8 +5,8 @@
 
 		//Ajouter une commande
 		public function ajouterCommande($usagerId) {
-			$requete = "INSERT INTO commande(dateCommande, quantite, usagerId, visibilite) 
-				VALUES ('" . date('Y-m-d H:i:s') . "', 1, :uI, 1)";
+			$requete = "INSERT INTO commande(dateCommande, usagerId, visibilite) 
+				VALUES ('" . date('Y-m-d H:i:s') . "', :uI, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":uI", $usagerId);
             $requetePreparee -> execute();
@@ -99,15 +99,13 @@
 		/*--------------- Table facture ---------------*/
 
 		//Ajouter une facture
-		public function ajouterFacture($expeditionFR, $expeditionEN, $prixFinal, $commandeId, $modePaiementId) {
-			$requete = "INSERT INTO facture(dateFacture, expeditionFR, expeditionEN, prixFinal, commandeId, modePaiementId, 
-				visibilite) VALUES ('" . date('Y-m-d H:i:s') . "', :exFR, :exEN, :pF, :cId, mP, 1)";
+		public function ajouterFacture($prixFinal, $modePaiementId, $expeditionId) {
+			$requete = "INSERT INTO facture(dateFacture, prixFinal, modePaiementId, expeditionNo,
+				visibilite) VALUES ('" . date('Y-m-d H:i:s') . "', :pF, mP, :exId, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
-            $requetePreparee -> bindParam(":exFR", $expeditionFR);
-			$requetePreparee -> bindParam(":exEN", $expeditionEN);
 			$requetePreparee -> bindParam(":pF", $prixFinal);
-			$requetePreparee -> bindParam(":cId", $commandeId);
 			$requetePreparee -> bindParam(":mP", $modePaiementId);
+			$requetePreparee -> bindParam(":exId", $expeditionId);
             $requetePreparee -> execute();
             
             if($requetePreparee -> rowCount() > 0)
@@ -118,33 +116,31 @@
 
 		//Toutes les factures
 		public function obtenirFactures() {
-			$requete = "SELECT noFacture, dateFacture, prixFinal, idModePaiement, nomModeFR, nomModeEN, 
-				idExpedition, nomExpeditonFR, nomExpeditionEN, usagerId, prenom, nom, voitureId
-				FROM facture LEFT JOIN modepaiement ON 
-					modePaiementId = idModePaiement");
-				$requete -> execute();
+			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementId, nomModeFR, nomModeEN, 
+				expeditionNo, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, GROUP_CONCAT(' ', voitureId) 
+				AS voitureId FROM facture JOIN modePaiement ON modePaiementId = idModePaiement JOIN expedition 
+				ON expeditionNo = idExpedition JOIN commande ON noFacture = noCommande JOIN commandeVoiture
+				ON noCommande = commandeNo JOIN utilisateur ON usagerId = idUtilisateur 
+				WHERE facture.visibilite = 1 GROUP BY usagerId";
+			$resultats = $this -> connexion -> query($requete);
+			$resultats -> execute();
 
-				return $requete -> fetchAll(PDO::FETCH_ASSOC);
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
+			return $resultats -> fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		//Facture d'une seule commande donnée
-		public function obtenirFacture($idCommande) {
-			try {
-				$requete = $this->connexion->query("SELECT * FROM facture 
-												LEFT JOIN modepaiement ON modePaiementId = idModePaiement
-												WHERE commandeID = '" . $idCommande . "'");
+		public function obtenirFacture($noFacture) {
+			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementId, nomModeFR, nomModeEN, 
+				expeditionNo, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, GROUP_CONCAT(' ', voitureId) 
+				AS voitureId FROM facture JOIN modePaiement ON modePaiementId = idModePaiement JOIN expedition 
+				ON expeditionNo = idExpedition JOIN commande ON noFacture = noCommande JOIN commandeVoiture
+				ON noCommande = commandeNo JOIN utilisateur ON usagerId = idUtilisateur 
+				WHERE facture.visibilite = 1 AND noFacture = :nF GROUP BY usagerId";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nF", $noFacture);
+            $requetePreparee -> execute();
 
-				$requete->execute();
-
-				return $requete->fetch(PDO::FETCH_ASSOC);
-			}
-			catch(Exception $exc) {
-				return 0;
-			}
+            return $requetePreparee -> fetch(PDO::FETCH_ASSOC);	
 		}
 
 		//Modifier une facture
