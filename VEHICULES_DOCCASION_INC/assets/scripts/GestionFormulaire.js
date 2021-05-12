@@ -8,8 +8,7 @@ class GestionFormulaire{
         this.selects = this._el.querySelectorAll('select');
 
         this.nSerie = this._el.querySelector("[data-js-nserie]");
-        this.imgPrincipale = this._el.querySelector("#imgPrincipale");
-        this.imgSecondaire = this._el.querySelector("#imgSecondaire"); console.log(this.nSerie, this.imgPrincipale, this.imgSecondaire);
+        this.imgs = this._el.querySelectorAll(".yu-file input");
         
     }
 
@@ -81,6 +80,41 @@ class GestionFormulaire{
                 //console.log(err.message);
             }  
 
+        }
+    }
+
+    showImage = (src, target) => {
+        var fr=new FileReader();
+        fr.onload = function(e) { target.src = e.target.result; };
+        fr.readAsDataURL(src.files[0]); 
+    }
+
+    remplirPhotosFormulaire = (data) =>
+    {
+        this._el.querySelector("[data-js-photos]").innerHTML = "";
+
+        for(let i=0; i<data.length; i++)
+        {       
+            let photo = document.createElement("div");
+            photo.classList.add("yu-file");
+            photo.innerHTML = 
+            `
+                <label>Photo principale</label>
+                <label for="imgPrincipale${data[i]['nomPhoto']}">Sélectionnez une image</label>
+                <input type="file" id="imgPrincipale${data[i]['nomPhoto']}" name="imgPrincipale" accept=".jpg, .jpeg" data-js-ordre="${i+1}">
+                <div class="yu-image-container"> <img src="./assets/images/${data[i]['nomPhoto']}.jpg"> </div>
+            `;
+            this._el.querySelector("[data-js-photos]").append(photo);
+            this._el.addEventListener("change", (evt) => 
+            {console.log(evt.target.type);
+                if(evt.target.type == "file"){
+                    let filename = evt.target.value.split(/(\\|\/)/g).pop();
+                    evt.target.previousElementSibling.innerHTML = filename;
+          
+                    this.showImage(evt.target, evt.target.parentNode.querySelector("img"));
+            
+                }
+            });  
         }
     }
 
@@ -191,7 +225,7 @@ class GestionFormulaire{
             erreurTop = erreurTopTextares;
             if(erreurTopTextares == 0) erreurTop = erreurTopInputs;
         } 
-        $(this._modal).animate({scrollTop:erreurTop}, '500');
+        $(this._modal).animate({scrollTop:erreurTop}, '500');console.log(valide);
 
         return valide;
 
@@ -200,11 +234,14 @@ class GestionFormulaire{
     envoyerPhotos = () =>
     {
         var formData = new FormData();
-        formData.append('imgPrincipale', this.imgPrincipale.files[0]);
 
-        for(var i=0; i<this.imgSecondaire.files.length; i++){
-            formData.append("imgSecondaire[]", this.imgSecondaire.files[i]);
+        let tabOrdre = [];
+        for(var i=0; i<this.imgs.length; i++){
+            formData.append("imgs[]", this.imgs[i].files[0]);
+            tabOrdre.push(this.imgs[i].dataset.jsOrdre);
         }
+
+        formData.append("tabOrdre", JSON.stringify(tabOrdre));
 
         formData.append("nSerie", this.nSerie.value);
 
@@ -219,7 +256,7 @@ class GestionFormulaire{
 
                 if (xhr.readyState === 4) {							
                     if (xhr.status === 200) {
-                        console.log(xhr.response);
+                        console.log("envoyer photos response",xhr.response);
                     } else if (xhr.status === 404) {
                         console.log('Le fichier appelé dans la méthode open() n’existe pas.');
                     }

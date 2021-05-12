@@ -383,8 +383,6 @@ body{
 
 }
 
-
-
 .yu-table .yu-image img{
 
     max-width: 150px;
@@ -430,6 +428,11 @@ body{
 
 }
 
+.yu-file{
+    position: relative;
+    margin-bottom: 70px;
+}
+
 .yu-file input{
     display: none;
 }
@@ -449,6 +452,29 @@ span.yu-erreur-validation{
     display: block;
     padding: 7px;
     color: darkred;
+}
+
+.yu-formulaire div[data-js-photos]{
+    margin-top: 40px;
+}
+
+.yu-image-container{
+    position: absolute;
+    width: 190px;
+    margin: 0 auto;
+    right: -210px;
+    top: -9px;
+}
+
+.yu-image-container img{
+    max-width: 100%;
+}
+
+[data-js-btn-ajouter-photos]{
+    color: black;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 0 10px;
 }
 
 

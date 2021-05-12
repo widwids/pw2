@@ -52,7 +52,7 @@
 </section>
 
 
-<section class="yu-modal yu-modal-ajouter" data-component="Photos">
+<section class="yu-modal yu-modal-ajouter">
     
     <button class="btn-ferme" data-js-btn-ferme-ajouter>&times;</button>
 
@@ -145,15 +145,16 @@
                     <?php }?>
             </select>
         </div>
-        <div class="yu-file">
-            <label>Photo principale</label>
-            <label for="imgPrincipale">Sélectionnez une image</label>
-            <input type="file" id="imgPrincipale" name="imgPrincipale" accept=".jpg, .jpeg">
-        </div>
-        <div class="yu-file">
-            <label>Photo secondaire</label>
-            <label for="imgSecondaire">Sélectionnez une image</label>
-            <input type="file" id="imgSecondaire" name="imgSecondaire[]" accept=".jpg, .jpeg" multiple>
+        <div data-js-photos>
+            <div class="yu-file">
+                <label>Photo principale</label>
+                <label for="imgPrincipale">Sélectionnez une image</label>
+                <input type="file" id="imgPrincipale" name="imgPrincipale" accept=".jpg, .jpeg" data-js-ordre="1">
+                <div class="yu-image-container">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <button data-js-btn-ajouter-photos>+</button>
         </div>
         <div>
             <input type="hidden" name="visibilite" checked>
@@ -173,27 +174,27 @@
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
             <label for="noSerie">№ Série</label>
-            <input type="text" name="noSerie" value="" required>
+            <input type="text" name="noSerie" value="" data-js-nserie required>
         </div>
         <div>
             <label for="descriptionFR">Description Français</label>
-            <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10"></textarea>
+            <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10" required></textarea>
         </div>
         <div>
             <label for="descriptionEN">Description Anglais</label>
-            <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10"></textarea>
+            <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10" required></textarea>
         </div>
         <div>
             <label for="kilometrage">Kilométrage</label>
-            <input type="number" name="kilometrage" value="">
+            <input type="number" name="kilometrage" value="" required>
         </div>
         <div>
             <label for="dateArrivee">Date Arrivée</label>
-            <input type="date" name="dateArrivee" id="dateArrivee">
+            <input type="date" name="dateArrivee" id="dateArrivee" required>
         </div>
         <div>
             <label for="prixAchat">Prix Achat</label>
-            <input type="number" name="prixAchat" id="prixAchat">
+            <input type="number" name="prixAchat" id="prixAchat" required>
         </div>
         <div>
             <label for="groupeMPId">Group MP</label>
@@ -258,6 +259,8 @@
 
                     <?php }?>
             </select>
+        </div>
+        <div data-js-photos>
         </div>
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-voiture>
@@ -339,6 +342,7 @@ function obtenirVoitureAJAX(id)
             console.log("voitureDonnees",voitureDonnees[0]);
             
             formulaire.remplirFormulaire(voitureDonnees[0]);           
+            formulaire.remplirPhotosFormulaire(jsonResponse['photos']);
         }
         };
 
@@ -412,6 +416,7 @@ function ajouterVoitureAJAX()
 function modifierVoitureAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
+    formulaire.envoyerPhotos();
 
     let xhttp = new XMLHttpRequest();
 
@@ -480,12 +485,74 @@ formSupprimer.addEventListener("click", (evt) => {
 });
 
 
+function showImage(src,target) {
+  var fr=new FileReader();
+  fr.onload = function(e) { target.src = e.target.result; };
+  fr.readAsDataURL(src.files[0]); 
+}
+
 yuModalAjouter.addEventListener("change", (evt) => 
 {
     if(evt.target.type == "file"){
         let filename = evt.target.value.split(/(\\|\/)/g).pop();
         evt.target.previousElementSibling.innerHTML = filename;
+
+        showImage(evt.target, evt.target.parentNode.querySelector("img"));
+
     }
 });
+
+yuModalAjouter.querySelector("[data-js-btn-ajouter-photos]").addEventListener("click", (evt) => 
+{
+    evt.preventDefault();
+    let rnd = Math.round(Math.random()*1000);
+    previousOrdre = evt.target.previousElementSibling.querySelector('input').dataset.jsOrdre;
+    previousOrdre = parseInt(previousOrdre) + 1;
+
+    let nFile = document.createElement("div");
+    nFile.classList.add("yu-file");
+    nFile.innerHTML =
+    `
+        <div class="yu-file">
+            <label>Photo secondaire</label>
+            <label for="imgSecondaire${rnd}">Sélectionnez une image</label>
+            <input type="file" id="imgSecondaire${rnd}" name="imgSecondaire[]" accept=".jpg, .jpeg" data-js-ordre="${previousOrdre}">
+            <div class="yu-image-container">
+                    <img src="" alt="">
+            </div>
+        </div>
+    `;
+
+    evt.target.parentNode.insertBefore(nFile, evt.target);
+
+
+});
+
+yuModalModifier.querySelector("[data-js-btn-ajouter-photos]").addEventListener("click", (evt) => 
+{
+    evt.preventDefault();
+    let rnd = Math.round(Math.random()*1000);
+    previousOrdre = evt.target.previousElementSibling.querySelector('input').dataset.jsOrdre;
+    previousOrdre = parseInt(previousOrdre) + 1;
+
+    let nFile = document.createElement("div");
+    nFile.classList.add("yu-file");
+    nFile.innerHTML =
+    `
+        <div class="yu-file">
+            <label>Photo secondaire</label>
+            <label for="imgSecondaire${rnd}">Sélectionnez une image</label>
+            <input type="file" id="imgSecondaire${rnd}" name="imgSecondaire[]" accept=".jpg, .jpeg" data-js-ordre="${previousOrdre}">
+            <div class="yu-image-container">
+                    <img src="" alt="">
+            </div>
+        </div>
+    `;
+
+    evt.target.parentNode.insertBefore(nFile, evt.target);
+
+
+});
+
 
 </script>
