@@ -20,6 +20,7 @@
             <li><a href="index.php?Voiture&action=politiques">Politiques de vente</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Modalités de paiement</a></li>
+            <li><a href="#">Financement</a></li>
           </ul>
         </div>
 
