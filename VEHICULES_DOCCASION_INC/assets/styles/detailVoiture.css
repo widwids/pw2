@@ -137,7 +137,7 @@
 
 .description{
     margin-top: 20px;
-    width: 75%;
+    width: 50%;
     text-align: center;
     position: absolute;
     bottom: 10%;
@@ -177,7 +177,7 @@
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1048px) {
     .nomMarque{
         display: none;
     }
