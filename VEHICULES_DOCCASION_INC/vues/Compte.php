@@ -33,7 +33,7 @@
             <!--<div>Privilège : <?= $utilisateur -> getNomPrivilegeFR() ?></div>-->
         </div><br>
 
-        <a href="index.php?Utilisateur&action=modifierUtilisateur">Modifier</a>
+        <a href="index.php?Utilisateur&action=formulaireModifierUtilisateur">Modifier</a>
 
     </div>    
 </div>

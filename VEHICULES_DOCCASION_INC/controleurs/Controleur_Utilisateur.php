@@ -792,10 +792,12 @@
                 case "formulaireModifierUtilisateur":
                     if (isset($_SESSION["utilisateur"])) {
                         $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
+                        $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
+                        $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
 
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
-                        $this -> afficheVue("FormulaireModifierUtilisateur", $data);
+                        $this -> afficheVue("CompteModification", $data);
                         $this-> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
@@ -822,43 +824,23 @@
                             trigger_error("Paramètre manquant.");
                         }
                     } else if (isset($_SESSION["utilisateur"])) {
-
-                        $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
-                            $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
-                            
-                            $this -> afficheVue("Head");
-                            $this -> afficheVue("Header");
-                            $this -> afficheVue("CompteModification", $data);
-                            $this -> afficheVue("Footer");
-
-                            
-
-
-                        //VINCE 
-                        //
-                        //blocage de code temporaire pour permettre d'avancer la page de modification des details de compte
-                        //
-                        /*
-
                         if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], $params["adresse"], 
                             $params["codePostal"], $params["telephone"], $params["courriel"], 
-                            $params["pseudonyme"], $params["motDePasse"], $params["villeId"])) {
+                            $params["pseudonyme"], $params["villeId"])) {
                         
                             if(!isset($params["cellulaire"])) $params["cellulaire"] = "";
                             
-                            $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
+                            $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])["idUtilisateur"];
+                            $motDePasse = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])["motDePasse"];
 
                             $utilisateur = new Utilisateur($utilisateurId, $params["prenom"], 
                                 $params["nom"], $params["dateNaissance"], $params["adresse"], 
                                 $params["codePostal"], $params["telephone"], $params["cellulaire"], 
-                                $params["courriel"], $params["pseudonyme"], 
-                                password_hash($params["motDePasse"], PASSWORD_DEFAULT), $params["villeId"], 3);
+                                $params["courriel"], $params["pseudonyme"], $motDePasse, $params["villeId"], 3);
                             $modifie = $modeleUtilisateur -> modifierUtilisateur($utilisateur);
 
-                            $this -> afficheVue("Compte", $data);
-
-                            
-                        }*/
+                            header("Location: index.php?Utilisateur&action=compte");
+                        }
                     }
                     break;
                 
