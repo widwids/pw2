@@ -49,6 +49,34 @@
 			}
 		}
 
+		public function obtenir_marques() {
+			$requete = "SELECT * FROM marque WHERE marque.visibilite = 1 ORDER BY nomMarque";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function obtenir_modeles() {
+			$requete = "SELECT * FROM modele WHERE modele.visibilite = 1 ORDER BY nomModele";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function obtenir_voitures($nomFiltre, $filtre, $ordre) {
+			$requete = "SELECT noSerie, descriptionFR, descriptionEN, kilometrage, dateArrivee, prixAchat,
+				nomMotopro, nomCorpsFR, nomCorpsEN, typeCarburantFR, typeCarburantEN, anneeId, nomModele, 
+				nomMarque, nomPhoto, ordre, nomTransmissionFR, nomTransmissionEN FROM voiture 
+				JOIN corps ON idCorps = corpsId LEFT OUTER JOIN motopropulseur ON idMotopro = groupeMPId
+				LEFT OUTER JOIN modele ON idModele = modeleId LEFT OUTER JOIN marque ON idMarque = marqueId
+				LEFT OUTER JOIN carburant ON idCarburant = carburantId LEFT OUTER JOIN transmission 
+				ON idTransmission = transmissionId LEFT OUTER JOIN photo ON autoId = noSerie AND ordre = 1
+				WHERE voiture.visibilite = 1 AND " . $nomFiltre . " LIKE '" . $filtre . "' ORDER BY " . $ordre;
+			$resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function obtenir_marque_modele() {
 			try {
 				$stmt = $this->connexion->query("SELECT * FROM modele JOIN marque ON marqueId = IdMarque WHERE modele.visibilite = 1 ");

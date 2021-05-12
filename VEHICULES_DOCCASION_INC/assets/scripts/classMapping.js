@@ -3,5 +3,6 @@ const classMapping = {
     'GestionFormulaire' : GestionFormulaire,
     'Photos': Photos,
     'Panier' : Panier,
-    'VoitureSolo' : VoitureSolo
+    'VoitureSolo' : VoitureSolo,
+    'Filtre' : Filtre
 };

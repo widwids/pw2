@@ -783,6 +783,17 @@
 						///////////////////////////////
 
 					break;
+					
+					case "listeOrdonnee" :
+						if(isset($params["nomFiltre"], $params["filtre"], $params["ordre"])) {
+							$data = $modeleVoiture -> obtenir_voitures($params["nomFiltre"], $params["filtre"],
+									$params["ordre"]);
+
+							echo json_encode($data);
+						} else  {
+                            trigger_error("Paramètre manquant.");
+                        }
+						break;
 
 					case "listeVoituresNonAdmin":
 						// affiche liste voiture//

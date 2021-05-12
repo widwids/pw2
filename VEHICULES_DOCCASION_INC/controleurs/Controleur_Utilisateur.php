@@ -764,7 +764,7 @@
 
                 case "listeConnexions":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["connexions"] = $modeleUtilisateur -> obtenir_tous('connexion');
+                        $data["connexions"] = $modeleUtilisateur -> obtenir_connexions();
 
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
@@ -778,9 +778,8 @@
 
                 case "listeConnexionsAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        $data["connexions"] = $modeleUtilisateur -> obtenir_tous('connexion');
+                        $data["connexions"] = $modeleUtilisateur -> obtenir_connexions();
                         echo json_encode($data);
-                        //$this -> afficheVue("ListeConnexions", $data);
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
