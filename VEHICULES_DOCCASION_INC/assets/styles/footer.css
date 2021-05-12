@@ -1,26 +1,31 @@
 footer{
-    width: 100%;
-    min-width: 600px;
-    height: 250px;
+    display: flex;
+    position: relative;
+    width: 100vw;
+    min-width: 700px;
+    height: auto;
     background-color: #171717;
     left: 0;
     bottom: 0;
     z-index: 100;
+    padding: 0;
 }
 
 .separator{
     border-left: 2px solid white;
-    height: 175px;
+    height: auto;
 }
 
 .container{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
-    padding-top: 35px;
 }
 
 .container div{
     color: white;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .reseaux_sociaux{

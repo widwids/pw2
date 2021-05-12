@@ -30,6 +30,9 @@
 				case "politiques":
 					$this -> afficheVue("Politiques");
 					break;
+				case "contact":
+					$this -> afficheVue("Contact");
+					break;
 				case "detailVoiture":
 					//if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 						if (isset($params["noSerie"])) {
