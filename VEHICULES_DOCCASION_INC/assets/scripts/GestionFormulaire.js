@@ -100,8 +100,8 @@ class GestionFormulaire{
             photo.innerHTML = 
             `
                 <label>Photo principale</label>
-                <label for="imgPrincipale${data[i]['nomPhoto']}">Sélectionnez une image</label>
-                <input type="file" id="imgPrincipale${data[i]['nomPhoto']}" name="imgPrincipale" accept=".jpg, .jpeg" data-js-ordre="${i+1}">
+                <label for="imgPrincipale${data[i]['idPhoto']}">Sélectionnez une image</label>
+                <input type="file" id="imgPrincipale${data[i]['idPhoto']}" name="imgPrincipale" accept=".jpg, .jpeg" data-js-ordre="${i+1}">
                 <div class="yu-image-container"> <img src="./assets/images/${data[i]['nomPhoto']}.jpg"> </div>
             `;
             this._el.querySelector("[data-js-photos]").append(photo);
@@ -116,6 +116,37 @@ class GestionFormulaire{
                 }
             });  
         }
+
+        let btn = document.createElement("button");
+        btn.setAttribute("data-js-btn-ajouter-photos","");
+        btn.innerHTML = "+";
+        this._el.querySelector("[data-js-photos]").append(btn);
+
+        this._el.querySelector("[data-js-btn-ajouter-photos]").addEventListener("click", (evt) => 
+        {
+            evt.preventDefault();
+            let rnd = Math.round(Math.random()*1000);
+            let previousOrdre = evt.target.previousElementSibling.querySelector('input').dataset.jsOrdre;
+            previousOrdre = parseInt(previousOrdre) + 1;
+
+            let nFile = document.createElement("div");
+            nFile.classList.add("yu-file");
+            nFile.innerHTML =
+            `
+                <div class="yu-file">
+                    <label>Photo secondaire</label>
+                    <label for="imgSecondaire${rnd}">Sélectionnez une image</label>
+                    <input type="file" id="imgSecondaire${rnd}" name="imgSecondaire[]" accept=".jpg, .jpeg" data-js-ordre="${previousOrdre}">
+                    <div class="yu-image-container">
+                            <img src="" alt="">
+                    </div>
+                </div>
+            `;
+
+            evt.target.parentNode.insertBefore(nFile, evt.target);
+
+
+        });
     }
 
     viderFormulaire = () =>
@@ -236,9 +267,13 @@ class GestionFormulaire{
         var formData = new FormData();
 
         let tabOrdre = [];
-        for(var i=0; i<this.imgs.length; i++){
-            formData.append("imgs[]", this.imgs[i].files[0]);
-            tabOrdre.push(this.imgs[i].dataset.jsOrdre);
+        for(var i=0; i<this.imgs.length; i++){ 
+            if(this.imgs[i].value != "")
+            {
+                formData.append("imgs[]", this.imgs[i].files[0]);
+                tabOrdre.push(this.imgs[i].dataset.jsOrdre);
+            }
+            
         }
 
         formData.append("tabOrdre", JSON.stringify(tabOrdre));
