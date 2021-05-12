@@ -31,18 +31,9 @@
             <div><?= $utilisateur -> getCourriel() ?></div>
 
             <!--<div>Privilège : <?= $utilisateur -> getNomPrivilegeFR() ?></div>-->
-        </div>
+        </div><br>
+
+        <a href="index.php?Utilisateur&action=modifierUtilisateur">Modifier</a>
+
     </div>    
 </div>
-
-<!-- <h2>Changer le mot de passe</h2>
-
-<form method="post">
-		<label for="pseudonyme">Nom d'utilisateur :</label>
-		<input type="text" name="pseudonyme" placeholder="Nom d'utilisateur" required><br>
-		<label for="motDePasse">Nouveau mot de passe :</label>
-		<input type="password" name="motDePasse" placeholder="Mot de passe" required><br>
-        <input type="hidden" name="action" value="modifierMotDePasse">
-		<br>
-		<input type="submit" value="Modifier"/>
-</form>-->

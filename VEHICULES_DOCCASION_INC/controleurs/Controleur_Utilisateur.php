@@ -796,7 +796,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("FormulaireModifierUtilisateur", $data);
-                        $this->afficheVue("Footer");
+                        $this-> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -822,6 +822,24 @@
                             trigger_error("Paramètre manquant.");
                         }
                     } else if (isset($_SESSION["utilisateur"])) {
+
+                        $utilisateurId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
+                            $data["utilisateur"] = $modeleUtilisateur -> obtenir_utilisateur($utilisateurId);
+                            
+                            $this -> afficheVue("Head");
+                            $this -> afficheVue("Header");
+                            $this -> afficheVue("CompteModification", $data);
+                            $this -> afficheVue("Footer");
+
+                            
+
+
+                        //VINCE 
+                        //
+                        //blocage de code temporaire pour permettre d'avancer la page de modification des details de compte
+                        //
+                        /*
+
                         if(isset($params["prenom"], $params["nom"], $params["dateNaissance"], $params["adresse"], 
                             $params["codePostal"], $params["telephone"], $params["courriel"], 
                             $params["pseudonyme"], $params["motDePasse"], $params["villeId"])) {
@@ -838,7 +856,9 @@
                             $modifie = $modeleUtilisateur -> modifierUtilisateur($utilisateur);
 
                             $this -> afficheVue("Compte", $data);
-                        }
+
+                            
+                        }*/
                     }
                     break;
                 
