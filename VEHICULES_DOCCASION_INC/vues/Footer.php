@@ -10,14 +10,14 @@
             <li><a href="#">Courtoisie</a></li>
             <li><a href="#">Commandites</a></li>
             <li><a href="#">Carrières</a></li>
-            <li><a href="#">À propos</a></li>
+            <li><a href="index.php?Voiture&action=aPropos">À propos</a></li>
           </ul>
         </div>
 
         <div class="footer-main-item">
           <h2 class="footer-title">Ressources</h2>
           <ul>
-            <li><a href="#">Politiques de vente</a></li>
+            <li><a href="index.php?Voiture&action=politiques">Politiques de vente</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Modalités de paiement</a></li>
           </ul>
@@ -26,7 +26,7 @@
         <div class="footer-main-item">
           <h2 class="footer-title">Contact</h2>
           <ul>
-            <li><a href="#">Nous joindre</a></li>
+            <li><a href="index.php?Voiture&action=contact">Nous joindre</a></li>
             <li><a href="#">Aide</a></li>
             <li><a href="#">Vente</a></li>
             <li><a href="#">Représentation</a></li>
