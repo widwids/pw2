@@ -4,6 +4,7 @@
 	<title>YVMA.inc</title>
 
 	<!-- Styles -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	<link rel="stylesheet" href="assets/styles/styles.css">
 	<link rel="stylesheet" href="assets/styles/header.css">
@@ -18,6 +19,7 @@
 	<link rel="stylesheet" href="assets/styles/panier.css">
 	<link rel="stylesheet" href="assets/styles/apropos.css">
 	<link rel="stylesheet" href="assets/styles/politiques.css">
+	<link rel="stylesheet" href="assets/styles/contact.css">
 	
 	<!-- Script -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
