@@ -113,6 +113,21 @@
 			}  
 		}
 
+		public function obtenirPhotoVoitureOrdre($noSerie, $ordre) {
+			//var_dump($NoSerie);
+			 try {
+				$stmt = $this->connexion->query("SELECT * FROM photo WHERE autoId = '" . $noSerie . "' AND ordre='".$ordre."'");
+
+				
+				$stmt->execute();
+				return $stmt->fetchAll();
+
+			}
+			catch(Exception $exc) {
+				return 0;
+			}  
+		}
+
 		function modifVoiture($noSerie, $newNoSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId) {		
 			try {
 				$stmt = $this->connexion->query("UPDATE voiture 
