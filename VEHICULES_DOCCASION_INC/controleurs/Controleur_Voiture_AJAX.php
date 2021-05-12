@@ -800,11 +800,11 @@
 					
 								$folder = "assets/images/";
 
-								$tabOrdre = json_decode($params["tabOrdre"]);
+								$tabOrdre = json_decode($params["tabOrdre"]); echo $params["tabOrdre"];
 								
 								for ($i=0; $i < count($_FILES['imgs']["tmp_name"]); $i++) {
 									$fileNamePSec = basename($_FILES['imgs']["name"][$i]);
-									if(! file_exists($folder.$fileNamePSec)){
+									// if(! file_exists($folder.$fileNamePSec)){
 										
 										if(move_uploaded_file($_FILES["imgs"]["tmp_name"][$i], $folder.$fileNamePSec)){
 											
@@ -820,12 +820,12 @@
 											}
 											
 										}
-									}else{ 
-										$file = $_FILES['imgs']["name"][$i];
-										$info = pathinfo($file);
-										$file_name =  basename($file,'.'.$info['extension']);
-										$modeleVoiture->modifPhotoVoiture($file_name, $tabOrdre[$i] , $params["nSerie"]); 
-									}
+									// }else{ 
+									// 	$file = $_FILES['imgs']["name"][$i];
+									// 	$info = pathinfo($file);
+									// 	$file_name =  basename($file,'.'.$info['extension']);
+									// 	$modeleVoiture->modifPhotoVoiture($file_name, $tabOrdre[$i] , $params["nSerie"]); 
+									// }
 								}
 							 } else {													
 								echo "ERROR PARAMS";

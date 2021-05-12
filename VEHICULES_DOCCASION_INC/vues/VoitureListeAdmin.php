@@ -506,7 +506,7 @@ yuModalAjouter.querySelector("[data-js-btn-ajouter-photos]").addEventListener("c
 {
     evt.preventDefault();
     let rnd = Math.round(Math.random()*1000);
-    previousOrdre = evt.target.previousElementSibling.querySelector('input').dataset.jsOrdre;
+    let previousOrdre = evt.target.previousElementSibling.querySelector('input').dataset.jsOrdre;
     previousOrdre = parseInt(previousOrdre) + 1;
 
     let nFile = document.createElement("div");
@@ -528,31 +528,7 @@ yuModalAjouter.querySelector("[data-js-btn-ajouter-photos]").addEventListener("c
 
 });
 
-yuModalModifier.querySelector("[data-js-btn-ajouter-photos]").addEventListener("click", (evt) => 
-{
-    evt.preventDefault();
-    let rnd = Math.round(Math.random()*1000);
-    previousOrdre = evt.target.previousElementSibling.querySelector('input').dataset.jsOrdre;
-    previousOrdre = parseInt(previousOrdre) + 1;
 
-    let nFile = document.createElement("div");
-    nFile.classList.add("yu-file");
-    nFile.innerHTML =
-    `
-        <div class="yu-file">
-            <label>Photo secondaire</label>
-            <label for="imgSecondaire${rnd}">Sélectionnez une image</label>
-            <input type="file" id="imgSecondaire${rnd}" name="imgSecondaire[]" accept=".jpg, .jpeg" data-js-ordre="${previousOrdre}">
-            <div class="yu-image-container">
-                    <img src="" alt="">
-            </div>
-        </div>
-    `;
-
-    evt.target.parentNode.insertBefore(nFile, evt.target);
-
-
-});
 
 
 </script>
