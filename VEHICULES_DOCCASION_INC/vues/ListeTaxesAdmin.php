@@ -1,24 +1,25 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-groupeMP yu-btn-ajouter-container">
+    <div class="yu-table-taxes yu-btn-ajouter-container">
     <button class="yu-btn-ajouter">Ajouter une taxe</button>
     </div>
 
-    <table class="yu-table yu-table-taxe">
+    <div class="yu-table-responsive">
+    <table class="yu-table yu-table-taxes">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du taxe en français</th>
-                <th>Nom du taxe en anglais</th>
+                <th>Nom du taxe (fr)</th>
+                <th>Nom du taxe (eng)</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $taxe) { ?>
+    <?php foreach ($data['taxes'] as $taxe) { ?>
 
         <tr>
             <td data-js-idTaxe><?= $taxe["idTaxe"]?></td>
@@ -32,6 +33,7 @@
     </tbody>
 
     </table>
+    </div>
 
 </section>
 
@@ -40,6 +42,9 @@
     <button class="btn-ferme" data-js-btn-ferme-ajouter>&times;</button>
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
+        <div>
+            <input type="hidden" name="idTaxe">
+        </div>
         <div>
             <label for="nomTaxeFR">Nom du taxe en français</label>
             <input type="text" name="nomTaxeFR" required>
@@ -66,11 +71,11 @@
         </div>
         <div>
             <label for="nomTaxeFR">Nom du taxe en français</label>
-            <input type="text" name="nomTaxeFR">
+            <input type="text" name="nomTaxeFR" required>
         </div>
         <div>
             <label for="nomTaxeEN">Nom du taxe en anglais</label>
-            <input type="text" name="nomTaxeEN">
+            <input type="text" name="nomTaxeEN" required>
         </div>
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-taxe>
@@ -119,7 +124,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idTaxe]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idTaxe]').innerHTML; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -154,7 +159,7 @@ function obtenirTaxeAJAX(id)
         }
         };
 
-    xhttp.open("GET", `index.php?Utilisateur&action=&idTaxe=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=afficheTaxeAJAX&idTaxe=${id}`, true);
     xhttp.send();    
 
 }
@@ -166,15 +171,15 @@ function obtenirTaxesAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response);
-            console.log(jsonResponse);
+            let jsonResponse = JSON.parse(this.response)['taxes'];
+            console.log("response all taxes",jsonResponse);
 
             let table = document.querySelector("table tbody"); 
             table.innerHTML = "";
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let ville = jsonResponse[i];
+                let taxe = jsonResponse[i];
 
                 table.innerHTML += 
                 `
@@ -192,7 +197,7 @@ function obtenirTaxesAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Utilisateur&action=ListeVilleJson", true);
+    xhttp.open("GET", "index.php?Utilisateur&action=listeTaxesAJAX", true);
     xhttp.send();
 
 }
@@ -205,13 +210,13 @@ function ajouterTaxeAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("test");
+            console.log("response ajouter", this.response);
             obtenirTaxesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=ajouterTaxe", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Utilisateur&action=ajouterTaxe", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer les donnees sur serveur",formulaire.obtenirQueryString() );
     xhttp.send(formulaire.obtenirQueryString());
 }
 
@@ -223,12 +228,12 @@ function modifierTaxeAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
+            console.log("response modifier",this.response);
             obtenirTaxesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierTaxe", true);
+    xhttp.open("POST", "index.php?Utilisateur&action=modifierTaxe", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
     xhttp.send(formulaire.obtenirQueryString());
 }
@@ -243,7 +248,7 @@ function supprimerTaxeAJAX(id)
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
+    xhttp.open("POST", "index.php?Utilisateur&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(`nomTable=taxe&id=${id}`);
 }
@@ -252,8 +257,12 @@ let btnAjouterTaxe = document.querySelector("[data-js-btn-ajouter-taxe]");
 btnAjouterTaxe.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterTaxeAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterTaxeAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
@@ -261,17 +270,23 @@ let btnModifierTaxe = document.querySelector("[data-js-btn-modifier-taxe]");
 btnModifierTaxe.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierTaxeAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierTaxeAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 
-let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]'); 
-btnOui.addEventListener("click", (evt) => {
+let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
+formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
-    supprimerVilleAJAX(evt.target.dataset.jsId);
+    if(evt.target.name == "btnOui"){
+    supprimerTaxesAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
+    }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
 

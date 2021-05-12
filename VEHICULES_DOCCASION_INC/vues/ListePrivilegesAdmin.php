@@ -1,29 +1,30 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-groupeMP yu-btn-ajouter-container">
-    <button class="yu-btn-ajouter">Ajouter un mode de paiement</button>
+    <div class="yu-table-privilege yu-btn-ajouter-container">
+    <button class="yu-btn-ajouter">Ajouter un privilège</button>
     </div>
 
-    <table class="yu-table yu-table-modePaiement">
+    <div class="yu-table-responsive">
+    <table class="yu-table yu-table-privilege">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du mode de paiement en français</th>
-                <th>Nom du mode de paiement en anglais</th>
+                <th>Privilège (fr)</th>
+                <th>Privilège (eng)</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data as $modePaiement) { ?>
+    <?php foreach ($data['privileges'] as $privilege) { ?>
 
         <tr>
-            <td data-js-idModePaiement><?= $modePaiement["idModePaiement"]?></td>
-            <td><?= $modePaiement["nomModeFR"]?></td>
-            <td><?= $modePaiement["nomModeEN"]?></td>
+            <td data-js-idPrivilege><?= $privilege["idPrivilege"]?></td>
+            <td><?= $privilege["nomPrivilegeFR"]?></td>
+            <td><?= $privilege["nomPrivilegeEN"]?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
     
@@ -32,6 +33,7 @@
     </tbody>
 
     </table>
+    </div>
 
 </section>
 
@@ -41,15 +43,15 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomModeFR">Nom du mode de paiement en français</label>
-            <input type="text" name="nomModeFR" required>
+            <label for="nomPrivilegeFR">Nom du privilège en français</label>
+            <input type="text" name="nomPrivilegeFR" required>
         </div>
         <div>
-            <label for="nomModeEN">Nom du mode de paiement en anglais</label>
-            <input type="text" name="nomModeEN" required>
+            <label for="nomPrivilegeEN">Nom du privilège en anglais</label>
+            <input type="text" name="nomPrivilegeEN" required>
         </div>
         <div>
-            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-modePaiement>
+            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-privilege>
         </div>
     </form>
 
@@ -62,18 +64,18 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>            
-            <input type="hidden" name="idModePaiement">
+            <input type="hidden" name="idPrivilege">
         </div>
         <div>
-            <label for="nomModeFR">Nom du privilège en français</label>
-            <input type="text" name="nomModeFR">
+            <label for="nomPrivilegeFR">Nom du privilège en français</label>
+            <input type="text" name="nomPrivilegeFR" required>
         </div>
         <div>
-            <label for="nomModeEN">Nom du privilège en anglais</label>
-            <input type="text" name="nomModeEN">
+            <label for="nomPrivilegeEN">Nom du privilège en anglais</label>
+            <input type="text" name="nomPrivilegeEN" required>
         </div>
         <div>
-            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-modePaiement>
+            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-privilege>
         </div>
     </form>
 
@@ -119,7 +121,7 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idModePaiement]').innerHTML; console.log(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idPrivilege]').innerHTML; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
             yuModalSupprimer.style.width = "100%";
         });
@@ -129,8 +131,8 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idModePaiement]').innerHTML; 
-            obtenirModePaiementAJAX(id);
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idPrivilege]').innerHTML; 
+            obtenirPrivilegeAJAX(id);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -139,7 +141,7 @@ function ajouterEvenements()
 
 ajouterEvenements();
 
-function obtenirModePaiementAJAX(id)
+function obtenirPrivilegeAJAX(id)
 {
 
     let xhttp = new XMLHttpRequest();
@@ -147,26 +149,26 @@ function obtenirModePaiementAJAX(id)
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
-            let modePaiementDonnees = jsonResponse['modePaiement'];
-            console.log("modePaiementDonnees",modePaiementDonnees);
+            let privilegeDonnees = jsonResponse['privilege'];
+            console.log("privilegeDonnees",privilegeDonnees);
             
-            formulaire.remplirFormulaire(modePaiementDonnees);           
+            formulaire.remplirFormulaire(privilegeDonnees);           
         }
         };
 
-    xhttp.open("GET", `index.php?Utilisateur&action=&idModePaiement=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=affichePrivilegeAJAX&idPrivilege=${id}`, true);
     xhttp.send();    
 
 }
 
-function obtenirModePaiementAJAX()
+function obtenirPrivilegesAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response);
+            let jsonResponse = JSON.parse(this.response)['privileges'];
             console.log(jsonResponse);
 
             let table = document.querySelector("table tbody"); 
@@ -174,14 +176,14 @@ function obtenirModePaiementAJAX()
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let ville = jsonResponse[i];
+                let privilege = jsonResponse[i];
 
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-idModePaiement>${ modePaiement["idModePaiement"]}</td>
-                    <td>${ modePaiement["nomModeFR"]}</td>
-                    <td>${ modePaiement["nomModeEN"]}</td>
+                    <td data-js-idPrivilege>${ privilege["idPrivilege"]}</td>
+                    <td>${ privilege["nomPrivilegeFR"]}</td>
+                    <td>${ privilege["nomPrivilegeEN"]}</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -192,12 +194,12 @@ function obtenirModePaiementAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Utilisateur&action=listeModePaiementAJAX", true);
+    xhttp.open("GET", "index.php?Utilisateur&action=listePrivilegesAJAX", true);
     xhttp.send();
 
 }
 
-function ajouterModePaiementAJAX()
+function ajouterPrivilegeAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
 
@@ -205,17 +207,17 @@ function ajouterModePaiementAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log("test");
-            obtenirModePaiementsAJAX();
+            console.log("response ajouter", this.response);
+            obtenirPrivilegesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Commande&action=ajouterModePaiement", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Utilisateur&action=ajouterPrivilege", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer les donnees sur serveur",formulaire.obtenirQueryString());
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function modifierModePaiementAJAX()
+function modifierPrivilegeAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
 
@@ -223,46 +225,54 @@ function modifierModePaiementAJAX()
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
-            obtenirModePaiementsAJAX();
+            console.log("response modifier",this.response);
+            obtenirPrivilegesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=modifierModePaiement", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Utilisateur&action=modifierPrivilege", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer sur serveur",formulaire.obtenirQueryString());
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimerModePaiementAJAX(id)
+function supprimerPrivilegeAJAX(id)
 {
     let xhttp = new XMLHttpRequest(); 
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenirModePaiementsAJAX();
+            obtenirPrivilegesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Controleur_Utilisateur&action=suppression", true);
+    xhttp.open("POST", "index.php?Utilisateur&action=suppression", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=modepaiement&id=${id}`);
+    xhttp.send(`nomTable=privilege&id=${id}`);
 }
 
-let btnAjouterModePaiement = document.querySelector("[data-js-btn-ajouter-modePaiement]");
-btnAjouterModePaiement.addEventListener("click", (evt) => {
+let btnAjouterPrivilege = document.querySelector("[data-js-btn-ajouter-privilege]");
+btnAjouterPrivilege.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    ajouterModePaiementAJAX();
-    yuModalAjouter.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
+    if(gestionFormulaire.valide())
+    {
+        ajouterPrivilegeAJAX();
+        yuModalAjouter.style.width = "0";
+    }
 
 });
 
-let btnModifierModePaiement = document.querySelector("[data-js-btn-modifier-modePaiement]");
-btnModifierModePaiement.addEventListener("click", (evt) => {
+let btnModifierPrivilege = document.querySelector("[data-js-btn-modifier-privilege]");
+btnModifierPrivilege.addEventListener("click", (evt) => {
 
     evt.preventDefault();
-    modifierModePaiementAJAX();
-    yuModalModifier.style.width = "0";
+    let gestionFormulaire = new GestionFormulaire(yuModalModifier);
+    if(gestionFormulaire.valide())
+    {
+        modifierPrivilegeAJAX();
+        yuModalModifier.style.width = "0";
+    }
 
 });
 
@@ -270,7 +280,7 @@ let btnOui = document.querySelector('.yu-modal-supprimer button[name="btnOui"]')
 btnOui.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
-    supprimerModePaiementAJAX(evt.target.dataset.jsId);
+    supprimerPrivilegeAJAX(evt.target.dataset.jsId);
     yuModalSupprimer.style.width = "0";
 
 });

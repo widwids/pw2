@@ -1,34 +1,36 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-ville yu-btn-ajouter-container">
-    <button class="yu-btn-ajouter">Ajouter une ville</button>
+    <div class="yu-table-taxes-province yu-btn-ajouter-container">
+    <button class="yu-btn-ajouter">Ajouter une taxe</button>
     </div>
 
     <div class="yu-table-responsive">
-    <table class="yu-table yu-table-ville">
+    <table class="yu-table yu-table-taxes-province">
         
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du ville (fr)</th>
-                <th>Nom du ville (eng)</th>
-                <th>Nom de la province (fr)</th>
-                <th>Nom de la province (eng)</th>
+                <th>Nom du province (fr)</th>
+                <th>Nom du province (eng)</th>                
+                <th>Nom du taxe (fr)</th>
+                <th>Nom du taxe (eng)</th>
+                <th>Taux</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
     <tbody>
 
-    <?php foreach ($data['villes'] as $ville) { ?>
+    <?php foreach ($data['taxeProvince'] as $taxeProvince) { ?>
 
         <tr>
-            <td data-js-idVille><?= $ville["idVille"]?></td>
-            <td><?= $ville["nomVilleFR"]?></td>
-            <td><?= $ville["nomVilleEN"]?></td>
-            <td><?= $ville["nomProvinceFR"]?></td>
-            <td><?= $ville["nomProvinceEN"]?></td>
+            <td data-js-idProvince data-js-idTaxe="<?=$taxeProvince["idTaxe"]?>"><?= $taxeProvince["codeProvince"]?></td>
+            <td><?= $taxeProvince["nomProvinceFR"]?></td>
+            <td><?= $taxeProvince["nomProvinceEn"]?></td>            
+            <td><?= $taxeProvince["nomTaxeFR"]?></td>
+            <td><?= $taxeProvince["nomTaxeEN"]?></td>
+            <td><?= $taxeProvince["taux"]?></td>
             <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
     
@@ -47,26 +49,33 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR" required>
-        </div>
-        <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN" required>
-        </div>
-        <div>
-            <label for="provinceCode">Province</label>
-            <select name="provinceCode" id="provinceCode">
-                <option value="">Sélectionnez une province</option>
+            <label for="provinceId">Province</label>
+            <select name="provinceId" id="provinceId">
+                <option value="">Sélectionnez un province</option>
                     <?php foreach($data["provinces"] as $province) { ?>
 
                         <option value="<?= $province["codeProvince"] ?>"><?= $province["nomProvinceFR"]?></option>
 
                     <?php }?>
-            </select>            
+            </select>
         </div>
         <div>
-            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-ville>
+            <label for="taxeId">Taxe</label>
+            <select name="taxeId" id="taxeId">
+                <option value="">Sélectionnez un taxe</option>
+                    <?php foreach($data["taxes"] as $taxe) { ?>
+
+                        <option value="<?= $taxe["idTaxe"] ?>"><?= $taxe["nomTaxeFR"]?></option>
+
+                    <?php }?>
+            </select>
+        </div>                
+        <div>
+            <label for="taux">Taux</label>
+            <input type="text" name="taux" required>
+        </div>
+        <div>
+            <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-taxeProvince>
         </div>
     </form>
 
@@ -78,30 +87,34 @@
     <button class="btn-ferme" data-js-btn-ferme-modifier>&times;</button>
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
-        <div>            
-            <input type="hidden" name="idVille">
-        </div>
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
-            <input type="text" name="nomVilleFR" required>
-        </div>
-        <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
-            <input type="text" name="nomVilleEN" required>
-        </div>
-        <div>
-            <label for="provinceCode">Province</label>
-            <select name="provinceCode" id="provinceCode">
-                <option value="">Sélectionnez une province</option>
+            <label for="provinceId">Province</label>
+            <select name="provinceId" id="provinceId">
+                <option value="">Sélectionnez un province</option>
                     <?php foreach($data["provinces"] as $province) { ?>
 
                         <option value="<?= $province["codeProvince"] ?>"><?= $province["nomProvinceFR"]?></option>
 
                     <?php }?>
-            </select>            
-        </div>        
+            </select>
+        </div>
         <div>
-            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-ville>
+            <label for="taxeId">Taxe</label>
+            <select name="taxeId" id="taxeId">
+                <option value="">Sélectionnez un taxe</option>
+                    <?php foreach($data["taxes"] as $taxe) { ?>
+
+                        <option value="<?= $taxe["idTaxe"] ?>"><?= $taxe["nomTaxeFR"]?></option>
+
+                    <?php }?>
+            </select>
+        </div>                
+        <div>
+            <label for="taux">Taux</label>
+            <input type="text" name="taux" required>
+        </div>
+        <div>
+            <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-taxeProvince>
         </div>
     </form>
 
@@ -147,8 +160,10 @@ function ajouterEvenements()
     for(let i = 0; i<btnsSupprimer.length; i++)
     {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; 
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').innerHTML;
+            let idTaxe = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').dataset.jsIdtaxe; 
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id; 
+            yuModalSupprimer.querySelector("[data-js-id]").dataset.jsIdt = idTaxe; 
             yuModalSupprimer.style.width = "100%";
         });
     }
@@ -157,8 +172,9 @@ function ajouterEvenements()
     for(let i = 0; i<btnsModifier.length; i++)
     {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-idVille]').innerHTML; 
-            obtenirVilleAJAX(id);
+            let idProvince = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').innerHTML; 
+            let idTaxe = evt.target.parentNode.parentNode.querySelector('[data-js-idProvince]').dataset.jsIdtaxe;
+            obtenirTaxeProvinceAJAX(idProvince, idTaxe);
             yuModalModifier.style.width = "100%";
         });
     }
@@ -167,51 +183,52 @@ function ajouterEvenements()
 
 ajouterEvenements();
 
-function obtenirVilleAJAX(id)
+function obtenirTaxeProvinceAJAX(idProvince, idTaxe)
 {
 
-    let xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest(); console.log(idProvince, idTaxe);
     let formulaire = new GestionFormulaire(yuModalModifier);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
-            let villeDonnees = jsonResponse['ville'];
-            console.log("villeDonnees",villeDonnees);
+            let taxeProvinceDonnees = jsonResponse['taxeProvince'];
+            console.log("taxeProvinceDonnees",taxeProvinceDonnees);
             
-            formulaire.remplirFormulaire(villeDonnees);           
+            formulaire.remplirFormulaire(taxeProvinceDonnees);           
         }
         };
 
-    xhttp.open("GET", `index.php?Utilisateur&action=afficheVilleAJAX&idVille=${id}`, true);
+    xhttp.open("GET", `index.php?Utilisateur&action=afficheTaxeProvinceAJAX&provinceId=${idProvince}&taxeId=${idTaxe}`, true);
     xhttp.send();    
 
 }
 
-function obtenirVillesAJAX()
+function obtenirTaxeProvincesAJAX()
 {
 
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            let jsonResponse = JSON.parse(this.response)['villes'];
-            console.log(jsonResponse);
+            let jsonResponse = JSON.parse(this.response)['taxeProvince'];
+            console.log("response all taxe-provinces",jsonResponse);
 
             let table = document.querySelector("table tbody"); 
             table.innerHTML = "";
 
             for(let i=0; i<jsonResponse.length; i++)
             {
-                let ville = jsonResponse[i];
+                let taxeProvince = jsonResponse[i];
 
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-idVille>${ ville["idVille"]}</td>
-                    <td>${ ville["nomVilleFR"]}</td>
-                    <td>${ ville["nomVilleEN"]}</td>
-                    <td>${ ville["nomProvinceFR"]}</td>
-                    <td>${ ville["nomProvinceEN"]}</td>                    
+                    <td data-js-idProvince data-js-idTaxe="${taxeProvince["idTaxe"]}">${ taxeProvince["codeProvince"]}</td>
+                    <td>${ taxeProvince["nomProvinceFR"]}</td>
+                    <td>${ taxeProvince["nomProvinceEn"]}</td>            
+                    <td>${ taxeProvince["nomTaxeFR"]}</td>
+                    <td>${ taxeProvince["nomTaxeEN"]}</td>
+                    <td>${ taxeProvince["taux"]}</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
@@ -222,12 +239,12 @@ function obtenirVillesAJAX()
         }
         };
 
-    xhttp.open("GET", "index.php?Utilisateur&action=listeVillesAJAX", true);
+    xhttp.open("GET", "index.php?Utilisateur&action=listeTaxeProvinceAJAX", true);
     xhttp.send();
 
 }
 
-function ajouterVilleAJAX()
+function ajouterTaxeProvinceAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalAjouter);
 
@@ -236,16 +253,16 @@ function ajouterVilleAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log("response ajouter", this.response);
-            obtenirVillesAJAX();
+            obtenirTaxeProvincesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Utilisateur&action=ajouterVille", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log(formulaire.obtenirQueryString());
+    xhttp.open("POST", "index.php?Utilisateur&action=ajouterTaxeProvince", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer les donnees sur serveur",formulaire.obtenirQueryString() );
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function modifierVilleAJAX()
+function modifierTaxeProvinceAJAX()
 {
     let formulaire = new GestionFormulaire(yuModalModifier);
 
@@ -254,51 +271,52 @@ function modifierVilleAJAX()
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log("response modifier",this.response);
-            obtenirVillesAJAX();
+            obtenirTaxeProvincesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Utilisateur&action=modifierVille", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+    xhttp.open("POST", "index.php?Utilisateur&action=modifierTaxeProvince", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log("envoyer les donnees sur serveur", formulaire.obtenirQueryString());
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimerVilleAJAX(id)
+function supprimerTaxeProvinceAJAX(idP, idT)
 {
     let xhttp = new XMLHttpRequest(); 
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenirVillesAJAX();
+            console.log("response supprimer",this.response);
+            obtenirTaxeProvincesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Utilisateur&action=suppression", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=ville&id=${id}`);
+    xhttp.open("POST", "index.php?Utilisateur&action=suppressionTaxeProvince", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log(idP,idT);
+    xhttp.send(`provinceId=${idP}&taxeId=${idT}`);
 }
 
-let btnAjouterVille = document.querySelector("[data-js-btn-ajouter-ville]");
-btnAjouterVille.addEventListener("click", (evt) => {
+let btnAjouterTaxeProvince = document.querySelector("[data-js-btn-ajouter-taxeProvince]");
+btnAjouterTaxeProvince.addEventListener("click", (evt) => {
 
     evt.preventDefault();
     let gestionFormulaire = new GestionFormulaire(yuModalAjouter);
     if(gestionFormulaire.valide())
     {
-        ajouterVilleAJAX();
+        ajouterTaxeProvinceAJAX();
         yuModalAjouter.style.width = "0";
     }
 
 });
 
-let btnModifierVille = document.querySelector("[data-js-btn-modifier-ville]");
-btnModifierVille.addEventListener("click", (evt) => {
+let btnModifierTaxeProvince = document.querySelector("[data-js-btn-modifier-taxeProvince]");
+btnModifierTaxeProvince.addEventListener("click", (evt) => {
 
     evt.preventDefault();
     let gestionFormulaire = new GestionFormulaire(yuModalModifier);
     if(gestionFormulaire.valide())
     {
-        modifierVilleAJAX();
+        modifierTaxeProvinceAJAX();
         yuModalModifier.style.width = "0";
     }
 
@@ -309,7 +327,7 @@ formSupprimer.addEventListener("click", (evt) => {
 
     evt.preventDefault(); 
     if(evt.target.name == "btnOui"){
-    supprimerVilleAJAX(evt.target.dataset.jsId);
+    supprimerTaxeProvinceAJAX(evt.target.dataset.jsId, evt.target.dataset.jsIdt);
     yuModalSupprimer.style.width = "0";
     }else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 

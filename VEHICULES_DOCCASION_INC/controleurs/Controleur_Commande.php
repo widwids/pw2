@@ -119,7 +119,7 @@
                     }
                     break;
 
-                case "afficheCommandes":
+                case "listeCommandes":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();
                         $data["statuts"] = $modeleCommande -> obtenir_tous("statut");
@@ -137,7 +137,7 @@
                     }
                     break;    
 
-                case "afficheCommandesAJAX":
+                case "listeCommandesAJAX":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         $data["commandes"] = $modeleCommande -> obtenirCommandes();
                         
@@ -165,11 +165,32 @@
                     } 
                     break;
 
-                case "afficheFactures":
+                case "listeFactures":
+                    //Affiche toutes les factures
+                    if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+                        $data["factures"] = $modeleCommande -> obtenirFactures();
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+                        $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
+                        $data["utilisateurs"] = $modeleCommande -> obtenir_tous("utilisateur");
+                        
+                        $this -> afficheVue("Head");
+                        $this -> afficheVue("Header");
+                        $this -> afficheVue("ListeFacturesAdmin", $data);
+                        $this -> afficheVue("Footer");
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
+                    }
+                    break;    
+
+                case "listeFacturesAJAX":
                     //Affiche toutes les factures
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         //$vue = "ListeFactures";
                         $data["factures"] = $modeleCommande -> obtenirFactures();
+                        $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
+                        $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
+                        $data["utilisateurs"] = $modeleCommande -> obtenir_tous("utilisateur");
                     
                         echo json_encode($data);
                         //$this -> afficheVue($vue, $data);
@@ -182,13 +203,12 @@
                 case "afficheFacture":
                     //Affiche une facture donnée
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-                        if (isset($params["idCommande"])) {
+                        if (isset($params["noFacture"])) {
                             //Affiche une Facture d'une commande donnée
                             //$vue = "Facture";
-                            $data["facture"] = $modeleCommande -> obtenirFacture($params["idCommande"]);
+                            $data["facture"] = $modeleCommande -> obtenirFacture($params["noFacture"]);
 
                             echo json_encode($data);
-                            //$this -> afficheVue($vue, $data);
                         } else {													
                             trigger_error("Paramètre manquant.");
                         }
@@ -270,6 +290,9 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
 
@@ -283,16 +306,22 @@
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
                     
                 case "modifierModePaiement":
                     if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
                         if(isset($params["nomModeFR"], $params["nomModeEN"], $params["idModePaiement"])) {
-                            $modeleCommande -> modifierModePaiement($params["nomModeFR"], $params["nomModeEN"]);
+                            $modeleCommande -> modifierModePaiement($params["nomModeFR"], $params["nomModeEN"], $params["idModePaiement"]);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
+                    } else {
+                        //Redirection vers le formulaire d'authentification
+                        header("Location: index.php?Utilisateur&action=connexion");
                     }
                     break;
                 

@@ -305,6 +305,32 @@
 
         /*--------------- Table taxeProvince ---------------*/
 
+        //Obtenir les taxes avec provinces
+        public function obtenir_taxesProvince() {
+            $requete = "SELECT taux, idTaxe, nomTaxeFR, nomTaxeEN, codeProvince, nomProvinceFR, nomProvinceEn,
+                paysId FROM taxeProvince JOIN taxe ON taxeId = idTaxe JOIN province ON provinceId = codeProvince 
+                WHERE taxeProvince.visibilite = 1";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> execute();
+			$resultat = $requetePreparee -> fetchAll(PDO::FETCH_ASSOC);
+			
+			return $resultat;
+        }
+
+        //Obtenir les taxes avec provinces
+        public function obtenir_taxeProvince($provinceId, $taxeId) {
+            $requete = "SELECT taux, taxeId, nomTaxeFR, nomTaxeEN, provinceId, nomProvinceFR, nomProvinceEn,
+                paysId FROM taxeProvince JOIN taxe ON taxeId = idTaxe JOIN province ON provinceId = codeProvince 
+                WHERE taxeProvince.visibilite = 1 AND provinceId = :pId AND taxeId = :tId";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":pId", $provinceId);
+            $requetePreparee -> bindParam(":tId", $taxeId);
+            $requetePreparee -> execute();
+			$resultat = $requetePreparee -> fetch(PDO::FETCH_ASSOC);
+			
+			return $resultat;
+        }
+
         //Ajouter la taxe dans la table taxeProvince
         public function ajouterTaxeProvince($provinceId, $taxeId, $taux) {
             $requete = "INSERT INTO taxeProvince(provinceId, taxeId, taux, visibilite) VALUES (:pId,:tId, :ta, 1)";
@@ -330,10 +356,22 @@
             $requetePreparee -> execute();
         }
 
+        //"Suppression" (DELETE)
+        public function supprimerTaxeProvince($provinceId, $taxeId) {
+            $requete = "UPDATE taxeProvince SET visibilite = 0 WHERE provinceId = :pId AND taxeId = :tId";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":pId", $provinceId);
+            $requetePreparee -> bindParam(":tId", $taxeId);
+            $requetePreparee -> execute();
+
+            //Retour du nombre de rangées affectées 
+            return $requetePreparee -> rowCount();
+        }
+
         /*--------------- Table privilege ---------------*/
 
         //Ajout privilège
-        public function ajouterPrivilege($nomPrivilegeFR, $nomProvinceEN) {
+        public function ajouterPrivilege($nomPrivilegeFR, $nomPrivilegeEN) {
             $requete = "INSERT INTO privilege(nomPrivilegeFR, nomPrivilegeEN, visibilite) VALUES (:nFR,:nEN, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomPrivilegeFR);
@@ -347,7 +385,7 @@
         }
 
         //Modifier le privilège
-        public function modifierPrivilege($nomPrivilegeFR, $nomProvinceEN, $idPrivilege) {
+        public function modifierPrivilege($nomPrivilegeFR, $nomPrivilegeEN, $idPrivilege) {
             $requete = "UPDATE privilege SET nomPrivilegeFR = :nFR, nomPrivilegeEN = :nEN WHERE idPrivilege = :idP";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nFR", $nomPrivilegeFR);

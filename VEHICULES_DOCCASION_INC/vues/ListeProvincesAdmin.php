@@ -47,7 +47,7 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="codeProvince">Nom du province en français</label>
+            <label for="codeProvince">Code du province</label>
             <input type="text" name="codeProvince" required>
         </div>
         <div>

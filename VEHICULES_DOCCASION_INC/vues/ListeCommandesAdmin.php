@@ -263,7 +263,7 @@ function obtenirCommandesAJAX() {
         }
     };
 
-    xhttp.open("GET", "index.php?Commande&action=afficheCommandesAJAX", true);
+    xhttp.open("GET", "index.php?Commande&action=listeCommandesAJAX", true);
     xhttp.send();
 }
 
