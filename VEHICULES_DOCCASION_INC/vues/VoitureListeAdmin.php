@@ -1,12 +1,12 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-btn-ajouter">
+    <div class="yu-table-voiture yu-btn-ajouter-container">
         <button class="yu-btn-ajouter">Ajouter un véhicule</button>
     </div>
 
-    <div class="yu-table-responsive">
-    <table class="yu-table yu-table-voiture">
+    <div class="yu-table-responsive">        
+    <table class="yu-table yu-table-voiture" data-component="Pagination">
         
         <thead>
             <tr>
@@ -30,12 +30,12 @@
             <td class="yu-image"><img src="./assets/images/<?= $voiture["nomPhoto"] ?>.jpg" alt="car"></td>
             <td data-js-noSerie><?= $voiture["noSerie"]?></td>
             <td><?= $voiture["kilometrage"] ?></td>
-            <td><?= $voiture["dateArrivee"]?></td>
+            <td class="yu-date-arr"><?= $voiture["dateArrivee"]?></td>
             <td><?= $voiture["prixAchat"]?></td>
             <td><?= $voiture["nomMarque"]?></td>
             <td><?= $voiture["nomModele"]?></td>
             <td><?= $voiture["anneeId"]?></td>
-            <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
+            <td class="yu-actions"><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
         </tr>
 
             
@@ -374,17 +374,19 @@ function obtenirVoituresAJAX()
                     <td class="yu-image"><img src="./assets/images/${voiture["nomPhoto"]}.jpg" alt="car"></td>
                     <td data-js-noSerie>${voiture["noSerie"]}</td>
                     <td>${voiture["kilometrage"]}</td>
-                    <td>${voiture["dateArrivee"]}</td>
+                    <td class="yu-date-arr">${voiture["dateArrivee"]}</td>
                     <td>${voiture["prixAchat"]}</td>
                     <td>${voiture["nomMarque"]}</td>
                     <td>${voiture["nomModele"]}</td>
                     <td>${voiture["anneeId"]}</td>
-                    <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
+                    <td class="yu-actions"><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
                 `;                
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

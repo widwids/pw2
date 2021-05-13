@@ -293,7 +293,7 @@ body{
 }
 
 .yu-table-voiture{
-    max-width: 1024px; 
+    max-width: 1455px; 
     margin: 70px auto;   
 }
 
@@ -303,7 +303,7 @@ body{
 }
 
 .yu-btn-ajouter-container{
-    padding-top: 80px;
+    padding-top: 0;
 }
 
 .yu-table-corp{
@@ -475,6 +475,29 @@ span.yu-erreur-validation{
     font-size: 20px;
     font-weight: 900;
     padding: 0 10px;
+}
+
+.yu-pagination{
+    display: flex;
+    justify-content: center;
+}
+
+.yu-pagination button{
+    color: #fff;
+    background-color: transparent;
+}
+
+.yu-pagination-courant{
+    text-decoration: underline;
+}
+
+.yu-pagination-hide{
+    display: none;
+}
+
+.yu-pagination-recherche input{
+    color: black;
+    padding: 7px;
 }
 
 
