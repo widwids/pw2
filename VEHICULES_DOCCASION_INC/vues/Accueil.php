@@ -6,6 +6,8 @@
         <img src="assets/images/Lion.gif">
         <div class="YVMA_text_container">
             <h1 class="YVMA_text">YVMA</h1>
+            <h3 class="YVMA_subtext">Véhicules de prestige seconde main</h3>
+            
         </div>
     </div>
 

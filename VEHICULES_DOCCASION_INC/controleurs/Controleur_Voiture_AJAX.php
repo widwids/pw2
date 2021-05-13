@@ -69,63 +69,6 @@
 						}
 					break;
 
-
-					case "modifPhotosVoiture":
-						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
-							if (isset($params["noSerie"]) /* &&
-								isset($params["nomPhoto"]) &&
-								isset($params["ordre"]) &&
-								isset($params["autoId"]) &&
-								isset($params["visibilite"]) */) {
-								///// injection nom photo.jpg principale dans le serveur /////
-								$fileNamePrin = basename($_FILES['imgPrincipale']["name"]);
-
-								//file extension
-								$imageFileType = strtolower(pathinfo($fileNamePrin, PATHINFO_EXTENSION));
-								//file size
-								$fileSize = $_FILES["imgPrincipale"]["size"];
-								$folder = "assets/images/";
-								$error =  FALSE;
-								//check extension
-								if($imageFileType !="jpg"){
-
-										echo '<strong>File must be JPG '; /* , JPEG, PNG, GIF */
-										$error = TRUE;
-								}								
-
-								if(! file_exists($folder.$fileNamePrin)){
-									if(move_uploaded_file($_FILES["imgPrincipale"]["tmp_name"], $folder.$fileNamePrin)){
-										///// injection nom photo principale dans BD /////
-										$file = $fileNamePrin;
-										$info = pathinfo($file);
-										$file_name =  basename($file,'.'.$info['extension']);
-										$modeleVoiture->modifPhotoVoiture($file_name, 1 , $params["nSerie"]);	
-									}
-								}
-								
-								for ($i=0; $i < count($_FILES['imgSecondaire']["tmp_name"]); $i++) {
-									$fileNamePSec = basename($_FILES['imgSecondaire']["name"][$i]);
-									if(! file_exists($folder.$fileNamePSec)){
-										///// injection noms photos secondaires dans le serveur/////
-										if(move_uploaded_file($_FILES["imgSecondaire"]["tmp_name"][$i], $folder.$fileNamePSec)){
-											///// injection noms photos secondaires dans BD/////
-											$file = $_FILES['imgSecondaire']["name"][$i];
-											$info = pathinfo($file);
-											$file_name =  basename($file,'.'.$info['extension']);
-											//echo $file,' / ';
-											$modeleVoiture->modifPhotoVoiture($file_name, $i+2 , $params["nSerie"]);
-										}
-									}							
-								}
-							} else {													
-								echo "ERROR PARAMS";
-							}
-						}else {
-							//Redirection vers le formulaire d'authentification
-							header("Location: index.php?Utilisateur&action=connexion");
-						}
-					break;
-
 					case "detailVoitureJson":
 						//if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 							if (isset($params["noSerie"])) {
@@ -840,6 +783,17 @@
 						///////////////////////////////
 
 					break;
+					
+					case "listeOrdonnee" :
+						if(isset($params["nomFiltre"], $params["filtre"], $params["ordre"])) {
+							$data = $modeleVoiture -> obtenir_voitures($params["nomFiltre"], $params["filtre"],
+									$params["ordre"]);
+
+							echo json_encode($data);
+						} else  {
+                            trigger_error("Paramètre manquant.");
+                        }
+						break;
 
 					case "listeVoituresNonAdmin":
 						// affiche liste voiture//
@@ -855,45 +809,34 @@
 						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 							if (isset($params["nSerie"])) {
 					
-								///// injection nom photo.jpg principale dans le serveur /////
-								$fileNamePrin = basename($_FILES['imgPrincipale']["name"]);
-
-								//file extension
-								$imageFileType = strtolower(pathinfo($fileNamePrin, PATHINFO_EXTENSION));
-								//file size
-								$fileSize = $_FILES["imgPrincipale"]["size"];
 								$folder = "assets/images/";
-								$error =  FALSE;
-								//check extension
-								if($imageFileType !="jpg"){
 
-										echo '<strong>File must be JPG '; /* , JPEG, PNG, GIF */
-										$error = TRUE;
-								}								
-
-								if(! file_exists($folder.$fileNamePrin)){
-									if(move_uploaded_file($_FILES["imgPrincipale"]["tmp_name"], $folder.$fileNamePrin)){
-										///// injection nom photo principale dans BD /////
-										$file = $fileNamePrin;
-										$info = pathinfo($file);
-										$file_name =  basename($file,'.'.$info['extension']);
-										$modeleVoiture->ajoutPhotoVoiture($file_name, 1 , $params["nSerie"]);	
-									}
-								}
+								$tabOrdre = json_decode($params["tabOrdre"]); echo $params["tabOrdre"];
 								
-								for ($i=0; $i < count($_FILES['imgSecondaire']["tmp_name"]); $i++) {
-									$fileNamePSec = basename($_FILES['imgSecondaire']["name"][$i]);
-									if(! file_exists($folder.$fileNamePSec)){
-										///// injection noms photos secondaires dans le serveur/////
-										if(move_uploaded_file($_FILES["imgSecondaire"]["tmp_name"][$i], $folder.$fileNamePSec)){
-											///// injection noms photos secondaires dans BD/////
-											$file = $_FILES['imgSecondaire']["name"][$i];
+								for ($i=0; $i < count($_FILES['imgs']["tmp_name"]); $i++) {
+									$fileNamePSec = basename($_FILES['imgs']["name"][$i]);
+									// if(! file_exists($folder.$fileNamePSec)){
+										
+										if(move_uploaded_file($_FILES["imgs"]["tmp_name"][$i], $folder.$fileNamePSec)){
+											
+											$file = $_FILES['imgs']["name"][$i];
 											$info = pathinfo($file);
 											$file_name =  basename($file,'.'.$info['extension']);
 											echo $file,' / ';
-											$modeleVoiture->ajoutPhotoVoiture($file_name, $i+2 , $params["nSerie"]);
+											$photoExiste = $modeleVoiture->obtenirPhotoVoitureOrdre($params["nSerie"], $tabOrdre[$i]);
+											if($photoExiste){
+												$modeleVoiture->modifPhotoVoiture($file_name, $tabOrdre[$i] , $params["nSerie"]); 
+											}else{
+												$modeleVoiture->ajoutPhotoVoiture($file_name, $tabOrdre[$i] , $params["nSerie"]);
+											}
+											
 										}
-									}							
+									// }else{ 
+									// 	$file = $_FILES['imgs']["name"][$i];
+									// 	$info = pathinfo($file);
+									// 	$file_name =  basename($file,'.'.$info['extension']);
+									// 	$modeleVoiture->modifPhotoVoiture($file_name, $tabOrdre[$i] , $params["nSerie"]); 
+									// }
 								}
 							 } else {													
 								echo "ERROR PARAMS";

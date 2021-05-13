@@ -293,8 +293,8 @@ body{
 }
 
 .yu-table-voiture{
-    max-width: 1024px; 
-    margin: 70px auto;   
+    max-width: 1455px; 
+    margin: 35px auto;   
 }
 
 .yu-table-groupeMP{
@@ -303,7 +303,7 @@ body{
 }
 
 .yu-btn-ajouter-container{
-    padding-top: 80px;
+    padding-top: 0;
 }
 
 .yu-table-corp{
@@ -326,6 +326,14 @@ body{
     margin: 35px auto;
 
 }
+
+.yu-table-connexions{
+
+    max-width: 760px;
+    margin: 35px auto;
+
+}
+
 
 .yu-table-province{
 
@@ -383,8 +391,6 @@ body{
 
 }
 
-
-
 .yu-table .yu-image img{
 
     max-width: 150px;
@@ -430,6 +436,11 @@ body{
 
 }
 
+.yu-file{
+    position: relative;
+    margin-bottom: 70px;
+}
+
 .yu-file input{
     display: none;
 }
@@ -449,6 +460,52 @@ span.yu-erreur-validation{
     display: block;
     padding: 7px;
     color: darkred;
+}
+
+.yu-formulaire div[data-js-photos]{
+    margin-top: 40px;
+}
+
+.yu-image-container{
+    position: absolute;
+    width: 190px;
+    margin: 0 auto;
+    right: -210px;
+    top: -9px;
+}
+
+.yu-image-container img{
+    max-width: 100%;
+}
+
+[data-js-btn-ajouter-photos]{
+    color: black;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 0 10px;
+}
+
+.yu-pagination{
+    display: flex;
+    justify-content: center;
+}
+
+.yu-pagination button{
+    color: #fff;
+    background-color: transparent;
+}
+
+.yu-pagination-courant{
+    text-decoration: underline;
+}
+
+.yu-pagination-hide{
+    display: none;
+}
+
+.yu-pagination-recherche input{
+    color: black;
+    padding: 7px;
 }
 
 

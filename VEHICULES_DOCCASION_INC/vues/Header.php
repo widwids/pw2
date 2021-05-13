@@ -6,8 +6,8 @@
 		<div class="menu">
 			<ul class="liens">
 				<li><a href="index.php?Voiture&action=listeVoituresNonAdmin">Salle de montre</a></li>
-				<li><a href="#">Promotions</a></li>
 				<li><a href="index.php?Voiture&action=aPropos">À propos</a></li>
+				<li><a href="index.php?Voiture&action=contact">Contact</a></li>
 				<?php if(isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {?>
 					<div class="dropdown">
 						<a href="#" class="gestion" data-js-gestion>Gestion</a>
@@ -35,6 +35,7 @@
 								<a href="index.php?Commande&action=listeModePaiement">Modes paiement</a>
 								<a href="index.php?Commande&action=listeCommandes">Commandes</a>
 								<a href="index.php?Commande&action=listeFactures">Factures</a>
+								<a href="index.php?Utilisateur&action=listeConnexions">Connexions</a>
 							</div>
 						</div>
 						<?php } ?>
@@ -67,7 +68,6 @@
 				<li><a href="index.php?Utilisateur&action=compte">Compte utilisateur</a></li>
 <?php } ?>
 				<li><a href="index.php?Voiture&action=listeVoituresNonAdmin">Salle de montre</a></li>
-				<li><a href="#">Promotions</a></li>
 				<li><a href="index.php?Voiture&action=aPropos">À propos</a></li>
 				<li><a href="#">Contact</a></li>
 				<li><a href="#">EN/FR</a></li>

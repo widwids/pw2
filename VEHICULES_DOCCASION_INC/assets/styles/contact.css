@@ -1,0 +1,216 @@
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 0px 0px;
+        grid-template-areas:
+            ". . titre. ."
+            ". contact-info contact-info contact-info ."
+            ". contact-info contact-info contact-info ."
+            ". contact-info contact-info contact-info ."
+            ". . . . .";
+    }
+    .contact-info {
+        display: grid;
+        grid-template-columns: repeat(autofill, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 30px 30px;
+        grid-template-areas:
+            "tel tel"
+            "courriel courriel"
+            "adresse adresse"
+            "heures heures";
+        grid-area: contact-info;
+    }
+
+    .contact-info div {
+        background-color: black;
+        text-align: center;
+        padding: 30px;
+        font-weight: 100;
+        border: 2px solid white;
+        transition: all 0.3s ease-out;
+    }
+
+    .contact-info div:hover {
+        border: 2px solid gold;
+        background-color: #171717;
+    }
+
+
+    .contact-info span {
+        font-size: 2vw;
+        text-decoration: underline;
+    }
+
+    .contact-info p, .contact-info li {
+        font-size: 1vw;
+    }
+
+    .contact-titre {
+        grid-area: titre;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .tel { 
+        grid-area: tel; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .courriel { 
+        grid-area: courriel; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .adresse { 
+        grid-area: adresse; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .heures { 
+        grid-area: heures; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+@media screen and(min-width: 600px) {
+    .contact-info div { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+/* TENTATIVE 2 */
+/* html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.main-container {
+  height: 100%;
+  display: flex;
+}
+
+.left-container {
+  position: relative;  
+  flex: 1 1 0;
+  min-width: 550px;
+  border-right: 30px solid white;
+  overflow: hidden;
+  font-family: 'Marcellus SC', sans-serif;
+}
+
+.contact-titre{
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 15%;
+    padding: 10px;
+    font-size: 3vw;
+    background-color: rgba(0,0,0,0.7)
+}
+
+.left-container img {
+    object-fit: cover;
+    object-position: center center;
+    width: 100%;
+    height: 100%;
+}
+
+.right-container {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.half-containers {
+  width: 100%;
+  text-align: center;
+  flex: 1;
+  overflow: auto;
+}
+
+.half-containers:first-of-type {
+    margin-top: 100px;
+    font-size: 2vw;
+}
+
+.half-containers:last-of-type {
+    display: flex;
+    
+}
+
+.half-containers:last-of-type p {
+    text-align: center;
+}
+
+.half-containers:last-of-type div {
+    border-left: 30px solid white;
+}
+
+.contact-adresse{
+    width: 100%;
+    padding-top: 3vw;
+    font-size: 1.5vw;
+} */
+
+
+
+
+/* TENTATIVE 1 */
+
+/* .contact_page{
+    position: relative;
+}
+
+.contact_container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.contact_page h1{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.contact_container img{
+    flex-basis: 50%;
+    width: 100%;
+    height: auto;
+    min-width: 550px;
+
+}
+
+.contact_info{
+    display: flex;
+    flex-basis: 50%;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.contact_info div{
+    display: flex;
+    flex-basis: 50%;
+    width: 5vw;
+    height: auto;
+    flex:1;
+    background-color: gold;
+} */

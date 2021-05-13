@@ -410,6 +410,14 @@
                 return false;
         }
 
+        public function obtenir_connexions() {
+            $requete = "SELECT * FROM connexion JOIN utilisateur ON idConnexion = idUtilisateur
+                WHERE connexion.visibilite = 1";
+            $resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
+        }
+
         //Modifier une connexion
         public function modifierConnexion($idUtilisateur) {
             $requete = "UPDATE connexion SET adresseIp = '" . $_SERVER["REMOTE_ADDR"] . "', dateConnexion = '" .
