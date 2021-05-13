@@ -508,7 +508,9 @@ span.yu-erreur-validation{
 }
 
 .yu-pagination-courant{
-    text-decoration: underline;
+    font-weight: 900;
+    font-size: 17px;
+    line-height: 14px;
 }
 
 .yu-pagination-hide{
