@@ -327,6 +327,14 @@ body{
 
 }
 
+.yu-table-connexions{
+
+    max-width: 760px;
+    margin: 35px auto;
+
+}
+
+
 .yu-table-province{
 
     max-width: 930px;
