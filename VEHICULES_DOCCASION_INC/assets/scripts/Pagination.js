@@ -122,7 +122,7 @@ class Pagination
                     elms.push(this.elements[i]);
                 }
             }
-            this.nElements = nElements; console.log(nElements, "-" ,this.pageCourant);
+            this.nElements = nElements; 
             if((Math.floor(this.nElements / 10) + 1) < this.pageCourant) this.pageCourant = 1;
 
             let debut = (this.pageCourant*this.elementsParPage) - this.elementsParPage;
