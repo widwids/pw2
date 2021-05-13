@@ -6,7 +6,7 @@
     </div>
 
     <div class="yu-table-responsive">
-    <table class="yu-table yu-table-taxes">
+    <table class="yu-table yu-table-taxes" data-component="Pagination">
         
         <thead>
             <tr>
@@ -194,6 +194,7 @@ function obtenirTaxesAJAX()
             
             ajouterEvenements();
             
+            let pagination = new Pagination(document.querySelector('table'));
         }
         };
 

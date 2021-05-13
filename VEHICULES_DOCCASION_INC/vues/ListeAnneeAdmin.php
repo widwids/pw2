@@ -5,7 +5,7 @@
     <button class="yu-btn-ajouter">Ajouter Année</button>
     </div>
 
-    <table class="yu-table yu-table-groupeMP">
+    <table class="yu-table yu-table-groupeMP" data-component="Pagination">
         
         <thead>
             <tr>
@@ -176,6 +176,8 @@ function obtenirAnneesAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };
