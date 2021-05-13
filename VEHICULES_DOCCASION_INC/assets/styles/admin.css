@@ -504,7 +504,8 @@ span.yu-erreur-validation{
 
 .yu-pagination button{
     color: #fff;
-    background-color: transparent;
+    background-color: black;
+    box-shadow: 20px 14px 20px 20px black;
 }
 
 .yu-pagination-courant{
