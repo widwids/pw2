@@ -6,7 +6,7 @@
     </div>
 
     <div class="yu-table-responsive">
-    <table class="yu-table yu-table-modePaiement">
+    <table class="yu-table yu-table-modePaiement" data-component="Pagination">
         
         <thead>
             <tr>
@@ -190,6 +190,8 @@ function obtenirModePaiementsAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

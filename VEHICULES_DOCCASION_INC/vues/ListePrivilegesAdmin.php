@@ -6,7 +6,7 @@
     </div>
 
     <div class="yu-table-responsive">
-    <table class="yu-table yu-table-privilege">
+    <table class="yu-table yu-table-privilege" data-component="Pagination">
         
         <thead>
             <tr>
@@ -190,6 +190,8 @@ function obtenirPrivilegesAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

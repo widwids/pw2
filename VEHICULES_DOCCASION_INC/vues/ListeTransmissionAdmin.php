@@ -5,7 +5,7 @@
         <button class="yu-btn-ajouter">Ajouter transmission</button>
     </div>
 
-    <table class="yu-table yu-table-transmission">
+    <table class="yu-table yu-table-transmission" data-component="Pagination">
             
         <thead>
             <tr>
@@ -190,6 +190,8 @@ function obtenirTransmissionsAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

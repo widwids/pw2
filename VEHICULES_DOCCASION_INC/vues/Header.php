@@ -32,9 +32,11 @@
 								<a href="index.php?Utilisateur&action=listePays">Pays</a>
 								<a href="index.php?Utilisateur&action=listeTaxes">Taxes</a>
 								<a href="index.php?Utilisateur&action=listeTaxeProvince">Taxes - Province</a>
+								<a href="index.php?Utilisateur&action=listePrivileges">Privilèges</a>								
 								<a href="index.php?Commande&action=listeModePaiement">Modes paiement</a>
 								<a href="index.php?Commande&action=listeCommandes">Commandes</a>
 								<a href="index.php?Commande&action=listeFactures">Factures</a>
+								<a href="index.php?Utilisateur&action=listeConnexions">Connexions</a>
 							</div>
 						</div>
 						<?php } ?>

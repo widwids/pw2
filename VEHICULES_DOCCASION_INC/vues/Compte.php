@@ -7,7 +7,7 @@
         <h1><?= $utilisateur -> getPrenom() . " " . $utilisateur -> getNom() ?></h1>
         <h3>"<?= $utilisateur -> getPseudonyme() ?>"</h3>
 
-        <div class="columns">
+        <div class="compteColumns">
             <!-- <div>Id : <?= $utilisateur -> getId() ?></div> -->
 
             <div>Date de naissance</div>
@@ -33,7 +33,7 @@
             <!--<div>Privilège : <?= $utilisateur -> getNomPrivilegeFR() ?></div>-->
         </div><br>
 
-        <a href="index.php?Utilisateur&action=formulaireModifierUtilisateur">Modifier</a>
+        <a href="index.php?Utilisateur&action=formulaireModifierUtilisateur"><button class="button" type="submit" value="Enregistrer">Modifier</button></a>
 
     </div>    
 </div>

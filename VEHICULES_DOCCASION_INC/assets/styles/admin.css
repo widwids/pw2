@@ -293,8 +293,13 @@ body{
 }
 
 .yu-table-voiture{
-    max-width: 1024px; 
-    margin: 70px auto;   
+    max-width: 1455px; 
+    margin: 35px auto;   
+}
+
+.yu-table-utilisateur{
+    max-width: 1455px; 
+    margin: 35px auto;  
 }
 
 .yu-table-groupeMP{
@@ -303,7 +308,7 @@ body{
 }
 
 .yu-btn-ajouter-container{
-    padding-top: 80px;
+    padding-top: 0;
 }
 
 .yu-table-corp{
@@ -326,6 +331,21 @@ body{
     margin: 35px auto;
 
 }
+
+.yu-table-connexions{
+
+    max-width: 760px;
+    margin: 35px auto;
+
+}
+
+.yu-table-commande{
+
+    max-width: 1455px;
+    margin: 35px auto;
+
+}
+
 
 .yu-table-province{
 
@@ -477,7 +497,34 @@ span.yu-erreur-validation{
     padding: 0 10px;
 }
 
+.yu-pagination{
+    display: flex;
+    justify-content: center;
+}
 
+.yu-pagination button{
+    color: #fff;
+    background-color: transparent;
+}
+
+.yu-pagination-courant{
+    text-decoration: underline;
+}
+
+.yu-pagination-hide{
+    display: none;
+}
+
+.yu-pagination-recherche input{
+    color: black;
+    padding: 7px;
+}
+
+@media screen and (max-width: 667px) {
+    .yu-formulaire {
+        max-width: 92%;
+    }
+}
 
 
 

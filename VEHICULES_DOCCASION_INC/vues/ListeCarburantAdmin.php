@@ -5,7 +5,7 @@
         <button class="yu-btn-ajouter">Ajouter carburant</button>
     </div>
 
-    <table class="yu-table yu-table-carburant">
+    <table class="yu-table yu-table-carburant" data-component="Pagination">
             
         <thead>
             <tr>
@@ -190,6 +190,8 @@ function obtenirCarburantsAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

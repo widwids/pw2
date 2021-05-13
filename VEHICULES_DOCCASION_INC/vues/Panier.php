@@ -103,8 +103,9 @@
 
     <div class="hidden" data-js-confirmer>
         <div class="complete">
+            <br><br>
             <h2>Commande complétée.</h2>
-            <p>Merci.</p>
+            <p>Merci.</p><br><br>
         </div>
     </div>
 </section>
