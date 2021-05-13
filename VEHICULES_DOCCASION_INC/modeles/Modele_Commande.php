@@ -126,9 +126,10 @@
 		//Toutes les factures
 		public function obtenirFactures() {
 			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementNo, nomModeFR, nomModeEN, 
-				expeditionId, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, GROUP_CONCAT(' ', voitureId) 
-				AS voitureId FROM facture JOIN commande ON noFacture = noCommande JOIN commandeVoiture ON noCommande =
-				commandeNo JOIN modePaiement ON modePaiementNo = idModePaiement JOIN expedition 
+				expeditionId, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, courriel, adresse,
+				codePostal, telephone, pseudonyme, GROUP_CONCAT(' ', voitureId) AS voitureId FROM facture 
+				JOIN commande ON noFacture = noCommande JOIN commandeVoiture ON noCommande = commandeNo 
+				JOIN modePaiement ON modePaiementNo = idModePaiement JOIN expedition 
 				ON expeditionId = idExpedition JOIN utilisateur ON usagerId = idUtilisateur 
 				WHERE facture.visibilite = 1 AND statutId = 3 GROUP BY commandeNo";
 			$resultats = $this -> connexion -> query($requete);
@@ -140,9 +141,10 @@
 		//Facture d'une seule commande donnée
 		public function obtenirFacture($noFacture) {
 			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementNo, nomModeFR, nomModeEN, 
-			expeditionId, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, GROUP_CONCAT(' ', voitureId) 
-			AS voitureId FROM facture JOIN commande ON noFacture = noCommande JOIN commandeVoiture ON noCommande =
-			commandeNo JOIN modePaiement ON modePaiementNo = idModePaiement JOIN expedition 
+			expeditionId, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, courriel, adresse,
+			codePostal, telephone, pseudonyme, GROUP_CONCAT(' ', voitureId) AS voitureId FROM facture 
+			JOIN commande ON noFacture = noCommande JOIN commandeVoiture ON noCommande = commandeNo 
+			JOIN modePaiement ON modePaiementNo = idModePaiement JOIN expedition 
 			ON expeditionId = idExpedition JOIN utilisateur ON usagerId = idUtilisateur 
 			WHERE facture.visibilite = 1 AND statutId = 3 AND noFacture = :nF GROUP BY commandeNo";
 			$requetePreparee = $this -> connexion -> prepare($requete);

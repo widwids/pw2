@@ -1,7 +1,9 @@
 <?php
-    require './phpmailer/includes/PHPMailer.php';
-    require './phpmailer/includes/SMTP.php';
-    require './phpmailer/includes/Exception.php';
+    require './lib/phpmailer/includes/PHPMailer.php';
+    require './lib/phpmailer/includes/SMTP.php';
+    require './lib/phpmailer/includes/Exception.php';
+    //call the FPDF library
+    require('./lib/fpdf/fpdf.php');
 
     //Define name spaces
     use PHPMailer\PHPMailer\PHPMailer;
@@ -107,8 +109,11 @@
                             } else {
                                 $modeleCommande -> ajouterFacture($params["noFacture"], $params["prixFinal"]);
                             }
-                            $data["factures"] = $modeleCommande -> obtenirFactures();
+
+                            $data = $modeleCommande -> obtenirFacture($params["noFacture"]);
+                            $courriel = $data["courriel"];
                             
+                            $this -> envoieFacture($courriel, $params["noFacture"], $params["prixFinal"]);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -139,6 +144,7 @@
                         $data["taxes"] = $modeleUtilisateur -> obtenir_taxe_utilisateur($usagerId);
                         $data["modePaiement"] = $modeleCommande -> obtenir_tous("modePaiement");
                         $data["expeditions"] = $modeleCommande -> obtenir_tous("expedition");
+                      
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("Panier", $data);
@@ -424,6 +430,132 @@
             $mail -> isHTML(true);
             //E-mail body
             $mail -> Body = $texte;   
+            //Add recipient
+            $mail -> AddAddress($courriel);
+            //Finally send e-mail
+            $mail -> Send();
+            //Closing smtp connection
+            $mail -> smtpClose();
+        }
+
+        public function envoieFacture($courriel, $noFacture, $prixFinal) {
+            $lien = "./lib/phpmailer/attachments/" . $noFacture . ".pdf";
+
+            //create pdf object
+            $pdf = new FPDF('P','mm','A4');
+            //add new page
+            $pdf->AddPage();
+            //set font to arial, bold, 14pt
+            $pdf->SetFont('Arial','B',14);
+
+            //Cell(width , height , text , border , end line , [align] )
+
+            $pdf->Cell(130 ,5,'YVMA',0,0);
+            $pdf->Cell(59 ,5,'INVOICE',0,1);//end of line
+
+            //set font to arial, regular, 12pt
+            $pdf->SetFont('Arial','',12);
+
+            $pdf->Cell(130 ,5,'9655 rue Docteur Penfield',0,0);
+            $pdf->Cell(59 ,5,'',0,1);//end of line
+
+            $pdf->Cell(130 ,5,'Montréal, Québec, G1T H0B',0,0);
+            $pdf->Cell(25 ,5,'Date',0,0);
+            $pdf->Cell(34 ,5,'[dd/mm/yyyy]',0,1);//end of line
+
+            $pdf->Cell(130 ,5,'Phone: 514-555-8978',0,0);
+            $pdf->Cell(25 ,5,'Invoice #',0,0);
+            $pdf->Cell(34 ,5,'[1234567]',0,1);//end of line
+
+            $pdf->Cell(130 ,5,'Fax: 514-555-1454',0,0);
+            $pdf->Cell(25 ,5,'Customer ID',0,0);
+            $pdf->Cell(34 ,5,'[1234567]',0,1);//end of line
+
+            //make a dummy empty cell as a vertical spacer
+            $pdf->Cell(189 ,10,'',0,1);//end of line
+
+            //billing address
+            $pdf->Cell(100 ,5,'Bill to',0,1);//end of line
+
+            //add dummy cell at beginning of each line for indentation
+            $pdf->Cell(10 ,5,'',0,0);
+            $pdf->Cell(90 ,5,'[Name]',0,1);
+
+            $pdf->Cell(10 ,5,'',0,0);
+            $pdf->Cell(90 ,5,'[Address]',0,1);
+
+            $pdf->Cell(10 ,5,'',0,0);
+            $pdf->Cell(90 ,5,'[Phone]',0,1);
+
+            //make a dummy empty cell as a vertical spacer
+            $pdf->Cell(189 ,10,'',0,1);//end of line
+
+            //invoice contents
+            $pdf->SetFont('Arial','B',12);
+
+            $pdf->Cell(130 ,5,'Description',1,0);
+            $pdf->Cell(25 ,5,'Taxable',1,0);
+            $pdf->Cell(34 ,5,'Amount',1,1);//end of line
+
+            $pdf->SetFont('Arial','',12);
+
+            //Numbers are right-aligned so we give 'R' after new line parameter
+
+            $pdf->Cell(130 ,5,'UltraCool Fridge',1,0);
+            $pdf->Cell(25 ,5,'-',1,0);
+            $pdf->Cell(34 ,5,'3,250',1,1,'R');//end of line
+
+            //summary
+            $pdf->Cell(130 ,5,'',0,0);
+            $pdf->Cell(25 ,5,'Subtotal',0,0);
+            $pdf->Cell(4 ,5,'$',1,0);
+            $pdf->Cell(30 ,5,'4,450',1,1,'R');//end of line
+
+            $pdf->Cell(130 ,5,'',0,0);
+            $pdf->Cell(25 ,5,'Taxable',0,0);
+            $pdf->Cell(4 ,5,'$',1,0);
+            $pdf->Cell(30 ,5,'0',1,1,'R');//end of line
+
+            $pdf->Cell(130 ,5,'',0,0);
+            $pdf->Cell(25 ,5,'Tax Rate',0,0);
+            $pdf->Cell(4 ,5,'$',1,0);
+            $pdf->Cell(30 ,5,'10%',1,1,'R');//end of line
+
+            $pdf->Cell(130 ,5,'',0,0);
+            $pdf->Cell(25 ,5,'Total Due',0,0);
+            $pdf->Cell(30 ,5, $prixFinal ,1,0);
+            $pdf->Cell(4 ,5,'$',1,1,'R');//end of line
+
+            //Output the result
+            $pdf->Output(F, $lien);
+
+            //Create instance of phpmailer
+            $mail = new PHPMailer();
+
+            //Set mailer to use smtp
+            $mail -> isSMTP();
+            //Define smtp host
+            $mail -> Host = "smtp.gmail.com";
+            //Enable smtp authentification
+            $mail -> SMTPAuth = "true";
+            //Set type of encryption (ssl/tls)
+            $mail -> SMTPSecure = "tls";
+            //Set port to connect smtp
+            $mail -> Port = "587";
+            //Set gmail username
+            $mail -> Username = "yvma.pw2@gmail.com";
+            //Set gmail password
+            $mail -> Password = "e2095087";
+            //Set e-mail subject
+            $mail -> Subject = "Facture";
+            //Set sender email
+            $mail -> setFrom("yvma.pw2@gmail.com");
+            //Enable HTML
+            $mail -> isHTML(true);
+            //Attachments
+            $mail -> addAttachment("./lib/phpmailer/attachments/" . $noFacture . ".pdf");
+            //E-mail body
+            $mail -> Body = '<p>Test</p>';   
             //Add recipient
             $mail -> AddAddress($courriel);
             //Finally send e-mail
