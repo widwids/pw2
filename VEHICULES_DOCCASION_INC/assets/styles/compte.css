@@ -15,11 +15,22 @@
 
 .compte {    
     background: rgba(0, 0, 0, 0.8);
-    max-width: 400px;
+    max-width: 320px;
 	text-decoration: none;
 }
 
 .columns {
     column-count: 2;
     text-align: left;
+}
+
+.compte > a {
+	display: block;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    background: #FFD700;
+    width: 150px;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 0 8px 1px rgb(0 0 0 / 70%);
 }

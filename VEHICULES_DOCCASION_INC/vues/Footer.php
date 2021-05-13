@@ -1,42 +1,59 @@
+<div class="footer-container"></div>
 <footer>
-    <div class="container">
-        <div class="contact" id="contact">
-        <h3>Contact</h3>
-            <ul>
-                <li>9655 rue Docteur Penfield</li>
-                <li>Montréal, Québec</li>
-                <li>G1T H0B</li>
-                <li>514-555-8978</li>
-                <li><a>service@yvma.com</a></li>
-            </ul>
+    <!-- Footer main -->
+    <section class="footer-main">
+        
+        <div class="footer-main-item">
+          <h2 class="footer-title">À propos</h2>
+          <ul>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Courtoisie</a></li>
+            <li><a href="#">Commandites</a></li>
+            <li><a href="#">Carrières</a></li>
+            <li><a href="index.php?Voiture&action=aPropos">À propos</a></li>
+          </ul>
         </div>
 
-        <div class="separator"></div>
+        <div class="footer-main-item">
+          <h2 class="footer-title">Ressources</h2>
+          <ul>
+            <li><a href="index.php?Voiture&action=politiques">Politiques de vente</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Modalités de paiement</a></li>
+            <li><a href="#">Financement</a></li>
+          </ul>
+        </div>
 
-        <div class="site_map">
-            <h3>Mappe du site</h3>        
-            <ul>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Salle de montre</a></li>
-                <li><a href="#">Promotions</a></li>
-                <li><a href="#">À propos</a></li>
-                <li><a href="#">Promotions</a></li>
-            </ul>
+        <div class="footer-main-item">
+          <h2 class="footer-title">Contact</h2>
+          <ul>
+            <li><a href="index.php?Voiture&action=contact">Nous joindre</a></li>
+            <li><a href="#">Aide</a></li>
+            <li><a href="#">Vente</a></li>
+            <li><a href="#">Représentation</a></li>
+          </ul>
         </div>
         
-        <div class="separator"></div>
-
-        <div class="reseaux_sociaux">
-            <h3>Réseaux Sociaux</h3>
-            <div class="container_logos_rs">
-                <span><img class="logo_rs" src="assets/logo_icones/facebook.svg"></span>
-                <span><img class="logo_rs" src="assets/logo_icones/linkedin.svg"></span>
-                <span><img class="logo_rs" src="assets/logo_icones/twitter.svg"></span>
-                <span><img class="logo_rs" src="assets/logo_icones/instagram.svg"></span>
-            </div>
-        </div>
-    </div>
-</footer>
-
-</body>
-</html>
+      </section>
+     
+      <!-- Footer social -->
+      <section class="footer-social">
+        <ul class="footer-social-list">
+          <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+          <li><a href="#"><i class="fab fa-github"></i></a></li>
+          <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+          <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+        </ul>
+      </section>
+     
+      <!-- Footer legal -->
+      <section class="footer-legal">
+        <ul class="footer-legal-list">
+          <li><a href="#">Termes &amp; Conditions</a></li>
+          <li><a href="#">Politiques de vie privée</a></li>
+          <li>&copy; 2021 Copyright YVMA Inc.</li>
+        </ul>
+      </section>
+    </footer>

@@ -4,5 +4,6 @@ const classMapping = {
     'Pagination' : Pagination,
     'Photos': Photos,
     'Panier' : Panier,
-    'VoitureSolo' : VoitureSolo
+    'VoitureSolo' : VoitureSolo,
+    'Filtre' : Filtre
 };

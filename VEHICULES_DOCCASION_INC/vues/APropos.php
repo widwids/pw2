@@ -1,9 +1,9 @@
 <div class="separation"></div>
 
 <div class="apropos">
-    <img class="apropos_cover" src="assets/images/apropos.jpg">
+    <img class="apropos_cover" src="assets/images/dealership1.jpg">
     <div class="apropos_texte">
-            <h3>UNE HISTOIRE DE PASSION</h3>
+            <h3>À PROPOS</h3>
             <p>Quisque ornare ipsum quis odio efficitur, tincidunt rhoncus enim dignissim.
                 In hendrerit tellus nec odio condimentum, tincidunt dapibus eros semper. 
                 Nullam in diam sodales, imperdiet magna varius, pretium eros. 
