@@ -211,16 +211,12 @@ CREATE TABLE commandeVoiture (
 );
 
 CREATE TABLE facture (
-	noFacture SMALLINT UNSIGNED AUTO_INCREMENT,
+	noFacture SMALLINT UNSIGNED,
 	dateFacture DATETIME NOT NULL,
-	prixFinal DECIMAL(8,2) NOT NULL,
-	modePaiementId SMALLINT UNSIGNED NOT NULL,
-	expeditionNo SMALLINT UNSIGNED NOT NULL,
+	prixFinal DECIMAL(10,2) NOT NULL,
 	visibilite BOOLEAN NOT NULL,
 	PRIMARY KEY (noFacture),
-	FOREIGN KEY (noFacture) REFERENCES commande(noCommande),
-	FOREIGN KEY (modePaiementId) REFERENCES modePaiement(idModePaiement),
-	FOREIGN KEY (expeditionNo) REFERENCES expedition(idExpedition)
+	FOREIGN KEY (noFacture) REFERENCES commande(noCommande)
 );
 
 CREATE TABLE connexion (
@@ -265,18 +261,8 @@ INSERT INTO annee (annee, visibilite) VALUES
 	(2012, 1),
 	(2011, 1),
 	(2010, 1),
-	(2009, 1),
-	(2008, 1),
-	(2007, 1),
-	(2006, 1),
-	(2005, 1),
-	(2004, 1),
-	(2003, 1),
-	(2002, 1),
-	(2001, 1),
-	(2000, 1);
+	(2009, 1);
 	
-
 INSERT INTO marque (nomMarque, visibilite) VALUES
 	('Audi', 1),
 	('Porsche', 1),
@@ -509,8 +495,8 @@ INSERT INTO privilege (nomPrivilegeFR, nomPrivilegeEN, visibilite) VALUES
 	('Client', 'Customer', 1);
 	
 INSERT INTO utilisateur (prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, courriel, pseudonyme, motDePasse, codeOubliMDP, dateExpirationCode, villeId, privilegeId, visibilite) VALUES 
-	('Bob', 'Ross', '1942-10-29', '123 Arc-en-ciel', 'H1H 2H2', '514-555-5555', '438-444-4444', 'bob.ross@gmail.com', 'brosse', '$2y$10$xUgJZzRMPpNpEzVpIqy2oOjq.H2TPktBuc9eV2W1LmcInvgW2u3SO', 'test code mot passe', '2020-10-29', 1, 1, 1),
-	('Annie', 'Brocoli', '1971-01-22', '456 Arc-en-ciel', 'H1H 2H2', '514-555-2222', '438-444-3333', 'annie.b@gmail.com', 'brocoli', '$2y$10$yU05MLPgLbfEAdSypKGnX.9zRQwk7HdWdt1S3H3xxR.09a6rWCf8a', 'test 2 code mot passe2', '2023-06-12', 1, 3, 1);
+	('Bob', 'Ross', '1942-10-29', '123 Arc-en-ciel', 'H1H 2H2', '514-555-5555', '438-444-4444', 'yvma.pw2@gmail.com', 'brosse', '$2y$10$xUgJZzRMPpNpEzVpIqy2oOjq.H2TPktBuc9eV2W1LmcInvgW2u3SO', 'test code mot passe', '2020-10-29', 1, 1, 1),
+	('Annie', 'Brocoli', '1971-01-22', '456 Arc-en-ciel', 'H1H 2H2', '514-555-2222', '438-444-3333', 'yvma.pw2@gmail.com', 'brocoli', '$2y$10$yU05MLPgLbfEAdSypKGnX.9zRQwk7HdWdt1S3H3xxR.09a6rWCf8a', 'test 2 code mot passe2', '2023-06-12', 1, 3, 1);
 
 INSERT INTO commande (dateCommande, usagerId, visibilite) VALUES 
 	('2021-04-13 00:45:52', 2, 1);
@@ -533,7 +519,7 @@ INSERT INTO expedition (nomExpeditionFR, nomExpeditionEN, visibilite) VALUES
 	
 INSERT INTO commandeVoiture (commandeNo, voitureId, prixVente, depot, statutId, expeditionId, modePaiementNo, visibilite) VALUES 
 	(1, 'ABC12300067154336', 15000.00, 0, 1, 2, 2, 1),
-	(1, 'AVF51847456154145', 15000.00, 5000.00, 2, 2, 2, 1);
+	(1, 'AVF51847456154145', 15000.00, 5000.00, 3, 2, 2, 1);
 
-INSERT INTO facture (dateFacture, prixFinal, modePaiementId, expeditionNo, visibilite) VALUES 
-	('2021-04-14 01:01:12', 15000, 2, 2, 1);
+INSERT INTO facture (noFacture, dateFacture, prixFinal, visibilite) VALUES 
+	(1, '2021-04-14 01:01:12', 150000, 1);

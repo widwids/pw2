@@ -10,7 +10,7 @@
 
         <form method="post">
             <input type="hidden" value="<?= $utilisateur -> getId() ?>">
-            <div class="columns">
+            <div class="compteColumns">
                 <div>Nom</div>
                 <div>Prenom</div>
                 <div>Identifiant</div>
@@ -31,25 +31,24 @@
                 <input type="text" name = "telephone" value = "<?= $utilisateur -> getTelephone() ?>" required>
                 <input type="text" name = "cellulaire" value = "<?= $utilisateur -> getCellulaire() ?>">
                 <input type="text" name = "courriel" value = "<?= $utilisateur -> getCourriel() ?>" required>
-                <select style="color: black" id="villeId" name="villeId">
-<?php
-    foreach ($data["villes"] as $ville) { 
-        if($utilisateur -> getNomVilleFR() == $ville["nomVilleFR"]) {
-?>
-                    <option style="color: black" value="<?= $ville["idVille"] ?>" selected><?= $ville["nomVilleFR"] ?></option>
-<?php
-        } else {
-?>
-                    <option style="color: black" value="<?= $ville["idVille"] ?>"><?= $ville["nomVilleFR"] ?></option>
-<?php 
-        }
-    }
-?>
+                <select id="villeId" name="villeId">
+                <?php
+                    foreach ($data["villes"] as $ville) { 
+                        if($utilisateur -> getNomVilleFR() == $ville["nomVilleFR"]) {
+                        ?>
+                            <option style="color: black" value="<?= $ville["idVille"] ?>" selected><?= $ville["nomVilleFR"] ?></option>
+                        <?php
+                        } else {
+                        ?>
+                            <option style="color: black" value="<?= $ville["idVille"] ?>"><?= $ville["nomVilleFR"] ?></option>
+                        <?php 
+                        }
+                    }
+                ?>
                 </select><br>
             </div><br>
-            <input type="hidden" name="action" value="modifierUtilisateur"/>
-            <br>
-            <button type="submit" value="Enregistrer">Enregistrer</button>
+            <input type="hidden" name="action" value="modifierUtilisateur"/><br>
+            <button class="button" type="submit" value="Enregistrer">Enregistrer</button>
         </form>
     </div>    
 </div>

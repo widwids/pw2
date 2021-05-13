@@ -4,44 +4,46 @@
         <button class="yu-btn-ajouter">Ajouter une commande</button>
     </div>
 
-    <table class="yu-table yu-table-commande" data-component="Pagination">
+    <div class="yu-table-responsive">
+        <table class="yu-table yu-table-commande" data-component="Pagination">
             
-        <thead>
-            <tr>
-                <th>No Commande</th>
-                <th>No Série</th>
-                <th>Prix de vente</th>
-                <th>Dépôt</th>
-                <th>Statut</th>
-                <th>Expédition</th>
-                <th>Mode de Paiement</th>
-                <th>Date</th>
-            </tr>
-        </thead>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Client</th>
+                    <th>No Série</th>
+                    <th>Prix de vente</th>
+                    <th>Dépôt</th>
+                    <th>Statut</th>
+                    <th>Expédition</th>
+                    <th>Mode de Paiement</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
-        <tbody>
+            <tbody>
 
-        <?php foreach ($data["commandes"] as $commande) { ?>
+<?php foreach ($data["commandes"] as $commande) { ?>
 
-            <tr>
-                <td data-js-commandeNo><?= $commande["commandeNo"]?></td>
-                <td><?= $commande["voitureId"]?></td>
-                <td><?= $commande["prixVente"]?></td>
-                <td><?= $commande["depot"]?></td>
-                <td><?= $commande["nomStatutFR"]?></td>
-                <td><?= $commande["nomExpeditionFR"]?></td>
-                <td><?= $commande["nomModeFR"]?></td>
-                <td><?= $commande["dateCommande"]?></td>
-                <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
-            </tr>
+                <tr>
+                    <td data-js-commandeno data-js-voitureid="<?= $commande["voitureId"]?>"><?= $commande["commandeNo"]?></td>
+                    <td><?= $commande["prenom"] ?> <?= $commande["nom"] ?></td>
+                    <td><?= $commande["voitureId"]?></td>
+                    <td><?= $commande["prixVente"]?></td>
+                    <td><?= $commande["depot"]?></td>
+                    <td><?= $commande["nomStatutFR"]?></td>
+                    <td><?= $commande["nomExpeditionFR"]?></td>
+                    <td><?= $commande["nomModeFR"]?></td>
+                    <td><?= date('j F Y, g:i a', strtotime($commande["dateCommande"])) ?></td>
+                    <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
+                </tr>
 
-        <?php }?>
+<?php }?>
 
-        </tbody>
-
-
-    </table>
-
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <section class="yu-modal yu-modal-ajouter">
@@ -50,8 +52,23 @@
 
     <form method="post" class="yu-formulaire yu-modal-container">
         <div>
+            <label for="commandeNo">No Commande</label>
+            <select name="commandeNo" id="commandeNo" required>
+                <option value="" selected hidden disabled>Veuillez choisir un numéro de commande</option>
+                <option value="0">Nouvelle commande</option>
+<?php foreach ($data["commande"] as $commande) { ?>           
+                <option value="<?= $commande["noCommande"] ?>"><?= $commande["noCommande"] ?></option>
+<?php } ?>
+            </select>
+        </div>
+        <div>
             <label for="voitureId">No de Série</label>
-            <input type="text" name="voitureId" value="" required>
+            <select name="voitureId" id="voitureId" required>
+                <option value="" selected hidden disabled>Veuillez choisir le numéro de série</option>
+<?php foreach ($data["voitures"] as $voiture) { ?>           
+                <option value="<?= $voiture["noSerie"] ?>"><?= $voiture["noSerie"] ?></option>
+<?php } ?>
+            </select>
         </div>
         <div>
             <label for="prixVente">Prix de vente</label>
@@ -62,28 +79,28 @@
             <input type="text" name="depot" value="">
         </div>
         <label for="statutId">Statut</label>
-        <select name="statutId">
+        <select name="statutId" required>
             <option value="" selected hidden disabled>Veuillez choisir le statut de la commande</option>
 <?php foreach ($data["statuts"] as $statut) { ?>           
             <option value="<?= $statut["idStatut"] ?>"><?= $statut["nomStatutFR"] ?></option>
 <?php } ?>
         </select>
         <label for="expeditionId">Expédition</label>
-        <select name="expeditionId">
+        <select name="expeditionId" required>
             <option value="" selected hidden disabled>Veuillez choisir un mode d'expédition</option>
 <?php foreach ($data["expeditions"] as $expedition) { ?>           
             <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
 <?php } ?>
         </select>
         <label for="modePaiementNo">Mode de paiement</label>
-        <select name="modePaiementNo">
+        <select name="modePaiementNo" required>
             <option value="" selected hidden disabled>Veuillez choisir un mode de paiement</option>
 <?php foreach ($data["modePaiement"] as $modePaiement) { ?>           
             <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
 <?php } ?>
         </select>
         <label for="usagerId">Utilisateur</label>
-        <select name="usagerId">
+        <select name="usagerId" required>
             <option value="" selected hidden disabled>Veuillez choisir un utilisateur</option>
 <?php foreach ($data["utilisateurs"] as $utilisateur) { ?>           
             <option value="<?= $utilisateur["idUtilisateur"] ?>">
@@ -104,11 +121,11 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <input type="hidden" name="noCommande">
+            <input type="hidden" name="commandeNo">
         </div>
         <div>
-            <label for="voitureId">No de Série</label>
-            <input type="text" name="voitureId" value="" required>
+            <label for="voitureId">No de série</label>
+            <input type="text" name="voitureId" readonly>
         </div>
         <div>
             <label for="prixVente">Prix de vente</label>
@@ -118,36 +135,44 @@
             <label for="depot">Dépôt</label>
             <input type="text" name="depot" value="" required>
         </div>
-        <label for="statutId">Statut</label>
-        <select name="statutId">
-            <option value="" selected hidden disabled>Veuillez choisir le statut de la commande</option>
+        <div>
+            <label for="statutId">Statut</label>
+            <select name="statutId">
+                <option value="" selected hidden disabled>Veuillez choisir le statut de la commande</option>
 <?php foreach ($data["statuts"] as $statut) { ?>           
-            <option value="<?= $statut["idStatut"] ?>"><?= $statut["nomStatutFR"] ?></option>
+                <option value="<?= $statut["idStatut"] ?>"><?= $statut["nomStatutFR"] ?></option>
 <?php } ?>
-        </select>
-        <label for="expeditionId">Expédition</label>
-        <select name="expeditionId">
-            <option value="" selected hidden disabled>Veuillez choisir un mode d'expédition</option>
+            </select>
+        </div>
+        <div>
+            <label for="expeditionId">Expédition</label>
+            <select name="expeditionId">
+                <option value="" selected hidden disabled>Veuillez choisir un mode d'expédition</option>
 <?php foreach ($data["expeditions"] as $expedition) { ?>           
-            <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
+                <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
 <?php } ?>
-        </select>
-        <label for="modePaiementNo">Mode de paiement</label>
-        <select name="modePaiementNo">
-            <option value="" selected hidden disabled>Veuillez choisir un mode de paiement</option>
+            </select>
+        </div>
+        <div>
+            <label for="modePaiementNo">Mode de paiement</label>
+            <select name="modePaiementNo">
+                <option value="" selected hidden disabled>Veuillez choisir un mode de paiement</option>
 <?php foreach ($data["modePaiement"] as $modePaiement) { ?>           
-            <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
+                <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
 <?php } ?>
-        </select>
-        <label for="idUtilisateur">Utilisateur</label>
-        <select name="idUtilisateur">
-            <option value="" selected hidden disabled>Veuillez choisir un utilisateur</option>
+            </select>
+        </div>
+        <div>
+            <label for="usagerId">Utilisateur</label>
+            <select name="usagerId">
+                <option value="" selected hidden disabled>Veuillez choisir un utilisateur</option>
 <?php foreach ($data["utilisateurs"] as $utilisateur) { ?>           
-            <option value="<?= $utilisateur["idUtilisateur"] ?>">
-                <?= $utilisateur["prenom"] ?> <?= $utilisateur["nom"] ?>
-            </option>
+                <option value="<?= $utilisateur["idUtilisateur"] ?>">
+                    <?= $utilisateur["prenom"] ?> <?= $utilisateur["nom"] ?>
+                </option>
 <?php } ?>
-        </select>        
+            </select> 
+        </div>       
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-commande>
         </div>
@@ -168,7 +193,7 @@
     </form>
 </section>
 
-<script type="text/javascript">
+<script>
 
 let yuModalAjouter = document.querySelector(".yu-modal-ajouter"); 
 let btnFermeAjouter = document.querySelector("[data-js-btn-ferme-ajouter]"); 
@@ -183,23 +208,28 @@ btnFermeModifier.addEventListener("click", () => { yuModalModifier.style.width =
 
 let yuModalSupprimer = document.querySelector(".yu-modal-supprimer"); 
 let btnFermeSupprimer = document.querySelector("[data-js-btn-ferme-supprimer]"); 
-btnFermeSupprimer.addEventListener("click", () => { yuModalSupprimer.style.width = "0" });
+btnFermeSupprimer.addEventListener("click", () => { 
+    yuModalSupprimer.style.width = "0" 
+});
 
 function ajouterEvenements() {
-    let btnsSupprimer = document.querySelectorAll(".yu-btn-supprimer"),
-        btnsModifier = document.querySelectorAll(".yu-btn-modifier");
-
-    for(let i = 0; i < btnsSupprimer.length; i++) {
+    let btnsSupprimer = document.querySelectorAll(".yu-btn-supprimer"); 
+    for(let i = 0; i<btnsSupprimer.length; i++)
+    {
         btnsSupprimer[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-commandeNo]').innerHTML; 
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-commandeno]').innerHTML;
+            let voitureId = evt.target.parentNode.parentNode.querySelector('[data-js-voitureid]').dataset.jsVoitureid;
             yuModalSupprimer.querySelector("[data-js-id]").dataset.jsId = id;
+            yuModalSupprimer.querySelector("[data-js-id]").dataset.jsVid = voitureId; 
             yuModalSupprimer.style.width = "100%";
         });
     }
-    
-    for(let i = 0; i < btnsModifier.length; i++) {
+
+    let btnsModifier = document.querySelectorAll(".yu-btn-modifier");
+    for(let i = 0; i<btnsModifier.length; i++)
+    {
         btnsModifier[i].addEventListener("click", (evt) => {
-            let id = evt.target.parentNode.parentNode.querySelector('[data-js-commandeNo]').innerHTML; 
+            let id = evt.target.parentNode.parentNode.querySelector('[data-js-commandeno]').innerHTML;
             obtenirCommandeAJAX(id);
             yuModalModifier.style.width = "100%";
         });
@@ -214,9 +244,8 @@ function obtenirCommandeAJAX(id) {
     let formulaire = new GestionFormulaire(yuModalModifier);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
-            console.log(this.response);
             let jsonResponse = JSON.parse(this.response);             
-            let commandeDonnees = jsonResponse;
+            let commandeDonnees = jsonResponse['commande'];
             
             formulaire.remplirFormulaire(commandeDonnees);           
         }
@@ -232,8 +261,8 @@ function obtenirCommandesAJAX() {
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            let jsonResponse = JSON.parse(this.response);
-
+            let jsonResponse = JSON.parse(this.response)['commandes'];
+            
             let table = document.querySelector("table tbody");
             table.innerHTML = "";
 
@@ -243,7 +272,8 @@ function obtenirCommandesAJAX() {
                 table.innerHTML += 
                 `
                 <tr>
-                    <td data-js-commandeNo><?= $commande["commandeNo"]?></td>
+                    <td data-js-commandeno data-js-voitureid="${commande["voitureId"]}">${commande["commandeNo"]}</td>
+                    <td>${commande["prenom"]} ${commande["nom"]}</td>
                     <td>${commande["voitureId"]}</td>
                     <td>${commande["prixVente"]}</td>
                     <td>${commande["depot"]}</td>
@@ -290,10 +320,8 @@ function modifierCommandeAJAX() {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
+        if (this.readyState == 4 && this.status == 200)
             obtenirCommandesAJAX();
-        }
     };
 
     xhttp.open("POST", "index.php?Commande&action=modifierCommande", true);
@@ -301,18 +329,18 @@ function modifierCommandeAJAX() {
     xhttp.send(formulaire.obtenirQueryString());
 }
 
-function supprimercommandeAJAX(id) {
+function supprimerCommandeAJAX(cNo, vId) {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            obtenircommandesAJAX();
+            obtenirCommandesAJAX();
         }
     };
 
-    xhttp.open("POST", "index.php?Commande&action=suppression", true);
+    xhttp.open("POST", "index.php?Commande&action=suppressionCommande", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(`nomTable=commande&id=${id}`);
+    xhttp.send(`commandeNo=${cNo}&voitureId=${vId}`);
 }
 
 let btnAjouterVoiture = document.querySelector("[data-js-btn-ajouter-commande]");
@@ -336,10 +364,11 @@ btnModifierVoiture.addEventListener("click", (evt) => {
 let formSupprimer = document.querySelector('.yu-modal-supprimer form'); 
 formSupprimer.addEventListener("click", (evt) => {
 
-    evt.preventDefault(); 
+    evt.preventDefault();
+    
     if(evt.target.name == "btnOui"){
-    supprimerCommandeAJAX(evt.target.dataset.jsId);
-    yuModalSupprimer.style.width = "0";
+        supprimerCommandeAJAX(evt.target.dataset.jsId, evt.target.dataset.jsVid);
+        yuModalSupprimer.style.width = "0";
     } else if(evt.target.name == "btnNon") yuModalSupprimer.style.width = "0";
 
 });
