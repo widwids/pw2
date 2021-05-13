@@ -4,7 +4,7 @@
         <button class="yu-btn-ajouter">Ajouter une commande</button>
     </div>
 
-    <table class="yu-table yu-table-commande">
+    <table class="yu-table yu-table-commande" data-component="Pagination">
             
         <thead>
             <tr>
@@ -260,6 +260,8 @@ function obtenirCommandesAJAX() {
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
         }
     };
 

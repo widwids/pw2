@@ -6,7 +6,7 @@
     </div>
 
     <div class="yu-table-responsive">
-    <table class="yu-table yu-table-province">
+    <table class="yu-table yu-table-province" data-component="Pagination">
         
         <thead>
             <tr>
@@ -222,6 +222,8 @@ function obtenirProvincesAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

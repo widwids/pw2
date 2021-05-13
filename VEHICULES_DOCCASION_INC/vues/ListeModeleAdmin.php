@@ -5,7 +5,7 @@
         <button class="yu-btn-ajouter">Ajouter modèle</button>
     </div>
 
-    <table class="yu-table yu-table-modele">
+    <table class="yu-table yu-table-modele" data-component="Pagination">
 
         <thead>
         <tr>
@@ -201,6 +201,8 @@ function obtenirModelesAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

@@ -5,7 +5,7 @@
         <button class="yu-btn-ajouter">Ajouter corp</button>
     </div>
 
-    <table class="yu-table yu-table-corp">
+    <table class="yu-table yu-table-corp" data-component="Pagination">
              
         <thead>
             <tr>
@@ -190,6 +190,8 @@ function obtenirCorpsAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

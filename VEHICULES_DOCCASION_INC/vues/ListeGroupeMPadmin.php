@@ -5,7 +5,7 @@
     <button class="yu-btn-ajouter">Ajouter groupe motopropulseur</button>
     </div>
 
-    <table class="yu-table yu-table-groupeMP">
+    <table class="yu-table yu-table-groupeMP" data-component="Pagination">
         
         <thead>
             <tr>
@@ -180,6 +180,8 @@ function obtenirMPsAJAX()
             }     
             
             ajouterEvenements();
+            
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

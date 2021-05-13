@@ -1,12 +1,12 @@
 
 <section class="yu-section">
 
-    <div class="yu-table-btn-ajouter">
+    <div class="yu-table-utilisateur yu-btn-ajouter-container">
         <button class="yu-btn-ajouter">Ajouter un utilisateur</button>
     </div>
 
     <div class="yu-table-responsive">
-    <table class="yu-table yu-table-utilisateur">
+    <table class="yu-table yu-table-utilisateur" data-component="Pagination">
         
         <thead>
             <tr>
@@ -322,6 +322,8 @@ function obtenirUtilisateursAJAX()
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
         };

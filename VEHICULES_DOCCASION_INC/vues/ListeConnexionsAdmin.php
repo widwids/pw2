@@ -5,7 +5,7 @@
     </div>
 
     <div class="yu-table-responsive">        
-    <table class="yu-table yu-table-connexions">
+    <table class="yu-table yu-table-connexions" data-component="Pagination">
         
         <thead>
             <tr>
