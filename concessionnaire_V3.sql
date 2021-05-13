@@ -495,8 +495,8 @@ INSERT INTO privilege (nomPrivilegeFR, nomPrivilegeEN, visibilite) VALUES
 	('Client', 'Customer', 1);
 	
 INSERT INTO utilisateur (prenom, nom, dateNaissance, adresse, codePostal, telephone, cellulaire, courriel, pseudonyme, motDePasse, codeOubliMDP, dateExpirationCode, villeId, privilegeId, visibilite) VALUES 
-	('Bob', 'Ross', '1942-10-29', '123 Arc-en-ciel', 'H1H 2H2', '514-555-5555', '438-444-4444', 'bob.ross@gmail.com', 'brosse', '$2y$10$xUgJZzRMPpNpEzVpIqy2oOjq.H2TPktBuc9eV2W1LmcInvgW2u3SO', 'test code mot passe', '2020-10-29', 1, 1, 1),
-	('Annie', 'Brocoli', '1971-01-22', '456 Arc-en-ciel', 'H1H 2H2', '514-555-2222', '438-444-3333', 'annie.b@gmail.com', 'brocoli', '$2y$10$yU05MLPgLbfEAdSypKGnX.9zRQwk7HdWdt1S3H3xxR.09a6rWCf8a', 'test 2 code mot passe2', '2023-06-12', 1, 3, 1);
+	('Bob', 'Ross', '1942-10-29', '123 Arc-en-ciel', 'H1H 2H2', '514-555-5555', '438-444-4444', 'yvma.pw2@gmail.com', 'brosse', '$2y$10$xUgJZzRMPpNpEzVpIqy2oOjq.H2TPktBuc9eV2W1LmcInvgW2u3SO', 'test code mot passe', '2020-10-29', 1, 1, 1),
+	('Annie', 'Brocoli', '1971-01-22', '456 Arc-en-ciel', 'H1H 2H2', '514-555-2222', '438-444-3333', 'yvma.pw2@gmail.com', 'brocoli', '$2y$10$yU05MLPgLbfEAdSypKGnX.9zRQwk7HdWdt1S3H3xxR.09a6rWCf8a', 'test 2 code mot passe2', '2023-06-12', 1, 3, 1);
 
 INSERT INTO commande (dateCommande, usagerId, visibilite) VALUES 
 	('2021-04-13 00:45:52', 2, 1);

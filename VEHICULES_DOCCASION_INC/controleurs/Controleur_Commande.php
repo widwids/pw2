@@ -1,5 +1,15 @@
 <?php
-	class Controleur_Commande extends BaseControleur {		
+    require './phpmailer/includes/PHPMailer.php';
+    require './phpmailer/includes/SMTP.php';
+    require './phpmailer/includes/Exception.php';
+
+    //Define name spaces
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+	class Controleur_Commande extends BaseControleur {
+        
         public function traite(array $params) {
             $data = array();
 
@@ -22,7 +32,8 @@
                 case "ajouterCommande":
                     if(isset($_SESSION["utilisateur"])) {
                         $modeleUtilisateur =  new Modele_Utilisateur();
-                        $usagerId = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"])['idUtilisateur'];
+                        $utilisateur = $modeleUtilisateur -> obtenir_par_pseudonyme($_SESSION["utilisateur"]);
+                        $usagerId = $utilisateur['idUtilisateur'];
 
                         if(isset($params["voitureId"], $params["prixVente"], $params["depot"], $params["expeditionId"],
                             $params["modePaiementNo"])) {
@@ -43,6 +54,13 @@
                                     $listePrixVente[$i], $listeDepots[$i], $listeStatutId[$i], $params["expeditionId"],
                                     $params["modePaiementNo"]);
                             }
+                            
+                            $texte = "<h1>Confirmation de la commande</h1>
+                                <h2>Commande no $noCommande confirmée.</h2>
+                                <h2>Nom : " . $utilisateur['prenom'] . " " . $utilisateur['nom'] . "</h2>
+                                <h2>No de série : " . $params["voitureId"] . "</h2>";
+
+                            $this -> confirmeCommande($utilisateur['courriel'], $texte);
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -90,7 +108,7 @@
                                 $modeleCommande -> ajouterFacture($params["noFacture"], $params["prixFinal"]);
                             }
                             $data["factures"] = $modeleCommande -> obtenirFactures();
-
+                            
                         } else {
                             trigger_error("Paramètre manquant.");
                         }
@@ -377,6 +395,41 @@
                     $this -> afficheVue("Page404");
                     $this -> afficheVue("Footer");
             }
+        }
+
+        public function confirmeCommande($courriel, $texte) {
+            
+            //Create instance of phpmailer
+            $mail = new PHPMailer();
+
+            //Set mailer to use smtp
+            $mail -> isSMTP();
+            //Define smtp host
+            $mail -> Host = "smtp.gmail.com";
+            //Enable smtp authentification
+            $mail -> SMTPAuth = "true";
+            //Set type of encryption (ssl/tls)
+            $mail -> SMTPSecure = "tls";
+            //Set port to connect smtp
+            $mail -> Port = "587";
+            //Set gmail username
+            $mail -> Username = "yvma.pw2@gmail.com";
+            //Set gmail password
+            $mail -> Password = "e2095087";
+            //Set e-mail subject
+            $mail -> Subject = "Confirmation de votre commande";
+            //Set sender email
+            $mail -> setFrom("yvma.pw2@gmail.com");
+            //Enable HTML
+            $mail -> isHTML(true);
+            //E-mail body
+            $mail -> Body = $texte;   
+            //Add recipient
+            $mail -> AddAddress($courriel);
+            //Finally send e-mail
+            $mail -> Send();
+            //Closing smtp connection
+            $mail -> smtpClose();
         }
     }
 ?>
