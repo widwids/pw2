@@ -15,6 +15,7 @@ class Pagination
         
         this.inputContainer = document.createElement("div");
         this.inputContainer.classList.add("yu-pagination-recherche");
+        this.inputContainer.classList.add(this.el.classList.item(1));
         this.inputContainer.innerHTML = "<input type='text' placeholder='Rechercher...'>";
         if(this.el.parentNode.querySelector(".yu-pagination-recherche") == undefined) this.el.parentNode.insertBefore(this.inputContainer, this.el);
         this.inputRecherche = this.inputContainer.querySelector('input'); 
@@ -121,8 +122,8 @@ class Pagination
                     elms.push(this.elements[i]);
                 }
             }
-            this.nElements = nElements; 
-            this.pageCourant = Math.floor(this.nElements / 10) + 1;
+            this.nElements = nElements; console.log(nElements, "-" ,this.pageCourant);
+            if((Math.floor(this.nElements / 10) + 1) < this.pageCourant) this.pageCourant = 1;
 
             let debut = (this.pageCourant*this.elementsParPage) - this.elementsParPage;
             let fin = debut + (this.elementsParPage-1);
