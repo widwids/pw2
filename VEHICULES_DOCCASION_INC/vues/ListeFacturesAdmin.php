@@ -9,12 +9,13 @@
             <thead>
                 <tr>
                     <th>No Facture</th>
-                    <th>Nom client</th>
+                    <th>Client</th>
                     <th>No série</th>
                     <th>Date</th>
                     <th>Prix final</th>
                     <th>Mode de paiement</th>
                     <th>Expédition</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
 
@@ -23,12 +24,12 @@
 <?php foreach ($data['factures'] as $facture) { ?>
 
                 <tr>
-                    <td data-js-noFacture><?= $facture["noFacture"]?></td>
-                    <td><?= $facture["prenom"]?> <?= $facture["nom"]?></td>
-                    <td><?= $facture["serieNo"] ?></td>
-                    <td><?= $facture["dateFacture"]?></td>
-                    <td><?= $facture["prixFinal"]?></td>
-                    <td><?= $facture["nomModeFR"]?> / <?= $facture["nomModeEN"]?></td>
+                    <td data-js-noFacture><?= $facture["noFacture"] ?></td>
+                    <td><?= $facture["prenom"] ?> <?= $facture["nom"] ?></td>
+                    <td><?= $facture["voitureId"] ?></td>
+                    <td><?= $facture["dateFacture"] ?></td>
+                    <td><?= $facture["prixFinal"] ?></td>
+                    <td><?= $facture["nomModeFR"] ?> / <?= $facture["nomModeEN"] ?></td>
                     <td><?= $facture["nomExpeditionFR"]?> / <?= $facture["nomExpeditionEN"]?></td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
@@ -61,49 +62,6 @@
             <input type="text" name="prixFinal" required>
         </div>
         <div>
-            <label for="idUsager">Utilisateur</label>
-            <select name="idUsager" id="idUsager">
-                <option value="" selected hidden disabled>Sélectionnez un utilisateur</option>
-<?php foreach($data["utilisateurs"] as $utilisateur) { ?>
-                <option value="<?= $utilisateur["idUtilisateur"] ?>">
-                    <?= $utilisateur["prenom"] ?> <?= $utilisateur["nom"] ?>
-                </option>
-<?php }?>
-            </select>
-        </div>
-        <div>
-            <label for="serieNo">Voiture</label>
-            <select name="serieNo" id="serieNo">
-                <option value="" selected hidden disabled>Sélectionnez une voiture</option>
-<?php foreach($data["voitures"] as $voiture) { ?>
-                <option value="<?= $voiture["noSerie"] ?>">
-                    <?= $voiture["noSerie"] ?> : 
-                    <?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"] ?> <?= $voiture["anneeId"] ?>
-                </option>
-<?php }?>
-            </select>
-        </div>
-        <div>
-            <label for="modePaiementId">Mode de paiement</label>
-            <select name="modePaiementId" id="modePaiementId">
-                <option value="" selected hidden disabled>Sélectionnez un mode de paiement</option>
-<?php foreach($data["modePaiement"] as $modePaiement) { ?>
-                <option value="<?= $modePaiement["idModePaiement"] ?>">
-                    <?= $modePaiement["nomModeFR"] ?>
-                </option>
-<?php }?>
-            </select>
-        </div>
-        <div>
-            <label for="expeditionNo">Expédition</label>
-            <select name="expeditionNo" id="expeditionNo">
-                <option value="" selected hidden disabled>Veuillez choisir un mode d'expédition</option>
-<?php foreach ($data["expeditions"] as $expedition) { ?>           
-                <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
-<?php } ?>
-            </select>            
-        </div>
-        <div>
             <input type="submit" name="boutonAjouter" value="Ajouter" class="bouton-ajouter" data-js-btn-ajouter-facture>
         </div>
     </form>
@@ -130,48 +88,6 @@
             <label for="prixFinal">Prix final</label>
             <input type="text" name="prixFinal" required>
         </div>
-        <div>
-            <label for="idUsager">Utilisateur</label>
-            <select name="idUsager" id="idUsager">
-                <option value="" selected hidden disabled>Sélectionnez un utilisateur</option>
-<?php foreach($data["utilisateurs"] as $utilisateur) { ?>
-                <option value="<?= $utilisateur["idUtilisateur"] ?>">
-                    <?= $utilisateur["prenom"] ?> <?= $utilisateur["nom"] ?>
-                </option>
-<?php }?>
-            </select>
-        </div>
-        <div>
-            <label for="serieNo">Voiture</label>
-            <select name="serieNo" id="serieNo">
-                <option value="" selected hidden disabled>Sélectionnez une voiture</option>
-<?php foreach($data["voitures"] as $voiture) { ?>
-                <option value="<?= $voiture["noSerie"] ?>">
-                    <?= $voiture["noSerie"] ?> : 
-                    <?= $voiture["nomMarque"] ?> <?= $voiture["nomModele"] ?> <?= $voiture["anneeId"] ?>
-                </option>
-<?php }?>
-            </select>
-        </div>
-        <div>
-            <label for="modePaiementId">Mode de paiement</label>
-            <select name="modePaiementId" id="modePaiementId">
-                <option value="" selected hidden disabled>Sélectionnez un mode de paiement</option>
-<?php foreach($data["modePaiement"] as $modePaiement) { ?>
-                <option value="<?= $modePaiement["idModePaiement"] ?>">
-                    <?= $modePaiement["nomModeFR"] ?>
-                </option>
-<?php }?>
-            </select>
-        </div>
-        <div>
-            <label for="expeditionNo">Expédition</label>
-            <select name="expeditionNo" id="expeditionNo">
-                <option value="" selected hidden disabled>Veuillez choisir un mode d'expédition</option>
-<?php foreach ($data["expeditions"] as $expedition) { ?>           
-                <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
-<?php } ?>
-            </select>                   
         <div>
             <input type="submit" name="boutonModifier" value="Modifier" class="bouton-modifier" data-js-btn-modifier-facture>
         </div>
@@ -241,7 +157,6 @@ function obtenirFactureAJAX(id) {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response);             
             let factureDonnees = jsonResponse['facture'];
-            console.log("factureDonnees",factureDonnees);
             
             formulaire.remplirFormulaire(factureDonnees);           
         }
@@ -258,7 +173,6 @@ function obtenirFacturesAJAX() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {  
             let jsonResponse = JSON.parse(this.response)['factures'];
-            console.log(jsonResponse);
 
             let table = document.querySelector("table tbody"); 
             table.innerHTML = "";
@@ -297,14 +211,12 @@ function ajouterFactureAJAX() {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log("response ajouter", this.response);
+        if (this.readyState == 4 && this.status == 200)
             obtenirFacturesAJAX();
-        }
     };
 
     xhttp.open("POST", "index.php?Commande&action=ajouterFacture", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); console.log(formulaire.obtenirQueryString());
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(formulaire.obtenirQueryString());
 }
 
@@ -314,10 +226,8 @@ function modifierFactureAJAX() {
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log("response modifier",this.response);
+        if (this.readyState == 4 && this.status == 200)
             obtenirFacturesAJAX();
-        }
     };
 
     xhttp.open("POST", "index.php?Commande&action=modifierFacture", true);

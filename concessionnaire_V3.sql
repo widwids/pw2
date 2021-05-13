@@ -211,20 +211,12 @@ CREATE TABLE commandeVoiture (
 );
 
 CREATE TABLE facture (
-	noFacture SMALLINT UNSIGNED AUTO_INCREMENT,
+	noFacture SMALLINT UNSIGNED,
 	dateFacture DATETIME NOT NULL,
-	prixFinal DECIMAL(8,2) NOT NULL,
-	idUsager SMALLINT UNSIGNED NOT NULL,
-	serieNo CHAR(17),
-	modePaiementId SMALLINT UNSIGNED NOT NULL,
-	expeditionNo SMALLINT UNSIGNED NOT NULL,
+	prixFinal DECIMAL(10,2) NOT NULL,
 	visibilite BOOLEAN NOT NULL,
-	PRIMARY KEY (noFacture, serieNo),
-	FOREIGN KEY (noFacture) REFERENCES commande(noCommande),
-	FOREIGN KEY (idUsager) REFERENCES utilisateur(idUtilisateur),
-	FOREIGN KEY (serieNo) REFERENCES voiture(noSerie),
-	FOREIGN KEY (modePaiementId) REFERENCES modePaiement(idModePaiement),
-	FOREIGN KEY (expeditionNo) REFERENCES expedition(idExpedition)
+	PRIMARY KEY (noFacture),
+	FOREIGN KEY (noFacture) REFERENCES commande(noCommande)
 );
 
 CREATE TABLE connexion (
@@ -269,18 +261,8 @@ INSERT INTO annee (annee, visibilite) VALUES
 	(2012, 1),
 	(2011, 1),
 	(2010, 1),
-	(2009, 1),
-	(2008, 1),
-	(2007, 1),
-	(2006, 1),
-	(2005, 1),
-	(2004, 1),
-	(2003, 1),
-	(2002, 1),
-	(2001, 1),
-	(2000, 1);
+	(2009, 1);
 	
-
 INSERT INTO marque (nomMarque, visibilite) VALUES
 	('Audi', 1),
 	('Porsche', 1),
@@ -537,7 +519,7 @@ INSERT INTO expedition (nomExpeditionFR, nomExpeditionEN, visibilite) VALUES
 	
 INSERT INTO commandeVoiture (commandeNo, voitureId, prixVente, depot, statutId, expeditionId, modePaiementNo, visibilite) VALUES 
 	(1, 'ABC12300067154336', 15000.00, 0, 1, 2, 2, 1),
-	(1, 'AVF51847456154145', 15000.00, 5000.00, 2, 2, 2, 1);
+	(1, 'AVF51847456154145', 15000.00, 5000.00, 3, 2, 2, 1);
 
-INSERT INTO facture (dateFacture, prixFinal, idUsager, serieNo, modePaiementId, expeditionNo, visibilite) VALUES 
-	('2021-04-14 01:01:12', 15000, 2, 'AVF51847456154145', 2, 2, 1);
+INSERT INTO facture (noFacture, dateFacture, prixFinal, visibilite) VALUES 
+	(1, '2021-04-14 01:01:12', 150000, 1);

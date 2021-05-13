@@ -40,9 +40,9 @@
 				nomStatutEN, nomModeFR, nomModeEN FROM commandeVoiture JOIN statut ON statutId = idStatut 
 				JOIN expedition ON expeditionId = idExpedition JOIN modePaiement ON modePaiementNo = 
 				idModePaiement JOIN commande ON commandeNo = noCommande JOIN utilisateur 
-				ON usagerId = idUtilisateur WHERE commandeVoiture.visibilite = 1 AND commandeNo = " . $commandeNo;
+				ON usagerId = idUtilisateur WHERE commandeVoiture.visibilite = 1 AND commandeNo = :cNo";
 			$requetePreparee = $this -> connexion -> prepare($requete);
-            $requetePreparee -> bindParam(":id", $id);
+            $requetePreparee -> bindParam(":cNo", $commandeNo);
             $requetePreparee -> execute();
 
             return $requetePreparee -> fetch(PDO::FETCH_ASSOC);			
@@ -95,20 +95,26 @@
             $requetePreparee -> execute();
 		}
 
+		public function supprimerCommandeVoiture($commandeNo, $voitureId) {
+			$requete = "UPDATE commandeVoiture SET visibilite = 0 WHERE commandeNo = :cNo AND voitureId = :vId";
+            $requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":cNo", $commandeNo);
+			$requetePreparee -> bindParam(":vId", $voitureId);
+            $requetePreparee -> execute();
+
+            //Retour du nombre de rangées affectées 
+            return $requetePreparee -> rowCount();
+		}
 
 		/*--------------- Table facture ---------------*/
 
 		//Ajouter une facture
-		public function ajouterFacture($noFacture, $prixFinal, $idUsager, $serieNo, $modePaiementId, $expeditionNo) {
-			$requete = "INSERT INTO facture(noFacture, dateFacture, prixFinal, idUsager, serieNo, modePaiementId, expeditionNo,
-				visibilite) VALUES (:noF, '" . date('Y-m-d H:i:s') . "', :pF, :idU, :sNo, :mP, :exNo, 1)";
+		public function ajouterFacture($noFacture, $prixFinal) {
+			$requete = "INSERT INTO facture(noFacture, dateFacture, prixFinal, visibilite) 
+				VALUES (:noF, '" . date('Y-m-d H:i:s') . "', :pF, 1)";
             $requetePreparee = $this -> connexion -> prepare($requete);
 			$requetePreparee -> bindParam(":noF", $noFacture);
 			$requetePreparee -> bindParam(":pF", $prixFinal);
-			$requetePreparee -> bindParam(":idU", $idUsager);
-			$requetePreparee -> bindParam(":sNo", $serieNo);
-			$requetePreparee -> bindParam(":mP", $modePaiementId);
-			$requetePreparee -> bindParam(":exNo", $expeditionNo);
             $requetePreparee -> execute();
             
             if($requetePreparee -> rowCount() > 0)
@@ -119,12 +125,12 @@
 
 		//Toutes les factures
 		public function obtenirFactures() {
-			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementId, nomModeFR, nomModeEN, 
-				expeditionNo, nomExpeditionFR, nomExpeditionEN, idUsager, prenom, nom, serieNo 
-				FROM facture JOIN modePaiement ON modePaiementId = idModePaiement JOIN expedition 
-				ON expeditionNo = idExpedition JOIN commande ON noFacture = noCommande JOIN commandeVoiture
-				ON noCommande = commandeNo JOIN utilisateur ON usagerId = idUtilisateur 
-				WHERE facture.visibilite = 1";
+			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementNo, nomModeFR, nomModeEN, 
+				expeditionId, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, GROUP_CONCAT(' ', voitureId) 
+				AS voitureId FROM facture JOIN commande ON noFacture = noCommande JOIN commandeVoiture ON noCommande =
+				commandeNo JOIN modePaiement ON modePaiementNo = idModePaiement JOIN expedition 
+				ON expeditionId = idExpedition JOIN utilisateur ON usagerId = idUtilisateur 
+				WHERE facture.visibilite = 1 AND statutId = 3 GROUP BY commandeNo";
 			$resultats = $this -> connexion -> query($requete);
 			$resultats -> execute();
 
@@ -133,12 +139,12 @@
 
 		//Facture d'une seule commande donnée
 		public function obtenirFacture($noFacture) {
-			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementId, nomModeFR, nomModeEN, 
-				expeditionNo, nomExpeditionFR, nomExpeditionEN, idUsager, prenom, nom, serieNo 
-				FROM facture JOIN modePaiement ON modePaiementId = idModePaiement JOIN expedition 
-				ON expeditionNo = idExpedition JOIN commande ON noFacture = noCommande JOIN commandeVoiture
-				ON noCommande = commandeNo JOIN utilisateur ON usagerId = idUtilisateur 
-				WHERE facture.visibilite = 1 AND noFacture = :nF";
+			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementNo, nomModeFR, nomModeEN, 
+			expeditionId, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, GROUP_CONCAT(' ', voitureId) 
+			AS voitureId FROM facture JOIN commande ON noFacture = noCommande JOIN commandeVoiture ON noCommande =
+			commandeNo JOIN modePaiement ON modePaiementNo = idModePaiement JOIN expedition 
+			ON expeditionId = idExpedition JOIN utilisateur ON usagerId = idUtilisateur 
+			WHERE facture.visibilite = 1 AND statutId = 3 AND noFacture = :nF GROUP BY commandeNo";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nF", $noFacture);
             $requetePreparee -> execute();
@@ -147,16 +153,10 @@
 		}
 
 		//Modifier une facture
-		public function modifierFacture($prixFinal, $idUsager, $serieNo, $modePaiementId, $expeditionNo, 
-			$noFacture) {
-			$requete = "UPDATE facture SET prixFinal = :pF, idUsager = :idU, serieNo = :sNo,
-				modePaiementId = :mP, expeditionNo = :exNo WHERE noFacture = :noF";
+		public function modifierFacture($noFacture, $prixFinal) {
+			$requete = "UPDATE facture SET prixFinal = :pF, visibilite = 1 WHERE noFacture = :noF";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":pF", $prixFinal);
-			$requetePreparee -> bindParam(":idU", $idUsager);
-			$requetePreparee -> bindParam(":sNo", $serieNo);
-            $requetePreparee -> bindParam(":mP", $modePaiementId);
-			$requetePreparee -> bindParam(":exNo", $expeditionNo);
 			$requetePreparee -> bindParam(":noF", $noFacture);
             $requetePreparee -> execute();
 		}
