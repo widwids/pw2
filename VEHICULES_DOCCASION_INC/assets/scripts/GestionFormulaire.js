@@ -8,8 +8,7 @@ class GestionFormulaire{
         this.selects = this._el.querySelectorAll('select');
 
         this.nSerie = this._el.querySelector("[data-js-nserie]");
-        this.imgs = this._el.querySelectorAll(".yu-file input");
-        
+        this.imgs = this._el.querySelectorAll(".yu-file input");        
     }
 
 
@@ -298,8 +297,8 @@ class GestionFormulaire{
                 }
             });
         }
-
+        
             // Envoi de la requète
-        xhr.send(formData);
+        if(tabOrdre.length>0) xhr.send(formData);
     }
 }
