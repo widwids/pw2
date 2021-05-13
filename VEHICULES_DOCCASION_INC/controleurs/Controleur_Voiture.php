@@ -30,6 +30,9 @@
 				case "politiques":
 					$this -> afficheVue("Politiques");
 					break;
+				case "contact":
+					$this -> afficheVue("Contact");
+					break;
 				case "detailVoiture":
 					//if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
 						if (isset($params["noSerie"])) {
@@ -71,7 +74,7 @@
 						} else {													
 							echo "ERROR PARAMS";
 						}
-					}else{
+					} else{
 						//Redirection vers le formulaire d'authentification
 						header("Location: index.php?Utilisateur&action=connexion");
 					} 
@@ -297,12 +300,13 @@
 					}
 				break;
 
-				
-
 				case "listeVoituresNonAdmin":
 					// affiche liste voiture//
 					$vue = "VoitureListe";		
 					$data["voitures"] = $modeleVoiture->obtenirListeVoiture();
+					$data["marques"] = $modeleVoiture -> obtenir_marques();
+					$data["annees"] = $modeleVoiture -> obtenir_tous('annee');
+					$data["modeles"] = $modeleVoiture -> obtenir_modeles();
 					//var_dump($data);
 					$this->afficheVue($vue,$data); 
 					///////////////////////////////

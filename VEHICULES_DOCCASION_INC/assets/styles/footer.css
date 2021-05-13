@@ -1,41 +1,97 @@
-footer{
-    width: 100%;
-    min-width: 600px;
-    height: 250px;
+footer {
     background-color: #171717;
-    left: 0;
-    bottom: 0;
-    z-index: 100;
+    color: white;
+    font-family: "overpass", sans-serif;
+    font-weight: 100;
+    line-height: 1.5;
 }
 
-.separator{
-    border-left: 2px solid white;
-    height: 175px;
+footer ul {
+    list-style: none;
+    padding-left: 0;
 }
 
-.container{
-    display: flex;
-    justify-content: space-evenly;
-    padding-top: 35px;
-}
-
-.container div{
+footer a {
+    text-decoration: none;
     color: white;
 }
 
-.reseaux_sociaux{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+footer a:hover {
+    text-decoration: underline;
+    color: gold;
 }
 
-.container_logo_rs{
-    display: flex;
-    justify-content: space-between;
-    width: 50%;
-    flex-basis: 50%;
+.footer-title {
+    color: white;
+    text-decoration: underline;
+    font-weight: 100;
+    font-size: 1.5rem;
+    padding-bottom: 0.7rem;
 }
 
-.logo_rs{
-    width: 75px;
+.footer-container {
+    flex: 1;
 }
+
+.footer-main {
+    padding: 1.25rem 1.8rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-main-item {
+    padding: 1.25rem;
+    min-width: 12.5rem;
+}
+
+.footer-social {
+    padding: 0 1.875rem 1.25rem;
+}
+
+.footer-social-list {
+    display: flex;
+    justify-content: center;
+    border-top: 1px #666 solid; 
+    padding-top: 1.25rem;
+}
+
+.footer-social-list li {
+    margin: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.footer-legal {
+    padding: 0.9375rem 1.875rem;
+    background-color: black;
+}
+
+.footer-legal-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-legal-list li {
+    margin: 0.125rem 0.625rem;
+    white-space: nowrap;
+}
+
+.footer-legal-list li:nth-last-child(2) {
+    flex: 1; 
+}
+
+@media only screen and (min-width: 29.8125rem) {
+    .footer-main {
+        justify-content: space-around;
+    }
+}
+
+@media only screen and (min-width: 77.5rem) {
+    .footer-main {
+        justify-content: space-evenly;
+    }
+}
+
+
+
+
