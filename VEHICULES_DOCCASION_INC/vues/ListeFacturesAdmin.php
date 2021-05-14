@@ -48,11 +48,11 @@
     <form method="post" class="yu-formulaire yu-modal-container">
         <div>
             <label for="noFacture">No Commande</label>
-            <select name="noFacture" id="noFacture">
-                <option value="" selected hidden disabled>Sélectionnez un numéro de commande</option>
+            <select name="noFacture" id="noFacture" required>
+                <option value="" selected hidden disabled>Sélectionnez un numéro de commande facturée</option>
 <?php foreach($data["commandes"] as $commande) { ?>
-                <option value="<?= $commande["noCommande"] ?>">
-                    <?= $commande["noCommande"] ?>
+                <option value="<?= $commande["commandeNo"] ?>">
+                    <?= $commande["commandeNo"] ?>
                 </option>
 <?php }?>
             </select>
@@ -78,8 +78,8 @@
             <select name="noFacture" id="noFacture">
                 <option value="" selected hidden disabled>Sélectionnez un numéro de commande</option>
 <?php foreach($data["commandes"] as $commande) { ?>
-                <option value="<?= $commande["noCommande"] ?>">
-                    <?= $commande["noCommande"] ?>
+                <option value="<?= $commande["commandeNo"] ?>">
+                    <?= $commande["commandeNo"] ?>
                 </option>
 <?php }?>
             </select>

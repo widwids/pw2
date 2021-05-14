@@ -189,6 +189,7 @@ CREATE TABLE expedition (
 	idExpedition SMALLINT UNSIGNED AUTO_INCREMENT,
 	nomExpeditionFR VARCHAR(50) NOT NULL,
 	nomExpeditionEN VARCHAR(50) NOT NULL,
+	prixExpedition DECIMAL(5,2),
 	visibilite BOOLEAN NOT NULL,
 	PRIMARY KEY(idExpedition)
 );
@@ -513,13 +514,13 @@ INSERT INTO statut (nomStatutFR, nomStatutEN, visibilite) VALUES
 	('Réservé', 'Reserved', 1),
 	('Facturé', 'Invoiced', 1);
 
-INSERT INTO expedition (nomExpeditionFR, nomExpeditionEN, visibilite) VALUES
-	('Livraison locale', 'Local Delivery', 1), 
-	('Ramassage', 'Pickup', 1);
+INSERT INTO expedition (nomExpeditionFR, nomExpeditionEN, prixExpedition, visibilite) VALUES
+	('Livraison locale', 'Local Delivery', 100.00, 1), 
+	('Ramassage', 'Pickup', 0, 1);
 	
 INSERT INTO commandeVoiture (commandeNo, voitureId, prixVente, depot, statutId, expeditionId, modePaiementNo, visibilite) VALUES 
-	(1, 'ABC12300067154336', 15000.00, 0, 1, 2, 2, 1),
-	(1, 'AVF51847456154145', 15000.00, 5000.00, 3, 2, 2, 1);
+	(1, 'ABC12300067154336', 175000.00, 0, 1, 2, 2, 1),
+	(1, 'AVF51847456154145', 152500.00, 15200.00, 3, 2, 2, 1);
 
 INSERT INTO facture (noFacture, dateFacture, prixFinal, visibilite) VALUES 
-	(1, '2021-04-14 01:01:12', 150000, 1);
+	(1, '2021-04-14 01:01:12', 152500.00, 1);

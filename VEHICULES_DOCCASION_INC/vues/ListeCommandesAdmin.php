@@ -11,10 +11,12 @@
                     <th>Id</th>
                     <th>Client</th>
                     <th>No Série</th>
+                    <th>Prix d'achat</th>
                     <th>Prix de vente</th>
                     <th>Dépôt</th>
-                    <th>Statut</th>
                     <th>Expédition</th>
+                    <th>Prix d'expédition</th>
+                    <th>Statut</th>
                     <th>Mode de Paiement</th>
                     <th>Date</th>
                     <th>Actions</th>
@@ -28,12 +30,14 @@
                 <tr>
                     <td data-js-commandeno data-js-voitureid="<?= $commande["voitureId"]?>"><?= $commande["commandeNo"]?></td>
                     <td><?= $commande["prenom"] ?> <?= $commande["nom"] ?></td>
-                    <td><?= $commande["voitureId"]?></td>
-                    <td><?= $commande["prixVente"]?></td>
-                    <td><?= $commande["depot"]?></td>
-                    <td><?= $commande["nomStatutFR"]?></td>
-                    <td><?= $commande["nomExpeditionFR"]?></td>
-                    <td><?= $commande["nomModeFR"]?></td>
+                    <td><?= $commande["voitureId"] ?></td>
+                    <th><?= $commande["prixAchat"] ?>$</th>
+                    <td><?= $commande["prixVente"] ?>$</td>
+                    <td><?= $commande["depot"] ?>$</td>
+                    <td><?= $commande["nomExpeditionFR"] ?></td>
+                    <td><?= $commande["prixExpedition"] ?>$</td>
+                    <td><?= $commande["nomStatutFR"] ?></td>
+                    <td><?= $commande["nomModeFR"] ?></td>
                     <td><?= date('j F Y, g:i a', strtotime($commande["dateCommande"])) ?></td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
                 </tr>
@@ -75,7 +79,7 @@
         </div>
         <div>
             <label for="depot">Dépôt</label>
-            <input type="text" name="depot" value="">
+            <input type="text" name="depot" value="0">
         </div>
         <label for="statutId">Statut</label>
         <select name="statutId" required>
@@ -132,11 +136,11 @@
         </div>
         <div>
             <label for="depot">Dépôt</label>
-            <input type="text" name="depot" value="" required>
+            <input type="text" name="depot" value="0">
         </div>
         <div>
             <label for="statutId">Statut</label>
-            <select name="statutId">
+            <select name="statutId" required>
                 <option value="" selected hidden disabled>Veuillez choisir le statut de la commande</option>
 <?php foreach ($data["statuts"] as $statut) { ?>           
                 <option value="<?= $statut["idStatut"] ?>"><?= $statut["nomStatutFR"] ?></option>
@@ -145,7 +149,7 @@
         </div>
         <div>
             <label for="expeditionId">Expédition</label>
-            <select name="expeditionId">
+            <select name="expeditionId" required>
                 <option value="" selected hidden disabled>Veuillez choisir un mode d'expédition</option>
 <?php foreach ($data["expeditions"] as $expedition) { ?>           
                 <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
@@ -154,7 +158,7 @@
         </div>
         <div>
             <label for="modePaiementNo">Mode de paiement</label>
-            <select name="modePaiementNo">
+            <select name="modePaiementNo" required>
                 <option value="" selected hidden disabled>Veuillez choisir un mode de paiement</option>
 <?php foreach ($data["modePaiement"] as $modePaiement) { ?>           
                 <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
@@ -163,7 +167,7 @@
         </div>
         <div>
             <label for="usagerId">Utilisateur</label>
-            <select name="usagerId">
+            <select name="usagerId" required>
                 <option value="" selected hidden disabled>Veuillez choisir un utilisateur</option>
 <?php foreach ($data["utilisateurs"] as $utilisateur) { ?>           
                 <option value="<?= $utilisateur["idUtilisateur"] ?>">
@@ -274,10 +278,12 @@ function obtenirCommandesAJAX() {
                     <td data-js-commandeno data-js-voitureid="${commande["voitureId"]}">${commande["commandeNo"]}</td>
                     <td>${commande["prenom"]} ${commande["nom"]}</td>
                     <td>${commande["voitureId"]}</td>
-                    <td>${commande["prixVente"]}</td>
-                    <td>${commande["depot"]}</td>
-                    <td>${commande["nomStatutFR"]}</td>
+                    <td>${commande["prixAchat"]}$</td>
+                    <td>${commande["prixVente"]}$</td>
+                    <td>${commande["depot"]}$</td>
                     <td>${commande["nomExpeditionFR"]}</td>
+                    <td>${commande["prixExpedition"]}$</td>
+                    <td>${commande["nomStatutFR"]}</td>
                     <td>${commande["nomModeFR"]}</td>
                     <td>${commande["dateCommande"]}</td>
                     <td>

@@ -769,7 +769,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("ListeConnexionsAdmin", $data);
-                        $this->afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -797,7 +797,7 @@
                         $this -> afficheVue("Head");
                         $this -> afficheVue("Header");
                         $this -> afficheVue("CompteModification", $data);
-                        $this-> afficheVue("Footer");
+                        $this -> afficheVue("Footer");
                     } else {
                         //Redirection vers le formulaire d'authentification
                         header("Location: index.php?Utilisateur&action=connexion");
@@ -989,11 +989,13 @@
         public function afficheFormAjoutUtilisateur($messageErreur = "") {
             //Afficher le formulaire d'ajout d'un Utilisateur
             //Aller porter les erreurs dans la vue
+            $modeleUtilisateur =  new Modele_Utilisateur();
+            $data["villes"] = $modeleUtilisateur -> obtenir_tous('ville');
             $data["erreurs"] = $messageErreur;
             $this -> afficheVue("Head");
             $this -> afficheVue("Header");
             $this -> afficheVue("CreationCompte", $data);
-            $this->afficheVue("Footer");
+            $this -> afficheVue("Footer");
         }
 
 		public function afficheFormOuvertureSesssion($messageErreur = "") {
@@ -1003,7 +1005,7 @@
             $this -> afficheVue("Head");
             $this -> afficheVue("Header");
             $this -> afficheVue("Connexion", $data);
-            $this->afficheVue("Footer");
+            $this -> afficheVue("Footer");
         }
     }
 ?>
