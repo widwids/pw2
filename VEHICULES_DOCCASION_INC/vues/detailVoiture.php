@@ -41,7 +41,7 @@
     <div class="details">
         <div>
             <ul>
-            <h1><?= number_format($voiture["prixAchat"] * 1.10, 2, ',', ' ') ?>$</h1><br><br>
+            <h1><?= number_format($voiture["prixAchat"] * 1.25, 2, ',', ' ') ?>$</h1><br><br>
 
             <li>Type de véhicule: <?= $voiture["nomCorpsFR"] ?> </li>
                 <li>Année: <?= $voiture["anneeId"] ?></li>

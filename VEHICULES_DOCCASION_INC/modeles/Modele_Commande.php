@@ -19,13 +19,14 @@
 
 		//Toutes les commandes 
 		public function obtenirCommandes() {
-			$requete = "SELECT commandeNo, voitureId, prixVente, depot, statutId, expeditionId, modePaiementNo, 
-				dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
-				cellulaire, courriel, pseudonyme, villeId, nomExpeditionFR, nomExpeditionEN, nomStatutFR, 
-				nomStatutEN, nomModeFR, nomModeEN FROM commandeVoiture JOIN statut ON statutId = idStatut 
-				JOIN expedition ON expeditionId = idExpedition JOIN modePaiement ON 
-				modePaiementNo = idModePaiement JOIN commande ON commandeNo = noCommande JOIN utilisateur 
-				ON usagerId = idUtilisateur WHERE commandeVoiture.visibilite = 1";
+			$requete = "SELECT commandeNo, voitureId, prixVente, prixAchat, depot, statutId, expeditionId, 
+				modePaiementNo, dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, 
+				telephone, cellulaire, courriel, pseudonyme, villeId, prixExpedition, nomExpeditionFR, 
+				nomExpeditionEN, nomStatutFR, nomStatutEN, nomModeFR, nomModeEN FROM commandeVoiture 
+				JOIN statut ON statutId = idStatut JOIN expedition ON expeditionId = idExpedition 
+				JOIN modePaiement ON modePaiementNo = idModePaiement JOIN commande ON commandeNo = noCommande 
+				JOIN utilisateur ON usagerId = idUtilisateur JOIN voiture ON voitureId = noSerie
+				WHERE commandeVoiture.visibilite = 1";
 			$resultats = $this -> connexion -> query($requete);
             $resultats -> execute();
 
@@ -34,18 +35,34 @@
 
 		//Obtenir une seule commande donnée
 		public function obtenirCommande($commandeNo) {
-			$requete = "SELECT commandeNo, voitureId, prixVente, depot, statutId, expeditionId, modePaiementNo,
-				dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, telephone, 
-				cellulaire, courriel, pseudonyme, villeId, nomExpeditionFR, nomExpeditionEN, nomStatutFR, 
-				nomStatutEN, nomModeFR, nomModeEN FROM commandeVoiture JOIN statut ON statutId = idStatut 
-				JOIN expedition ON expeditionId = idExpedition JOIN modePaiement ON modePaiementNo = 
-				idModePaiement JOIN commande ON commandeNo = noCommande JOIN utilisateur 
-				ON usagerId = idUtilisateur WHERE commandeVoiture.visibilite = 1 AND commandeNo = :cNo";
+			$requete = "SELECT commandeNo, voitureId, prixVente, prixAchat, depot, statutId, expeditionId, 
+			modePaiementNo, dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, 
+			telephone, cellulaire, courriel, pseudonyme, villeId, prixExpedition, nomExpeditionFR, 
+			nomExpeditionEN, nomStatutFR, nomStatutEN, nomModeFR, nomModeEN FROM commandeVoiture 
+			JOIN statut ON statutId = idStatut JOIN expedition ON expeditionId = idExpedition 
+			JOIN modePaiement ON modePaiementNo = idModePaiement JOIN commande ON commandeNo = noCommande 
+			JOIN utilisateur ON usagerId = idUtilisateur JOIN voiture ON voitureId = noSerie
+			WHERE commandeVoiture.visibilite = 1 AND commandeNo = :cNo";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":cNo", $commandeNo);
             $requetePreparee -> execute();
 
             return $requetePreparee -> fetch(PDO::FETCH_ASSOC);			
+		}
+
+		public function obtenirCommandesFacturees() {
+			$requete = "SELECT commandeNo, voitureId, prixVente, prixAchat, depot, statutId, expeditionId, 
+				modePaiementNo, dateCommande, idUtilisateur, prenom, nom, dateNaissance, adresse, codePostal, 
+				telephone, cellulaire, courriel, pseudonyme, villeId, prixExpedition, nomExpeditionFR, 
+				nomExpeditionEN, nomStatutFR, nomStatutEN, nomModeFR, nomModeEN FROM commandeVoiture 
+				JOIN statut ON statutId = idStatut JOIN expedition ON expeditionId = idExpedition 
+				JOIN modePaiement ON modePaiementNo = idModePaiement JOIN commande ON commandeNo = noCommande 
+				JOIN utilisateur ON usagerId = idUtilisateur JOIN voiture ON voitureId = noSerie
+				WHERE commandeVoiture.visibilite = 1 AND commandeVoiture.statutId = 3";
+			$resultats = $this -> connexion -> query($requete);
+            $resultats -> execute();
+
+            return $resultats -> fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		//Modifier une commande
@@ -140,13 +157,16 @@
 
 		//Facture d'une seule commande donnée
 		public function obtenirFacture($noFacture) {
-			$requete = "SELECT noFacture, dateFacture, prixFinal, modePaiementNo, nomModeFR, nomModeEN, 
-			expeditionId, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, courriel, adresse,
-			codePostal, telephone, pseudonyme, GROUP_CONCAT(' ', voitureId) AS voitureId FROM facture 
+			$requete = "SELECT noFacture, dateFacture, prixFinal, prixVente, modePaiementNo, nomModeFR, 
+			nomModeEN, expeditionId, nomExpeditionFR, nomExpeditionEN, usagerId, prenom, nom, courriel, 
+			adresse, codePostal, telephone, pseudonyme, voitureId AS voitureId, nomVilleFR,
+			nomVilleEN, nomProvinceFR, nomProvinceEN, taux, nomTaxeFR, nomTaxeEN FROM facture 
 			JOIN commande ON noFacture = noCommande JOIN commandeVoiture ON noCommande = commandeNo 
 			JOIN modePaiement ON modePaiementNo = idModePaiement JOIN expedition 
-			ON expeditionId = idExpedition JOIN utilisateur ON usagerId = idUtilisateur 
-			WHERE facture.visibilite = 1 AND statutId = 3 AND noFacture = :nF GROUP BY commandeNo";
+			ON expeditionId = idExpedition JOIN utilisateur ON usagerId = idUtilisateur JOIN ville
+			ON villeId = idVille JOIN province ON provinceCode = codeProvince JOIN taxeProvince
+			ON codeProvince = provinceId JOIN taxe ON taxeId = idTaxe
+			WHERE facture.visibilite = 1 AND statutId = 3 AND noFacture = :nF";
 			$requetePreparee = $this -> connexion -> prepare($requete);
             $requetePreparee -> bindParam(":nF", $noFacture);
             $requetePreparee -> execute();
