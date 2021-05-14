@@ -24,7 +24,7 @@
         <label for="villeId">Ville</label> <br>
         <select id="villeId" name="villeId">
 <?php foreach ($data["villes"] as $ville) { ?>
-                <option value="<?= $ville["idVille"] ?>"><?= $ville["nomVilleFR"] ?></option>
+                <option style="color:black" value="<?= $ville["idVille"] ?>"><?= $ville["nomVilleFR"] ?></option>
 <?php } ?>
         </select>
         <br>
