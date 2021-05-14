@@ -1,5 +1,4 @@
 const classMapping = {
-    'Voiture': Voiture,
     'GestionFormulaire' : GestionFormulaire,
     'Pagination' : Pagination,
     'Photos': Photos,

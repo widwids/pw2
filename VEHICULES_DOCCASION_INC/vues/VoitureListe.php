@@ -51,8 +51,22 @@
                 <li>Transmission: <?= $voiture["nomTransmissionFR"] ?></li>
                 <li>No de série: <span data-js-noSerie><?= $voiture["noSerie"] ?></span></li>
                 <li>Date d'arrivée: <?= $voiture["dateArrivee"] ?></li></small>
-				
+<?php	
+		$reserve = false;				
+		foreach($data["commandes"] as $commande) {
+			if($commande["statutId"] > 1 && $commande["voitureId"] == $voiture["noSerie"]) {
+				$reserve = true;
+?>
+				<h2>Voiture réservée</h2>
+<?php
+			}
+		}
+		if(!$reserve) {
+?>				
 				<h2><?= number_format($voiture["prixAchat"] * 1.25, 2, ',', ' ') ?> $</h2>
+<?php 	
+		}
+?>
 			</div>
 		</div>
 	</a>

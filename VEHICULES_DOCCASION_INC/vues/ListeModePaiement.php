@@ -67,11 +67,11 @@
             <input type="hidden" name="idModePaiement">
         </div>
         <div>
-            <label for="nomModeFR">Nom du privilège en français</label>
+            <label for="nomModeFR">Nom du mode de paiement en français</label>
             <input type="text" name="nomModeFR">
         </div>
         <div>
-            <label for="nomModeEN">Nom du privilège en anglais</label>
+            <label for="nomModeEN">Nom du mode de paiement en anglais</label>
             <input type="text" name="nomModeEN">
         </div>
         <div>
@@ -86,7 +86,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr que vous voulez supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>

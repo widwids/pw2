@@ -41,7 +41,7 @@
     <div class="details">
         <div>
             <ul>
-            <h1><?= number_format($voiture["prixAchat"] * 1.10, 2, ',', ' ') ?>$</h1><br><br>
+            <h1><?= number_format($voiture["prixAchat"] * 1.25, 2, ',', ' ') ?>$</h1><br><br>
 
             <li>Type de véhicule: <?= $voiture["nomCorpsFR"] ?> </li>
                 <li>Année: <?= $voiture["anneeId"] ?></li>
@@ -56,10 +56,20 @@
             </ul>
         </div>
     </div>
-
+<?php 
+    if($data["statut"] != '' && $data["statut"]["statutId"] > 1) {
+?>
+    <br>
+    <div class="reservation">
+        <h2>Voiture réservée</h2>
+    </div><br><br>
+<?php 
+    } else { 
+?>
     <div class="reservation">
         <button class="reserver" data-js-reserver>Réservez ce véhicule</button>
     </div>
+<?php }?>
 </div>
 
 

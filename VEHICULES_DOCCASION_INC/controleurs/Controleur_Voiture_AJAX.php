@@ -34,7 +34,7 @@
 					break;
 
 					case "suppression": // visibilite = 0
-						if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+						if (isset($_SESSION["admin"])) {
 							if (isset($params["nomTable"]) && isset($params["id"])) {
 								$nomId = $modeleVoiture -> obtenir_nom_id($params["nomTable"]);
 								//var_dump($nomId);
@@ -43,7 +43,7 @@
 							} else {													
 								echo "ERROR PARAMS";
 							}
-						}else{
+						} else{
 							//Redirection vers le formulaire d'authentification
 							header("Location: index.php?Utilisateur&action=connexion");
 						}

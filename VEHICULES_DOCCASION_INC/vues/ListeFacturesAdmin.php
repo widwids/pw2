@@ -5,12 +5,12 @@
     </div>
 
     <div class="yu-table-responsive">
-        <table class="yu-table yu-table-facture">
+        <table class="yu-table yu-table-facture" data-component="Pagination">
             <thead>
                 <tr>
                     <th>No Facture</th>
                     <th>Client</th>
-                    <th>No série</th>
+                    <th>№ Série</th>
                     <th>Date</th>
                     <th>Prix final</th>
                     <th>Mode de paiement</th>
@@ -28,7 +28,7 @@
                     <td><?= $facture["prenom"] ?> <?= $facture["nom"] ?></td>
                     <td><?= $facture["voitureId"] ?></td>
                     <td><?= $facture["dateFacture"] ?></td>
-                    <td><?= $facture["prixFinal"] ?></td>
+                    <td><?= $facture["prixFinal"] ?>$</td>
                     <td><?= $facture["nomModeFR"] ?> / <?= $facture["nomModeEN"] ?></td>
                     <td><?= $facture["nomExpeditionFR"]?> / <?= $facture["nomExpeditionEN"]?></td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
@@ -48,11 +48,11 @@
     <form method="post" class="yu-formulaire yu-modal-container">
         <div>
             <label for="noFacture">No Commande</label>
-            <select name="noFacture" id="noFacture">
-                <option value="" selected hidden disabled>Sélectionnez un numéro de commande</option>
+            <select name="noFacture" id="noFacture" required>
+                <option value="" selected hidden disabled>Sélectionnez un numéro de commande facturée</option>
 <?php foreach($data["commandes"] as $commande) { ?>
-                <option value="<?= $commande["noCommande"] ?>">
-                    <?= $commande["noCommande"] ?>
+                <option value="<?= $commande["commandeNo"] ?>">
+                    <?= $commande["commandeNo"] ?>
                 </option>
 <?php }?>
             </select>
@@ -78,8 +78,8 @@
             <select name="noFacture" id="noFacture">
                 <option value="" selected hidden disabled>Sélectionnez un numéro de commande</option>
 <?php foreach($data["commandes"] as $commande) { ?>
-                <option value="<?= $commande["noCommande"] ?>">
-                    <?= $commande["noCommande"] ?>
+                <option value="<?= $commande["commandeNo"] ?>">
+                    <?= $commande["commandeNo"] ?>
                 </option>
 <?php }?>
             </select>
@@ -188,7 +188,7 @@ function obtenirFacturesAJAX() {
                     <td>${facture["prenom"]} ${facture["nom"]}</td>
                     <td>${facture["voitureId"]}></td>
                     <td>${facture["dateFacture"]}</td>
-                    <td>${facture["prixFinal"]}</td>
+                    <td>${facture["prixFinal"]}$</td>
                     <td>${facture["nomModeFR"]} / ${facture["nomModeEN"]}</td>
                     <td>${facture["nomExpeditionFR"]} / ${facture["nomExpeditionEN"]}</td>
                     <td><button class="yu-btn-modifier yu-btn">Modifier</button><button class="yu-btn-supprimer yu-btn">Supprimer</button></td>
@@ -197,6 +197,8 @@ function obtenirFacturesAJAX() {
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
     };
