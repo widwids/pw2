@@ -54,6 +54,7 @@
 			</div>
 		</div>
 <?php } ?>
+
             <a href="index.php?commande&action=affichePanier"><img class="handshake_icon" src="assets/logo_icones/handshake.png" data-js-cart></img></a>
         </div>
 
