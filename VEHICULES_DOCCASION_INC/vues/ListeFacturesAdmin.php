@@ -5,7 +5,7 @@
     </div>
 
     <div class="yu-table-responsive">
-        <table class="yu-table yu-table-facture">
+        <table class="yu-table yu-table-facture" data-component="Pagination">
             <thead>
                 <tr>
                     <th>No Facture</th>
@@ -197,6 +197,8 @@ function obtenirFacturesAJAX() {
             }     
             
             ajouterEvenements();
+
+            let pagination = new Pagination(document.querySelector('table'));
             
         }
     };
