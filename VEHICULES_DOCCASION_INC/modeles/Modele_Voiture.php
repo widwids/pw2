@@ -156,6 +156,17 @@
 			}  
 		}
 
+		public function obtenir_statut($noSerie) {
+			$requete = "SELECT statutId FROM commandeVoiture JOIN voiture ON voitureId = noSerie 
+                WHERE voiture.visibilite = 1 AND noSerie = :nS";
+			$requetePreparee = $this -> connexion -> prepare($requete);
+            $requetePreparee -> bindParam(":nS", $noSerie);
+            $requetePreparee -> execute();
+			$resultat = $requetePreparee -> fetch(PDO::FETCH_ASSOC);
+			
+			return $resultat;
+		}
+
 		function modifVoiture($noSerie, $newNoSerie, $descriptionFR, $descriptionEN, $kilometrage, $dateArrivee, $prixAchat, $groupeMPid, $corpsId, $carburantId, $modeleId, $transmissionId, $anneeId) {		
 			try {
 				$stmt = $this->connexion->query("UPDATE voiture 

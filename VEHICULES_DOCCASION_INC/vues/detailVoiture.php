@@ -56,10 +56,20 @@
             </ul>
         </div>
     </div>
-
+<?php 
+    if($data["statut"] != '' && $data["statut"]["statutId"] > 1) {
+?>
+    <br>
+    <div class="reservation">
+        <h2>Voiture réservée</h2>
+    </div><br><br>
+<?php 
+    } else { 
+?>
     <div class="reservation">
         <button class="reserver" data-js-reserver>Réservez ce véhicule</button>
     </div>
+<?php }?>
 </div>
 
 

@@ -87,7 +87,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr de vouloir supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>

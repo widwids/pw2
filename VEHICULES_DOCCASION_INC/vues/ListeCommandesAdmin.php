@@ -11,7 +11,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Client</th>
-                    <th>No Série</th>
+                    <th>№ Série</th>
                     <th>Prix d'achat</th>
                     <th>Prix de vente</th>
                     <th>Dépôt</th>

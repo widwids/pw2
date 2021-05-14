@@ -2,7 +2,7 @@
 <section class="yu-section">
 
     <div class="yu-table-corp yu-btn-ajouter-container">
-        <button class="yu-btn-ajouter">Ajouter corp</button>
+        <button class="yu-btn-ajouter">Ajouter type de véhicule</button>
     </div>
 
     <table class="yu-table yu-table-corp" data-component="Pagination">
@@ -86,7 +86,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr que vous voulez supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>

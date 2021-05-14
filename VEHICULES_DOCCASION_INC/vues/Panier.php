@@ -66,8 +66,8 @@
 
             <div classe="modePaiement">
                 <label for="modePaiement">Mode de paiement</label>
-                <select name="modePaiement" data-js-modePaiement>
-                    <option value='' selected disabled>Choisissez le mode de paiement</option>
+                <select name="modePaiement" data-js-modePaiement required>
+                    <option value='2' selected disabled>Choisissez le mode de paiement</option>
 <?php foreach ($data["modePaiement"] as $modePaiement) { ?>
                     <option value="<?= $modePaiement["idModePaiement"] ?>"><?= $modePaiement["nomModeFR"] ?></option>
 <?php } ?>
@@ -76,8 +76,8 @@
                 
             <div class="expedition">
                 <label for="expedition">Mode d'expédition</label>
-                <select name="expedition" data-js-expedition>
-                    <option value='' selected disabled>Choisissez le mode d'expédition</option>
+                <select name="expedition" data-js-expedition required>
+                    <option value='2' selected disabled>Choisissez le mode d'expédition</option>
 <?php foreach ($data["expeditions"] as $expedition) { ?>
                     <option value="<?= $expedition["idExpedition"] ?>"><?= $expedition["nomExpeditionFR"] ?></option>
 <?php } ?>

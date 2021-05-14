@@ -112,7 +112,7 @@
         <div>
             <label for="privilegeId">Privilege</label>
             <select name="privilegeId" id="privilegeId">
-                <option value="">Sélectionnez une privilege</option>
+                <option value="">Sélectionnez un privilege</option>
                     <?php foreach($data["privileges"] as $privilege) { ?>
 
                         <option value="<?= $privilege["idPrivilege"] ?>"><?= $privilege["nomPrivilegeFR"]?></option>
@@ -189,9 +189,9 @@
             </select>
         </div>
         <div>
-            <label for="privilegeId">Privilege</label>
+            <label for="privilegeId">Privilège</label>
             <select name="privilegeId" id="privilegeId">
-                <option value="">Sélectionnez une privilege</option>
+                <option value="">Sélectionnez un privilège</option>
                     <?php foreach($data["privileges"] as $privilege) { ?>
 
                         <option value="<?= $privilege["idPrivilege"] ?>"><?= $privilege["nomPrivilegeFR"]?></option>
@@ -211,7 +211,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr que vous voulez supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>

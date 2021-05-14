@@ -11,8 +11,8 @@
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du province (fr)</th>
-                <th>Nom du province (eng)</th>
+                <th>Nom de la province (fr)</th>
+                <th>Nom de la province (eng)</th>
                 <th>Nom du pays (fr)</th>
                 <th>Nom du pays (eng)</th>
                 <th>Actions</th>
@@ -47,15 +47,15 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="codeProvince">Code du province</label>
+            <label for="codeProvince">Code de la province</label>
             <input type="text" name="codeProvince" required>
         </div>
         <div>
-            <label for="nomProvinceFR">Nom du province en français</label>
+            <label for="nomProvinceFR">Nom de la province en français</label>
             <input type="text" name="nomProvinceFR" required>
         </div>
         <div>
-            <label for="nomProvinceEN">Nom du province en anglais</label>
+            <label for="nomProvinceEN">Nom de la province en anglais</label>
             <input type="text" name="nomProvinceEN" required>
         </div>
         <div>
@@ -86,11 +86,11 @@
             <input type="hidden" name="codeProvince">
         </div>
         <div>
-            <label for="nomProvinceFR">Nom du province en français</label>
+            <label for="nomProvinceFR">Nom de la province en français</label>
             <input type="text" name="nomProvinceFR">
         </div>
         <div>
-            <label for="nomProvinceEN">Nom du province en anglais</label>
+            <label for="nomProvinceEN">Nom de la province en anglais</label>
             <input type="text" name="nomProvinceEN">
         </div>
         <div>
@@ -116,7 +116,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr que vous voulez supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>

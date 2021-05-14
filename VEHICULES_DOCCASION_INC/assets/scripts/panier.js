@@ -17,8 +17,8 @@ class Panier {
         this._elBtn.addEventListener('click', this.afficheCaisse);
 
         if(this._panier == undefined || this._panier.length == 0) {
-            this._el.innerHTML = `<h1>Panier</h1>
-                                    <p>Votre panier est vide.</p>`;
+            this._el.innerHTML = `<div style="height: 60%"><h1 style="margin-top:10%">Panier</h1>
+                                    <p>Votre panier est vide.</p></div>`;
         } else {
             this.affichePanier();
 
@@ -75,11 +75,19 @@ class Panier {
                 nouveauPanier.push(item);
         }
 
+        if(nouveauPanier.length == 0) {
+            this._el.innerHTML = '';
+            this._el.innerHTML = `<div style="height: 60%"><h1 style="margin-top:10%">Panier</h1>
+                                    <p>Votre panier est vide.</p></div>`;
+        }
+            
         sessionStorage.setItem('panier', JSON.stringify(nouveauPanier));
 
         this._panier = JSON.parse(sessionStorage.getItem('panier'));
 
         this.calculeSousTotal();
+
+        this.calculeTotal();
     }
 
     afficheCaisse = () => {

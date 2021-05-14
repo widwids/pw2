@@ -11,8 +11,8 @@
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du taxe (fr)</th>
-                <th>Nom du taxe (eng)</th>
+                <th>Nom de la taxe (fr)</th>
+                <th>Nom de la taxe (eng)</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -46,11 +46,11 @@
             <input type="hidden" name="idTaxe">
         </div>
         <div>
-            <label for="nomTaxeFR">Nom du taxe en français</label>
+            <label for="nomTaxeFR">Nom de la taxe en français</label>
             <input type="text" name="nomTaxeFR" required>
         </div>
         <div>
-            <label for="nomTaxeEN">Nom du taxe en anglais</label>
+            <label for="nomTaxeEN">Nom de la taxe en anglais</label>
             <input type="text" name="nomTaxeEN" required>
         </div>
         <div>
@@ -70,11 +70,11 @@
             <input type="hidden" name="idTaxe">
         </div>
         <div>
-            <label for="nomTaxeFR">Nom du taxe en français</label>
+            <label for="nomTaxeFR">Nom de la taxe en français</label>
             <input type="text" name="nomTaxeFR" required>
         </div>
         <div>
-            <label for="nomTaxeEN">Nom du taxe en anglais</label>
+            <label for="nomTaxeEN">Nom de la taxe en anglais</label>
             <input type="text" name="nomTaxeEN" required>
         </div>
         <div>
@@ -89,7 +89,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr que vous voulez supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>

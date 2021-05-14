@@ -11,10 +11,10 @@
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du province (fr)</th>
-                <th>Nom du province (eng)</th>                
-                <th>Nom du taxe (fr)</th>
-                <th>Nom du taxe (eng)</th>
+                <th>Nom de la province (fr)</th>
+                <th>Nom de la province (eng)</th>                
+                <th>Nom de la taxe (fr)</th>
+                <th>Nom de la taxe (eng)</th>
                 <th>Taux</th>
                 <th>Actions</th>
             </tr>
@@ -51,7 +51,7 @@
         <div>
             <label for="provinceId">Province</label>
             <select name="provinceId" id="provinceId">
-                <option value="">Sélectionnez un province</option>
+                <option value="">Sélectionnez une province</option>
                     <?php foreach($data["provinces"] as $province) { ?>
 
                         <option value="<?= $province["codeProvince"] ?>"><?= $province["nomProvinceFR"]?></option>
@@ -62,7 +62,7 @@
         <div>
             <label for="taxeId">Taxe</label>
             <select name="taxeId" id="taxeId">
-                <option value="">Sélectionnez un taxe</option>
+                <option value="">Sélectionnez une taxe</option>
                     <?php foreach($data["taxes"] as $taxe) { ?>
 
                         <option value="<?= $taxe["idTaxe"] ?>"><?= $taxe["nomTaxeFR"]?></option>
@@ -90,7 +90,7 @@
         <div>
             <label for="provinceId">Province</label>
             <select name="provinceId" id="provinceId">
-                <option value="">Sélectionnez un province</option>
+                <option value="">Sélectionnez une province</option>
                     <?php foreach($data["provinces"] as $province) { ?>
 
                         <option value="<?= $province["codeProvince"] ?>"><?= $province["nomProvinceFR"]?></option>
@@ -101,7 +101,7 @@
         <div>
             <label for="taxeId">Taxe</label>
             <select name="taxeId" id="taxeId">
-                <option value="">Sélectionnez un taxe</option>
+                <option value="">Sélectionnez une taxe</option>
                     <?php foreach($data["taxes"] as $taxe) { ?>
 
                         <option value="<?= $taxe["idTaxe"] ?>"><?= $taxe["nomTaxeFR"]?></option>
@@ -125,7 +125,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr que vous voulez supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>

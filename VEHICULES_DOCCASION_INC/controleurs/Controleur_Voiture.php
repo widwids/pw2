@@ -40,7 +40,8 @@
 							//$data1 = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
 							// a commenter lorsque vous aurrez votre ($params["noSerie"])
 							$data['voiture'] = $modeleVoiture->obtenirUneVoiture($params["noSerie"]);
-							$data['photos'] = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);								
+							$data['photos'] = $modeleVoiture->obtenirPhotoVoiture($params["noSerie"]);
+							$data["statut"] = $modeleVoiture -> obtenir_statut($params["noSerie"]);								
 							$vue = "detailVoiture";
 							$this->afficheVue($vue,$data); 
 						} else {													
@@ -113,7 +114,7 @@
 				break;
 
 				case "suppression": // visibilite = 0
-					if (isset($_SESSION["employe"]) || isset($_SESSION["admin"])) {
+					if (isset($_SESSION["admin"])) {
 						if (isset($params["nomTable"]) && isset($params["id"])) {
 							$nomId = $modeleVoiture -> obtenir_nom_id($params["nomTable"]);
 							var_dump($nomId);
@@ -122,7 +123,7 @@
 						} else {													
 							echo "ERROR PARAMS";
 						}
-					}else{
+					} else{
 						//Redirection vers le formulaire d'authentification
 						header("Location: index.php?Utilisateur&action=connexion");
 					}
@@ -307,6 +308,7 @@
 					$data["marques"] = $modeleVoiture -> obtenir_marques();
 					$data["annees"] = $modeleVoiture -> obtenir_tous('annee');
 					$data["modeles"] = $modeleVoiture -> obtenir_modeles();
+					$data["commandes"] = $modeleVoiture -> obtenir_tous('commandeVoiture');
 					//var_dump($data);
 					$this->afficheVue($vue,$data); 
 					///////////////////////////////

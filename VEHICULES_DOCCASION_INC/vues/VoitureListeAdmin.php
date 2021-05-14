@@ -62,11 +62,11 @@
             <input type="text" name="noSerie" value="" data-js-nserie required>
         </div>
         <div>
-            <label for="descriptionFR">Description Français</label>
+            <label for="descriptionFR">Description en français</label>
             <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10" required></textarea >
         </div>
         <div>
-            <label for="descriptionEN">Description Anglais</label>
+            <label for="descriptionEN">Description en anglais</label>
             <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10" required></textarea>
         </div>
         <div>
@@ -74,17 +74,17 @@
             <input type="number" name="kilometrage" value="" required>
         </div>
         <div>
-            <label for="dateArrivee">Date Arrivée</label>
+            <label for="dateArrivee">Date d'arrivée</label>
             <input type="date" name="dateArrivee" id="dateArrivee" required>
         </div>
         <div>
-            <label for="prixAchat">Prix Achat</label>
+            <label for="prixAchat">Prix d'achat</label>
             <input type="number" name="prixAchat" id="prixAchat" required>
         </div>
         <div>
-            <label for="groupeMPid">Group MP</label>
+            <label for="groupeMPid">Motopropulseur</label>
             <select name="groupeMPId" id="groupeMPid" >
-                <option value="">Sélectionnez un groupe MP</option>
+                <option value="">Sélectionnez le motopropulseur</option>
                     <?php foreach($data["motopropulseur"] as $groupeMP) { ?>
 
                         <option value="<?= $groupeMP["idMotopro"] ?>"><?= $groupeMP["nomMotopro"]?></option>
@@ -92,9 +92,9 @@
                     <?php }?>
             </select>
         </div>
-            <label for="corpsId">Corps</label>
+            <label for="corpsId">Type de véhicule</label>
             <select name="corpsId" id="corpsId">
-                <option value="">Sélectionnez un corps</option>
+                <option value="">Sélectionnez un type de véhicule</option>
                     <?php foreach($data["corps"] as $corp) { ?>
 
                         <option value="<?= $corp["idCorps"] ?>"><?= $corp["nomCorpsFR"]?></option>
@@ -177,11 +177,11 @@
             <input type="text" name="noSerie" value="" data-js-nserie required>
         </div>
         <div>
-            <label for="descriptionFR">Description Français</label>
+            <label for="descriptionFR">Description en français</label>
             <textarea name="descriptionFR" id="descriptionFR" cols="30" rows="10" required></textarea>
         </div>
         <div>
-            <label for="descriptionEN">Description Anglais</label>
+            <label for="descriptionEN">Description en anglais</label>
             <textarea name="descriptionEN" id="descriptionEN" cols="30" rows="10" required></textarea>
         </div>
         <div>
@@ -189,17 +189,17 @@
             <input type="number" name="kilometrage" value="" required>
         </div>
         <div>
-            <label for="dateArrivee">Date Arrivée</label>
+            <label for="dateArrivee">Date d'arrivée</label>
             <input type="date" name="dateArrivee" id="dateArrivee" required>
         </div>
         <div>
-            <label for="prixAchat">Prix Achat</label>
+            <label for="prixAchat">Prix d'achat</label>
             <input type="number" name="prixAchat" id="prixAchat" required>
         </div>
         <div>
-            <label for="groupeMPId">Group MP</label>
+            <label for="groupeMPId">Motopropulseur</label>
             <select name="groupeMPId" id="groupeMPid">
-                <option value="">Sélectionnez un groupe MP</option>
+                <option value="">Sélectionnez le motopropulseur</option>
                     <?php foreach($data["motopropulseur"] as $groupeMP) { ?>
 
                         <option value="<?= $groupeMP["idMotopro"] ?>"><?= $groupeMP["nomMotopro"]?></option>
@@ -207,9 +207,9 @@
                     <?php }?>
             </select>
         </div>
-            <label for="corpsId">Corps</label>
+            <label for="corpsId">Type de véhicule</label>
             <select name="corpsId" id="corpsId">
-                <option value="">Sélectionnez un corps</option>
+                <option value="">Sélectionnez un type de véhicule</option>
                     <?php foreach($data["corps"] as $corp) { ?>
 
                         <option value="<?= $corp["idCorps"] ?>"><?= $corp["nomCorpsFR"]?></option>
@@ -274,7 +274,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr de vouloir supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id=""> Oui </button>

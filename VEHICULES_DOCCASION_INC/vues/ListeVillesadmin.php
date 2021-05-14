@@ -11,8 +11,8 @@
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du ville (fr)</th>
-                <th>Nom du ville (eng)</th>
+                <th>Nom de la ville (fr)</th>
+                <th>Nom de la ville (eng)</th>
                 <th>Nom de la province (fr)</th>
                 <th>Nom de la province (eng)</th>
                 <th>Actions</th>
@@ -47,11 +47,11 @@
 
     <form action="" method="post" class="yu-formulaire yu-modal-container">
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
+            <label for="nomVilleFR">Nom de la ville en français</label>
             <input type="text" name="nomVilleFR" required>
         </div>
         <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
+            <label for="nomVilleEN">Nom de la ville en anglais</label>
             <input type="text" name="nomVilleEN" required>
         </div>
         <div>
@@ -82,11 +82,11 @@
             <input type="hidden" name="idVille">
         </div>
         <div>
-            <label for="nomVilleFR">Nom du ville en français</label>
+            <label for="nomVilleFR">Nom de la ville en français</label>
             <input type="text" name="nomVilleFR" required>
         </div>
         <div>
-            <label for="nomVilleEN">Nom du ville en anglais</label>
+            <label for="nomVilleEN">Nom de la ville en anglais</label>
             <input type="text" name="nomVilleEN" required>
         </div>
         <div>

@@ -459,6 +459,8 @@
             $mail -> setFrom("yvma.pw2@gmail.com");
             //Enable HTML
             $mail -> isHTML(true);
+            //Encoding
+            $mail->CharSet = 'UTF-8'; 
             //E-mail body
             $mail -> Body = $texte;   
             //Add recipient

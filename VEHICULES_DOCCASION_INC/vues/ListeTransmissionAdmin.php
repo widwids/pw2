@@ -10,8 +10,8 @@
         <thead>
             <tr>
                 <th>id</th>
-                <th>Nom du transmission en français</th>
-                <th>Nom du transmission en anglais</th>
+                <th>Nom de la transmission en français</th>
+                <th>Nom de la transmission en anglais</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -64,11 +64,11 @@
             <input type="hidden" name="idTransmission">
         </div>
         <div>
-            <label for="nomTransmissionFR">Nom du transmission en français</label>
+            <label for="nomTransmissionFR">Nom de la transmission en français</label>
             <input type="text" name="nomTransmissionFR" value="" required>
         </div>
         <div>
-            <label for="nomTransmissionEN">Nom du transmission en anglais</label>
+            <label for="nomTransmissionEN">Nom de la transmission en anglais</label>
             <input type="text" name="nomTransmissionEN" value="" required>
         </div>
         <div>
@@ -86,7 +86,7 @@
     <button class="btn-ferme" data-js-btn-ferme-supprimer>&times;</button>
     <form class="yu-formulaire yu-formulaire-supprimer yu-modal-container">
         <div>
-            <label>Êtes-vous sûr que vous voulez la supprimer?</label>
+            <label>Êtes-vous sûr que vous voulez supprimer?</label>
         </div>
         <div>
             <button type="submit" name="btnOui" value="Oui" class="yu-btn yu-btn-supprimer" data-js-id>Oui</button>
